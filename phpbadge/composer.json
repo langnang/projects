@@ -1,0 +1,17 @@
+{
+    "name": "admin/phpbadge",
+    "autoload": {
+        "psr-4": {
+            "Admin\\Phpbadge\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "langnang",
+            "email": "langnang.chen@outlook.com"
+        }
+    ],
+    "require": {
+        "phpbadge/phpbadge": "^2.0"
+    }
+}

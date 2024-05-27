@@ -1,0 +1,80 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "204a94790064cf02c406e931ec3c7c49",
+    "packages": [
+        {
+            "name": "phpbadge/phpbadge",
+            "version": "2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpbadge/phpbadge.git",
+                "reference": "d6f360242a2d10fbc05c34641eeb30ae82b2501d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpbadge/phpbadge/zipball/d6f360242a2d10fbc05c34641eeb30ae82b2501d",
+                "reference": "d6f360242a2d10fbc05c34641eeb30ae82b2501d",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "ext-gd": "*",
+                "php": ">=7.1.0"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^0.11.2",
+                "phpstan/phpstan-phpunit": "^0.11.0",
+                "phpstan/phpstan-strict-rules": "^0.11.0",
+                "phpunit/phpunit": "^7.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PHP\\Badge\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Walter Tamboer",
+                    "homepage": "http://www.waltertamboer.nl",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A PHP library to create badges.",
+            "keywords": [
+                "badge",
+                "badges",
+                "button",
+                "phpbadge",
+                "pose"
+            ],
+            "support": {
+                "issues": "https://github.com/phpbadge/phpbadge/issues",
+                "source": "https://github.com/phpbadge/phpbadge/tree/master"
+            },
+            "time": "2019-02-22T10:24:31+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": [],
+    "plugin-api-version": "2.6.0"
+}

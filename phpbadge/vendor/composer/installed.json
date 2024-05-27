@@ -1,0 +1,70 @@
+{
+    "packages": [
+        {
+            "name": "phpbadge/phpbadge",
+            "version": "2.0.1",
+            "version_normalized": "2.0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpbadge/phpbadge.git",
+                "reference": "d6f360242a2d10fbc05c34641eeb30ae82b2501d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpbadge/phpbadge/zipball/d6f360242a2d10fbc05c34641eeb30ae82b2501d",
+                "reference": "d6f360242a2d10fbc05c34641eeb30ae82b2501d",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "ext-gd": "*",
+                "php": ">=7.1.0"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^0.11.2",
+                "phpstan/phpstan-phpunit": "^0.11.0",
+                "phpstan/phpstan-strict-rules": "^0.11.0",
+                "phpunit/phpunit": "^7.5"
+            },
+            "time": "2019-02-22T10:24:31+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "PHP\\Badge\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Walter Tamboer",
+                    "homepage": "http://www.waltertamboer.nl",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A PHP library to create badges.",
+            "keywords": [
+                "badge",
+                "badges",
+                "button",
+                "phpbadge",
+                "pose"
+            ],
+            "support": {
+                "issues": "https://github.com/phpbadge/phpbadge/issues",
+                "source": "https://github.com/phpbadge/phpbadge/tree/master"
+            },
+            "install-path": "../phpbadge/phpbadge"
+        }
+    ],
+    "dev": true,
+    "dev-package-names": []
+}
