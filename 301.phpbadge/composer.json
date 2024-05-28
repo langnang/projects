@@ -12,6 +12,9 @@
         }
     ],
     "require": {
-        "phpbadge/phpbadge": "^2.0"
+        "phpbadge/phpbadge": "^2.0",
+        "vlucas/phpdotenv": "^5.5",
+        "sebastian/environment": "^5.1",
+        "symfony/var-dumper": "^5.4"
     }
 }

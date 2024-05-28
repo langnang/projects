@@ -1,38 +1,20 @@
 {
-    "name": "langnang/phpspider",
-    "type": "library",
-    "keywords": [
-        "framework",
-        "phpspider"
-    ],
-    "homepage": "http://www.phpspider.org",
-    "license": "MIT",
-    "description": "The PHPSpider Framework.",
-    "authors": [
-        {
-            "name": "Seatle Yang",
-            "email": "seatle@foxmail.com",
-            "homepage": "http://www.phpspider.org",
-            "role": "Developer"
-        }
-    ],
-    "support": {
-        "email": "seatle@foxmail.com",
-        "issues": "https://github.com/langnang/phpspider/issues",
-        "forum": "http://wenda.phpspider.org/",
-        "wiki": "http://doc.phpspider.org/",
-        "source": "https://github.com/langnang/phpspider"
-    },
-    "require": {
-        "php": ">=5.5.0"
-    },
-    "suggest": {
-        "ext-pcntl、ext-redis": "For better performance. "
-    },
+    "name": "admin/302.phpspider",
     "autoload": {
         "psr-4": {
-            "phpspider\\": "./"
+            "Admin\\302Phpspider\\": "src/"
         }
     },
-    "minimum-stability": "dev"
+    "authors": [
+        {
+            "name": "langnang",
+            "email": "langnang.chen@outlook.com"
+        }
+    ],
+    "require": {
+        "owner888/phpspider": "^2.1",
+        "sebastian/environment": "^5.1",
+        "vlucas/phpdotenv": "^5.5",
+        "symfony/var-dumper": "^5.4"
+    }
 }
