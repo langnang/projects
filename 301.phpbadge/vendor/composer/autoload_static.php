@@ -23,6 +23,8 @@ class ComposerStaticInit46f70919468d51f7708a66c857c71e89
         ),
         'P' => 
         array (
+            'Psr\\Log\\' => 8,
+            'Psr\\Cache\\' => 10,
             'PhpOption\\' => 10,
             'PHP\\Badge\\' => 10,
         ),
@@ -33,6 +35,10 @@ class ComposerStaticInit46f70919468d51f7708a66c857c71e89
         'D' => 
         array (
             'Dotenv\\' => 7,
+            'Doctrine\\Deprecations\\' => 22,
+            'Doctrine\\DBAL\\' => 14,
+            'Doctrine\\Common\\Cache\\' => 22,
+            'Doctrine\\Common\\' => 16,
         ),
         'A' => 
         array (
@@ -57,6 +63,14 @@ class ComposerStaticInit46f70919468d51f7708a66c857c71e89
         array (
             0 => __DIR__ . '/..' . '/symfony/var-dumper',
         ),
+        'Psr\\Log\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
+        ),
+        'Psr\\Cache\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/cache/src',
+        ),
         'PhpOption\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption',
@@ -72,6 +86,22 @@ class ComposerStaticInit46f70919468d51f7708a66c857c71e89
         'Dotenv\\' => 
         array (
             0 => __DIR__ . '/..' . '/vlucas/phpdotenv/src',
+        ),
+        'Doctrine\\Deprecations\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/deprecations/lib/Doctrine/Deprecations',
+        ),
+        'Doctrine\\DBAL\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/dbal/src',
+        ),
+        'Doctrine\\Common\\Cache\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/cache/lib/Doctrine/Common/Cache',
+        ),
+        'Doctrine\\Common\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/event-manager/src',
         ),
         'Admin\\Phpbadge\\' => 
         array (
