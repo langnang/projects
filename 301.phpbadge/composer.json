@@ -16,6 +16,7 @@
         "vlucas/phpdotenv": "^5.5",
         "sebastian/environment": "^5.1",
         "symfony/var-dumper": "^5.4",
-        "doctrine/dbal": "^3.3"
+        "doctrine/dbal": "^3.3",
+        "badges/poser": "^1.4"
     }
 }

@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'Attribute' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
+    'JsonException' => $vendorDir . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
     'PhpToken' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/PhpToken.php',
     'SebastianBergmann\\Environment\\Console' => $vendorDir . '/sebastian/environment/src/Console.php',
     'SebastianBergmann\\Environment\\OperatingSystem' => $vendorDir . '/sebastian/environment/src/OperatingSystem.php',
