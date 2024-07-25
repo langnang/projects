@@ -22,3 +22,7 @@ Route::get('/home123', [App\Http\Controllers\HomeController::class, 'index'])->n
 
 
 require_once __DIR__ . '/web.modules.php';
+
+use Illuminate\Support\Facades\Blade;
+
+var_dump(Blade::render("123"));

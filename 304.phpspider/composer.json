@@ -1,21 +1,19 @@
 {
-    "name": "admin/302.phpspider",
-    "autoload": {
-        "psr-4": {
-            "Admin\\302Phpspider\\": "src/"
-        }
-    },
-    "authors": [
-        {
-            "name": "langnang",
-            "email": "langnang.chen@outlook.com"
-        }
-    ],
-    "require": {
-        "owner888/phpspider": "^2.1",
-        "sebastian/environment": "^5.1",
-        "vlucas/phpdotenv": "^5.5",
-        "symfony/var-dumper": "^5.4",
-        "doctrine/dbal": "^3.3"
+  "name": "admin/302.phpspider",
+  "autoload": {
+    "psr-4": {
+      "phpspider\\": "phpspider/"
     }
+  },
+  "authors": [
+    {
+      "name": "langnang",
+      "email": "langnang.chen@outlook.com"
+    }
+  ],
+  "require": {
+    "vlucas/phpdotenv": "^5.5",
+    "symfony/var-dumper": "^5.4",
+    "doctrine/dbal": "^3.3"
+  }
 }

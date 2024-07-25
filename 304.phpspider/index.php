@@ -1,11 +1,32 @@
 <?php
 
-require_once __DIR__ . '/vendor/autoloader.php';
+require_once __DIR__ . '/vendor/autoload.php';
 // use phpspider\core\phpspider;
 // use phpspider\web\phpspider;
 
-dump(get_declared_classes());
+// dump(get_declared_classes());
 
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
+// dump($dotenv);
+// dump($_ENV);
+// dump($_SERVER);
+
+// 生成非对称加密密钥对
+$config = array(
+    "private_key_bits" => 2048,
+    "private_key_type" => OPENSSL_KEYTYPE_RSA,
+);
+$res = openssl_pkey_new($config);
+// 提取私钥
+// openssl_pkey_export($res, $privKey);
+
+// 提取公钥
+// $pubKey = openssl_pkey_get_details($res);
+// $pubKey = $pubKey["key"];
+// dump([$res, $privKey, $pubKey]);
+use phpspider\core\db;
 
 // $configs = require __DIR__ . '/configs/a5xiazai.php';
 
@@ -25,3 +46,7 @@ dump(get_declared_classes());
 
 // // var_dump($spider);
 // $spider->start();
+
+?>
+
+<?php include_once __DIR__ . '/views/index.php'; ?>
