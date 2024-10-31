@@ -1,6 +1,6 @@
 <?
 if (!file_exists(__DIR__ . "/.env")) {
-  Header("Location: /install.php");
+  Header("Location: install.php");
   exit;
 }
 require_once __DIR__ . '/vendor/autoload.php';
