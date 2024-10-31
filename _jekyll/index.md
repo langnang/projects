@@ -25,3 +25,32 @@ title: 项目（Projects）
 - WebFrame
 - WebPage
 - WebTerminal
+- audio:
+- admin:
+- bookmark:
+- price: 物价
+- resume: 简历
+- todolist:
+- toolkit:
+- webframe:
+- webhunt:
+- webpage:
+- webguide:
+- shop:
+- market:
+- recipe: 食谱、配方
+- video:
+- WebPreview/WebPage: 代码预览(`index.html`,`style.css`,`script.js`)
+- WebSpider
+- WebTerminal
+
+## nodejs
+
+- audio-player:
+- sanbbdom:
+- video-player:
+- vue2:
+
+## simple
+
+轻便（简易、迷你）
