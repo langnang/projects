@@ -7,6 +7,7 @@ title: 项目（Projects）
 
 ## PHP
 
+- Audio
 - Blog
 - Commondity
 - Market
@@ -17,6 +18,7 @@ title: 项目（Projects）
 - SoftInstaller
 - Snippet
 - Toolkit
+- Video
 - WebHunt
 - WebSpider
 - WebNav
