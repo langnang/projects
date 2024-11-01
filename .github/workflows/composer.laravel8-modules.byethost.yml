@@ -1,15 +1,15 @@
-name: 🚀 Deploy lumen8-modules on push with FTP
+name: 🚀 Deploy laravel8-modules(composer) on push with FTP
 
 on:
   push:
     branches:
       - master
     paths:
-      - "composer/lumen8-modules/**"
+      - "composer/laravel8-modules/**"
 
 jobs:
   deploy:
-    name: 🎉 Deploy to langnang.byethost14.com
+    name: 🎉 Deploy to langnang.byethost11.com
     runs-on: ubuntu-latest
     steps:
       - name: 🚚 Get latest code
@@ -27,7 +27,7 @@ jobs:
       #   run: cd nodejs/vue2-ui && npm run build
 
       - name: Install composer dependencies
-        run: cd composer/lumen8-modules && composer install
+        run: cd composer/laravel8-modules && composer install
 
       - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
@@ -35,11 +35,11 @@ jobs:
           # ftp server
           server: ftpupload.net
           # ftp username
-          username: b14_37610952
+          username: b11_37611028
           # ftp password
           password: ${{ secrets.ftp_password }}
           # local dir
-          local-dir: ./composer/lumen8-modules/
+          local-dir: ./composer/laravel8-modules/
           # Path to upload to on the server. Must end with trailing slash /
           server-dir: /htdocs/
           # File to Exclude
