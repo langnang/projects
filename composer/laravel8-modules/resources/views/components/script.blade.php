@@ -44,16 +44,16 @@
 
   $path = '';
   if (!empty($module)) {
-      $path .= '/modules/' . $module;
+      $path .= './modules/' . $module;
   }
   if (!empty($name)) {
-      $path .= '/public/lib/' . $name;
+      $path .= './public/lib/' . $name;
   }
   if (!empty($version)) {
-      $path .= '/' . $version;
+      $path .= './' . $version;
   }
   if (!empty($file)) {
-      $path .= Str::startsWith($file, '/') ? $file : '/' . $file;
+      $path .= Str::startsWith($file, './') ? $file : './' . $file;
   }
 
   if (!Str::endsWith($path, '.js')) {
