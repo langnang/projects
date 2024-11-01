@@ -9,8 +9,7 @@
   ],
   "require": {
     "owner888/phpspider": "^2.1",
-    "doctrine/dbal": "^3.3",
-    "langnang/php": "dev-dev"
+    "doctrine/dbal": "^3.3"
   },
   "autoload": {
     "psr-4": {
