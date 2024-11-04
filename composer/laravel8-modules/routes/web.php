@@ -21,8 +21,8 @@ Auth::routes();
 Route::get('/home123', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
-require_once __DIR__ . '/web.modules.php';
+// require_once __DIR__ . '/web.modules.php';
 
-use Illuminate\Support\Facades\Blade;
+// use Illuminate\Support\Facades\Blade;
 
-var_dump(Blade::render("123"));
+// var_dump(Blade::render("123"));
