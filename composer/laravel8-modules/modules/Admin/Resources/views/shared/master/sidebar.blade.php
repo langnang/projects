@@ -47,7 +47,7 @@
             @default
               <li
                 class="nav-item @empty($menu['active']) @else menu-open @endempty @if (($menu['visible'] ?? true) == false) d-none @endif">
-                <a href="@empty($menu['children']) {{ $menu['path'] }} @else # @endempty"
+                <a href="@empty($menu['children']) {{ env('APP_URL') . $menu['path'] }} @else # @endempty"
                   class="nav-link @empty($menu['active']) @else active @endempty">
                   <i class="nav-icon {{ $menu['icon'] ?? 'fas fa-circle' }}"></i>
                   <p>
@@ -70,7 +70,7 @@
                   <ul class="nav nav-treeview">
                     @foreach ($menu['children'] ?? [] as $menu_item)
                       <li class="nav-item @if (($menu_item['visible'] ?? true) == false) d-none @endif">
-                        <a href="{{ $menu_item['path'] }}"
+                        <a href="{{ env('APP_URL') . $menu_item['path'] }}"
                           class="nav-link @empty($menu_item['active'] ?? false) @else active @endempty">
                           <i class="nav-icon {{ $menu_item['icon'] ?? 'far fa-circle' }}"></i>
                           <p> {!! $menu_item['title'] !!}
@@ -89,7 +89,7 @@
                           <ul class="nav nav-treeview">
                             @foreach ($menu_item['children'] ?? [] as $menu_subitem)
                               <li class="nav-item @if (($menu_subitem['visible'] ?? true) == false) d-none @endif">
-                                <a href="{{ $menu_subitem['path'] }}" class="nav-link">
+                                <a href="{{ env('APP_URL') . $menu_subitem['path'] }}" class="nav-link">
                                   <i class="nav-icon {{ $menu_subitem['icon'] ?? 'far fa-dot-circle' }}"></i>
                                   <p>{!! $menu_subitem['title'] !!}</p>
                                 </a>
@@ -105,8 +105,7 @@
           @endswitch
         @endforeach
         @if (false)
-          <!-- Add icons to the links using the .nav-icon class
-     with font-awesome or any other icon font library -->
+          <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
           <li class="nav-item menu-open">
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
