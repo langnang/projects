@@ -299,7 +299,7 @@
     @foreach (Module::all() ?? [] as $moduleName => $module)
       @if (Module::isEnabled($moduleName))
         <a class="m-1 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg"
-          href="/{{ Config::get(strtolower($moduleName) . '.prefix') ?? strtolower($moduleName) }}">
+          href="{{ env('APP_URL') . Config::get(strtolower($moduleName) . '.prefix') ?? strtolower($moduleName) }}">
           <div class="p-4 px-6">
             <div class="flex items-center">
             @empty(Config::get(strtolower($moduleName) . '.ico'))
