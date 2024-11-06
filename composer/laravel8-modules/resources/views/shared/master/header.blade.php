@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light mb-2">
-  <a class="navbar-brand" href="/">
-    <img src="/favicon.ico" width="30" height="30" class="d-inline-block align-top" alt="">
+  <a class="navbar-brand" href="{{ env('APP_URL') }}">
+    <img src="{{ env('APP_URL') }}favicon.ico" width="30" height="30" class="d-inline-block align-top" alt="">
     {{ env('APP_NAME') }}
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"

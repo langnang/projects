@@ -27,7 +27,7 @@
   <div class="container-fluid">
     <div class="row justify-content-center">
       <div class="col-8">
-        <form action="get">
+        <form class="mb-3" action="get">
           <div class="input-group input-group-lg rounded-pill">
             <div class="input-group-prepend">
               <span class="input-group-text" id="inputGroup-sizing-lg">Brands</span>
@@ -72,7 +72,8 @@
                     </a>
                   </li>
                   <li class="nav-item mr-auto">
-                    <a class="nav-link px-1 pl-0" href="/{{ Config::get($moduleSlug . '.slug') ?? $moduleSlug }}">
+                    <a class="nav-link px-1 pl-0"
+                      href="{{ env('APP_URL') . (Config::get($moduleSlug . '.slug') ?? $moduleSlug) }}">
                       {{ Config::get($moduleSlug . '.nameCn') ?? Config::get($moduleSlug . '.name') }}
                       <span class="badge badge-secondary">{{ $tabs[$moduleSlug . '-latest']->total() }}</span>
                     </a>
@@ -114,7 +115,7 @@
                   @foreach ($tabs[$moduleSlug . '-latest'] as $content)
                     <a class="list-group-item list-group-item-action text-truncate p-2"
                       title="{{ $content['content']['title'] ?? $content['title'] }}"
-                      href="/{{ $moduleSlug }}/content/{{ $content['cid'] }}">
+                      href="{{ env('APP_URL') }}{{ $moduleSlug }}/content/{{ $content['cid'] }}">
                       @if ($loop->iteration == 1)
                         <span class="badge badge-danger">{{ \Str::substr('00' . $loop->iteration, -2) }}</span>
                       @elseif($loop->iteration == 2)
@@ -135,7 +136,7 @@
                   @foreach ($tabs[$moduleSlug . '-hottest'] as $content)
                     <a class="list-group-item list-group-item-action text-truncate p-2"
                       title="{{ $content['content']['title'] ?? $content['title'] }}"
-                      href="/{{ $moduleSlug }}/content/{{ $content['cid'] }}">
+                      href="{{ env('APP_URL') }}{{ $moduleSlug }}/content/{{ $content['cid'] }}">
                       @if ($loop->iteration == 1)
                         <span class="badge badge-danger">{{ \Str::substr('00' . $loop->iteration, -2) }}</span>
                       @elseif($loop->iteration == 2)
@@ -156,7 +157,7 @@
                   @foreach ($tabs[$moduleSlug . '-recommend'] as $content)
                     <a class="list-group-item list-group-item-action text-truncate p-2"
                       title="{{ $content['content']['title'] ?? $content['title'] }}"
-                      href="/{{ $moduleSlug }}/content/{{ $content['cid'] }}">
+                      href="{{ env('APP_URL') }}{{ $moduleSlug }}/content/{{ $content['cid'] }}">
                       {{ $content['content']['title'] ?? $content['title'] }}
                     </a>
                   @endforeach
@@ -168,7 +169,7 @@
                   @foreach ($tabs[$moduleSlug . '-collection'] as $content)
                     <a class="list-group-item list-group-item-action text-truncate p-2"
                       title="{{ $content['content']['title'] ?? $content['title'] }}"
-                      href="/{{ $moduleSlug }}/content/{{ $content['cid'] }}">
+                      href="{{ env('APP_URL') }}{{ $moduleSlug }}/content/{{ $content['cid'] }}">
                       {{ $content['content']['title'] ?? $content['title'] }}
                     </a>
                   @endforeach
@@ -231,7 +232,7 @@
               @foreach ($tabs['nofield-latest'] as $content)
                 <a class="list-group-item list-group-item-action text-truncate p-2"
                   title="{{ $content['content']['title'] ?? $content['title'] }}"
-                  href="/home/content/{{ $content['cid'] }}">
+                  href="{{ env('APP_URL') }}home/content/{{ $content['cid'] }}">
                   @if ($loop->iteration == 1)
                     <span class="badge badge-danger">{{ \Str::substr('00' . $loop->iteration, -2) }}</span>
                   @elseif($loop->iteration == 2)
@@ -252,7 +253,7 @@
               @foreach ($tabs['nofield-hottest'] as $content)
                 <a class="list-group-item list-group-item-action text-truncate p-2"
                   title="{{ $content['content']['title'] ?? $content['title'] }}"
-                  href="/home/content/{{ $content['cid'] }}">
+                  href="{{ env('APP_URL') }}home/content/{{ $content['cid'] }}">
                   @if ($loop->iteration == 1)
                     <span class="badge badge-danger">{{ \Str::substr('00' . $loop->iteration, -2) }}</span>
                   @elseif($loop->iteration == 2)
@@ -273,7 +274,7 @@
               @foreach ($tabs['nofield-recommend'] as $content)
                 <a class="list-group-item list-group-item-action text-truncate p-2"
                   title="{{ $content['content']['title'] ?? $content['title'] }}"
-                  href="/home/content/{{ $content['cid'] }}">
+                  href="{{ env('APP_URL') }}home/content/{{ $content['cid'] }}">
                   {{ $content['content']['title'] ?? $content['title'] }}
                 </a>
               @endforeach
@@ -285,7 +286,7 @@
               @foreach ($tabs['nofield-collection'] as $content)
                 <a class="list-group-item list-group-item-action text-truncate p-2"
                   title="{{ $content['content']['title'] ?? $content['title'] }}"
-                  href="/home/content/{{ $content['cid'] }}">
+                  href="{{ env('APP_URL') }}home/content/{{ $content['cid'] }}">
                   {{ $content['content']['title'] ?? $content['title'] }}
                 </a>
               @endforeach
@@ -299,7 +300,7 @@
     @foreach (Module::all() ?? [] as $moduleName => $module)
       @if (Module::isEnabled($moduleName))
         <a class="m-1 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg"
-          href="{{ env('APP_URL') . Config::get(strtolower($moduleName) . '.prefix') ?? strtolower($moduleName) }}">
+          href="{{ env('APP_URL') . (Config::get(strtolower($moduleName) . '.prefix') ?? strtolower($moduleName)) }}">
           <div class="p-4 px-6">
             <div class="flex items-center">
             @empty(Config::get(strtolower($moduleName) . '.ico'))
