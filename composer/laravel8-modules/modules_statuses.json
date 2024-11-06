@@ -21,5 +21,12 @@
     "PublicApi": true,
     "Software": true,
     "Application": true,
-    "Spot": true
+    "Spot": true,
+    "WebFrame": true,
+    "WebHunt": true,
+    "WebNav": true,
+    "WebTerminal": true,
+    "WebPage": true,
+    "Entry": true,
+    "Illustration": true
 }

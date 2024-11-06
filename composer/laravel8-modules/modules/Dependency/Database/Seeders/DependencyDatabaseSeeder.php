@@ -15,7 +15,9 @@ class DependencyDatabaseSeeder extends Seeder
     public function run()
     {
         Model::unguard();
-
         // $this->call("OthersTableSeeder");
+
+        \Modules\Dependency\Models\DependencyContent::factory(100)->create();
+
     }
 }

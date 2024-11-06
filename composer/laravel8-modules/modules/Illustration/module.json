@@ -1,0 +1,13 @@
+{
+    "name": "Illustration",
+    "alias": "illustration",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Illustration\\Providers\\IllustrationServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

@@ -1,0 +1,13 @@
+{
+    "name": "Entry",
+    "alias": "entry",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Entry\\Providers\\EntryServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
