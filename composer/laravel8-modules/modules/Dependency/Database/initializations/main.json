@@ -3,6 +3,7 @@
     {
       "name":"normalize.css",
       "mainfile":"",
+      "version":"",
       "type":"css",
       "status":"publish"
     }

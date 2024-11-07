@@ -30,5 +30,12 @@
     "Entry": true,
     "Illustration": true,
     "User": true,
-    "Template": true
+    "Template": true,
+    "Issue": true,
+    "Demand": true,
+    "Project": true,
+    "Wiki": true,
+    "Repository": true,
+    "Rackage": true,
+    "Analysis": true
 }

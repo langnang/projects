@@ -20,6 +20,8 @@ class CreateUserAccountsTable extends Migration
             $table->id();
 
             $table->timestamps();
+            $table->timestamp('release_at')->nullable()->comment('发布时间');
+            $table->timestamp('deleted_at')->nullable()->comment('删除时间');
         });
     }
 

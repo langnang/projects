@@ -3,7 +3,10 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-
+/**
+ * Summary of CreateAppliactionContentsTable
+ * 应用基本表
+ */
 class CreateAppliactionContentsTable extends Migration
 {
     /**
@@ -17,6 +20,8 @@ class CreateAppliactionContentsTable extends Migration
             $table->id();
 
             $table->timestamps();
+            $table->timestamp('release_at')->nullable()->comment('发布时间');
+            $table->timestamp('deleted_at')->nullable()->comment('删除时间');
         });
     }
 
