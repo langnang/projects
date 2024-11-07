@@ -1,6 +1,10 @@
 {
-  "contents":[
+  "dependency_contents":[
     {
+      "name":"normalize.css",
+      "mainfile":"",
+      "type":"css",
+      "status":"publish"
     }
   ]
 }

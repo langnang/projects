@@ -13,7 +13,7 @@
     "Audio": true,
     "Video": true,
     "Question": true,
-    "Demo": true,
+    "Excample": true,
     "Spider": true,
     "Dictionary": true,
     "Quote": true,
@@ -28,5 +28,7 @@
     "WebTerminal": true,
     "WebPage": true,
     "Entry": true,
-    "Illustration": true
+    "Illustration": true,
+    "User": true,
+    "Template": true
 }

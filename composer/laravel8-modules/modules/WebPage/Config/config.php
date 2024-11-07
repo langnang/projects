@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'name' => 'WebPage'
+    'name' => 'WebPage',
+    'nameCn' => '网页',
 ];
