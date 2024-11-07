@@ -12,3 +12,6 @@ pnpm-lock.yaml
 *.lock
 *.map
 *.env
+
+*.zip
+*.rar
