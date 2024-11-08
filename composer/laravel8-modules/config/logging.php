@@ -120,6 +120,15 @@ return [
             // 'handler' => \Logger\Monolog\Handler\MysqlHandler::class,
             // 'level' => 'debug',
         ],
+        'flare' => [
+            'driver' => 'flare',
+            'level' => 'critical', // The minimum log level to send to Flare
+        ],
+        'vapor' => [
+            'driver' => 'stack',
+            'channels' => ['flare', 'stderr'],
+            'ignore_exceptions' => false,
+        ],
     ],
 
 ];

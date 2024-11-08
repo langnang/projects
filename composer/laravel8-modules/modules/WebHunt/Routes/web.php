@@ -11,6 +11,6 @@
 |
 */
 
-Route::prefix('webhunt')->group(function() {
-    Route::get('/', 'WebHuntController@index');
+Route::prefix('webhunt')->group(function () {
+    Route::get('/', 'WebHuntController@view_index');
 });

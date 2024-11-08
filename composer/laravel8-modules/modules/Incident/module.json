@@ -1,0 +1,13 @@
+{
+    "name": "Incident",
+    "alias": "incident",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Incident\\Providers\\IncidentServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

@@ -6,7 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
-class WebHuntController extends Controller
+class WebHuntController extends \App\Http\Controllers\Controller
 {
     /**
      * Display a listing of the resource.
@@ -75,5 +75,12 @@ class WebHuntController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function view_index(Request $request)
+    {
+        $return = [];
+        return $this->view($return);
+
     }
 }

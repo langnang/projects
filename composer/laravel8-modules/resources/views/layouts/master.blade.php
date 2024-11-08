@@ -19,6 +19,9 @@
 
   <link rel="shortcut icon" href="{{ env('APP_URL') }}favicon.ico" type="image/x-icon">
 
+
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+
   <!-- Fonts -->
   {{--
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;700&display=swap" rel="stylesheet"> --}}
@@ -60,15 +63,15 @@
   @show
   @endif
 
-  <script type="javascript" src="https://unpkg.com/axios"></script>
-  <script type="javascript" src="https://unpkg.com/jquery"></script>
-  <script type="javascript" src="https://unpkg.com/popper.js"></script>
-  <script type="javascript" src="https://unpkg.com/bootstrap@4"></script>
-  <script type="javascript" src="https://unpkg.com/lodash"></script>
-  <script type="javascript" src="https://unpkg.com/holderjs"></script>
-  <script type="javascript" src="https://unpkg.com/mockjs"></script>
-  <script type="javascript" src="https://unpkg.com/moment"></script>
-  <script type="javascript" src="https://unpkg.com/masonry-layout"></script>
+  <script src="https://unpkg.com/axios"></script>
+  <script src="https://unpkg.com/jquery"></script>
+  <script src="https://unpkg.com/popper.js"></script>
+  <script src="https://unpkg.com/bootstrap@4"></script>
+  <script src="https://unpkg.com/lodash"></script>
+  <script src="https://unpkg.com/holderjs"></script>
+  <script src="https://unpkg.com/mockjs"></script>
+  <script src="https://unpkg.com/moment"></script>
+  <script src="https://unpkg.com/masonry-layout"></script>
   {{-- <x-scripts :props="[
       ['axios', 'axios.min' ], ['jquery', 'jquery.min' ], ['popper.js', 'popper.min' ], [ 'bootstrap'
       , 'js/bootstrap.min' ], ['lodash', 'lodash.min' ], ['holderjs', 'holder.min' ], ['mockjs', 'mock-min' ],

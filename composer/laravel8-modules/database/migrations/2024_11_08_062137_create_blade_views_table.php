@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSeedersTable extends Migration
+class CreateBladeViewsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateSeedersTable extends Migration
      */
     public function up()
     {
-        Schema::create('seeders', function (Blueprint $table) {
+        Schema::create('blade_views', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
         });
@@ -26,6 +26,6 @@ class CreateSeedersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('seeders');
+        Schema::dropIfExists('blade_views');
     }
 }

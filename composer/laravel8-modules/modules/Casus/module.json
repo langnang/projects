@@ -1,0 +1,13 @@
+{
+    "name": "Casus",
+    "alias": "casus",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Casus\\Providers\\CasusServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

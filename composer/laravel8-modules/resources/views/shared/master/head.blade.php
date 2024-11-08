@@ -8,9 +8,9 @@
     ['/public/app/css/app'],
 ]">
 </x-styles> --}}
-<link rel="stylesheet" href="https://unpkg.com/normalize.css">
-<link rel="stylesheet" href="https://unpkg.com/bootstrap@4/dist/css/bootstrap.css">
-<link rel="stylesheet" href="https://unpkg.com/bootstrap-icons/bootstrap-icons.css">
+<link rel="stylesheet" href="https://unpkg.com/normalize.css@8.0.1/normalize.css">
+<link rel="stylesheet" href="https://unpkg.com/bootstrap@4.6.2/dist/css/bootstrap.css">
+<link rel="stylesheet" href="https://unpkg.com/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <style>
   body {
     font-family: 'Roboto', sans-serif;

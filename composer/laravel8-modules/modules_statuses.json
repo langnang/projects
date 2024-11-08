@@ -43,5 +43,9 @@
     "Toolkit": true,
     "Game": true,
     "Story": true,
-    "Framework": true
+    "Framework": true,
+    "Blog": true,
+    "Incident": true,
+    "Case": true,
+    "Casus": true
 }
