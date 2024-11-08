@@ -13,9 +13,9 @@
 
 use App\Support\Module;
 
-Route::prefix('/')->group(function () {
-    Route::get('/', 'HomeController@view_index');
-});
+// Route::prefix('home')->group(function () {
+//     Route::get('/', 'HomeController@view_index');
+// });
 
 Route::prefix('home')->group(function () {
     Route::get('/', 'HomeController@view_index');

@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'name' => 'WebFrame'
+    'name' => 'WebFrame',
+    'nameCn' => '内嵌',
 ];

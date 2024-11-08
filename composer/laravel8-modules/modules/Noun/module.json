@@ -1,0 +1,13 @@
+{
+    "name": "Noun",
+    "alias": "noun",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Noun\\Providers\\NounServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

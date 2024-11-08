@@ -107,7 +107,10 @@ class Controller extends ApiController
     public $prefix;
     protected $_logs = [];
 
-
+    public function index()
+    {
+        return view('welcome');
+    }
 }
 
 trait BaseResponse

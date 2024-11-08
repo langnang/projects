@@ -37,5 +37,6 @@
     "Wiki": true,
     "Repository": true,
     "Rackage": true,
-    "Analysis": true
+    "Analysis": true,
+    "Noun": true
 }

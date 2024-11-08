@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'name' => 'Rackage'
+    'name' => 'Rackage',
+    'nameCn' => '程序包',
 ];

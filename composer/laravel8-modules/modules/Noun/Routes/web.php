@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,16 +11,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', "\App\Http\Controllers\Controller@index");
-
-
-// Auth::routes();
-
-// Route::get('/home123', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-
-// require_once __DIR__ . '/web.modules.php';
-
-// use Illuminate\Support\Facades\Blade;
-
-// var_dump(Blade::render("123"));
+Route::prefix('noun')->group(function() {
+    Route::get('/', 'NounController@index');
+});

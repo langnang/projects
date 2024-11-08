@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'name' => 'Repository'
+    'name' => 'Repository',
+    'nameCn' => '仓库',
 ];

@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'name' => 'Wiki'
+    'name' => 'Wiki',
+    'nameCn' => '百科',
 ];
