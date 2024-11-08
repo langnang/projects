@@ -49,8 +49,7 @@
 
     @yield('sidebar')
 
-    <div class="wrapper-content"
-      style="min-height: calc(100vh - @empty($config) 88px @else 152px @endif)">
+    <div class="wrapper-content" style="min-height: calc(100vh - @empty($config) 88px @else 152px @endif)">
     @yield('content')
   </div>
 
@@ -61,10 +60,20 @@
   @show
   @endif
 
-  <x-scripts :props="[
+  <script type="javascript" src="https://unpkg.com/axios"></script>
+  <script type="javascript" src="https://unpkg.com/jquery"></script>
+  <script type="javascript" src="https://unpkg.com/popper.js"></script>
+  <script type="javascript" src="https://unpkg.com/bootstrap@4"></script>
+  <script type="javascript" src="https://unpkg.com/lodash"></script>
+  <script type="javascript" src="https://unpkg.com/holderjs"></script>
+  <script type="javascript" src="https://unpkg.com/mockjs"></script>
+  <script type="javascript" src="https://unpkg.com/moment"></script>
+  <script type="javascript" src="https://unpkg.com/masonry-layout"></script>
+  {{-- <x-scripts :props="[
       ['axios', 'axios.min' ], ['jquery', 'jquery.min' ], ['popper.js', 'popper.min' ], [ 'bootstrap'
       , 'js/bootstrap.min' ], ['lodash', 'lodash.min' ], ['holderjs', 'holder.min' ], ['mockjs', 'mock-min' ],
-      ['moment', 'moment' ], ['masonry-layout', 'masonry.pkgd.min' ], ['public/app/js/app'], ]"></x-scripts>
+      ['moment', 'moment' ], ['masonry-layout', 'masonry.pkgd.min' ], ['public/app/js/app'], ]">
+      </x-scripts> --}}
 
       @stack('scripts')
 </body>

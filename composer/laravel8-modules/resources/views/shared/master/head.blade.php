@@ -1,4 +1,4 @@
-<x-styles :props="[
+{{-- <x-styles :props="[
     ['googlefonts', 'Roboto'],
     ['normalize.css', 'normalize'],
     ['bootstrap', 'css/bootstrap.min'],
@@ -7,8 +7,10 @@
     ['@fortawesome/fontawesome-free', 'css/all.min'],
     ['/public/app/css/app'],
 ]">
-</x-styles>
-
+</x-styles> --}}
+<link rel="stylesheet" href="https://unpkg.com/normalize.css">
+<link rel="stylesheet" href="https://unpkg.com/bootstrap@4/dist/css/bootstrap.css">
+<link rel="stylesheet" href="https://unpkg.com/bootstrap-icons/bootstrap-icons.css">
 <style>
   body {
     font-family: 'Roboto', sans-serif;

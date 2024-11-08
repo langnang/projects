@@ -39,6 +39,13 @@ class CreateContentsTable extends Migration
             $table->timestamp('release_at')->nullable()->comment('发布时间');
             $table->timestamp('deleted_at')->nullable()->comment('删除时间');
         });
+
+        Schema::create("_contents", function (Blueprint $table) {
+            $table->string("module")->primary();
+            $table->string("cid")->primary();
+            $table->string("title");
+            $table->string("description");
+        });
     }
 
     /**

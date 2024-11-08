@@ -1,0 +1,13 @@
+{
+    "name": "Framework",
+    "alias": "framework",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Framework\\Providers\\FrameworkServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

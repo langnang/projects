@@ -38,5 +38,10 @@
     "Repository": true,
     "Rackage": true,
     "Analysis": true,
-    "Noun": true
+    "Noun": true,
+    "Platform": true,
+    "Toolkit": true,
+    "Game": true,
+    "Story": true,
+    "Framework": true
 }
