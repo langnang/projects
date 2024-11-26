@@ -14,7 +14,8 @@ class CreateWebpageContentsTable extends Migration
     public function up()
     {
         Schema::create('webpage_contents', function (Blueprint $table) {
-            $table->id();
+            $table->id("cid");
+            $table->string("title");
 
             $table->timestamps();
         });
