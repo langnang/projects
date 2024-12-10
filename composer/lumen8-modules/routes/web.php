@@ -15,7 +15,7 @@
 
 use Illuminate\Support\Facades\Blade;
 
-var_dump(Blade::render("123"));
+// var_dump(Blade::render("123"));
 
 $router->get('/', function () use ($router) {
     // return $router->app->version();
