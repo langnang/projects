@@ -14,7 +14,7 @@ title: Projects
 - Pattle
 - Quote
 - Question
-- Resume
+- Vitae: 简历
 - SoftInstaller
 - Snippet
 - Toolkit
@@ -29,7 +29,6 @@ title: Projects
 - admin:
 - bookmark:
 - price: 物价
-- resume: 简历
 - todolist:
 - toolkit:
 - webframe:
