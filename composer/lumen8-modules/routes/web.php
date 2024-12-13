@@ -26,3 +26,6 @@ $router->get('/module', function () use ($router) {
     // dump(\Nwidart\Modules\Facades\Module::all());
     return view('module');
 });
+
+
+$router->get('welcome', "\App\Http\Controllers\WelcomeController@index");

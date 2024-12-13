@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
   <meta charset="utf-8">
@@ -8,7 +8,7 @@
   <title>{{ env('APP_NAME', 'Lumen') }}</title>
 
   <!-- Fonts -->
-  {{-- <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet"> --}}
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
   <!-- Styles -->
   <style>
@@ -349,6 +349,14 @@
       .md\:grid-cols-2 {
         grid-template-columns: repeat(2, minmax(0, 1fr))
       }
+
+      .md\:grid-cols-3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr))
+      }
+
+      .md\:grid-cols-4 {
+        grid-template-columns: repeat(4, minmax(0, 1fr))
+      }
     }
 
     @media (min-width:1024px) {
@@ -522,10 +530,12 @@
               fill="none"></path>
             <path stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
               class="iconic-lightbulb-coil iconic-lightbulb-coil-2 iconic-property-stroke" d="M1 8l8-4"
-              fill="none"></path>
+              fill="none">
+            </path>
             <path stroke="#000" stroke-width="2" stroke-linecap="round"
               class="iconic-lightbulb-coil iconic-lightbulb-coil-1 iconic-property-stroke" d="M7 1l-6 3"
-              fill="none"></path>
+              fill="none">
+            </path>
             <path
               d="M1.776 12.553l-.553-1.106c-.123-.247 0-.447.276-.447h7c.276 0 .4.2.276.447l-.553 1.106c-.124.247-.448.447-.724.447h-5c-.276 0-.6-.2-.724-.447z"
               class="iconic-lightbulb-base iconic-property-fill"></path>
@@ -552,7 +562,8 @@
               <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
                 Laravel has wonderful, thorough documentation covering every aspect of the framework. Whether you are
                 new to the framework or have previous experience with Laravel, we recommend reading all of the
-                documentation from beginning to end.
+                documentation from beginning to end. <a href="https://laravelmodules.com/docs/v8"
+                  class="underline">laravel-modules</a>
               </div>
             </div>
           </div>
@@ -627,9 +638,33 @@
         </div>
       </div>
 
-      @section('content')
+      <div class="mt-8">
+        <div class="grid grid-cols-1 md:grid-cols-3" style="margin-left: -.5rem;margin-right: -.5rem;">
+          @foreach (\Nwidart\Modules\Facades\Module::allEnabled() as $module)
+            <div class="p-6 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg" style="margin: .5rem;">
+              <div class="flex items-center">
+                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                  stroke-width="2" viewBox="0 0 24 24" class="w-8 h-8 text-gray-500">
+                  <path
+                    d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                  </path>
+                </svg>
+                <div class="ml-4 text-lg leading-7 font-semibold">
+                  <a href="#" class="underline text-gray-900 dark:text-white">{{ $module->getName() }}（
+                    {{ config($module->getLowerName() . '.nameCn') }}）
+                  </a>
+                </div>
+              </div>
 
-      @show
+              <div class="ml-12">
+                <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
+                  {{ config($module->getLowerName() . '.description', '...') }}
+                </div>
+              </div>
+            </div>
+          @endforeach
+        </div>
+      </div>
 
       <div class="flex justify-center mt-4 sm:items-center sm:justify-between">
         <div class="text-center text-sm text-gray-500 sm:text-left">
@@ -656,25 +691,6 @@
               Sponsor
             </a>
 
-            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-              stroke-width="2" viewBox="0 0 1024 1024" class="ml-4 -mt-px w-5 h-5 text-gray-400">
-              <path
-                d="M519.68 1016.32a26.88 26.88 0 0 1-15.36-4.48l-407.68-235.52a30.08 30.08 0 0 1-16-26.88V278.4a30.08 30.08 0 0 1 16-26.88L504.32 16a30.72 30.72 0 0 1 31.36 0l407.68 235.52a30.72 30.72 0 0 1 15.36 26.88v471.04a30.72 30.72 0 0 1-15.36 26.88l-407.68 235.52a28.8 28.8 0 0 1-16 4.48z m-375.68-285.44l375.68 217.6 376.32-217.6V296.96L519.68 80 144 296.96z"
-                fill="#a0aec0"></path>
-              <path
-                d="M519.68 540.8a28.16 28.16 0 0 1-15.36-4.48l-407.68-230.4a31.36 31.36 0 0 1-12.16-42.88 32.64 32.64 0 0 1 43.52-12.16l407.04 231.04a31.36 31.36 0 0 1-15.36 58.88z"
-                fill="#a0aec0"></path>
-              <path
-                d="M512 545.28a31.36 31.36 0 0 1-15.36-58.88L901.12 256a31.36 31.36 0 0 1 42.88 12.16 32 32 0 0 1-12.16 42.88l-407.68 230.4a32 32 0 0 1-12.16 3.84z"
-                fill="#a0aec0"></path>
-              <path
-                d="M519.68 1000.96a31.36 31.36 0 0 1-31.36-31.36V501.12a31.36 31.36 0 1 1 64 0v468.48a31.36 31.36 0 0 1-32.64 31.36z"
-                fill="#a0aec0"></path>
-            </svg>
-
-            <a href="./module" class="ml-1 underline">
-              Module
-            </a>
           </div>
         </div>
 

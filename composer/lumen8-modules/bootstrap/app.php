@@ -37,13 +37,13 @@ $app->withEloquent();
 */
 
 $app->singleton(
-  Illuminate\Contracts\Debug\ExceptionHandler::class,
-  App\Exceptions\Handler::class
+    Illuminate\Contracts\Debug\ExceptionHandler::class,
+    App\Exceptions\Handler::class
 );
 
 $app->singleton(
-  Illuminate\Contracts\Console\Kernel::class,
-  App\Console\Kernel::class
+    Illuminate\Contracts\Console\Kernel::class,
+    App\Console\Kernel::class
 );
 
 /*
@@ -93,7 +93,7 @@ $app->configure('app');
 // Laravel-modules uses path.public which isn't defined by default in Lumen. Register path.public before loading the service provider.
 
 $app->bind('path.public', function () {
-  return __DIR__ . '/../public/';
+    return __DIR__ . '/../public/';
 });
 $app->configure('modules');
 $app->configure('cache');
@@ -120,9 +120,17 @@ $app->register(\Nwidart\Modules\LumenModulesServiceProvider::class);
 */
 
 $app->router->group([
-  'namespace' => 'App\Http\Controllers',
+    'namespace' => 'App\Http\Controllers',
 ], function ($router) {
-  require __DIR__ . '/../routes/web.php';
+    require __DIR__ . '/../routes/web.php';
+    // require __DIR__ . '/../routes/api.php';
+});
+
+$app->router->group([
+    'namespace' => 'App\Http\Controllers',
+    'prefix' => 'api',
+], function ($router) {
+    require __DIR__ . '/../routes/api.php';
 });
 
 return $app;

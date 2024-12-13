@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'name' => 'WebTerminal',
-    'nameCn' => "控制台",
+  'name' => 'WebTerminal',
+  'nameCn' => "终端",
 ];

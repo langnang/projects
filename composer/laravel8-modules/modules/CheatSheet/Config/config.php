@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'name' => 'CheatSheet',
-    'nameCn' => '速查表',
+  'name' => 'CheatSheet',
+  'nameCn' => '速查',
 ];

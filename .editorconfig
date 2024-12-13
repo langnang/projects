@@ -16,7 +16,7 @@ trim_trailing_whitespace = false
 indent_size = 2
 max_line_length = 3600
 
-[*.{yml,yaml,html,css,js,json,php}]
+[*.{yml,yaml,html,css,js,json}]
 indent_size = 2
 
 [*.json]

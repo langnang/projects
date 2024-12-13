@@ -3,43 +3,101 @@ title: Projects
 ---
 > 项目（Projects），一般指通过努力，运用各种方法，将人力、材料和财务等资源组织起来，根据商业模式的相关策划安排，进行一项独立一次性或长期无限期的工作任务，以期达到由数量和质量指标所限定的目标。
 
+- 管理: Admin
+- 解析: Analysis
+- 应用: Application
+- 音频: Audio
+- 推荐: Awesome
+- 博客: Blog
+- 书册: Book
+  - 章节: Article
+- 标签: Bookmark
+- 案例: Casus
+- 图标: Chart
+- 速查: CheatSheet
+- 色彩: Color
+  - 调色: Pattle
+- 依赖: Dependency
+- 辞典: Dictionary
+- 词条: Entry
+- 范例: Example
+- 流程: Flow
+- 框架: Framework
+- 图床: Gallery
+- 游戏: Game
+- 主页: Home
+- 图鉴: Illustration
+- 事件: Incident
+- 地图: Map
+  - 地点: Spot
+- 市场: Market
+  - 软件: Software
+  - 软件部署: SoftInstaller
+- 资讯: News
+- 笔记: Note
+- 名词: Noun
+- 小说: Novel
+- 选项: Option
+- 总览: Overview
+- 程序: Package
+- 平台: Platform
+- 物价: Price
+- 职业: Profession
+- 项目: Project
+  - 业务: Business
+  - 需求: Demand
+  - 开发: Develop
+  - 议题: Issue
+  - 测试: Test
+- 接口: PublicApi
+- 试题: Question
+- 食谱: Recipe
+- 仓库: Repository
+- 商城: Shop
+  - Commondity:
+- 片段: Snippet
+- 爬虫: Spider
+- 攻略: Strategy
+- 任务: Task
+  - 宏任务: Macrotask
+  - 定时任务: Cron
+- 模板: Template
+- 终端: Terminal
+  - WebTerminal
+- 代办: ToDo
+  - ToDoList
+- 工具: Toolkit
+- 用户: User
+  - 简历: Vitae
+  - 关联账号: Account
+- 视频: Video
+- 发现: WebHunt
+- 爬虫: WebSpider
+- 导航: WebNav
+- 指南: WebGuide:
+- 内嵌: WebFrame
+- 预览: WebPage/WebPreview: 代码预览(`index.html`,`style.css`,`script.js`)
+- 百科: Wiki
+  - 语录: Quote
+  - 故事: Story
+
 ## Repository
 
-## PHP
+## HTML
 
-- 音频：Audio
-- Awesome
-- 博客：Blog
-- 速查：CheatSheet
-- 市场：Market
-- 调色：Pattle
-- 语录：Quote
-- 试题：Question
-- 简历：Vitae
-- SoftInstaller
-- 片段：Snippet
-- 工具：Toolkit
-- 视频：Video
-- 发现：WebHunt
-- 爬虫：WebSpider
-- 导航：WebNav
-- WebGuide:
-- WebFrame
-- 预览：WebPage/WebPreview: 代码预览(`index.html`,`style.css`,`script.js`)
-- 终端：WebTerminal
-- 管理：admin:
-- 标签：bookmark:
-- 物价：price
-- 代办：todolist:
-- 商城：shop/Commondity:
-- 食谱：recipe
-
-## nodejs
+## NodeJs
 
 - audio-player:
 - sanbbdom:
 - video-player:
 - vue2:
+
+## PHP
+
+## Composer
+
+- [laravel8-modules](./composer/laravel8-modules.md)
+- [lumen8-modules](./composer/lumen8-modules.md)
 
 ## simple
 

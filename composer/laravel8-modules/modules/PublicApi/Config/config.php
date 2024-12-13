@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'name' => 'PublicApi',
-    'nameCn' => '开放接口',
+  'name' => 'PublicApi',
+  'nameCn' => '接口',
 ];

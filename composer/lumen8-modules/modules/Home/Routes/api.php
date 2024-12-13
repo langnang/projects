@@ -19,8 +19,8 @@ use Illuminate\Http\Request;
 
 
 $router->group(['prefix' => 'home'], function () use ($router) {
-    // $router->get('/', "SpiderController@index");
-    $router->post('/', function (Request $request) {
-        return $request->user();
-    });
+  // $router->get('/', "SpiderController@index");
+  $router->post('/', function (Request $request) {
+    return $request->user();
+  });
 });
