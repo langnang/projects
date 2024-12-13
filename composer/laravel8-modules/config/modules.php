@@ -216,7 +216,7 @@ return [
     */
 
     'scan' => [
-        'enabled' => true,
+        'enabled' => false,
         'paths' => [
             base_path('vendor/*/*'),
         ],
