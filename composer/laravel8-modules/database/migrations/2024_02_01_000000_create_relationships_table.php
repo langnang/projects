@@ -7,6 +7,7 @@ use App\Support\Module;
 
 class CreateRelationshipsTable extends Migration
 {
+    public $prefix = '';
     /**
      * Run the migrations.
      *
@@ -15,7 +16,7 @@ class CreateRelationshipsTable extends Migration
     public function up()
     {
         // 基本关联表
-        Schema::create('_relationships', function (Blueprint $table) {
+        Schema::create($this->prefix . '_relationships', function (Blueprint $table) {
 
             $table->integer('mid')->nullable();
             $table->integer('cid')->nullable();
@@ -31,6 +32,6 @@ class CreateRelationshipsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('_relationships');
+        Schema::dropIfExists($this->prefix . '_relationships');
     }
 }

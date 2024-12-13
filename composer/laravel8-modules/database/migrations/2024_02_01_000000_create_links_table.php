@@ -7,6 +7,7 @@ use App\Support\Module;
 
 class CreateLinksTable extends Migration
 {
+    public $prefix = '';
     /**
      * Run the migrations.
      *
@@ -14,7 +15,7 @@ class CreateLinksTable extends Migration
      */
     public function up()
     {
-        Schema::create('_links', function (Blueprint $table) {
+        Schema::create($this->prefix . '_links', function (Blueprint $table) {
             $table->id('lid')->comment("编号");
 
             $table->string('slug')->nullable()->unique()->comment('标识');
@@ -45,6 +46,6 @@ class CreateLinksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('_links');
+        Schema::dropIfExists($this->prefix . '_links');
     }
 }

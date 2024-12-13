@@ -9,6 +9,7 @@ use App\Support\Module;
 
 class CreateMetasTable extends Migration
 {
+    public $prefix = '';
     /**
      * Run the migrations.
      *
@@ -17,7 +18,7 @@ class CreateMetasTable extends Migration
     public function up()
     {
         // 基本标记表
-        Schema::create('_metas', function (Blueprint $table) {
+        Schema::create($this->prefix . '_metas', function (Blueprint $table) {
             $table->id('mid')->comment("编号");
 
             $table->string('slug')->nullable()->unique()->comment('标识');
@@ -47,6 +48,6 @@ class CreateMetasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('_metas');
+        Schema::dropIfExists($this->prefix . '_metas');
     }
 }

@@ -49,7 +49,6 @@ $app->singleton(
 require_once __DIR__ . '/helpers.php';
 
 Autoload::modules();
-
 /*
 |--------------------------------------------------------------------------
 | Return The Application

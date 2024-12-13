@@ -7,6 +7,7 @@ use App\Support\Module;
 
 class CreateFieldsTable extends Migration
 {
+    public $prefix = '';
     /**
      * Run the migrations.
      *
@@ -14,7 +15,7 @@ class CreateFieldsTable extends Migration
      */
     public function up()
     {
-        Schema::create('_fields', function (Blueprint $table) {
+        Schema::create($this->prefix . '_fields', function (Blueprint $table) {
             $table->integer('cid')->comment("内容编号");
             $table->string('name')->comment("字段名称");
 
@@ -43,6 +44,6 @@ class CreateFieldsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('_fields');
+        Schema::dropIfExists($this->prefix . '_fields');
     }
 }

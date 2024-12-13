@@ -8,6 +8,7 @@ use App\Support\Module;
 
 class CreateCommentsTable extends Migration
 {
+    public $prefix = '';
     /**
      * Run the migrations.
      *
@@ -16,7 +17,7 @@ class CreateCommentsTable extends Migration
     public function up()
     {
         // 基本评论表
-        Schema::create('_comments', function (Blueprint $table) {
+        Schema::create($this->prefix . '_comments', function (Blueprint $table) {
             $table->id('coid')->comment("编号");
             $table->integer('cid')->default(0)->comment("内容编号");
 
@@ -39,6 +40,6 @@ class CreateCommentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('_comments');
+        Schema::dropIfExists($this->prefix . '_comments');
     }
 }

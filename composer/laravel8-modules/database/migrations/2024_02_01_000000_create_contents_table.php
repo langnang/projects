@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 class CreateContentsTable extends Migration
 {
+    public $prefix = '';
     /**
      * Run the migrations.
      *
@@ -17,7 +18,7 @@ class CreateContentsTable extends Migration
     public function up()
     {
         // 基本内容表
-        Schema::create('_contents', function (Blueprint $table) {
+        Schema::create($this->prefix . '_contents', function (Blueprint $table) {
             $table->id('cid')->comment("编号");
 
             $table->string('slug')->nullable()->unique()->comment('标识');
@@ -59,6 +60,6 @@ class CreateContentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('_contents');
+        Schema::dropIfExists($this->prefix . '_contents');
     }
 }

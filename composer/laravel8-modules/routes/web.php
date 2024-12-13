@@ -26,3 +26,4 @@ Route::get('welcome', "\App\Http\Controllers\WelcomeController@index");
 // use Illuminate\Support\Facades\Blade;
 
 // var_dump(Blade::render("123"));
+
