@@ -48,12 +48,15 @@ title: Projects
 - 项目: Project
   - 业务: Business
   - 需求: Demand
+  - 规划: Plan
+  - 设计: Design
   - 开发: Develop
   - 议题: Issue
   - 测试: Test
 - 接口: PublicApi
 - 试题: Question
 - 仓库: Repository
+- 规则: Rule
 - 科学: Science
   - 物理: Physics
   - 化学: Chemistry
@@ -72,6 +75,9 @@ title: Projects
 - 模拟: Simulate
 - 片段: Snippet
 - 爬虫: Spider
+  - 发现: WebHunt
+  - 爬虫: WebSpider
+- 存储: Storage
 - 任务: Task
   - 宏任务: Macrotask
   - 定时任务: Cron
@@ -85,8 +91,6 @@ title: Projects
   - 简历: Vitae
   - 账号: Account
 - 视频: Video
-- 发现: WebHunt
-- 爬虫: WebSpider
 - 导航: WebNav
 - 指南: WebGuide:
 - 内嵌: WebFrame
