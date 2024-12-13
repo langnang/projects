@@ -3,10 +3,10 @@
 namespace App\Models;
 
 
-class Link extends \App\Support\Model
+class Link extends \Illuminate\Database\Eloquent\Model
 {
 
-    protected $table = "links";
+    protected $table = "_links";
 
     protected $primaryKey = 'lid';
 

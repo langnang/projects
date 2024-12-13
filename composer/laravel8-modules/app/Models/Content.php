@@ -3,9 +3,10 @@
 namespace App\Models;
 
 
-class Content extends \App\Support\Model
+class Content extends \Illuminate\Database\Eloquent\Model
 {
-    protected $table = "contents";
+    use \Illuminate\Database\Eloquent\Factories\HasFactory;
+    protected $table = "_contents";
 
     protected $primaryKey = 'cid';
 

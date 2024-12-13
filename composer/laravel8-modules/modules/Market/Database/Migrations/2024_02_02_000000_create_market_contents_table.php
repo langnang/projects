@@ -20,7 +20,7 @@ class CreateMarketContentsTable extends Migration
             $table->id('cid');
             $table->string('slug')->nullable()->unique()->comment('标识');
             $table->string('title')->nullable()->comment('标题');
-            $table->string('ico')->nullable()->comment('标徽');
+            $table->string('ico')->nullable()->comment('徽标');
             $table->string('description')->nullable()->comment('描述');
             $table->string('type')->nullable()->comment('类型');
             $table->string('status')->nullable()->comment('状态');

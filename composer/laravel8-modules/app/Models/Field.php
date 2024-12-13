@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-class Field extends \App\Support\Model
+class Field extends \Illuminate\Database\Eloquent\Model
 {
 
-    protected $table = "fields";
+    protected $table = "_fields";
 
     // protected $primaryKey = 'id';
 

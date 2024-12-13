@@ -16,13 +16,16 @@ class CreateCommentsTable extends Migration
     public function up()
     {
         // 基本评论表
-        Schema::create('comments', function (Blueprint $table) {
-            $table->id('coid');
+        Schema::create('_comments', function (Blueprint $table) {
+            $table->id('coid')->comment("编号");
             $table->integer('cid')->default(0)->comment("内容编号");
 
             $table->text("text")->nullable()->comment("内容");
 
             $table->integer("user")->default(0)->comment("用户编号");
+
+            $table->integer('parent')->default(0)->nullable()->comment('父本');
+
             $table->timestamps();
             $table->timestamp('release_at')->nullable()->comment('发布时间');
             $table->timestamp('deleted_at')->nullable()->comment('删除时间');
@@ -36,6 +39,6 @@ class CreateCommentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('comments');
+        Schema::dropIfExists('_comments');
     }
 }

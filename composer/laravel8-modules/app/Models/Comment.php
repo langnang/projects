@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-class Comment extends \App\Support\Model
+class Comment extends \Illuminate\Database\Eloquent\Model
 {
-    protected $table = "comments";
+    protected $table = "_comments";
 
     protected $primaryKey = 'coid';
 

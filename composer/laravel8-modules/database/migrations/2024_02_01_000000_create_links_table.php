@@ -14,11 +14,13 @@ class CreateLinksTable extends Migration
      */
     public function up()
     {
-        Schema::create('links', function (Blueprint $table) {
-            $table->id('lid');
+        Schema::create('_links', function (Blueprint $table) {
+            $table->id('lid')->comment("编号");
+
             $table->string('slug')->nullable()->unique()->comment('标识');
+            $table->string('ico')->nullable()->comment('徽标');
+
             $table->string('title')->nullable()->comment('标题');
-            $table->string('ico')->nullable()->comment('标徽');
             $table->string('url')->nullable()->comment('地址');
             $table->string('description')->nullable()->comment('描述');
             $table->string('type')->nullable()->comment('类型');
@@ -43,6 +45,6 @@ class CreateLinksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('links');
+        Schema::dropIfExists('_links');
     }
 }

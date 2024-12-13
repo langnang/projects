@@ -6,9 +6,9 @@ use App\Models\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 
-class Option extends \App\Support\Model
+class Option extends \Illuminate\Database\Eloquent\Model
 {
-    public $table = 'options';
+    public $table = '_options';
     public $incrementing = false;
     protected $hidden = [
         'user',

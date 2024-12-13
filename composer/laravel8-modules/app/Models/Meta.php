@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-class Meta extends \App\Support\Model
+class Meta extends \Illuminate\Database\Eloquent\Model
 {
-
-    protected $table = "metas";
+    use \Illuminate\Database\Eloquent\Factories\HasFactory;
+    protected $table = "_metas";
 
     protected $primaryKey = 'mid';
 

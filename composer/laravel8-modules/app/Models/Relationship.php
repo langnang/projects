@@ -2,12 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Relationship extends Model
+class Relationship extends \Illuminate\Database\Eloquent\Model
 {
 
-    protected $table = "relationships";
+    protected $table = "_relationships";
 
     protected $fillable = [];
 }
