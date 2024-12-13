@@ -18,7 +18,7 @@ class WebNavController extends Controller
             'metas' => \App\Models\Meta::factory()->times(10)->make(),
             'contents' => \App\Models\Content::factory()->times(30)->make(),
         ];
-        dump($return);
+        // dump($return);
         return view('webnav::webnav.default.index', $return);
     }
 
