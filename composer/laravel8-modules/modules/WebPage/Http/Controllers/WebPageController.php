@@ -27,7 +27,7 @@ class WebPageController extends Controller
         $return['content']->style = '';
         $return['content']->script = '';
         // dump($return);
-        return view('webpage::webpage.empty.index', $return);
+        return view('webpage::empty.index', $return);
     }
 
     /**
@@ -36,7 +36,7 @@ class WebPageController extends Controller
      */
     public function create()
     {
-        return view('webpage::webpage.empty.create');
+        return view('webpage::empty.create');
     }
 
     /**
@@ -56,7 +56,7 @@ class WebPageController extends Controller
      */
     public function show($id)
     {
-        return view('webpage::webpage.empty.show');
+        return view('webpage::empty.show');
     }
 
     /**
@@ -66,7 +66,7 @@ class WebPageController extends Controller
      */
     public function edit($id)
     {
-        return view('webpage::webpage.empty.edit');
+        return view('webpage::empty.edit');
     }
 
     /**
