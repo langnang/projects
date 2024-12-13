@@ -19,7 +19,7 @@ class WebNavController extends Controller
             'contents' => \App\Models\Content::factory()->times(30)->make(),
         ];
         // dump($return);
-        return view('WebNav::default.index', $return);
+        return view('webnav::default.index', $return);
     }
 
     /**
@@ -28,7 +28,7 @@ class WebNavController extends Controller
      */
     public function create()
     {
-        return view('WebNav::create');
+        return view('webnav::create');
     }
 
     /**
@@ -48,7 +48,7 @@ class WebNavController extends Controller
      */
     public function show($id)
     {
-        return view('WebNav::show');
+        return view('webnav::show');
     }
 
     /**
@@ -58,7 +58,7 @@ class WebNavController extends Controller
      */
     public function edit($id)
     {
-        return view('WebNav::edit');
+        return view('webnav::edit');
     }
 
     /**
