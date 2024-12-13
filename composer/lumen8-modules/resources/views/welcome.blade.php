@@ -650,7 +650,8 @@
                   </path>
                 </svg>
                 <div class="ml-4 text-lg leading-7 font-semibold">
-                  <a href="#" class="underline text-gray-900 dark:text-white">{{ $module->getName() }}（
+                  <a href="./{{ config($module->getLowerName() . '.slug', $module->getLowerName()) }}"
+                    class="underline text-gray-900 dark:text-white">{{ $module->getName() }}（
                     {{ config($module->getLowerName() . '.nameCn') }}）
                   </a>
                 </div>

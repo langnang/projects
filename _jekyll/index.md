@@ -65,9 +65,11 @@ title: Projects
   - 地理: Geography
   - 经济: Economics
   - 管理: Management
+  - 历史: History
 - 商城: Shop
   - Commondity:
 - 技能: Skill
+- 模拟: Simulate
 - 片段: Snippet
 - 爬虫: Spider
 - 任务: Task
