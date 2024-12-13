@@ -1,4 +1,5 @@
 {
-    "WebNav": true,
-    "WebPage": true
+  "WebNav": true,
+  "WebPage": true,
+  "Wiki": true
 }

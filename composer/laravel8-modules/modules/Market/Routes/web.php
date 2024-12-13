@@ -18,12 +18,12 @@ use Illuminate\Http\Request;
 // Route::prefix('market')->group(function () {
 //     Route::get('/', 'MarketController@view_index');
 // });
-Route::prefix(Module::currentConfig('web.prefix'))->group(function () {
-    Route::get('', "MarketController@view_index");
+Route::prefix('market')->group(function () {
+    Route::get('', "MarketController@index");
     Route::prefix('npm')->group(function () {
-        Route::get('', "MarketNpmController@view_index");
-        Route::match (['get', 'post'], '/{name}', "MarketNpmController@view_slug");
-        Route::match (['get', 'post'], '/{name}/{version}', "MarketNpmController@view_package");
+        Route::get('', "MarketNpmController@index");
+        Route::match(['get', 'post'], '/{name}', "MarketNpmController@view_slug");
+        Route::match(['get', 'post'], '/{name}/{version}', "MarketNpmController@view_package");
     });
 });
 
