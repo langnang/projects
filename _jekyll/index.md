@@ -28,6 +28,8 @@ title: Projects
 - 主页: Home
 - 图鉴: Illustration
 - 事件: Incident
+- 知识: Knowledge
+- 邮件: Mail
 - 地图: Map
   - 地点: Spot
 - 市场: Market
@@ -53,8 +55,20 @@ title: Projects
 - 试题: Question
 - 食谱: Recipe
 - 仓库: Repository
+- 科学: Science
+  - 物理: Physics
+  - 化学: Chemistry
+  - 文学: Literature
+  - 数学: Mathematics
+  - 生物: Biology
+  - 医药: Medicine
+  - 计算机: Computer
+  - 地理: Geography
+  - 经济: Economics
+  - 管理: Management
 - 商城: Shop
   - Commondity:
+- 技能: Skill
 - 片段: Snippet
 - 爬虫: Spider
 - 攻略: Strategy
@@ -69,7 +83,7 @@ title: Projects
 - 工具: Toolkit
 - 用户: User
   - 简历: Vitae
-  - 关联账号: Account
+  - 账号: Account
 - 视频: Video
 - 发现: WebHunt
 - 爬虫: WebSpider
