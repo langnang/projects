@@ -53,7 +53,6 @@ title: Projects
   - 测试: Test
 - 接口: PublicApi
 - 试题: Question
-- 食谱: Recipe
 - 仓库: Repository
 - 科学: Science
   - 物理: Physics
@@ -71,7 +70,6 @@ title: Projects
 - 技能: Skill
 - 片段: Snippet
 - 爬虫: Spider
-- 攻略: Strategy
 - 任务: Task
   - 宏任务: Macrotask
   - 定时任务: Cron
@@ -94,6 +92,8 @@ title: Projects
 - 百科: Wiki
   - 语录: Quote
   - 故事: Story
+  - 食谱: Recipe
+  - 攻略: Strategy
 
 ## Repository
 
