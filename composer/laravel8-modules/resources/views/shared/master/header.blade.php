@@ -11,10 +11,11 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="{{ env('APP_URL') }}{{ $config['slug'] }}">{{ $config['nameCn'] ?? $config['name'] }}
+        <a class="nav-link"
+          href="{{ env('APP_URL') }}{{ $module['alias'] }}">{{ $module['name'] }}{{ $module['nameCn'] ? '（' . $module['nameCn'] . '）' : null }}
           <span class="sr-only">(current)</span></a>
       </li>
-      @foreach ($config['navbar'] ?? [] as $navbar)
+      @foreach ($module['navbar'] ?? [] as $navbar)
         @if (sizeof($navbar['children'] ?? []) > 0)
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
@@ -31,7 +32,7 @@
         @else
           <li class="nav-item">
             <a class="nav-link"
-              href="{{ env('APP_URL') }}{{ $config['slug'] }}/{{ $navbar['path'] }}">{{ $navbar['nameCn'] ?? $navbar['name'] }}</a>
+              href="{{ env('APP_URL') }}{{ $module['slug'] }}/{{ $navbar['path'] }}">{{ $navbar['nameCn'] ?? $navbar['name'] }}</a>
           </li>
         @endif
       @endforeach
@@ -70,7 +71,7 @@
           @foreach (Module::all() ?? [] as $moduleName => $module)
             @if (Module::isEnabled($moduleName))
               <a class="dropdown-item"
-                href="{{ env('APP_URL') }}{{ Config::get(strtolower($moduleName) . '.prefix') ?? strtolower($moduleName) }}">{{ $moduleName }}</a>
+                href="{{ env('APP_URL') }}{{ $module->getLowerName() ?? strtolower($moduleName) }}">{{ $moduleName }}（{{ config($module->getLowerName() . '.nameCn') }}）</a>
             @endif
           @endforeach
         </div>

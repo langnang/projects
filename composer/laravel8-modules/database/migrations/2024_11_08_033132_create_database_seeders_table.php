@@ -4,8 +4,11 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDatabaseSeedersTable extends Migration
+class CreateDatabaseSeedersTable extends \App\Illuminate\Database\Migrations\Migration
 {
+    protected $prefix = "";
+    protected $tableName = "seeders";
+    protected $status = "private";
     /**
      * Run the migrations.
      *
@@ -13,7 +16,9 @@ class CreateDatabaseSeedersTable extends Migration
      */
     public function up()
     {
-        Schema::create('seeders', function (Blueprint $table) {
+        if (!$tableName = $this->getTableName())
+            return;
+        Schema::create($tableName, function (Blueprint $table) {
             $table->id();
             $table->timestamps();
         });
@@ -26,6 +31,8 @@ class CreateDatabaseSeedersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('seeders');
+        if (!$tableName = $this->getTableName())
+            return;
+        Schema::dropIfExists($tableName);
     }
 }

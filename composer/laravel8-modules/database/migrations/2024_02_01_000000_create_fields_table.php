@@ -5,9 +5,11 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use App\Support\Module;
 
-class CreateFieldsTable extends Migration
+class CreateFieldsTable extends \App\Illuminate\Database\Migrations\Migration
 {
-    public $prefix = '';
+    protected $prefix = "";
+    protected $tableName = "fields";
+    protected $status = "private";
     /**
      * Run the migrations.
      *
@@ -15,7 +17,9 @@ class CreateFieldsTable extends Migration
      */
     public function up()
     {
-        Schema::create($this->prefix . '_fields', function (Blueprint $table) {
+        if (!$tableName = $this->getTableName())
+            return;
+        Schema::create($tableName, function (Blueprint $table) {
             $table->integer('cid')->comment("内容编号");
             $table->string('name')->comment("字段名称");
 
@@ -44,6 +48,8 @@ class CreateFieldsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists($this->prefix . '_fields');
+        if (!$tableName = $this->getTableName())
+            return;
+        Schema::dropIfExists($tableName);
     }
 }

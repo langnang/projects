@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Option extends \Illuminate\Database\Eloquent\Model
 {
-    public $table = '_options';
+    public $table = 'options';
     public $incrementing = false;
     protected $hidden = [
         'user',

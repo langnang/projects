@@ -7,7 +7,7 @@ class Link extends \Illuminate\Database\Eloquent\Model
 {
     use \Illuminate\Database\Eloquent\Factories\HasFactory;
 
-    protected $table = "_links";
+    protected $table = "links";
 
     protected $primaryKey = 'lid';
 

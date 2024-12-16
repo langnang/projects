@@ -6,7 +6,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\DB;
 
-class CreateMarketContentsTable extends Migration
+class CreateMarketContentsTable extends \App\Illuminate\Database\Migrations\Migration
 {
     /**
      * Run the migrations.

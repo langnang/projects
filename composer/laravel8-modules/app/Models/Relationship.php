@@ -5,7 +5,7 @@ namespace App\Models;
 class Relationship extends \Illuminate\Database\Eloquent\Model
 {
 
-    protected $table = "_relationships";
+    protected $table = "relationships";
 
     protected $fillable = [];
 }

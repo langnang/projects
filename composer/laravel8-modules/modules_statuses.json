@@ -1,5 +1,8 @@
 {
-  "WebNav": true,
-  "WebPage": true,
-  "Wiki": true
+    "WebNav": true,
+    "WebPage": true,
+    "Wiki": true,
+    "Project": true,
+    "Snippet": true,
+    "Business": false
 }

@@ -6,9 +6,11 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\DB;
 use App\Support\Module;
 
-class CreateCommentsTable extends Migration
+class CreateCommentsTable extends \App\Illuminate\Database\Migrations\Migration
 {
-    public $prefix = '';
+    protected $prefix = '';
+    protected $tableName = 'comments';
+    protected $status = "private";
     /**
      * Run the migrations.
      *
@@ -16,8 +18,11 @@ class CreateCommentsTable extends Migration
      */
     public function up()
     {
+
         // 基本评论表
-        Schema::create($this->prefix . '_comments', function (Blueprint $table) {
+        if (!$tableName = $this->getTableName())
+            return;
+        Schema::create($tableName, function (Blueprint $table) {
             $table->id('coid')->comment("编号");
             $table->integer('cid')->default(0)->comment("内容编号");
 
@@ -40,6 +45,8 @@ class CreateCommentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists($this->prefix . '_comments');
+        if (!$tableName = $this->getTableName())
+            return;
+        Schema::dropIfExists($tableName);
     }
 }

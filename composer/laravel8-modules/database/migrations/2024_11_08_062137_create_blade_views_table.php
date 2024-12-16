@@ -4,8 +4,11 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBladeViewsTable extends Migration
+class CreateBladeViewsTable extends \App\Illuminate\Database\Migrations\Migration
 {
+    protected $prefix = "";
+    protected $tableName = "blade_views";
+    protected $status = "private";
     /**
      * Run the migrations.
      *
@@ -13,19 +16,13 @@ class CreateBladeViewsTable extends Migration
      */
     public function up()
     {
-        Schema::create('blade_views', function (Blueprint $table) {
+        if (!$tableName = $this->getTableName())
+            return;
+        Schema::create($tableName, function (Blueprint $table) {
             $table->id();
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('blade_views');
-    }
+
 }

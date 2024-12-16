@@ -5,8 +5,11 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use App\Support\Module;
 
-class CreateOptionsTable extends Migration
+class CreateOptionsTable extends \App\Illuminate\Database\Migrations\Migration
 {
+    protected $prefix = "";
+    protected $tableName = "options";
+    protected $status = "private";
     /**
      * Run the migrations.
      *
@@ -14,7 +17,9 @@ class CreateOptionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('_options', function (Blueprint $table) {
+        if (!$tableName = $this->getTableName())
+            return;
+        Schema::create($tableName, function (Blueprint $table) {
             $table->string('name');
             $table->string('type')->default('string');
             $table->string('value');
@@ -36,6 +41,8 @@ class CreateOptionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('_options');
+        if (!$tableName = $this->getTableName())
+            return;
+        Schema::dropIfExists($tableName);
     }
 }

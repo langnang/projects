@@ -4,8 +4,11 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCacheTable extends Migration
+class CreateCacheTable extends \App\Illuminate\Database\Migrations\Migration
 {
+    protected $prefix = '';
+    protected $tableName = 'cache';
+    protected $status = "private";
     /**
      * Run the migrations.
      *
@@ -13,17 +16,19 @@ class CreateCacheTable extends Migration
      */
     public function up()
     {
-        Schema::create('cache', function (Blueprint $table) {
+        if (!$tableName = $this->getTableName())
+            return;
+        Schema::create($tableName, function (Blueprint $table) {
             $table->string('key')->primary();
             $table->mediumText('value');
             $table->integer('expiration');
         });
-
-        Schema::create('cache_locks', function (Blueprint $table) {
+        Schema::create($tableName . '_locks', function (Blueprint $table) {
             $table->string('key')->primary();
             $table->string('owner');
             $table->integer('expiration');
         });
+
     }
 
     /**
@@ -33,7 +38,9 @@ class CreateCacheTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cache');
-        Schema::dropIfExists('cache_locks');
+        if (!$tableName = $this->getTableName())
+            return;
+        Schema::dropIfExists($tableName);
+        Schema::dropIfExists($tableName . '_locks');
     }
 }

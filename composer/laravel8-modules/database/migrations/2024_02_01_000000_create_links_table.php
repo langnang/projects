@@ -5,9 +5,11 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use App\Support\Module;
 
-class CreateLinksTable extends Migration
+class CreateLinksTable extends \App\Illuminate\Database\Migrations\Migration
 {
-    public $prefix = '';
+    protected $prefix = "";
+    protected $tableName = "links";
+    protected $status = "private";
     /**
      * Run the migrations.
      *
@@ -15,7 +17,9 @@ class CreateLinksTable extends Migration
      */
     public function up()
     {
-        Schema::create($this->prefix . '_links', function (Blueprint $table) {
+        if (!$tableName = $this->getTableName())
+            return;
+        Schema::create($tableName, function (Blueprint $table) {
             $table->id('lid')->comment("编号");
 
             $table->string('slug')->nullable()->unique()->comment('标识');
@@ -46,6 +50,8 @@ class CreateLinksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists($this->prefix . '_links');
+        if (!$tableName = $this->getTableName())
+            return;
+        Schema::dropIfExists($tableName);
     }
 }

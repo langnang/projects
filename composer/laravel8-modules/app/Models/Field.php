@@ -5,7 +5,7 @@ namespace App\Models;
 class Field extends \Illuminate\Database\Eloquent\Model
 {
     use \Illuminate\Database\Eloquent\Factories\HasFactory;
-    protected $table = "_fields";
+    protected $table = "fields";
 
     // protected $primaryKey = 'id';
 

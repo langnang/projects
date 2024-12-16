@@ -6,7 +6,7 @@ namespace App\Models;
 class Content extends \Illuminate\Database\Eloquent\Model
 {
     use \Illuminate\Database\Eloquent\Factories\HasFactory;
-    protected $table = "_contents";
+    protected $table = "contents";
 
     protected $primaryKey = 'cid';
 

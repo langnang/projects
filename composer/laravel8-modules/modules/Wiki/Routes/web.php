@@ -11,6 +11,8 @@
 |
 */
 
-Route::prefix('wiki')->group(function() {
-    Route::get('/', 'WikiController@index');
+Route::prefix('wiki')->group(function () {
+    Route::get('/', 'WikiController@view_index');
+    Route::get('/meta/{midOrSlug}', 'WikiController@view_index');
+    Route::get('/content/{cidOrSlug}', 'WikiController@view_content');
 });

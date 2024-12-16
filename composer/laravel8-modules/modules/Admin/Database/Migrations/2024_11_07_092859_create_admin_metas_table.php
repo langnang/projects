@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAdminMetasTable extends Migration
+class CreateAdminMetasTable extends \App\Illuminate\Database\Migrations\Migration
 {
     /**
      * Run the migrations.

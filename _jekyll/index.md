@@ -109,6 +109,9 @@ title: Projects
   - 故事: Story
   - 食谱: Recipe
   - 攻略: Strategy
+- 成就: Achievement
+- 藏品: Collection
+- Paper
 
 ## Repository
 

@@ -7,9 +7,11 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\DB;
 
-class CreateContentsTable extends Migration
+class CreateContentsTable extends \App\Illuminate\Database\Migrations\Migration
 {
-    public $prefix = '';
+    protected $prefix = "";
+    protected $tableName = "contents";
+    protected $status = "private";
     /**
      * Run the migrations.
      *
@@ -17,8 +19,10 @@ class CreateContentsTable extends Migration
      */
     public function up()
     {
+        if (!$tableName = $this->getTableName())
+            return;
         // 基本内容表
-        Schema::create($this->prefix . '_contents', function (Blueprint $table) {
+        Schema::create($tableName, function (Blueprint $table) {
             $table->id('cid')->comment("编号");
 
             $table->string('slug')->nullable()->unique()->comment('标识');
@@ -60,6 +64,8 @@ class CreateContentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists($this->prefix . '_contents');
+        if (!$tableName = $this->getTableName())
+            return;
+        Schema::dropIfExists($tableName);
     }
 }

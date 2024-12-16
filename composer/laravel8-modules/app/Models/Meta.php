@@ -5,7 +5,7 @@ namespace App\Models;
 class Meta extends \Illuminate\Database\Eloquent\Model
 {
     use \Illuminate\Database\Eloquent\Factories\HasFactory;
-    protected $table = "_metas";
+    protected $table = "metas";
 
     protected $primaryKey = 'mid';
 

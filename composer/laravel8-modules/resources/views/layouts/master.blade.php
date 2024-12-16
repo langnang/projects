@@ -45,7 +45,7 @@
 
   @sectionMissing('main')
     @section('header')
-      @if (View::exists('shared.master.header') && !empty($config))
+      @if (View::exists('shared.master.header'))
         @include('shared.master.header')
       @endif
     @show
@@ -72,13 +72,8 @@
   <script src="https://unpkg.com/mockjs"></script>
   <script src="https://unpkg.com/moment"></script>
   <script src="https://unpkg.com/masonry-layout"></script>
-  {{-- <x-scripts :props="[
-      ['axios', 'axios.min' ], ['jquery', 'jquery.min' ], ['popper.js', 'popper.min' ], [ 'bootstrap'
-      , 'js/bootstrap.min' ], ['lodash', 'lodash.min' ], ['holderjs', 'holder.min' ], ['mockjs', 'mock-min' ],
-      ['moment', 'moment' ], ['masonry-layout', 'masonry.pkgd.min' ], ['public/app/js/app'], ]">
-      </x-scripts> --}}
 
-      @stack('scripts')
+    @stack('scripts')
 </body>
 
 </html>

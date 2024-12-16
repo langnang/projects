@@ -7,9 +7,11 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\Config;
 use App\Support\Module;
 
-class CreateMetasTable extends Migration
+class CreateMetasTable extends \App\Illuminate\Database\Migrations\Migration
 {
-    public $prefix = '';
+    protected $prefix = "";
+    protected $tableName = "metas";
+    protected $status = "private";
     /**
      * Run the migrations.
      *
@@ -17,8 +19,10 @@ class CreateMetasTable extends Migration
      */
     public function up()
     {
+        if (!$tableName = $this->getTableName())
+            return;
         // 基本标记表
-        Schema::create($this->prefix . '_metas', function (Blueprint $table) {
+        Schema::create($tableName, function (Blueprint $table) {
             $table->id('mid')->comment("编号");
 
             $table->string('slug')->nullable()->unique()->comment('标识');
@@ -48,6 +52,8 @@ class CreateMetasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists($this->prefix . '_metas');
+        if (!$tableName = $this->getTableName())
+            return;
+        Schema::dropIfExists($tableName);
     }
 }
