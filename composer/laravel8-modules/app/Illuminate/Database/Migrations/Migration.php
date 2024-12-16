@@ -12,6 +12,7 @@ abstract class Migration extends \Illuminate\Database\Migrations\Migration
      * @var string
      */
     protected $prefix = "";
+    protected $moduleName;
     /**
      * Summary of type
      * public
@@ -22,6 +23,12 @@ abstract class Migration extends \Illuminate\Database\Migrations\Migration
     protected $status = "private";
     protected $tableName = "";
     protected $tableColumns = [];
+    public function __construct()
+    {
+        var_dump(static::class);
+        if ($this->moduleName) {
+        }
+    }
     /**
      * Run the migrations.
      *

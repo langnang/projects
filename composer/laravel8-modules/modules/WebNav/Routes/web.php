@@ -12,5 +12,5 @@
 */
 
 Route::prefix('webnav')->group(function () {
-    Route::get('/', 'WebNavController@index');
+    Route::get('/', 'WebNavController@view_index');
 });

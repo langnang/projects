@@ -36,6 +36,15 @@
     @endif
   @show
 
+
+  <link rel="stylesheet" href="{{ asset('./public/app/style.css') }}">
+
+  <link rel="stylesheet" href="{{ asset('./public/master/style.css') }}">
+
+  @isset($module)
+    <link rel="stylesheet" href="{{ asset('./modules/' . $module['name'] . '/Public/' . $module['framework'] . '/style.css') }}">
+  @endisset
+
   @stack('styles')
 </head>
 
@@ -52,28 +61,36 @@
 
     @yield('sidebar')
 
-    <div class="wrapper-content" style="min-height: calc(100vh - @empty($config) 88px @else 152px @endif)">
-    @yield('content')
-  </div>
+    <div class="wrapper-content" style="min-height: calc(100vh - @empty($config) 88px @else 152px @endif)"> 
+        @yield('content')
+    </div>
 
-  @section('footer')
-  @if (View::exists('shared.master.footer'))
-    @include('shared.master.footer')
+    @section('footer')
+        @if (View::exists('shared.master.footer') && !($hideFooter ?? false))
+            @include('shared.master.footer')
+        @endif
+    @show
   @endif
-  @show
-  @endif
 
-  <script src="https://unpkg.com/axios"></script>
-  <script src="https://unpkg.com/jquery"></script>
-  <script src="https://unpkg.com/popper.js"></script>
-  <script src="https://unpkg.com/bootstrap@4"></script>
-  <script src="https://unpkg.com/lodash"></script>
-  <script src="https://unpkg.com/holderjs"></script>
-  <script src="https://unpkg.com/mockjs"></script>
-  <script src="https://unpkg.com/moment"></script>
-  <script src="https://unpkg.com/masonry-layout"></script>
+  <script crossorigin="anonymous" src="https://unpkg.com/axios"></script>
+  <script crossorigin="anonymous" src="https://unpkg.com/jquery"></script>
+  <script crossorigin="anonymous" src="https://unpkg.com/popper.js"></script>
+  <script crossorigin="anonymous" src="https://unpkg.com/bootstrap@4"></script>
+  <script crossorigin="anonymous" src="https://unpkg.com/lodash"></script>
+  <script crossorigin="anonymous" src="https://unpkg.com/holderjs"></script>
+  <script crossorigin="anonymous" src="https://unpkg.com/mockjs"></script>
+  <script crossorigin="anonymous" src="https://unpkg.com/moment"></script>
+  <script crossorigin="anonymous" src="https://unpkg.com/masonry-layout"></script>
 
-    @stack('scripts')
+  <script crossorigin="anonymous" src="{{ asset('./public/app/script.js') }}"></script>
+
+  <script crossorigin="anonymous" src="{{ asset('./public/master/script.js') }}"></script>
+
+  @stack('scripts')
+
+  @isset($module)
+  <script crossorigin="anonymous" src="{{ asset('./modules/' . $module['name'] . '/Public/' . $module['framework'] . '/script.js') }}"></script>
+@endisset
 </body>
 
 </html>
