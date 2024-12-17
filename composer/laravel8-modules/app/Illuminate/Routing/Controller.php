@@ -3,8 +3,9 @@
 namespace App\Illuminate\Routing;
 
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Auth;
 
-abstract class Controller
+abstract class Controller extends \Illuminate\Routing\Controller
 {
     protected $module;
     protected $moduleName;
@@ -13,6 +14,7 @@ abstract class Controller
     protected $moduleOption;
     public function __construct()
     {
+        // $this->middleware('auth');
         if (empty($this->moduleName)) {
             if (preg_match('/^Modules\\\\(\w*)\\\\Http/i', static::class, $moduleMatches)) {
                 $this->moduleName = $moduleMatches[1];
@@ -54,8 +56,6 @@ abstract class Controller
      */
     public function view($view = null, $data = [], $mergeData = [])
     {
-        $module = $this->module;
-        // $module = \Module::find($this->moduleName);
         $return = array_merge([
 
             '$options' => [],
@@ -79,15 +79,18 @@ abstract class Controller
                 'pathInfo' => request()->getPathInfo(),
             ],
             '$request' => request()->all(),
+            '$user' => Auth::check() ? Auth::user() : null,
             'module' => $this->getModuleAttributes(),
             'layout' => null,
             'view' => null,
             // 'layout' => "layouts.master",
         ], is_array($view) ? $view : ['view' => $view], $data);
         if (!isset($return['view']))
-            return abort(403);
-        $return['layout'] = $this->config('framework') . '.' . $return['view'];
-        $return['view'] = $this->moduleAlias . '::' . $this->config('framework') . '.' . $return['view'];
+            return \abort(403);
+        if ($this->moduleName) {
+            $return['layout'] = $this->config('framework') . '.' . $return['view'];
+            $return['view'] = $this->moduleAlias . '::' . $this->config('framework') . '.' . $return['view'];
+        }
         if (!View::exists($return['view'])) {
             $return['view'] = $return['layout'];
         }

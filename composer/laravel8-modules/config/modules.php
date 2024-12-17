@@ -292,6 +292,11 @@ return [
     'activator' => 'file',
 
     'config' => [
+        'name' => '',
+        'nameCn' => '',
+        'framework' => '',
+        'layout' => '',
+        'theme' => '',
         'update-keys' => [
             'basic' => ['name', 'slug', 'title', 'type', 'description'],
             'view' => ['ui', 'component', 'layout', 'theme'],
@@ -359,7 +364,6 @@ return [
             "update" => [],
             "use" => [],
             "v6:migrate" => [],
-
         ],
 
     ]

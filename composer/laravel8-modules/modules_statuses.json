@@ -4,5 +4,6 @@
     "Wiki": true,
     "Project": true,
     "Snippet": true,
-    "Business": false
+    "User": true,
+    "WebHunt": true
 }

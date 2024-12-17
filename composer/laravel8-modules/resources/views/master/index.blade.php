@@ -3,7 +3,7 @@
 @section('content')
   <div class="container">
     <main class="row">
-      <div class="col-9">
+      <div class="col-12 col-lg-9">
         @empty($contents['paginator'])
         @else
           @foreach ($contents['paginator'] ?? [] as $content)
@@ -12,19 +12,18 @@
                 <h5 class="card-title mb-0">{{ $content->title }}</h5>
               </div>
               <div class="card-body px-3 py-2">
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                  content.</p>
+                <p class="card-text">{{ $content->text }}</p>
               </div>
-              <div class="card-footer py-2">
-                <a href="{{ url((isset($module) ? $module['alias'] . '/' : '') . 'content/' . $content->cid) }}"
-                  class="btn btn-sm btn-primary">Go somewhere</a>
+              <div class="card-footer py-2 small">
+                <a href="{{ url((isset($module) ? $module['alias'] . '/' : '') . 'content/' . $content->cid) }}" class="btn btn-sm btn-primary"><small>Go somewhere</small></a>
+                {{ $content->updated_at }}
               </div>
             </div>
           @endforeach
         @endempty
 
       </div>
-      <aside class="col-3">
+      <aside class="col-3 d-md-none d-lg-block">
         @include('shared.master.main-aside')
       </aside>
       <div class="col-12">

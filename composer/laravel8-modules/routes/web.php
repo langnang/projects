@@ -13,13 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'App\Http\Controllers\Controller@view_index');
 
-Route::get('welcome', function () {
-    return view('welcome');
-});
+Route::get('/welcome', 'App\Http\Controllers\Controller@view_index');
+
+// Route::match(['get', 'post'], '/login', 'App\Http\Controllers\Controller@view_login');
+// Route::match(['get', 'post'], '/register', 'App\Http\Controllers\Controller@view_register');
+
 // Auth::routes();
 
 // Route::get('/home123', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -31,3 +31,7 @@ Route::get('welcome', function () {
 
 // var_dump(Blade::render("123"));
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

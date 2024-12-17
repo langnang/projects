@@ -25,7 +25,7 @@ abstract class Migration extends \Illuminate\Database\Migrations\Migration
     protected $tableColumns = [];
     public function __construct()
     {
-        var_dump(static::class);
+        // var_dump(static::class);
         if ($this->moduleName) {
         }
     }

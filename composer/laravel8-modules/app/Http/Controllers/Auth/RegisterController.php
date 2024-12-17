@@ -29,7 +29,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -69,5 +69,13 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    } /**
+      * Show the application registration form.
+      *
+      * @return \Illuminate\View\View
+      */
+    public function showRegistrationForm()
+    {
+        return view('master.auth.register');
     }
 }

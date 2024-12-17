@@ -1,22 +1,21 @@
 @extends('layouts.master', ['hideFooter' => true])
 
 @section('content')
-  <div class="container-fluid">
+  <div class="container-fluid px-2">
     <div class="row">
-      <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-        <div class="sidebar-sticky pt-3">
+      <nav id="sidebarMenu" class="col-lg-2 d-md-none d-lg-block bg-light sidebar collapse">
+        <div class="sidebar-sticky pt-2">
           <ul class="nav flex-column">
             <li class="nav-item">
               <a class="nav-link active" href="#">
-                <span data-feather="home"></span>
-                Dashboard <span class="sr-only">(current)</span>
+                <span data-feather="home"></span>Dashboard
+                <span class="sr-only">(current)</span>
               </a>
             </li>
-            @foreach ($metas as $meta)
+            @foreach ($metas ?? [] as $meta)
               <li class="nav-item" style="width: 100%;">
-                <a class="nav-link text-truncate py-1" href="#">
-                  <span data-feather="file"></span>
-                  {{ $meta->name }}
+                <a class="nav-link text-truncate py-1" href="#{{ $meta->mid }}">
+                  <span data-feather="file"></span>{{ $meta->name }}
                 </a>
               </li>
             @endforeach
@@ -86,37 +85,39 @@
           </ul>
         </div>
       </nav>
-      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-2 border-bottom">
-          <h1 class="h4"><i class="bi bi-tag"></i> Dashboard</h1>
-          <div class="btn-toolbar mb-2 mb-md-0">
-            <div class="btn-group mr-2">
-              <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-              <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+      <main role="main" class="ml-sm-auto col-lg-10">
+        @foreach ($metas ?? [] as $meta)
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-2 border-bottom">
+            <h1 class="h4" id="{{ $meta->mid }}"><i class="bi bi-tag"></i> {{ $meta->name }}</h1>
+            <div class="btn-toolbar mb-2 mb-md-0">
+              <div class="btn-group mr-2">
+                <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+              </div>
+              <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                <span data-feather="calendar"></span>
+                This week
+              </button>
             </div>
-            <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-              <span data-feather="calendar"></span>
-              This week
-            </button>
           </div>
-        </div>
 
-        <div class="row row-cols-4">
-          @foreach ($contents as $content)
-            <div class="col my-2 px-2">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title text-truncate" title="{{ $content->title }}">{{ $content->title }}</h5>
-                  <p class="card-text text-truncate">{{ $content->description }}</p>
-                  <p class="mb-0 flex justify-content-end">
-                    <a href="#" class="btn btn-sm btn-outline-primary ml-1">详情</a>
-                    <a href="#" class="btn btn-sm btn-outline-primary ml-1">跳转</a>
-                  </p>
+          <div class="row row-cols-4">
+            @foreach ($contents as $content)
+              <div class="col my-2 px-2">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title text-truncate" title="{{ $content->title }}">{{ $content->title }}</h5>
+                    <p class="card-text text-truncate">{{ $content->description }}</p>
+                    <p class="mb-0 flex justify-content-end">
+                      <a href="#" class="btn btn-sm btn-outline-primary ml-1">详情</a>
+                      <a href="#" class="btn btn-sm btn-outline-primary ml-1">跳转</a>
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-          @endforeach
-        </div>
+            @endforeach
+          </div>
+        @endforeach
 
         <h2>Section title</h2>
         <div class="table-responsive">
