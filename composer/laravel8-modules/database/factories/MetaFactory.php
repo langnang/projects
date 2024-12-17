@@ -20,12 +20,13 @@ class MetaFactory extends Factory
             "name" => $this->faker->sentence(),
             "ico" => $this->faker->imageUrl(72, 72),
             "description" => $this->faker->sentence(),
-            "type" => $this->faker->randomElement(['category', 'tag', 'collection', 'module']),
+            "type" => $this->faker->randomElement(['category', 'tag', 'collection', 'group']),
             "status" => $this->faker->randomElement(['publish', 'protect', 'private']),
 
             "count" => $this->faker->randomNumber(),
             "order" => $this->faker->randomNumber(),
-            "parent" => $this->faker->randomNumber(),
+            // "parent" => $this->faker->randomNumber(),
+            "parent" => $this->faker->randomElement([603, 611, 621, 623, 625, 665, 705, 717, 729]),
 
             "created_at" => $this->faker->date() . ' ' . $this->faker->time(),
             "updated_at" => $this->faker->date() . ' ' . $this->faker->time(),

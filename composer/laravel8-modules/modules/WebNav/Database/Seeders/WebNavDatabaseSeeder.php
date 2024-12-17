@@ -17,5 +17,9 @@ class WebNavDatabaseSeeder extends Seeder
         Model::unguard();
 
         // $this->call("OthersTableSeeder");
+        \DB::table('metas')->upsert(
+            ['name' => "Module:WebNav", 'slug' => 'module:webnav', 'type' => 'module', 'status' => 'public'],
+            ['slug', 'type']
+        );
     }
 }

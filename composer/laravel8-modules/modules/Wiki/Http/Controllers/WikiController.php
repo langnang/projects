@@ -7,4 +7,25 @@ use Illuminate\Http\Request;
 
 class WikiController extends \App\Illuminate\Routing\Controller
 {
+    public function view_index($midOrSlug = null)
+    {
+        $return = [
+            'contents' => [
+                'paginator' => \App\Models\Content::factory()->times(15)->make(),
+                'hottest' => \App\Models\Content::factory()->times(10)->make(),
+            ],
+            'metas' => [
+                'categories' => \App\Models\Meta::factory()->times(10)->make(),
+                'tags' => \App\Models\Meta::factory()->times(10)->make(),
+                'groups' => \App\Models\Meta::factory()->times(10)->make(),
+                'collections' => \App\Models\Meta::factory()->times(10)->make(),
+            ],
+            'comments' => [
+                'latest' => \App\Models\Comment::factory()->times(10)->make(),
+            ],
+            'children' => $this->config('hasChildren') ? \App\Models\Meta::factory()->times(10)->make() : null,
+        ];
+
+        return $this->view('index', $return);
+    }
 }

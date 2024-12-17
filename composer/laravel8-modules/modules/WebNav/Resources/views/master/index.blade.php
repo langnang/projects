@@ -6,22 +6,7 @@
       <nav class="col-lg-2 d-md-none d-lg-block bg-light sidebar collapse">
         <div class="sidebar-sticky pt-2">
           <ul class="nav flex-column">
-            @foreach ($metas ?? [] as $meta)
-              <li class="nav-item" style="width: 100%;">
-                <a class="nav-link d-flex flex-row py-1 pr-2" role="button" data-toggle="collapse" data-target="#collapse-{{ $meta->mid ?? $meta->slug }}" aria-expanded="false" aria-controls="collapse-{{ $meta->mid ?? $meta->slug }}" href="#{{ $meta->mid ?? $meta->slug }}">
-                  <i class="bi bi-folder-fill mr-1"></i>
-                  <span class="flex-grow-1 text-truncate">{{ $meta->name }}</span>
-                  <i class="bi bi-caret-right-fill"></i>
-                </a>
-                <ul class="nav flex-column collapse" id="collapse-{{ $meta->mid ?? $meta->slug }}">
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">
-                      <span data-feather="file"></span>Dashboard
-                    </a>
-                  </li>
-                </ul>
-              </li>
-            @endforeach
+            @include('webnav::shared.master.nav-item', ['metas' => $metas ?? []])
           </ul>
 
           <h6 class="sidebar-heading d-none justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">

@@ -14,6 +14,8 @@ trait HasFamily
     protected $prevKey;
     protected $nextKey;
 
+    protected $parentKey = 'parent';
+
     // 弟类
     public function next()
     {
@@ -75,6 +77,6 @@ trait HasFamily
      */
     public function children()
     {
-        return $this->hasMany(static::class, $this->parentKey, $this->primaryKey);
+        return $this->hasMany(static::class, $this->parentKey, $this->primaryKey)->with('children');
     }
 }

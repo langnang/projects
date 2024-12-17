@@ -12,6 +12,8 @@ abstract class Controller extends \Illuminate\Routing\Controller
     protected $moduleAlias;
     protected $moduleConfig;
     protected $moduleOption;
+    protected $moduleMeta;
+
     public function __construct()
     {
         // $this->middleware('auth');
@@ -28,6 +30,7 @@ abstract class Controller extends \Illuminate\Routing\Controller
         $this->moduleAlias = $module->getAlias();
         $this->moduleConfig = config($this->moduleAlias);
 
+        $this->moduleMeta = \App\Models\Meta::where('slug', 'module:' . $this->moduleAlias)->first();
         // $this->moduleOption = \App\Models\Option::find();
         // dump($module->getAlias());
         // dump($this->module);
@@ -111,6 +114,7 @@ abstract class Controller extends \Illuminate\Routing\Controller
             'alias' => $this->moduleAlias,
             'config' => $this->moduleConfig,
             'option' => $this->moduleOption,
+            'wrapperMeta' => $this->moduleMeta,
             'lowerName' => $module->getLowerName(),
             'studlyName' => $module->getStudlyName(),
             'path' => $module->getPath(),

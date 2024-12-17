@@ -36,17 +36,23 @@
         @endforeach
       </ul>
       <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        <div class="form-group">
+          <div class="input-group mb-0">
+            <input class="form-control" name="title" type="search" placeholder="Search" aria-label="Search">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" type="button">Search</button>
+            </div>
+          </div>
+        </div>
       </form>
       <ul class="navbar-nav">
         <li class="nav-item active">
           <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item d-none">
           <a class="nav-link" href="#">Link</a>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown d-none">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
             Dropdown
           </a>
@@ -57,7 +63,7 @@
             <a class="dropdown-item" href="#">Something else here</a>
           </div>
         </li>
-        <li class="nav-item">
+        <li class="nav-item d-none">
           <a class="nav-link disabled">Disabled</a>
         </li>
 
