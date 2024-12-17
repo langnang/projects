@@ -14,7 +14,7 @@ class MetaFactory extends Factory
     public function definition()
     {
         return [
-            "mid" => $this->faker->randomNumber(),
+            // "mid" => $this->faker->randomNumber(),
             "slug" => $this->faker->slug(),
             //
             "name" => $this->faker->sentence(),

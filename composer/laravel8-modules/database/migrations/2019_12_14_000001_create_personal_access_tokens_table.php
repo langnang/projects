@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
+use App\Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePersonalAccessTokensTable extends \App\Illuminate\Database\Migrations\Migration
+class CreatePersonalAccessTokensTable extends Migration
 {
     protected $prefix = "";
     protected $tableName = "personal_access_tokens";
@@ -16,18 +16,19 @@ class CreatePersonalAccessTokensTable extends \App\Illuminate\Database\Migration
      */
     public function up()
     {
-        if (!Schema::hasTable('personal_access_tokens'))
-            Schema::create('personal_access_tokens', function (Blueprint $table) {
-                $table->id();
-                $table->morphs('tokenable');
-                $table->string('name');
-                $table->string('token', 64)->unique();
-                $table->text('abilities')->nullable();
-                $table->timestamp('last_used_at')->nullable();
-                $table->timestamps();
-                $table->timestamp('release_at')->nullable()->comment('发布时间');
-                $table->timestamp('deleted_at')->nullable()->comment('删除时间');
-            });
+        if (!$tableName = $this->getTableName())
+            return;
+        Schema::create($tableName, function (Blueprint $table) {
+            $table->id();
+            $table->morphs('tokenable');
+            $table->string('name');
+            $table->string('token', 64)->unique();
+            $table->text('abilities')->nullable();
+            $table->timestamp('last_used_at')->nullable();
+            $table->timestamps();
+            $table->timestamp('release_at')->nullable()->comment('发布时间');
+            $table->timestamp('deleted_at')->nullable()->comment('删除时间');
+        });
     }
 
     /**

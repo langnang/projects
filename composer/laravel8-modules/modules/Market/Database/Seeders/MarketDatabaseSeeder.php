@@ -18,7 +18,7 @@ class MarketDatabaseSeeder extends Seeder
 
         // $this->call("OthersTableSeeder");
         $this->call([
-            \Modules\Market\Database\Seeders\MarketContentsTableSeeder::class,
+            // \Modules\Market\Database\Seeders\MarketContentsTableSeeder::class,
         ]);
     }
 }

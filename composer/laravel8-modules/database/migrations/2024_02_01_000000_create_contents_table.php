@@ -4,14 +4,14 @@
 use App\Support\Module;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Database\Migrations\Migration;
+use App\Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\DB;
 
-class CreateContentsTable extends \App\Illuminate\Database\Migrations\Migration
+class CreateContentsTable extends Migration
 {
     protected $prefix = "";
     protected $tableName = "contents";
-    protected $status = "private";
+    protected $status = "protected";
     /**
      * Run the migrations.
      *

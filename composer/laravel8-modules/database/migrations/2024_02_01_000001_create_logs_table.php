@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Database\Migrations\Migration;
+use App\Illuminate\Database\Migrations\Migration;
 
-class CreateLogsTable extends \App\Illuminate\Database\Migrations\Migration
+class CreateLogsTable extends Migration
 {
     protected $prefix = "";
     protected $tableName = "logs";

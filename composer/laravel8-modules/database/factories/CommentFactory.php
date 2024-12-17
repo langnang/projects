@@ -15,7 +15,7 @@ class CommentFactory extends Factory
     {
         return [
 
-            "coid" => $this->faker->randomNumber(),
+            // "coid" => $this->faker->randomNumber(),
             "cid" => $this->faker->randomNumber(),
 
             "text" => $this->faker->text(),

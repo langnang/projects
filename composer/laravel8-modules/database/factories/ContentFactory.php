@@ -14,11 +14,11 @@ class ContentFactory extends Factory
     public function definition()
     {
         return [
-            "cid" => $this->faker->randomNumber(),
+            // "cid" => $this->faker->randomNumber(),
             "slug" => $this->faker->slug(),
+            "ico" => $this->faker->imageUrl(72, 72),
 
             "title" => $this->faker->sentence(),
-            "ico" => $this->faker->imageUrl(72, 72),
             "description" => $this->faker->sentence(),
             "text" => '<!--markdown-->\r\n' . $this->faker->text() . '<!--more-->\r\n',
             "type" => $this->faker->randomElement(['draft-post', 'post', 'draft-page', 'page', 'draft-template', 'template', 'draft-collection', 'collection']),

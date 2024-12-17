@@ -27,7 +27,8 @@ class FieldFactory extends Factory
             // "name" => $this->faker->randomElement(array_merge(['cids'], $moduleSlugs)),
             "name" => $this->faker->randomElement(array_merge(['cids'], $this->moduleSlugs())),
             // "name" => $this->faker->word(),
-            "type" => $this->faker->randomElement(['str', 'float', 'int', 'text', 'object']),
+            // "type" => $this->faker->randomElement(['str', 'float', 'int', 'text', 'object']),
+            "type" => $this->faker->randomElement(['text', 'object']),
         ];
         switch ($return['type']) {
             case 'float':

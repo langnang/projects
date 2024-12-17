@@ -15,6 +15,9 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
+            "slug" => $this->faker->slug(),
+            "ico" => $this->faker->imageUrl(72, 72),
+
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),

@@ -3,15 +3,15 @@
 use App\Support\Helpers\ModuleHelper;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Database\Migrations\Migration;
+use App\Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\Config;
 use App\Support\Module;
 
-class CreateMetasTable extends \App\Illuminate\Database\Migrations\Migration
+class CreateMetasTable extends Migration
 {
     protected $prefix = "";
     protected $tableName = "metas";
-    protected $status = "private";
+    protected $status = "protected";
     /**
      * Run the migrations.
      *

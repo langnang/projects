@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
+use App\Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBladeViewsTable extends \App\Illuminate\Database\Migrations\Migration
+class CreateBladeViewsTable extends Migration
 {
     protected $prefix = "";
     protected $tableName = "blade_views";

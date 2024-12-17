@@ -2,14 +2,14 @@
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Database\Migrations\Migration;
+use App\Illuminate\Database\Migrations\Migration;
 use App\Support\Module;
 
-class CreateLinksTable extends \App\Illuminate\Database\Migrations\Migration
+class CreateLinksTable extends Migration
 {
     protected $prefix = "";
     protected $tableName = "links";
-    protected $status = "private";
+    protected $status = "protected";
     /**
      * Run the migrations.
      *

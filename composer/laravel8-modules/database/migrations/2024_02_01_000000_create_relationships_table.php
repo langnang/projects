@@ -2,14 +2,14 @@
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Database\Migrations\Migration;
+use App\Illuminate\Database\Migrations\Migration;
 use App\Support\Module;
 
-class CreateRelationshipsTable extends \App\Illuminate\Database\Migrations\Migration
+class CreateRelationshipsTable extends Migration
 {
     protected $prefix = "";
     protected $tableName = "relationships";
-    protected $status = "private";
+    protected $status = "protected";
     /**
      * Run the migrations.
      *
@@ -21,11 +21,9 @@ class CreateRelationshipsTable extends \App\Illuminate\Database\Migrations\Migra
             return;
         // 基本关联表
         Schema::create($tableName, function (Blueprint $table) {
-
-            $table->integer('mid')->nullable();
-            $table->integer('cid')->nullable();
-            $table->integer('lid')->nullable();
-
+            $table->integer('meta_id')->nullable();
+            $table->integer('content_id')->nullable();
+            $table->integer('link_id')->nullable();
         });
     }
 

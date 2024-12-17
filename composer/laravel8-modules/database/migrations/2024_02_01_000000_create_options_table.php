@@ -2,14 +2,14 @@
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Database\Migrations\Migration;
+use App\Illuminate\Database\Migrations\Migration;
 use App\Support\Module;
 
-class CreateOptionsTable extends \App\Illuminate\Database\Migrations\Migration
+class CreateOptionsTable extends Migration
 {
     protected $prefix = "";
     protected $tableName = "options";
-    protected $status = "private";
+    protected $status = "protected";
     /**
      * Run the migrations.
      *
@@ -20,11 +20,11 @@ class CreateOptionsTable extends \App\Illuminate\Database\Migrations\Migration
         if (!$tableName = $this->getTableName())
             return;
         Schema::create($tableName, function (Blueprint $table) {
-            $table->string('name');
+            $table->string('name')->unique();
             $table->string('type')->default('string');
             $table->string('value');
 
-            $table->integer('user')->default(0);
+            $table->integer('user')->default(0)->unique();
 
             $table->timestamps();
             $table->timestamp('release_at')->nullable()->comment('发布时间');

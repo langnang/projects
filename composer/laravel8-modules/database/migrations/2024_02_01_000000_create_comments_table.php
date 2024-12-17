@@ -2,15 +2,15 @@
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Database\Migrations\Migration;
+use App\Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\DB;
 use App\Support\Module;
 
-class CreateCommentsTable extends \App\Illuminate\Database\Migrations\Migration
+class CreateCommentsTable extends Migration
 {
     protected $prefix = '';
     protected $tableName = 'comments';
-    protected $status = "private";
+    protected $status = "protected";
     /**
      * Run the migrations.
      *
@@ -18,7 +18,6 @@ class CreateCommentsTable extends \App\Illuminate\Database\Migrations\Migration
      */
     public function up()
     {
-
         // 基本评论表
         if (!$tableName = $this->getTableName())
             return;

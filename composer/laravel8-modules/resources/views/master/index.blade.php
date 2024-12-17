@@ -15,7 +15,7 @@
                 <p class="card-text">{{ $content->text }}</p>
               </div>
               <div class="card-footer py-2 small">
-                <a href="{{ url((isset($module) ? $module['alias'] . '/' : '') . 'content/' . $content->cid) }}" class="btn btn-sm btn-primary"><small>Go somewhere</small></a>
+                <a href="{{ url((isset($module) ? $module['alias'] . '/' : '') . 'content/' . ($content->cid ?? $content->slug)) }}" class="btn btn-sm btn-primary"><small>Go somewhere</small></a>
                 {{ $content->updated_at }}
               </div>
             </div>
