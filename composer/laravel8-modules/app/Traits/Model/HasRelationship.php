@@ -8,27 +8,27 @@ trait HasRelationship
     public function metas()
     {
         return $this
-            ->hasMany(\App\Models\Relationship::class, $this->prefix . '_' . $this->primaryKey, $this->primaryKey)
-            ->leftJoin($this->prefix . "_metas", "_relationships." . $this->prefix . "_mid", '=', $this->prefix . "_metas.mid");
+            ->hasMany(\App\Models\Relationship::class, $this->relationshipKey, $this->primaryKey)
+            ->leftJoin("metas", "relationships." . "meta_id", '=', "metas.mid");
     }
 
     public function contents()
     {
         return $this
-            ->hasMany(\App\Models\Relationship::class, $this->prefix . '_' . $this->primaryKey, $this->primaryKey)
-            ->leftJoin($this->prefix . "_contents", "_relationships." . $this->prefix . "_cid", '=', $this->prefix . "_contents.cid");
+            ->hasMany(\App\Models\Relationship::class, $this->relationshipKey, $this->primaryKey)
+            ->leftJoin("contents", "relationships." . "content_id", '=', "contents.cid");
     }
 
     public function links()
     {
         return $this
-            ->hasMany(\App\Models\Relationship::class, $this->prefix . '_' . $this->primaryKey, $this->primaryKey)
-            ->leftJoin($this->prefix . "_links", "_relationships." . $this->prefix . "_lid", '=', $this->prefix . "_links.lid");
+            ->hasMany(\App\Models\Relationship::class, $this->relationshipKey, $this->primaryKey)
+            ->leftJoin("links", "relationships." . "link_id", '=', "links.lid");
     }
 
     public function relationships()
     {
-        return $this->hasMany(\App\Models\Relationship::class, $this->prefix . '_' . $this->primaryKey, $this->primaryKey);
+        return $this->hasMany(\App\Models\Relationship::class, $this->relationshipKey, $this->primaryKey);
     }
 
     public function logs()

@@ -31,6 +31,16 @@ abstract class Controller extends \Illuminate\Routing\Controller
         $this->moduleConfig = config($this->moduleAlias);
 
         $this->moduleMeta = \App\Models\Meta::where('slug', 'module:' . $this->moduleAlias)->first();
+
+        $options = \App\Models\Option::where('name', 'like', 'global.%')
+            ->orWhere('name', 'like', 'meta.%')
+            ->orWhere('name', 'like', 'content.%')
+            ->get()->toArray();
+        foreach ($options as $option) {
+            \Arr::set($this->moduleOption, $option['name'], $option['value'], );
+        }
+
+        // var_dump($this->moduleOption);
         // $this->moduleOption = \App\Models\Option::find();
         // dump($module->getAlias());
         // dump($this->module);

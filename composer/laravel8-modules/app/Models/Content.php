@@ -6,10 +6,13 @@ namespace App\Models;
 class Content extends \Illuminate\Database\Eloquent\Model
 {
     use \Illuminate\Database\Eloquent\Factories\HasFactory;
+
+    use \App\Traits\Model\HasFamily;
+    use \App\Traits\Model\HasRelationship;
     protected $table = "contents";
 
     protected $primaryKey = 'cid';
-
+    protected $relationshipKey = "content_id";
     protected $fillable = [
         'title',
         'slug',

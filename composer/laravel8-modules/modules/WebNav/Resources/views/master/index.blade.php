@@ -6,7 +6,14 @@
       <nav class="col-lg-2 d-md-none d-lg-block bg-light sidebar collapse">
         <div class="sidebar-sticky pt-2">
           <ul class="nav flex-column">
-            @include('webnav::shared.master.nav-item', ['metas' => $metas ?? []])
+            @include('webnav::shared.master.nav-item', ['metas' => $metas ?? [], 'mids' => Arr::get($module, 'wrapperMeta.mid')])
+            @auth
+              <li class="nav-item text-center" style="width: 100%;">
+                <a class="nav-link" href="#" data-toggle="modal" data-target="#meta-item-modal" data-mids="{{ Arr::get($module, 'wrapperMeta.mid') }}" data-method="insert_meta_item" style="font-size: 21px;">
+                  <i class="bi bi-plus-circle"></i>
+                </a>
+              </li>
+            @endauth
           </ul>
 
           <h6 class="sidebar-heading d-none justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
@@ -44,12 +51,11 @@
         </div>
       </nav>
       <main role="main" class="ml-sm-auto col-lg-10">
-        <div class="" style="min-height: calc(100vh - 156px)">
-
+        <div class="" style="min-height: calc(100vh - 131px)">
           @foreach ($metas ?? [] as $meta)
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-2 border-bottom">
               <h1 class="h4" id="{{ $meta->mid ?? $meta->slug }}"><i class="bi bi-tag"></i> {{ $meta->name }}</h1>
-              <div class="btn-toolbar mb-2 mb-md-0">
+              <div class="btn-toolbar mb-2 mb-md-0 d-none">
                 <div class="btn-group mr-2">
                   <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
                   <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
@@ -62,13 +68,21 @@
             </div>
 
             <div class="row row-cols-4">
-              @foreach ($contents as $content)
+              @foreach ($meta->contents ?? [] as $content)
                 <div class="col my-2 px-2">
                   <div class="card">
                     <div class="card-body">
-                      <h5 class="card-title text-truncate" title="{{ $content->title }}">{{ $content->title }}</h5>
-                      <p class="card-text text-truncate">{{ $content->description }}</p>
+                      <div class="media">
+                        <img src="{{ $content->ico }}" class="align-self-center mr-2" width="32px" height="32px" alt="...">
+                        <div class="media-body">
+                          <h5 class="card-title text-truncate" title="{{ $content->title }}">{{ $content->title }}</h5>
+
+                        </div>
+                      </div>
+                      <p class="card-text text-truncate" style="display: -webkit-box;white-space: unset;-webkit-line-clamp: 3;-webkit-box-orient: vertical;height: 65px;">{{ $content->description . $content->description . $content->description . $content->description . $content->description }}</p>
                       <p class="mb-0 flex justify-content-end">
+                        <a href="#" class="btn btn-sm btn-outline-warning ml-1" data-toggle="modal" data-target="#content-item-modal" data-method="update_content_item" data-mids="{{ Arr::get($module, 'wrapperMeta.mid') . '-' . $meta->mid }}" data-cids="{{ $content->cid }}">编辑</a>
+                        <a href="#" class="btn btn-sm btn-outline-danger ml-1 mr-auto" data-toggle="modal" data-target="#content-item-modal" data-method="delete_content_item" data-mids="{{ Arr::get($module, 'wrapperMeta.mid') . '-' . $meta->mid }}" data-cids="{{ $content->cid }}">删除</a>
                         <a href="#" class="btn btn-sm btn-outline-primary ml-1">详情</a>
                         <a href="#" class="btn btn-sm btn-outline-primary ml-1">跳转</a>
                       </p>
@@ -76,6 +90,15 @@
                   </div>
                 </div>
               @endforeach
+              @auth
+                <div class="col my-2 px-2">
+                  <div class="card">
+                    <a class="card-body d-flex justify-content-center align-items-center" href="#" data-toggle="modal" data-target="#content-item-modal" data-method="insert_content_item" data-mids="{{ Arr::get($module, 'wrapperMeta.mid') . '-' . $meta->mid }}" style="height: 190px; font-size: 48px;">
+                      <i class="bi bi-plus-circle"></i>
+                    </a>
+                  </div>
+                </div>
+              @endauth
             </div>
           @endforeach
         </div>
@@ -84,9 +107,22 @@
 
     </div>
   </div>
+  @auth
+    {{-- <x-master.meta-item-modal :typeOption="{{ Arr::get($module, 'option.meta.type') }}" /> --}}
+    <x-master.meta-item-modal :typeOption="Arr::get($module, 'option.meta.type')" :statusOption="Arr::get($module, 'option.meta.status')" />
+    <x-master.content-item-modal :typeOption="Arr::get($module, 'option.content.type')" :statusOption="Arr::get($module, 'option.content.status')" />
+  @endauth
 @endsection
 
 @push('scripts')
   {{-- <script crossorigin="anonymous" src="https://unpkg.com/feather-icons@4.29.2/dist/feather.min.js"></script> --}}
   {{-- <script crossorigin="anonymous" src="https://unpkg.com/chart.js@4.4.7/dist/chart.umd.js"></script> --}}
+  <script>
+    // $('#insertCategory').on('click', function($event) {
+    //   console.log(`#insertCategory.onclick`, $event);
+    //   $('.popover-dismiss').popover({
+    //     trigger: 'focus'
+    //   })
+    // })
+  </script>
 @endpush

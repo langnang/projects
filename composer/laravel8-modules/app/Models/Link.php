@@ -6,10 +6,12 @@ namespace App\Models;
 class Link extends \Illuminate\Database\Eloquent\Model
 {
     use \Illuminate\Database\Eloquent\Factories\HasFactory;
-
+    use \App\Traits\Model\HasFamily;
+    use \App\Traits\Model\HasRelationship;
     protected $table = "links";
 
     protected $primaryKey = 'lid';
+    protected $relationshipKey = "link_id";
 
     protected $fillable = [
         'title',

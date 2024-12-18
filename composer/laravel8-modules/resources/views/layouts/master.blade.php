@@ -61,7 +61,7 @@
 
     @yield('sidebar')
 
-    <div class="wrapper-content" style="min-height: calc(100vh - @empty($config) 88px @else 152px @endif)"> 
+    <div class="wrapper-content" style="min-height: calc(100vh - @empty($config) 46px @else 110px @endif)"> 
         @yield('content')
     </div>
 

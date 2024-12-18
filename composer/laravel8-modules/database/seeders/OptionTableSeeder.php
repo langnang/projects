@@ -43,7 +43,9 @@ class OptionTableSeeder extends Seeder
                         'category' => ['value' => 'category', 'name' => 'Category', 'nameCn' => '分类',],
                         'branch' => ['value' => 'branch', 'name' => 'Branch', 'nameCn' => '分支',],
                         'group' => ['value' => 'group', 'name' => 'Group', 'nameCn' => '分组',],
-                        'collection' => ['value' => 'collection', 'name' => 'Collection', 'nameCn' => '',],
+                        'collection' => ['value' => 'collection', 'name' => 'Collection', 'nameCn' => '专辑',],
+                        'compilation' => ['value' => 'compilation', 'name' => 'Compilation', 'nameCn' => '合集',],
+
                     ])
                 ],
                 [
@@ -51,9 +53,9 @@ class OptionTableSeeder extends Seeder
                     'type' => 'object',
                     'user' => 0,
                     'value' => serialize([
-                        'public' => ['value' => 'public', 'name' => 'public', 'nameCn' => '公开',],
-                        'protect' => ['value' => 'protect', 'name' => 'protect', 'nameCn' => '受限',],
-                        'private' => ['value' => 'private', 'name' => 'private', 'nameCn' => '私有',],
+                        'public' => ['value' => 'public', 'name' => 'Public', 'nameCn' => '公开',],
+                        'protect' => ['value' => 'protect', 'name' => 'Protect', 'nameCn' => '受限',],
+                        'private' => ['value' => 'private', 'name' => 'Private', 'nameCn' => '私有',],
                     ])
                 ],
                 [
@@ -72,9 +74,9 @@ class OptionTableSeeder extends Seeder
                     'type' => 'object',
                     'user' => 0,
                     'value' => serialize([
-                        'public' => ['value' => 'public', 'name' => 'public', 'nameCn' => '公开',],
-                        'protect' => ['value' => 'protect', 'name' => 'protect', 'nameCn' => '受限',],
-                        'private' => ['value' => 'private', 'name' => 'private', 'nameCn' => '私有',],
+                        'public' => ['value' => 'public', 'name' => 'Public', 'nameCn' => '公开',],
+                        'protect' => ['value' => 'protect', 'name' => 'Protect', 'nameCn' => '受限',],
+                        'private' => ['value' => 'private', 'name' => 'Private', 'nameCn' => '私有',],
                     ])
                 ],
                 [

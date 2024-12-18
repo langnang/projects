@@ -11,7 +11,6 @@
 |
 */
 
-Route::prefix('webnav')->group(function () {
-    Route::get('/', 'WebNavController@view_index');
-    Route::post('/', 'WebNavController@crud_index');
+Route::prefix('toolkit')->group(function() {
+    Route::get('/', 'ToolkitController@index');
 });

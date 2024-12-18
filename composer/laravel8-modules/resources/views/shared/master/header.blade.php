@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top border-bottom">
+<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top border-bottom py-1 px-2">
   <div class="col-md-12 col-lg-2 text-center">
-    <a class="navbar-brand" href="{{ env('APP_URL') }}">
+    <a class="navbar-brand" href="{{ env('APP_URL') }}" style="padding: 0;">
       <img src="{{ env('APP_URL') }}favicon.ico" width="30" height="30" class="d-inline-block align-top" alt="">
       {{ env('APP_NAME') }}
     </a>
@@ -34,10 +34,17 @@
             </li>
           @endif
         @endforeach
+        @auth
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <i class="bi bi-plus-circle" style="font-size: 21px;"></i>
+            </a>
+          </li>
+        @endauth
       </ul>
       <form class="form-inline my-2 my-lg-0">
         <div class="form-group">
-          <div class="input-group mb-0">
+          <div class="input-group input-group-sm mb-0">
             <input class="form-control" name="title" type="search" placeholder="Search" aria-label="Search">
             <div class="input-group-append">
               <button class="btn btn-outline-secondary" type="button">Search</button>
