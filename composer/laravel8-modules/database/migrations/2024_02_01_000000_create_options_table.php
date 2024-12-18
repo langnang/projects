@@ -20,15 +20,16 @@ class CreateOptionsTable extends Migration
         if (!$tableName = $this->getTableName())
             return;
         Schema::create($tableName, function (Blueprint $table) {
-            $table->string('name')->unique();
-            $table->string('type')->default('string');
-            $table->string('value');
+            $table->string('name');
 
-            $table->integer('user')->default(0)->unique();
+            $table->string('type')->default('text')->nullable();
+            $table->longText('value')->nullable();
+
+            $table->integer('user')->default(0);
 
             $table->timestamps();
-            $table->timestamp('release_at')->nullable()->comment('发布时间');
-            $table->timestamp('deleted_at')->nullable()->comment('删除时间');
+            // $table->timestamp('release_at')->nullable()->comment('发布时间');
+            // $table->timestamp('deleted_at')->nullable()->comment('删除时间');
 
             $table->unique(['name', 'user']);
         });

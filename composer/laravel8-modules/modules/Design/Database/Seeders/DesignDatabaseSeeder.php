@@ -17,5 +17,10 @@ class DesignDatabaseSeeder extends Seeder
         Model::unguard();
 
         // $this->call("OthersTableSeeder");
+        \DB::table('metas')->upsert(
+            ['name' => "Module:Design", 'slug' => 'module:design', 'type' => 'module', 'status' => 'public'],
+            ['slug'],
+            ['name', 'type', 'status']
+        );
     }
 }

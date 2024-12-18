@@ -17,9 +17,18 @@ class WikiDatabaseSeeder extends Seeder
         Model::unguard();
 
         // $this->call("OthersTableSeeder");
-        \DB::table('metas')->upsert(
+        \App\Models\Meta::upsert(
             ['name' => "Module:Wiki", 'slug' => 'module:wiki', 'type' => 'module', 'status' => 'public'],
-            ['slug', 'type']
+            ['slug'],
+            ['name', 'type', 'status']
+        );
+
+        $moduleMetaId = \App\Models\Meta::where('slug', 'module:wiki')->value('mid');
+
+        \App\Models\Meta::upsert(
+            ['name' => "Module:Wiki", 'slug' => 'module:wiki', 'type' => 'module', 'status' => 'public'],
+            ['slug'],
+            ['name', 'type', 'status']
         );
     }
 }

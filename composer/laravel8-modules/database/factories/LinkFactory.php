@@ -27,9 +27,9 @@ class LinkFactory extends Factory
             "order" => $this->faker->randomNumber(),
             "parent" => $this->faker->randomNumber(),
 
-            "created_at" => $this->faker->date() . ' ' . $this->faker->time(),
-            "updated_at" => $this->faker->date() . ' ' . $this->faker->time(),
-            "release_at" => $this->faker->date() . ' ' . $this->faker->time(),
+            // "created_at" => $this->faker->date() . ' ' . $this->faker->time(),
+            // "updated_at" => $this->faker->date() . ' ' . $this->faker->time(),
+            // "release_at" => $this->faker->date() . ' ' . $this->faker->time(),
             // "deleted_at" => $this->faker->date() . ' ' . $this->faker->time(),
         ];
     }

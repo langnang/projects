@@ -23,5 +23,6 @@ class HomeContentTableSeeder extends Seeder
             ->times(50)
             ->create();
 
+
     }
 }

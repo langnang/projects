@@ -17,5 +17,10 @@ class WebHuntDatabaseSeeder extends Seeder
         Model::unguard();
 
         // $this->call("OthersTableSeeder");
+        \DB::table('metas')->upsert(
+            ['name' => "Module:WebHunt", 'slug' => 'module:webhunt', 'type' => 'module', 'status' => 'public'],
+            ['slug'],
+            ['name', 'type', 'status']
+        );
     }
 }

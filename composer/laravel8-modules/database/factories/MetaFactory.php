@@ -25,12 +25,11 @@ class MetaFactory extends Factory
 
             "count" => $this->faker->randomNumber(),
             "order" => $this->faker->randomNumber(),
-            // "parent" => $this->faker->randomNumber(),
-            "parent" => $this->faker->randomElement([603, 611, 621, 623, 625, 665, 705, 717, 729]),
+            "parent" => $this->faker->randomNumber(),
 
-            "created_at" => $this->faker->date() . ' ' . $this->faker->time(),
-            "updated_at" => $this->faker->date() . ' ' . $this->faker->time(),
-            "release_at" => $this->faker->date() . ' ' . $this->faker->time(),
+            // "created_at" => $this->faker->date() . ' ' . $this->faker->time(),
+            // "updated_at" => $this->faker->date() . ' ' . $this->faker->time(),
+            // "release_at" => $this->faker->date() . ' ' . $this->faker->time(),
             // "deleted_at" => $this->faker->date() . ' ' . $this->faker->time(),
         ];
     }

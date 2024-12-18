@@ -17,5 +17,10 @@ class AdminDatabaseSeeder extends Seeder
         Model::unguard();
 
         // $this->call("OthersTableSeeder");
+        \DB::table('metas')->upsert(
+            ['name' => "Module:Admin", 'slug' => 'module:admin', 'type' => 'module', 'status' => 'public'],
+            ['slug'],
+            ['name', 'type', 'status']
+        );
     }
 }
