@@ -16,7 +16,7 @@ class CreateUsersTable extends Migration
     {
         if (!Schema::hasTable('users'))
             Schema::create('users', function (Blueprint $table) {
-                $table->id('uid')->comment("编号");
+                $table->id();
                 $table->string('slug')->unique()->nullable()->comment("标识");
                 $table->string('ico')->nullable()->comment("徽标");
 

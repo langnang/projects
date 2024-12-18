@@ -20,6 +20,7 @@ class CreateOptionsTable extends Migration
         if (!$tableName = $this->getTableName())
             return;
         Schema::create($tableName, function (Blueprint $table) {
+            $table->id();
             $table->string('name');
 
             $table->string('type')->default('text')->nullable();

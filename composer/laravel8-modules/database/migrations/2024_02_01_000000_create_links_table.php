@@ -20,7 +20,7 @@ class CreateLinksTable extends Migration
         if (!$tableName = $this->getTableName())
             return;
         Schema::create($tableName, function (Blueprint $table) {
-            $table->id('lid')->comment("编号");
+            $table->id();
 
             $table->string('slug')->nullable()->unique()->comment('标识');
             $table->string('ico')->nullable()->comment('徽标');

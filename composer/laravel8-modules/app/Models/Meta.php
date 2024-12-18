@@ -10,7 +10,7 @@ class Meta extends \Illuminate\Database\Eloquent\Model
     use \App\Traits\Model\HasRelationship;
     protected $table = "metas";
 
-    protected $primaryKey = 'mid';
+    // protected $primaryKey = 'mid';
 
     protected $relationshipKey = "meta_id";
 

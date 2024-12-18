@@ -23,7 +23,7 @@ class WikiDatabaseSeeder extends Seeder
             ['name', 'type', 'status']
         );
 
-        $moduleMetaId = \App\Models\Meta::where('slug', 'module:wiki')->value('mid');
+        $moduleMetaId = \App\Models\Meta::where('slug', 'module:wiki')->value('id');
 
         \App\Models\Meta::upsert(
             ['name' => "Module:Wiki", 'slug' => 'module:wiki', 'type' => 'module', 'status' => 'public'],

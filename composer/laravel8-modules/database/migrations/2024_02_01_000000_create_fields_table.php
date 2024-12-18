@@ -20,7 +20,7 @@ class CreateFieldsTable extends Migration
         if (!$tableName = $this->getTableName())
             return;
         Schema::create($tableName, function (Blueprint $table) {
-            $table->integer('cid')->comment("内容编号");
+            $table->integer('content')->comment("内容编号");
             $table->string('name')->comment("字段名称");
 
             $table->string('type')->nullable()->comment("字段类型");

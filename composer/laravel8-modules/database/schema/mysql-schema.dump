@@ -8,7 +8,7 @@ DROP TABLE IF EXISTS `comments`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `comments` (
-  `coid` bigint unsigned NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `cid` int NOT NULL DEFAULT '0' COMMENT '内容编号',
   `text` text COLLATE utf8mb4_unicode_ci COMMENT '内容',
   `user` int NOT NULL DEFAULT '0' COMMENT '用户编号',
@@ -17,14 +17,14 @@ CREATE TABLE `comments` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `release_at` timestamp NULL DEFAULT NULL COMMENT '发布时间',
   `deleted_at` timestamp NULL DEFAULT NULL COMMENT '删除时间',
-  PRIMARY KEY (`coid`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `contents`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `contents` (
-  `cid` bigint unsigned NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `slug` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '标识',
   `ico` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '徽标',
   `title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '标题',
@@ -42,7 +42,7 @@ CREATE TABLE `contents` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `release_at` timestamp NULL DEFAULT NULL COMMENT '发布时间',
   `deleted_at` timestamp NULL DEFAULT NULL COMMENT '删除时间',
-  PRIMARY KEY (`cid`),
+  PRIMARY KEY (`id`),
   UNIQUE KEY `contents_slug_unique` (`slug`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -50,7 +50,7 @@ DROP TABLE IF EXISTS `fields`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `fields` (
-  `cid` int NOT NULL COMMENT '内容编号',
+  `content` int NOT NULL COMMENT '内容编号',
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '字段名称',
   `type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '字段类型',
   `text_value` longtext COLLATE utf8mb4_unicode_ci COMMENT '文本',
@@ -65,7 +65,7 @@ DROP TABLE IF EXISTS `links`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `links` (
-  `lid` bigint unsigned NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `slug` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '标识',
   `ico` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '徽标',
   `title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '标题',
@@ -81,7 +81,7 @@ CREATE TABLE `links` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `release_at` timestamp NULL DEFAULT NULL COMMENT '发布时间',
   `deleted_at` timestamp NULL DEFAULT NULL COMMENT '删除时间',
-  PRIMARY KEY (`lid`),
+  PRIMARY KEY (`id`),
   UNIQUE KEY `links_slug_unique` (`slug`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -89,7 +89,7 @@ DROP TABLE IF EXISTS `metas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `metas` (
-  `mid` bigint unsigned NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `slug` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '标识',
   `ico` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '徽标',
   `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '标题',
@@ -104,7 +104,7 @@ CREATE TABLE `metas` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `release_at` timestamp NULL DEFAULT NULL COMMENT '发布时间',
   `deleted_at` timestamp NULL DEFAULT NULL COMMENT '删除时间',
-  PRIMARY KEY (`mid`),
+  PRIMARY KEY (`id`),
   UNIQUE KEY `metas_slug_unique` (`slug`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -137,14 +137,15 @@ DROP TABLE IF EXISTS `relationships`;
 CREATE TABLE `relationships` (
   `meta_id` int DEFAULT NULL,
   `content_id` int DEFAULT NULL,
-  `link_id` int DEFAULT NULL
+  `link_id` int DEFAULT NULL,
+  `webnav_id` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `users` (
-  `uid` bigint unsigned NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `slug` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '标识',
   `ico` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '徽标',
   `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '名称',
@@ -156,7 +157,7 @@ CREATE TABLE `users` (
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`uid`),
+  PRIMARY KEY (`id`),
   UNIQUE KEY `users_slug_unique` (`slug`),
   UNIQUE KEY `users_email_unique` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -165,10 +166,23 @@ DROP TABLE IF EXISTS `webnavs`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `webnavs` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '标识',
+  `ico` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '徽标',
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '标题',
+  `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '描述',
+  `text` longtext COLLATE utf8mb4_unicode_ci COMMENT '内容',
+  `type` varchar(16) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '类型',
+  `status` varchar(16) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '状态',
+  `count` int DEFAULT '0' COMMENT '计数',
+  `order` int DEFAULT '0' COMMENT '权重',
+  `user` int NOT NULL DEFAULT '0' COMMENT '用户编号',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `release_at` timestamp NULL DEFAULT NULL COMMENT '发布时间',
+  `deleted_at` timestamp NULL DEFAULT NULL COMMENT '删除时间',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `webnavs_slug_unique` (`slug`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -178,32 +192,33 @@ CREATE TABLE `webnavs` (
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
-INSERT INTO `migrations` VALUES (787,'2014_10_12_100000_create_password_resets_table',1);
-INSERT INTO `migrations` VALUES (789,'2019_08_19_000000_create_cache_table',1);
-INSERT INTO `migrations` VALUES (791,'2019_08_19_000000_create_failed_jobs_table',1);
-INSERT INTO `migrations` VALUES (793,'2019_08_19_000000_create_job_batches_table',1);
-INSERT INTO `migrations` VALUES (795,'2019_08_19_000000_create_jobs_table',1);
-INSERT INTO `migrations` VALUES (797,'2019_08_19_000000_create_notifications_table',1);
-INSERT INTO `migrations` VALUES (799,'2019_08_19_000000_create_sessions_table',1);
-INSERT INTO `migrations` VALUES (801,'2019_12_14_000001_create_personal_access_tokens_table',1);
-INSERT INTO `migrations` VALUES (803,'2024_02_01_000000_create_comments_table',1);
-INSERT INTO `migrations` VALUES (805,'2024_02_01_000000_create_contents_table',1);
-INSERT INTO `migrations` VALUES (807,'2024_02_01_000000_create_fields_table',1);
-INSERT INTO `migrations` VALUES (809,'2024_02_01_000000_create_links_table',1);
-INSERT INTO `migrations` VALUES (811,'2024_02_01_000000_create_metas_table',1);
-INSERT INTO `migrations` VALUES (813,'2024_02_01_000000_create_options_table',1);
-INSERT INTO `migrations` VALUES (815,'2024_02_01_000000_create_relationships_table',1);
-INSERT INTO `migrations` VALUES (817,'2024_02_01_000000_create_users_table',1);
-INSERT INTO `migrations` VALUES (819,'2024_02_01_000001_create_logs_table',1);
-INSERT INTO `migrations` VALUES (821,'2024_11_08_033132_create_database_seeders_table',1);
-INSERT INTO `migrations` VALUES (823,'2024_11_08_062137_create_blade_views_table',1);
-INSERT INTO `migrations` VALUES (825,'2024_12_16_020817_create_projects_table',1);
-INSERT INTO `migrations` VALUES (827,'2024_12_16_020834_create_project_issues_table',1);
-INSERT INTO `migrations` VALUES (829,'2024_12_16_020847_create_project_demands_table',1);
-INSERT INTO `migrations` VALUES (831,'2024_12_16_020929_create_project_businesses_table',1);
-INSERT INTO `migrations` VALUES (833,'2024_12_16_020938_create_project_plans_table',1);
-INSERT INTO `migrations` VALUES (835,'2024_12_16_021006_create_project_develops_table',1);
-INSERT INTO `migrations` VALUES (837,'2024_12_16_021013_create_project_snippets_table',1);
-INSERT INTO `migrations` VALUES (839,'2024_12_16_021039_create_project_tests_table',1);
-INSERT INTO `migrations` VALUES (841,'2024_12_16_021120_create_snippets_table',1);
-INSERT INTO `migrations` VALUES (843,'2024_12_18_084359_create_webnavs_table',1);
+INSERT INTO `migrations` VALUES (121,'2014_10_12_100000_create_password_resets_table',1);
+INSERT INTO `migrations` VALUES (123,'2019_08_19_000000_create_cache_table',1);
+INSERT INTO `migrations` VALUES (125,'2019_08_19_000000_create_failed_jobs_table',1);
+INSERT INTO `migrations` VALUES (127,'2019_08_19_000000_create_job_batches_table',1);
+INSERT INTO `migrations` VALUES (129,'2019_08_19_000000_create_jobs_table',1);
+INSERT INTO `migrations` VALUES (131,'2019_08_19_000000_create_notifications_table',1);
+INSERT INTO `migrations` VALUES (133,'2019_08_19_000000_create_sessions_table',1);
+INSERT INTO `migrations` VALUES (135,'2019_12_14_000001_create_personal_access_tokens_table',1);
+INSERT INTO `migrations` VALUES (137,'2024_02_01_000000_create_comments_table',1);
+INSERT INTO `migrations` VALUES (139,'2024_02_01_000000_create_contents_table',1);
+INSERT INTO `migrations` VALUES (141,'2024_02_01_000000_create_fields_table',1);
+INSERT INTO `migrations` VALUES (143,'2024_02_01_000000_create_links_table',1);
+INSERT INTO `migrations` VALUES (145,'2024_02_01_000000_create_metas_table',1);
+INSERT INTO `migrations` VALUES (147,'2024_02_01_000000_create_options_table',1);
+INSERT INTO `migrations` VALUES (149,'2024_02_01_000000_create_relationships_table',1);
+INSERT INTO `migrations` VALUES (151,'2024_02_01_000000_create_users_table',1);
+INSERT INTO `migrations` VALUES (153,'2024_02_01_000001_create_logs_table',1);
+INSERT INTO `migrations` VALUES (155,'2024_11_08_033132_create_database_seeders_table',1);
+INSERT INTO `migrations` VALUES (157,'2024_11_08_062137_create_blade_views_table',1);
+INSERT INTO `migrations` VALUES (159,'2024_12_16_020817_create_projects_table',1);
+INSERT INTO `migrations` VALUES (161,'2024_12_16_020834_create_project_issues_table',1);
+INSERT INTO `migrations` VALUES (163,'2024_12_16_020847_create_project_demands_table',1);
+INSERT INTO `migrations` VALUES (165,'2024_12_16_020929_create_project_businesses_table',1);
+INSERT INTO `migrations` VALUES (167,'2024_12_16_020938_create_project_plans_table',1);
+INSERT INTO `migrations` VALUES (169,'2024_12_16_021006_create_project_develops_table',1);
+INSERT INTO `migrations` VALUES (171,'2024_12_16_021013_create_project_snippets_table',1);
+INSERT INTO `migrations` VALUES (173,'2024_12_16_021039_create_project_tests_table',1);
+INSERT INTO `migrations` VALUES (175,'2024_12_16_021120_create_snippets_table',1);
+INSERT INTO `migrations` VALUES (177,'2024_12_18_084359_create_webnavs_table',1);
+INSERT INTO `migrations` VALUES (179,'2024_12_18_095311_create_webnav_relationships_table',1);

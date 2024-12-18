@@ -10,7 +10,7 @@ class Link extends \Illuminate\Database\Eloquent\Model
     use \App\Traits\Model\HasRelationship;
     protected $table = "links";
 
-    protected $primaryKey = 'lid';
+    // protected $primaryKey = 'lid';
     protected $relationshipKey = "link_id";
 
     protected $fillable = [

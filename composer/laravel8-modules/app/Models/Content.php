@@ -11,7 +11,7 @@ class Content extends \Illuminate\Database\Eloquent\Model
     use \App\Traits\Model\HasRelationship;
     protected $table = "contents";
 
-    protected $primaryKey = 'cid';
+    // protected $primaryKey = 'cid';
     protected $relationshipKey = "content_id";
     protected $fillable = [
         'title',

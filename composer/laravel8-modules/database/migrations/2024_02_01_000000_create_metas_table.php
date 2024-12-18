@@ -23,7 +23,7 @@ class CreateMetasTable extends Migration
             return;
         // 基本标记表
         Schema::create($tableName, function (Blueprint $table) {
-            $table->id('mid')->comment("编号");
+            $table->id();
 
             $table->string('slug')->nullable()->unique()->comment('标识');
             $table->string('ico')->nullable()->comment('徽标');

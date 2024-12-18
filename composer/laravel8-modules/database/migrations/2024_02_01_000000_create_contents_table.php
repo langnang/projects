@@ -23,7 +23,7 @@ class CreateContentsTable extends Migration
             return;
         // 基本内容表
         Schema::create($tableName, function (Blueprint $table) {
-            $table->id('cid')->comment("编号");
+            $table->id();
 
             $table->string('slug')->nullable()->unique()->comment('标识');
             $table->string('ico')->nullable()->comment('徽标');
