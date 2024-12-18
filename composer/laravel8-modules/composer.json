@@ -13,6 +13,7 @@
     "darkaonline/l5-swagger": "^8.6",
     "facade/ignition": "*",
     "fruitcake/laravel-cors": "^2.0",
+    "guanguans/laravel-dump-sql": "^2.5",
     "guzzlehttp/guzzle": "^7.0.1",
     "laravel/framework": "^8.75",
     "laravel/sanctum": "^2.11",

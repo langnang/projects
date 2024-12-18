@@ -36,7 +36,9 @@ class WebNavController extends \App\Illuminate\Routing\Controller
                 $meta->save();
                 break;
             case "delete_meta_item":
-                $meta = \App\Models\Meta::where('mid', request()->input('mid'))->update(['deleted_at' => now()]);
+                $meta = \App\Models\Meta::find(request()->input('mid'));
+                $meta->timestamps = false;
+                $meta->update(['deleted_at' => now()]);
                 \App\Models\Relationship::where('meta_id', request()->input('mid'))->delete();
                 break;
             case "update_meta_item":
@@ -61,7 +63,9 @@ class WebNavController extends \App\Illuminate\Routing\Controller
                 // var_dump($content);
                 break;
             case "delete_content_item":
-                \App\Models\Content::where('cid', request()->input('cid'))->update(['deleted_at' => now()]);
+                $content = \App\Models\Content::find(request()->input('cid'));
+                $content->timestamps = false;
+                $content->update(['deleted_at' => now()]);
                 \App\Models\Relationship::where('content_id', request()->input('cid'))->delete();
                 break;
             case "update_content_item":

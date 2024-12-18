@@ -290,6 +290,10 @@
       grid-template-columns: repeat(1, minmax(0, 1fr))
     }
 
+    .d-none {
+      display: none;
+    }
+
     @media (min-width:640px) {
       .sm\:rounded-lg {
         border-radius: .5rem
@@ -540,7 +544,7 @@
                 </div>
               </div>
 
-              <div class="ml-12">
+              <div class="ml-12 d-none">
                 <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
                   {{ config($module->getLowerName() . '.description', '...') }}
                 </div>

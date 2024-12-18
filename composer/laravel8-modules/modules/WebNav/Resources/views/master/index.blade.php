@@ -102,7 +102,9 @@
             </div>
           @endforeach
         </div>
-        @include('shared.master.footer')
+        <div class="row">
+          @include('shared.master.footer')
+        </div>
       </main>
 
     </div>
