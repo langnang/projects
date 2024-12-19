@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top border-bottom py-1 px-2">
   <div class="col-md-12 col-lg-2 text-center">
-    <a class="navbar-brand" href="{{ env('APP_URL') }}" style="padding: 0;">
+    <a class="navbar-brand mr-0" href="{{ env('APP_URL') }}" style="padding: 0;line-height: 30px;">
       <img src="{{ env('APP_URL') }}favicon.ico" width="30" height="30" class="d-inline-block align-top" alt="">
       {{ env('APP_NAME') }}
     </a>
