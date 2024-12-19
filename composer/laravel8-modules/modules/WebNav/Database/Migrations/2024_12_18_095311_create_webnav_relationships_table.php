@@ -18,11 +18,10 @@ class CreateWebNavRelationshipsTable extends Migration
     {
         if (!$tableName = $this->getTableName())
             return;
+        // alter table `relationships` add `webnav_id` int null comment 'WebNav';
         Schema::table($tableName, function (Blueprint $table) use ($tableName) {
             $table->integer('webnav_id')->nullable()->comment("WebNav");
         });
-
-
     }
 
     /**

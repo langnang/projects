@@ -14,7 +14,7 @@
             <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
           </div>
           <article>
-            {{ $content->text }}
+            {{ is_string($content->text) ? $content->text : json_encode($content->text, JSON_UNESCAPED_UNICODE) }}
           </article>
         @endempty
       </div>

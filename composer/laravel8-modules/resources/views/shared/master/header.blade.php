@@ -35,7 +35,7 @@
           @endif
         @endforeach
         @auth
-          <li class="nav-item">
+          <li class="nav-item d-none">
             <a class="nav-link" href="#">
               <i class="bi bi-plus-circle" style="font-size: 21px;"></i>
             </a>
@@ -73,7 +73,6 @@
         <li class="nav-item d-none">
           <a class="nav-link disabled">Disabled</a>
         </li>
-
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
             Modules
@@ -81,9 +80,25 @@
           <div class="dropdown-menu dropdown-menu-right">
             @foreach (Module::all() ?? [] as $moduleName => $module)
               @if (Module::isEnabled($moduleName))
-                <a class="dropdown-item" href="{{ env('APP_URL') }}{{ $module->getLowerName() ?? strtolower($moduleName) }}">{{ $moduleName }}（{{ config($module->getLowerName() . '.nameCn') }}）</a>
+                <a class="dropdown-item small" href="{{ env('APP_URL') }}{{ $module->getLowerName() ?? strtolower($moduleName) }}">{{ $moduleName }}（{{ config($module->getLowerName() . '.nameCn') }}）</a>
               @endif
             @endforeach
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+            Framework
+          </a>
+          <div class="dropdown-menu dropdown-menu-right">
+
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+            Theme
+          </a>
+          <div class="dropdown-menu dropdown-menu-right">
+
           </div>
         </li>
         @if (Auth::check())
@@ -93,22 +108,22 @@
             </a>
 
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item px-2" href="#">
-                <i class="bi bi-plus-circle"></i> Create Meta
+              <a class="dropdown-item small px-2" href="#">
+                <i class="bi bi-plus-lg"></i> Meta
               </a>
-              <a class="dropdown-item px-2" href="#">
-                <i class="bi bi-plus-circle"></i> Create Content
+              <a class="dropdown-item small px-2" href="#">
+                <i class="bi bi-plus-lg"></i> Content
               </a>
-              <a class="dropdown-item px-2" href="#">
-                <i class="bi bi-plus-circle"></i> Create Link
+              <a class="dropdown-item small px-2" href="#">
+                <i class="bi bi-plus-lg"></i> Link
               </a>
-              <a class="dropdown-item px-2" href="#">
-                <i class="bi bi-plus-circle"></i> Import
+              <a class="dropdown-item small px-2" href="#">
+                <i class="bi bi-upload"></i> Import
               </a>
-              <a class="dropdown-item px-2" href="#">
-                <i class="bi bi-plus-circle"></i> Export
+              <a class="dropdown-item small px-2" href="#">
+                <i class="bi bi-download"></i> Export
               </a>
-              <a class="dropdown-item px-2" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+              <a class="dropdown-item small px-2" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                 <i class="bi bi-asterisk"></i> {{ __('Logout') }}
               </a>
 

@@ -4,12 +4,12 @@ namespace Modules\WebNav\Http\Controllers;
 
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
+use \App\Illuminate\Routing\Controller;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-class WebNavController extends \App\Illuminate\Routing\Controller
+class WebNavController extends Controller
 {
-    public function view_index($midOrSlug = null)
+    public function view_index($idOrSlug = null)
     {
         $return = [
             'metas' => \App\Models\Meta::with([
@@ -19,15 +19,15 @@ class WebNavController extends \App\Illuminate\Routing\Controller
                 'contents'
             ])
                 ->where('type', 'category')
-                ->where('parent', $this->moduleMeta->mid)
+                ->where('parent', $this->moduleMeta->id)
                 ->whereNull('deleted_at')
                 ->get(),
-            'contents' => \App\Models\Meta::with(['contents'])->find($this->moduleMeta->mid)->contents,
+            'contents' => \App\Models\Meta::with(['contents'])->find($this->moduleMeta->id)->contents,
         ];
         // dump($return);
         return $this->view('index', $return);
     }
-    public function crud_index($midOrSlug = null)
+    public function crud_index($idOrSlug = null)
     {
         // var_dump(request()->all());
         switch (request()->input('_target')) {
@@ -36,46 +36,46 @@ class WebNavController extends \App\Illuminate\Routing\Controller
                 $meta->save();
                 break;
             case "delete_meta_item":
-                $meta = \App\Models\Meta::find(request()->input('mid'));
+                $meta = \App\Models\Meta::find(request()->input('id'));
                 $meta->timestamps = false;
                 $meta->update(['deleted_at' => now()]);
-                \App\Models\Relationship::where('meta_id', request()->input('mid'))->delete();
+                \App\Models\Relationship::where('meta_id', request()->input('id'))->delete();
                 break;
             case "update_meta_item":
-                $meta = \App\Models\Meta::find(request()->input('mid'));
+                $meta = \App\Models\Meta::find(request()->input('id'));
                 $meta->fill(request()->all());
                 $meta->save();
                 break;
             case "insert_content_item":
                 $content = (new \App\Models\Content(request()->all()));
                 $content->save();
-                $mids = request()->input('mids');
-                if (is_string($mids)) {
-                    $mids = explode(',', $mids);
+                $ids = request()->input('ids');
+                if (is_string($ids)) {
+                    $ids = explode(',', $ids);
                 }
-                foreach ($mids as $mid) {
+                foreach ($ids as $id) {
                     \App\Models\Relationship::upsert([
-                        "content_id" => $content->cid,
-                        "meta_id" => $mid,
+                        "content_id" => $content->id,
+                        "meta_id" => $id,
                     ], ['content_id', 'meta_id']);
                 }
-                // var_dump($mids);
+                // var_dump($ids);
                 // var_dump($content);
                 break;
             case "delete_content_item":
-                $content = \App\Models\Content::find(request()->input('cid'));
+                $content = \App\Models\Content::find(request()->input('id'));
                 $content->timestamps = false;
                 $content->update(['deleted_at' => now()]);
-                \App\Models\Relationship::where('content_id', request()->input('cid'))->delete();
+                \App\Models\Relationship::where('content_id', request()->input('id'))->delete();
                 break;
             case "update_content_item":
-                $content = \App\Models\Content::find(request()->input('cid'));
+                $content = \App\Models\Content::find(request()->input('id'));
                 $content->fill(request()->all());
                 $content->save();
                 break;
             default:
                 break;
         }
-        return $this->view_index($midOrSlug);
+        return $this->view_index($idOrSlug);
     }
 }

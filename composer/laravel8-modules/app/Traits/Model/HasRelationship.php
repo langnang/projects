@@ -9,21 +9,21 @@ trait HasRelationship
     {
         return $this
             ->hasMany(\App\Models\Relationship::class, $this->relationshipKey, $this->primaryKey)
-            ->leftJoin("metas", "relationships." . "meta_id", '=', "metas.mid");
+            ->leftJoin("metas", "relationships." . "meta_id", '=', "metas.id");
     }
 
     public function contents()
     {
         return $this
             ->hasMany(\App\Models\Relationship::class, $this->relationshipKey, $this->primaryKey)
-            ->leftJoin("contents", "relationships." . "content_id", '=', "contents.cid");
+            ->leftJoin("contents", "relationships." . "content_id", '=', "contents.id");
     }
 
     public function links()
     {
         return $this
             ->hasMany(\App\Models\Relationship::class, $this->relationshipKey, $this->primaryKey)
-            ->leftJoin("links", "relationships." . "link_id", '=', "links.lid");
+            ->leftJoin("links", "relationships." . "link_id", '=', "links.id");
     }
 
     public function relationships()

@@ -1,4 +1,4 @@
-<div class="modal fade" id="meta-item-modal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="{{ $module ? $module . '-' : '' }}meta-item-modal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
     <form class="modal-content" method="POST">
       <div class="modal-header">
@@ -76,7 +76,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <div class="alert alert-danger my-0" name="delete" role="alert" style="flex-grow: 1">
+        <div class="alert alert-danger my-0 d-none" name="delete" role="alert" style="flex-grow: 1">
           确定要删除吗？
         </div>
         <button type="submit" class="btn btn-primary">Confirm</button>

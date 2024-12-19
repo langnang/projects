@@ -35,6 +35,7 @@ abstract class Controller extends \Illuminate\Routing\Controller
         $options = \App\Models\Option::where('name', 'like', 'global.%')
             ->orWhere('name', 'like', 'meta.%')
             ->orWhere('name', 'like', 'content.%')
+            ->orWhere('name', 'like', $this->moduleAlias . '.%')
             ->get()->toArray();
         foreach ($options as $option) {
             \Arr::set($this->moduleOption, $option['name'], $option['value'], );
@@ -96,6 +97,20 @@ abstract class Controller extends \Illuminate\Routing\Controller
             'module' => $this->getModuleAttributes(),
             'layout' => null,
             'view' => null,
+            'contents' => [
+                'paginator' => \Arr::get($data, 'contents.paginator', \App\Models\Content::factory()->times(15)->make()),
+                'hottest' => \Arr::get($data, 'contents.hottest', \App\Models\Content::factory()->times(10)->make()),
+            ],
+            'metas' => [
+                'categories' => \Arr::get($data, 'metas.categories', \App\Models\Meta::factory()->times(10)->make()),
+                'tags' => \Arr::get($data, 'metas.tags', \App\Models\Meta::factory()->times(10)->make()),
+                'groups' => \Arr::get($data, 'metas.groups', \App\Models\Meta::factory()->times(10)->make()),
+                'collections' => \Arr::get($data, 'metas.collections', \App\Models\Meta::factory()->times(10)->make()),
+            ],
+            'comments' => [
+                'latest' => \Arr::get($data, 'comments.latest', \App\Models\Comment::factory()->times(10)->make()),
+            ],
+            'children' => $this->config('hasChildren') ? \App\Models\Meta::factory()->times(10)->make() : null,
             // 'layout' => "layouts.master",
         ], is_array($view) ? $view : ['view' => $view], $data);
         if (!isset($return['view']))
@@ -136,45 +151,16 @@ abstract class Controller extends \Illuminate\Routing\Controller
         ]);
     }
 
-    public function view_index($midOrSlug = null)
+    public function view_index($idOrSlug = null)
     {
-        $return = [
-            'contents' => [
-                'paginator' => \App\Models\Content::factory()->times(15)->make(),
-                'hottest' => \App\Models\Content::factory()->times(10)->make(),
-            ],
-            'metas' => [
-                'categories' => \App\Models\Meta::factory()->times(10)->make(),
-                'tags' => \App\Models\Meta::factory()->times(10)->make(),
-                'groups' => \App\Models\Meta::factory()->times(10)->make(),
-                'collections' => \App\Models\Meta::factory()->times(10)->make(),
-            ],
-            'comments' => [
-                'latest' => \App\Models\Comment::factory()->times(10)->make(),
-            ],
-            'children' => $this->config('hasChildren') ? \App\Models\Meta::factory()->times(10)->make() : null,
-        ];
+        $return = [];
 
         return $this->view('index', $return);
     }
-    public function view_content($cidOrSlug)
+    public function view_content($idOrSlug)
     {
         $return = [
             'content' => \App\Models\Content::factory()->times(1)->make()->first(),
-            'contents' => [
-                'paginator' => \App\Models\Content::factory()->times(15)->make(),
-                'hottest' => \App\Models\Content::factory()->times(10)->make(),
-            ],
-            'metas' => [
-                'categories' => \App\Models\Meta::factory()->times(10)->make(),
-                'tags' => \App\Models\Meta::factory()->times(10)->make(),
-                'groups' => \App\Models\Meta::factory()->times(10)->make(),
-                'collections' => \App\Models\Meta::factory()->times(10)->make(),
-            ],
-            'comments' => [
-                'latest' => \App\Models\Comment::factory()->times(10)->make(),
-            ],
-            'children' => $this->config('hasChildren') ? \App\Models\Meta::factory()->times(10)->make() : null,
         ];
 
         return $this->view('content', $return);

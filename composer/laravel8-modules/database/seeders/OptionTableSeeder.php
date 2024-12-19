@@ -28,9 +28,10 @@ class OptionTableSeeder extends Seeder
                     'type' => 'object',
                     'user' => 0,
                     'value' => serialize([
-                        'public' => ['value' => 'public', 'name' => 'public', 'nameCn' => '公开',],
-                        'protect' => ['value' => 'protect', 'name' => 'protect', 'nameCn' => '受限',],
-                        'private' => ['value' => 'private', 'name' => 'private', 'nameCn' => '私有',],
+                        'public' => ['value' => 'public', 'name' => 'Public', 'nameCn' => '公开',],
+                        'publish' => ['value' => 'publish', 'name' => 'Publish', 'nameCn' => '发行',],
+                        'protect' => ['value' => 'protect', 'name' => 'Protect', 'nameCn' => '受限',],
+                        'private' => ['value' => 'private', 'name' => 'Private', 'nameCn' => '私有',],
                     ])
                 ],
                 [
@@ -54,6 +55,7 @@ class OptionTableSeeder extends Seeder
                     'user' => 0,
                     'value' => serialize([
                         'public' => ['value' => 'public', 'name' => 'Public', 'nameCn' => '公开',],
+                        'publish' => ['value' => 'publish', 'name' => 'Publish', 'nameCn' => '发行',],
                         'protect' => ['value' => 'protect', 'name' => 'Protect', 'nameCn' => '受限',],
                         'private' => ['value' => 'private', 'name' => 'Private', 'nameCn' => '私有',],
                     ])
@@ -75,6 +77,7 @@ class OptionTableSeeder extends Seeder
                     'user' => 0,
                     'value' => serialize([
                         'public' => ['value' => 'public', 'name' => 'Public', 'nameCn' => '公开',],
+                        'publish' => ['value' => 'publish', 'name' => 'Publish', 'nameCn' => '发行',],
                         'protect' => ['value' => 'protect', 'name' => 'Protect', 'nameCn' => '受限',],
                         'private' => ['value' => 'private', 'name' => 'Private', 'nameCn' => '私有',],
                     ])

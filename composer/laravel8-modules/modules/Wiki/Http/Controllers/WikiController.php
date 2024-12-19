@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class WikiController extends \App\Illuminate\Routing\Controller
 {
-    public function view_index($midOrSlug = null)
+    public function view_index($idOrSlug = null)
     {
         $return = [
             'contents' => [

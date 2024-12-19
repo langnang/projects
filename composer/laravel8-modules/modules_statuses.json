@@ -4,7 +4,7 @@
     "Wiki": true,
     "Project": true,
     "Snippet": true,
-    "User": true,
     "WebHunt": true,
-    "Toolkit": true
+    "Toolkit": true,
+    "WebTerminal": true
 }
