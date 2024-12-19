@@ -78,8 +78,8 @@
             Modules
           </a>
           <div class="dropdown-menu dropdown-menu-right">
-            @foreach (Module::all() ?? [] as $moduleName => $module)
-              @if (Module::isEnabled($moduleName))
+            @foreach (Module::allEnabled() ?? [] as $moduleName => $module)
+              @if (Auth::check() || config($module->getLowerName() . '.status', 'public') == 'public')
                 <a class="dropdown-item small" href="{{ env('APP_URL') }}{{ $module->getLowerName() ?? strtolower($moduleName) }}">{{ $moduleName }}（{{ config($module->getLowerName() . '.nameCn') }}）</a>
               @endif
             @endforeach
