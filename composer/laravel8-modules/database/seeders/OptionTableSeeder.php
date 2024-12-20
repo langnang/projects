@@ -76,7 +76,7 @@ class OptionTableSeeder extends Seeder
                     'type' => 'object',
                     'user' => 0,
                     'value' => serialize([
-                        'public' => ['value' => 'public', 'name' => 'Public', 'nameCn' => '公开',],
+                        'public' => ['value' => 'public', 'en_Us' => 'Public', 'nameCn' => '公开',],
                         'publish' => ['value' => 'publish', 'name' => 'Publish', 'nameCn' => '发行',],
                         'protect' => ['value' => 'protect', 'name' => 'Protect', 'nameCn' => '受限',],
                         'private' => ['value' => 'private', 'name' => 'Private', 'nameCn' => '私有',],
@@ -90,6 +90,22 @@ class OptionTableSeeder extends Seeder
                         'text' => ['value' => 'text', 'name' => 'text', 'nameCn' => '文本',],
                         'object' => ['value' => 'object', 'name' => 'object', 'nameCn' => '对象',],
                     ])
+                ],
+                [
+                    'name' => 'user.role',
+                    'type' => 'object',
+                    'user' => 0,
+                    'value' => serialize([
+                        'admin' => ['value' => 'text', 'name' => 'text', 'nameCn' => '文本',],
+                        'user' => ['value' => 'text', 'name' => 'text', 'nameCn' => '文本',],
+                        'guest' => ['value' => 'text', 'name' => 'text', 'nameCn' => '文本',],
+                    ])
+                ],
+                [
+                    'name' => 'user.permission',
+                    'type' => 'object',
+                    'user' => 0,
+                    'value' => serialize([])
                 ],
             ],
             ['name', 'user'],

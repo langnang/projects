@@ -22,13 +22,6 @@ class HomeDatabaseSeeder extends Seeder
         //     HomeContentTableSeeder::class,
         // ]);
 
-        // \App\Models\Option::upsert(
-        //     [
-        //         ['name' => "module_home", "user" => 0, 'type' => 'object', "value" => serialize(['index' => ['visible' => true, 'modules' => ['Home', 'Website'],]])]
-        //     ],
-        //     ['name', "user"],
-        //     ['value']
-        // );
 
         // \Storage::put('config\file.log', '123');
     }

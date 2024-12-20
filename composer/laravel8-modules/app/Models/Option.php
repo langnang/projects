@@ -29,7 +29,9 @@ class Option extends \Illuminate\Database\Eloquent\Model
     {
         $return = parent::{__FUNCTION__}();
         // dump(__FUNCTION__);
-        if (in_array($return['type'], ['json', 'array', 'object'], )) {
+        if (empty($return['type'])) {
+
+        } else if (in_array($return['type'], ['json', 'array', 'object'], )) {
             $return['value'] = unserialize($this->value);
         }
         return $return;

@@ -1,11 +1,11 @@
 <?php
 
-namespace Modules\Wiki\Database\Seeders;
+namespace Modules\User\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
-class WikiDatabaseSeeder extends Seeder
+class UserDatabaseSeeder extends Seeder
 {
     /**
      * Run the database seeds.

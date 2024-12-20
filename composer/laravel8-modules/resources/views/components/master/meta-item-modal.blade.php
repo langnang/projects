@@ -9,10 +9,9 @@
       </div>
       <div class="modal-body">
         @csrf
-
         <input type="hidden" name="_target" value="">
-        <input type="hidden" name="mid" value="">
-        <input type="hidden" name="cids" value="">
+        <input type="hidden" name="id" value="">
+        <input type="hidden" name="content_ids" value="">
         <input type="hidden" name="parent" value="">
         <div class="form-group row">
           <label class="col-sm-2 col-form-label">Name</label>
@@ -76,7 +75,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <div class="alert alert-danger my-0 d-none" name="delete" role="alert" style="flex-grow: 1">
+        <div class="alert alert-danger my-0 d-none" name="delete-alert" role="alert" style="flex-grow: 1">
           确定要删除吗？
         </div>
         <button type="submit" class="btn btn-primary">Confirm</button>

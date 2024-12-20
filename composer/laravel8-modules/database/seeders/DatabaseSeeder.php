@@ -25,7 +25,10 @@ class DatabaseSeeder extends Seeder
 
         // $this->call("OthersTableSeeder");
 
-        $this->call(array_merge([OptionTableSeeder::class], array_map(function ($moduleName) {
+        $this->call(array_merge([
+            OptionTableSeeder::class,
+            ModuleDatabaseSeeder::class,
+        ], array_map(function ($moduleName) {
             return "\Modules\\" . $moduleName . "\Database\Seeders\\" . $moduleName . "DatabaseSeeder";
         }, array_keys(\Module::all()))));
 

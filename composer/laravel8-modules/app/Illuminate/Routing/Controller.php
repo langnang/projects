@@ -13,6 +13,7 @@ abstract class Controller extends \Illuminate\Routing\Controller
     protected $moduleConfig;
     protected $moduleOption;
     protected $moduleMeta;
+    protected $user;
 
     public function __construct()
     {
@@ -30,7 +31,7 @@ abstract class Controller extends \Illuminate\Routing\Controller
         $this->moduleAlias = $module->getAlias();
         $this->moduleConfig = config($this->moduleAlias);
 
-        $this->moduleMeta = \App\Models\Meta::where('slug', 'module:' . $this->moduleAlias)->first();
+        $this->moduleMeta = \App\Models\Meta::with(['children'])->whereIn('slug', ['module:' . $this->moduleAlias])->first();
 
         $options = \App\Models\Option::where('name', 'like', 'global.%')
             ->orWhere('name', 'like', 'meta.%')
@@ -66,7 +67,10 @@ abstract class Controller extends \Illuminate\Routing\Controller
      * @param mixed $view
      * @param mixed $data
      * @param mixed $mergeData
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @return \Illuminate\Contracts\View\Factory
+     * @return \Illuminate\Contracts\View\View
      */
     public function view($view = null, $data = [], $mergeData = [])
     {
@@ -114,7 +118,7 @@ abstract class Controller extends \Illuminate\Routing\Controller
             // 'layout' => "layouts.master",
         ], is_array($view) ? $view : ['view' => $view], $data);
         if (!isset($return['view']))
-            return \abort(403);
+            abort(403);
         if ($this->moduleName) {
             $return['layout'] = $this->config('framework') . '.' . $return['view'];
             $return['view'] = $this->moduleAlias . '::' . $this->config('framework') . '.' . $return['view'];
@@ -128,6 +132,9 @@ abstract class Controller extends \Illuminate\Routing\Controller
         }
         // dump($return);
         return view($return['view'], $return, $mergeData);
+    }
+    public function response()
+    {
     }
     public function getModuleAttributes()
     {

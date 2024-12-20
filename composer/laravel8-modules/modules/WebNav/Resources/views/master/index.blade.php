@@ -6,10 +6,10 @@
       <nav class="col-lg-2 d-md-none d-lg-block bg-light sidebar collapse">
         <div class="sidebar-sticky pt-2">
           <ul class="nav flex-column">
-            @include('webnav::shared.master.nav-item', ['module' => $module['alias'], 'metas' => $metas ?? [], 'mids' => Arr::get($module, 'wrapperMeta.mid')])
+            @include('webnav::shared.master.nav-item', ['module' => $module['alias'], 'metas' => $metas ?? [], 'mids' => Arr::get($module, 'wrapperMeta.id')])
             @auth
               <li class="nav-item text-center" style="width: 100%;">
-                <a class="nav-link" href="#" data-toggle="modal" data-target="#meta-item-modal" data-mids="{{ Arr::get($module, 'wrapperMeta.mid') }}" data-method="insert_meta_item" style="font-size: 21px;">
+                <a class="nav-link" href="#" data-toggle="modal" data-target="#{{ $module['alias'] }}-meta-item-modal" data-mids="{{ Arr::get($module, 'wrapperMeta.id') }}" data-method="insert" data-type="category" data-hidden="category" style="font-size: 21px;">
                   <i class="bi bi-plus-circle"></i>
                 </a>
               </li>
