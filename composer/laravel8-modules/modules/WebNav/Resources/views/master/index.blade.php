@@ -15,7 +15,6 @@
                 </h5>
               </div>
               <div class="card-body px-3 py-2">
-                <p class="card-text">{{ markdown_to_html($meta->text) }}</p>
               </div>
               <div class="card-footer py-2 small">
                 <a href="{{ url((isset($module) ? $module['alias'] . '/' : '') . 'meta/' . ($meta->id ?? $meta->slug)) }}" class="btn btn-sm btn-primary"><small>Go somewhere</small></a>

@@ -15,7 +15,7 @@
                 </h5>
               </div>
               <div class="card-body px-3 py-2">
-                <p class="card-text">{{ markdown_to_html($content->text) }}</p>
+                <p class="card-text">{!! markdown_to_html($content->text) !!}</p>
               </div>
               <div class="card-footer py-2 small">
                 <a href="{{ url((isset($module) ? $module['alias'] . '/' : '') . 'content/' . ($content->id ?? $content->slug)) }}" class="btn btn-sm btn-primary"><small>Go somewhere</small></a>
