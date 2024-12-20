@@ -9,8 +9,11 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 class WebNavController extends Controller
 {
-    public function view_index($idOrSlug = null)
+    public function view_meta($idOrSlug = null)
     {
+        $id = $idOrSlug;
+        if (is_numeric($idOrSlug)) {
+        }
         $return = [
             'metas' => \App\Models\Meta::with([
                 'children' => function (HasMany $query) {
@@ -19,7 +22,7 @@ class WebNavController extends Controller
                 'contents'
             ])
                 ->where('type', 'category')
-                ->where('parent', $this->moduleMeta->id)
+                ->where("parent", $id)
                 ->whereNull('deleted_at')
                 ->get(),
             'contents' => \App\Models\Meta::with(['contents'])->find($this->moduleMeta->id)->contents,

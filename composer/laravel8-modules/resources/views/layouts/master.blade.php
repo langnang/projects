@@ -61,14 +61,14 @@
 
     @yield('sidebar')
 
-    <div class="wrapper-content" style="min-height: calc(100vh - @empty($config) 46px @else 110px @endif)"> 
-        @yield('content')
+    <div class="wrapper-content" style="min-height: calc(100vh - 132px)">
+      @yield('content')
     </div>
 
     @section('footer')
-        @if (View::exists('shared.master.footer') && !($hideFooter ?? false))
-            @include('shared.master.footer')
-        @endif
+      @if (View::exists('shared.master.footer') && !($hideFooter ?? false))
+        @include('shared.master.footer')
+      @endif
     @show
   @endif
 
@@ -89,8 +89,8 @@
   @stack('scripts')
 
   @isset($module)
-  <script crossorigin="anonymous" src="{{ asset('./modules/' . $module['name'] . '/Public/' . $module['framework'] . '/script.js') }}"></script>
-@endisset
+    <script crossorigin="anonymous" src="{{ asset('./modules/' . $module['name'] . '/Public/' . $module['framework'] . '/script.js') }}"></script>
+  @endisset
 </body>
 
 </html>

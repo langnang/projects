@@ -13,5 +13,14 @@
 
 Route::prefix('webnav')->group(function () {
     Route::get('/', 'WebNavController@view_index');
-    Route::post('/', 'WebNavController@crud_index');
+
+    Route::prefix('{model}')->group(function () {
+        Route::get('/{idOrSlug}', 'WebNavController@view_model');
+        Route::post('/{idOrSlug}', 'WebNavController@crud_model');
+    });
+
+    Route::middleware(['auth'])->group(function () {
+
+    });
+
 });

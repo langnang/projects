@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class RelationshipFactory extends Factory
 {
+    protected $model = \App\Models\Relationship::class;
     /**
      * Define the model's default state.
      *
@@ -14,9 +15,9 @@ class RelationshipFactory extends Factory
     public function definition()
     {
         return [
-            "content_id" => \App\Models\Content::inRandomOrder()->first("cid"),
-            "meta_id" => \App\Models\Meta::inRandomOrder()->first("mid"),
-            "link_id" => \App\Models\Link::inRandomOrder()->first("lid"),
+            "content_id" => \App\Models\Content::inRandomOrder()->first("id"),
+            "meta_id" => \App\Models\Meta::inRandomOrder()->first("id"),
+            "link_id" => \App\Models\Link::inRandomOrder()->first("id"),
         ];
     }
 }

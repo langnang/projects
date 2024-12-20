@@ -1,6 +1,6 @@
 @foreach ($metas ?? [] as $meta)
   <li class="nav-item" style="width: 100%;">
-    @if (sizeof($meta->children) == 0)
+    @if (!isset($meta->children) || sizeof($meta->children) == 0)
       <a class="nav-link d-flex flex-row py-1 pr-2" href="#{{ $meta->id ?? $meta->slug }}">
         <i class="bi bi-folder-fill mr-1"></i>
         <span class="flex-grow-1 text-truncate">{{ $meta->name }}</span>

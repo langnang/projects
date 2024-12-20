@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class FieldFactory extends Factory
 {
+    protected $model = \App\Models\Field::class;
     public function moduleSlugs()
     {
         $moduleSlugs = array_map(function ($moduleName) {
@@ -23,7 +24,7 @@ class FieldFactory extends Factory
 
         $return = [
             //
-            "cid" => \App\Models\Content::inRandomOrder()->first("cid"),
+            // "cid" => \App\Models\Content::inRandomOrder()->first("cid"),
             // "name" => $this->faker->randomElement(array_merge(['cids'], $moduleSlugs)),
             "name" => $this->faker->randomElement(array_merge(['cids'], $this->moduleSlugs())),
             // "name" => $this->faker->word(),

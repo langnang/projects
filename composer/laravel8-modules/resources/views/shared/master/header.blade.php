@@ -78,9 +78,9 @@
             Modules
           </a>
           <div class="dropdown-menu dropdown-menu-right">
-            @foreach (Module::allEnabled() ?? [] as $moduleName => $module)
-              @if (Auth::check() || config($module->getLowerName() . '.status', 'public') == 'public')
-                <a class="dropdown-item small" href="{{ env('APP_URL') }}{{ $module->getLowerName() ?? strtolower($moduleName) }}">{{ $moduleName }}（{{ config($module->getLowerName() . '.nameCn') }}）</a>
+            @foreach (Module::allEnabled() ?? [] as $moduleName => $moduleObject)
+              @if (Auth::check() || config($moduleObject->getLowerName() . '.status', 'public') == 'public')
+                <a class="dropdown-item small" href="{{ env('APP_URL') }}{{ $moduleObject->getLowerName() ?? strtolower($moduleName) }}">{{ $moduleName }}（{{ config($moduleObject->getLowerName() . '.nameCn') }}）</a>
               @endif
             @endforeach
           </div>
@@ -104,17 +104,18 @@
         @if (Auth::check())
           <li class="nav-item dropdown">
             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+              <img src="{{ Auth::user()->ico }}" alt="" height="19px">
               {{ Auth::user()->name }}
             </a>
 
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item small px-2" href="#">
+              <a class="dropdown-item small px-2" href="{{ env('APP_URL') }}{{ $module['alias'] }}/meta/create-item">
                 <i class="bi bi-plus-lg"></i> Meta
               </a>
-              <a class="dropdown-item small px-2" href="#">
+              <a class="dropdown-item small px-2" href="{{ env('APP_URL') }}{{ $module['alias'] }}/content/create-item">
                 <i class="bi bi-plus-lg"></i> Content
               </a>
-              <a class="dropdown-item small px-2" href="#">
+              <a class="dropdown-item small px-2" href="{{ env('APP_URL') }}{{ $module['alias'] }}/link/create-item">
                 <i class="bi bi-plus-lg"></i> Link
               </a>
               <a class="dropdown-item small px-2" href="#">

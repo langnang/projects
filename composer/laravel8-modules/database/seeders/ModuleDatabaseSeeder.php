@@ -22,15 +22,15 @@ class ModuleDatabaseSeeder extends Seeder
                 ['slug'],
                 ['name', 'type', 'status']
             );
-            $moduleMeta = \App\Models\Meta::where('slug', 'module:' . $module->getAlias())->where('user', 0)->first();
-            foreach ($globalMetaStatusOption as $globalStatus) {
-                $status = $globalStatus['value'];
-                \App\Models\Meta::upsert(
-                    ['slug' => 'module:' . $module->getAlias() . ':' . $status, 'type' => 'module-status', 'status' => $status, 'parent' => $moduleMeta->id],
-                    ['slug'],
-                    ['type', 'status']
-                );
-            }
+            // $moduleMeta = \App\Models\Meta::where('slug', 'module:' . $module->getAlias())->where('user', 0)->first();
+            // foreach ($globalMetaStatusOption as $globalStatus) {
+            //     $status = $globalStatus['value'];
+            //     \App\Models\Meta::upsert(
+            //         ['slug' => 'module:' . $module->getAlias() . ':' . $status, 'type' => 'module-status', 'status' => $status, 'parent' => $moduleMeta->id],
+            //         ['slug'],
+            //         ['type', 'status']
+            //     );
+            // }
         }
     }
 }

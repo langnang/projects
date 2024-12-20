@@ -429,7 +429,10 @@
     @if (Route::has('login'))
       <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
         @auth
-          <a href="#" class="text-sm text-gray-700 dark:text-gray-500 underline">{{ Auth::user()->name }}</a>
+          <a href="#" class="text-sm text-gray-700 dark:text-gray-500 underline">
+            <img src="{{ Auth::user()->ico }}" alt="" height="18px">
+            {{ Auth::user()->name }}
+          </a>
           <a href="{{ route('logout') }}" class="text-sm text-gray-700 dark:text-gray-500 underline" onclick="event.preventDefault();document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
           <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
             @csrf

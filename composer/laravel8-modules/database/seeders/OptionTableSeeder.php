@@ -21,6 +21,19 @@ class OptionTableSeeder extends Seeder
                     'type' => 'object',
                     'user' => 0,
                     'value' => serialize([
+                        'module' => ['value' => 'module', 'name' => 'Module', 'nameCn' => '模块',],
+                        'tag' => ['value' => 'tag', 'name' => 'Tag', 'nameCn' => '标签',],
+                        'category' => ['value' => 'category', 'name' => 'Category', 'nameCn' => '分类',],
+                        'branch' => ['value' => 'branch', 'name' => 'Branch', 'nameCn' => '分支',],
+                        'group' => ['value' => 'group', 'name' => 'Group', 'nameCn' => '分组',],
+                        'collection' => ['value' => 'collection', 'name' => 'Collection', 'nameCn' => '专辑',],
+                        'compilation' => ['value' => 'compilation', 'name' => 'Compilation', 'nameCn' => '合集',],
+                        'template' => ['value' => 'template', 'name' => 'Template', 'nameCn' => '模板',],
+                        'draft-template' => ['value' => 'template-draft', 'auth' => true, 'name' => 'Template(Draft)', 'nameCn' => '模板（草稿）',],
+                        'post' => ['value' => 'post', 'name' => 'Post', 'nameCn' => '文章',],
+                        'draft-post' => ['value' => 'post-draft', 'auth' => true, 'name' => 'Post(Draft)', 'nameCn' => '文章（草稿）',],
+                        'page' => ['value' => 'page', 'name' => 'Page', 'nameCn' => '页面',],
+                        'draft-page' => ['value' => 'page-draft', 'auth' => true, 'name' => 'Page(Draft)', 'nameCn' => '页面（草稿）',],
                     ])
                 ],
                 [
@@ -30,8 +43,8 @@ class OptionTableSeeder extends Seeder
                     'value' => serialize([
                         'public' => ['value' => 'public', 'name' => 'Public', 'nameCn' => '公开',],
                         'publish' => ['value' => 'publish', 'name' => 'Publish', 'nameCn' => '发行',],
-                        'protect' => ['value' => 'protect', 'name' => 'Protect', 'nameCn' => '受限',],
-                        'private' => ['value' => 'private', 'name' => 'Private', 'nameCn' => '私有',],
+                        'protect' => ['value' => 'protect', 'auth' => true, 'name' => 'Protect', 'nameCn' => '受限',],
+                        'private' => ['value' => 'private', 'auth' => true, 'name' => 'Private', 'nameCn' => '私有',],
                     ])
                 ],
                 [
@@ -56,8 +69,24 @@ class OptionTableSeeder extends Seeder
                     'value' => serialize([
                         'public' => ['value' => 'public', 'name' => 'Public', 'nameCn' => '公开',],
                         'publish' => ['value' => 'publish', 'name' => 'Publish', 'nameCn' => '发行',],
-                        'protect' => ['value' => 'protect', 'name' => 'Protect', 'nameCn' => '受限',],
-                        'private' => ['value' => 'private', 'name' => 'Private', 'nameCn' => '私有',],
+                        'protect' => ['value' => 'protect', 'auth' => true, 'name' => 'Protect', 'nameCn' => '受限',],
+                        'private' => ['value' => 'private', 'auth' => true, 'name' => 'Private', 'nameCn' => '私有',],
+                    ])
+                ],
+                [
+                    'name' => 'meta.model',
+                    'type' => 'text',
+                    'user' => 0,
+                    'value' => \App\Models\Meta::class
+                ],
+                [
+                    'name' => 'meta.create-item.validate',
+                    'type' => 'object',
+                    'user' => 0,
+                    'value' => serialize([
+                        'name' => 'required|string',
+                        'type' => 'required|string',
+                        'status' => 'required|string',
                     ])
                 ],
                 [
@@ -66,9 +95,11 @@ class OptionTableSeeder extends Seeder
                     'user' => 0,
                     'value' => serialize([
                         'template' => ['value' => 'template', 'name' => 'Template', 'nameCn' => '模板',],
-                        'template-draft' => ['value' => 'template-draft', 'name' => 'Template(Draft)', 'nameCn' => '模板（草稿）',],
+                        'draft-template' => ['value' => 'template-draft', 'auth' => true, 'name' => 'Template(Draft)', 'nameCn' => '模板（草稿）',],
                         'post' => ['value' => 'post', 'name' => 'Post', 'nameCn' => '文章',],
-                        'post-draft' => ['value' => 'post-draft', 'name' => 'Post(Draft)', 'nameCn' => '文章（草稿）',],
+                        'draft-post' => ['value' => 'post-draft', 'auth' => true, 'name' => 'Post(Draft)', 'nameCn' => '文章（草稿）',],
+                        'page' => ['value' => 'page', 'name' => 'Page', 'nameCn' => '页面',],
+                        'draft-page' => ['value' => 'page-draft', 'auth' => true, 'name' => 'Page(Draft)', 'nameCn' => '页面（草稿）',],
                     ])
                 ],
                 [
@@ -76,11 +107,17 @@ class OptionTableSeeder extends Seeder
                     'type' => 'object',
                     'user' => 0,
                     'value' => serialize([
-                        'public' => ['value' => 'public', 'en_Us' => 'Public', 'nameCn' => '公开',],
+                        'public' => ['value' => 'public', 'name' => 'Public', 'nameCn' => '公开',],
                         'publish' => ['value' => 'publish', 'name' => 'Publish', 'nameCn' => '发行',],
-                        'protect' => ['value' => 'protect', 'name' => 'Protect', 'nameCn' => '受限',],
-                        'private' => ['value' => 'private', 'name' => 'Private', 'nameCn' => '私有',],
+                        'protect' => ['value' => 'protect', 'auth' => true, 'name' => 'Protect', 'nameCn' => '受限',],
+                        'private' => ['value' => 'private', 'auth' => true, 'name' => 'Private', 'nameCn' => '私有',],
                     ])
+                ],
+                [
+                    'name' => 'content.model',
+                    'type' => 'text',
+                    'user' => 0,
+                    'value' => \App\Models\Content::class
                 ],
                 [
                     'name' => 'field.type',

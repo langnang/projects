@@ -15,18 +15,21 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\User::factory(5)->create();
-        // \App\Models\Meta::factory(100)->create();
-        // \App\Models\Content::factory(100)->create();
+        $this->call([
+            OptionTableSeeder::class,
+        ]);
+
+        // \App\Models\User::factory(1)->insert();
+        \App\Models\Meta::factory(100)->create();
+        \App\Models\Content::factory(100)->create();
         // \App\Models\Field::factory(1000)->create();
         // \App\Models\Comment::factory(100)->create();
-        // \App\Models\Link::factory(100)->create();
-        // \App\Models\Relationship::factory(100)->create();
+        \App\Models\Link::factory(100)->create();
+        \App\Models\Relationship::factory(100)->create();
 
         // $this->call("OthersTableSeeder");
 
         $this->call(array_merge([
-            OptionTableSeeder::class,
             ModuleDatabaseSeeder::class,
         ], array_map(function ($moduleName) {
             return "\Modules\\" . $moduleName . "\Database\Seeders\\" . $moduleName . "DatabaseSeeder";

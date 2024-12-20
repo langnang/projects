@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class LinkFactory extends Factory
 {
+    protected $model = \App\Models\Link::class;
     /**
      * Define the model's default state.
      *
@@ -25,7 +26,7 @@ class LinkFactory extends Factory
 
             "count" => $this->faker->randomNumber(),
             "order" => $this->faker->randomNumber(),
-            "parent" => $this->faker->randomNumber(),
+            "parent" => $this->model::inRandomOrder()->first('id'),
 
             // "created_at" => $this->faker->date() . ' ' . $this->faker->time(),
             // "updated_at" => $this->faker->date() . ' ' . $this->faker->time(),

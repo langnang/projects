@@ -24,6 +24,7 @@ class Meta extends \Illuminate\Database\Eloquent\Model
         'parent',
         'count',
         'order',
+        'user',
         'created_at',
         'updated_at',
         'release_at',

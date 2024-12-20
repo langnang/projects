@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CommentFactory extends Factory
 {
+    protected $model = \App\Models\Comment::class;
     /**
      * Define the model's default state.
      *
@@ -16,13 +17,13 @@ class CommentFactory extends Factory
         return [
 
             // "coid" => $this->faker->randomNumber(),
-            "cid" => $this->faker->randomNumber(),
+            "content_id" => $this->faker->randomNumber(),
 
             "text" => $this->faker->text(),
 
-            "user" => $this->faker->randomNumber(),
+            "user" => \App\Models\User::inRandomOrder()->first('id'),
 
-            "parent" => $this->faker->randomNumber(),
+            "parent" => $this->model::inRandomOrder()->first('id'),
 
             // "created_at" => $this->faker->date() . ' ' . $this->faker->time(),
             // "updated_at" => $this->faker->date() . ' ' . $this->faker->time(),

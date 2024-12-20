@@ -16,6 +16,6 @@ class WebNav extends Model
 
     protected static function newFactory()
     {
-        // return \Modules\WebNav\Database\factories\WebNavFactory::new();
+        return \Modules\WebNav\Database\factories\WebNavFactory::new();
     }
 }

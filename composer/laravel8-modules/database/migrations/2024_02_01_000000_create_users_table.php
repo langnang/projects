@@ -31,6 +31,8 @@ class CreateUsersTable extends Migration
                 $table->rememberToken()->nullable();
                 $table->timestamps();
             });
+
+        \App\Models\User::factory(1)->create();
     }
 
     /**

@@ -4,12 +4,15 @@
   <div class="container">
     <main class="row">
       <div class="col-12 col-lg-9">
-        @empty($contents['paginator'])
+        @empty($contents['posts'])
         @else
-          @foreach ($contents['paginator'] ?? [] as $content)
+          @foreach ($contents['posts'] as $content)
             <div class="card my-2">
               <div class="card-header">
-                <h5 class="card-title mb-0">{{ $content->title }}</h5>
+                <h5 class="card-title mb-0">
+                  <span class="badge badge-secondary">{{ $content->status }}</span>
+                  {{ $content->title }}
+                </h5>
               </div>
               <div class="card-body px-3 py-2">
                 <p class="card-text">{{ markdown_to_html($content->text) }}</p>
@@ -20,28 +23,13 @@
               </div>
             </div>
           @endforeach
+          {{ $contents['posts']->links() }}
         @endempty
 
       </div>
       <aside class="col-3 d-md-none d-lg-block">
         @include('shared.master.main-aside')
       </aside>
-      <div class="col-12">
-        <nav aria-label="Page navigation example">
-          <ul class="pagination justify-content-center">
-            <li class="page-item disabled">
-              <a class="page-link">Previous</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-              <a class="page-link" href="#">Next</a>
-            </li>
-          </ul>
-        </nav>
-
-      </div>
     </main>
   </div>
 @endsection
