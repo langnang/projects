@@ -78,9 +78,10 @@
             Modules
           </a>
           <div class="dropdown-menu dropdown-menu-right">
+            <a class="dropdown-item px-2 small" href="{{ env('APP_URL') }}home">Home</a>
             @foreach (Module::allEnabled() ?? [] as $moduleName => $moduleObject)
               @if (Auth::check() || config($moduleObject->getLowerName() . '.status', 'public') == 'public')
-                <a class="dropdown-item small" href="{{ env('APP_URL') }}{{ $moduleObject->getLowerName() ?? strtolower($moduleName) }}">{{ $moduleName }}（{{ config($moduleObject->getLowerName() . '.nameCn') }}）</a>
+                <a class="dropdown-item px-2 small" href="{{ env('APP_URL') }}{{ $moduleObject->getLowerName() ?? strtolower($moduleName) }}">{{ $moduleName }}（{{ config($moduleObject->getLowerName() . '.nameCn') }}）</a>
               @endif
             @endforeach
           </div>
@@ -135,17 +136,17 @@
             </div>
           </li>
         @else
-          @if (Route::has('login'))
-            <li class="nav-item">
-              <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-            </li>
-          @endif
+        @endif
+        @if (Route::has('login'))
+          <li class="nav-item">
+            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+          </li>
+        @endif
 
-          @if (Route::has('register'))
-            <li class="nav-item">
-              <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-            </li>
-          @endif
+        @if (Route::has('register'))
+          <li class="nav-item">
+            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+          </li>
         @endif
       </ul>
     </div>

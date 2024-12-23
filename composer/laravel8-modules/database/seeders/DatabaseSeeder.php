@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
+use App\Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
@@ -18,13 +18,15 @@ class DatabaseSeeder extends Seeder
         $this->call([
             OptionTableSeeder::class,
         ]);
-
+        \App\Models\link::upsert(array_filter(\Arr::get($this->initializations, 'links', []), function ($item) {
+            return $item['title'];
+        }), ['slug'], ['slug', 'title', 'url', 'ico', 'description', 'keywords', 'type', 'status']);
         // \App\Models\User::factory(1)->insert();
         \App\Models\Meta::factory(100)->create();
         \App\Models\Content::factory(100)->create();
         // \App\Models\Field::factory(1000)->create();
         // \App\Models\Comment::factory(100)->create();
-        \App\Models\Link::factory(100)->create();
+        // \App\Models\Link::factory(10)->create();
         \App\Models\Relationship::factory(100)->create();
 
         // $this->call("OthersTableSeeder");

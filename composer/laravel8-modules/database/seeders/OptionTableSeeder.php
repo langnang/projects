@@ -16,6 +16,7 @@ class OptionTableSeeder extends Seeder
         //
         \App\Models\Option::upsert(
             [
+                // Global
                 [
                     'name' => 'global.type',
                     'type' => 'object',
@@ -47,6 +48,7 @@ class OptionTableSeeder extends Seeder
                         'private' => ['value' => 'private', 'auth' => true, 'name' => 'Private', 'nameCn' => '私有',],
                     ])
                 ],
+                // Meta
                 [
                     'name' => 'meta.type',
                     'type' => 'object',
@@ -89,6 +91,7 @@ class OptionTableSeeder extends Seeder
                         'status' => 'required|string',
                     ])
                 ],
+                // Content
                 [
                     'name' => 'content.type',
                     'type' => 'object',
@@ -118,6 +121,33 @@ class OptionTableSeeder extends Seeder
                     'type' => 'text',
                     'user' => 0,
                     'value' => \App\Models\Content::class
+                ],
+                // Link
+                [
+                    'name' => 'link.type',
+                    'type' => 'object',
+                    'user' => 0,
+                    'value' => serialize([
+                        'site' => ['value' => 'site', 'name' => 'Site', 'nameCn' => '站点',],
+                        'draft-site' => ['value' => 'site-draft', 'auth' => true, 'name' => 'Site(Draft)', 'nameCn' => '站点（草稿）',],
+                    ])
+                ],
+                [
+                    'name' => 'link.status',
+                    'type' => 'object',
+                    'user' => 0,
+                    'value' => serialize([
+                        'public' => ['value' => 'public', 'name' => 'Public', 'nameCn' => '公开',],
+                        'publish' => ['value' => 'publish', 'name' => 'Publish', 'nameCn' => '发行',],
+                        'protect' => ['value' => 'protect', 'auth' => true, 'name' => 'Protect', 'nameCn' => '受限',],
+                        'private' => ['value' => 'private', 'auth' => true, 'name' => 'Private', 'nameCn' => '私有',],
+                    ])
+                ],
+                [
+                    'name' => 'link.model',
+                    'type' => 'text',
+                    'user' => 0,
+                    'value' => \App\Models\Link::class
                 ],
                 [
                     'name' => 'field.type',

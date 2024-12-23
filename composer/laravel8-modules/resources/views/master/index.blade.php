@@ -31,5 +31,27 @@
         @include('shared.master.main-aside')
       </aside>
     </main>
+
+    @isset($links['sites'])
+      <main-links class="row">
+        <div class="col">
+          <div class="card">
+            <div class="card-header">
+              <h6 class="card-title mb-0">关联链接</h6>
+            </div>
+            <div class="card-body py-1">
+              <ul class="list-inline row row-cols-1 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 mb-0">
+                @foreach ($links['sites'] as $link)
+                  <li class="list-inline-item col mr-0 my-1">
+                    <img src="{{ $link->ico }}" alt="" height="20px">
+                    <a class="" href="{{ $link->url }}" target="_blank"> <small>{{ $link->title }}</small></a>
+                  </li>
+                @endforeach
+              </ul>
+            </div>
+          </div>
+        </div>
+      </main-links>
+    @endisset
   </div>
 @endsection

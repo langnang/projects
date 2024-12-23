@@ -27,6 +27,7 @@ class CreateLinksTable extends Migration
 
             $table->string('title')->nullable()->comment('标题');
             $table->string('url')->nullable()->comment('地址');
+            $table->string('keywords')->nullable()->comment('关键词');
             $table->string('description')->nullable()->comment('描述');
             $table->string('type')->nullable()->comment('类型');
             $table->string('status')->nullable()->comment('状态');

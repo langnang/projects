@@ -1,0 +1,265 @@
+{
+    "_user": {
+        "name": "",
+        "email": "",
+        "password": "",
+        "roles": [],
+        "premissions": []
+    },
+    "_meta": {
+        "slug": "",
+        "name": "",
+        "ico": "",
+        "description": "",
+        "type": "",
+        "status": ""
+    },
+    "_content": {
+        "slug": "",
+        "title": "",
+        "ico": "",
+        "description": "",
+        "text": "",
+        "type": "",
+        "status": ""
+    },
+    "_link": {
+        "slug": "",
+        "title": "",
+        "ico": "",
+        "url": "",
+        "keywords": "",
+        "description": "",
+        "type": "site",
+        "status": "public"
+    },
+    "_option": {
+        "name": "",
+        "type": "",
+        "value": ""
+    },
+    "metas": [],
+    "contents": [],
+    "links": [
+        {
+            "slug": "bootstrap-docs@4",
+            "title": "Bootstrap v4 中文文档",
+            "url": "https://v4.bootcss.com/",
+            "ico": "https://v4.bootcss.com/docs/4.6/assets/img/favicons/favicon-32x32.png",
+            "keywords": "",
+            "description": "Bootstrap 是全球最受欢迎的 HTML、CSS 和 JS 框架，用于开发响应式布局、移动设备优先的 WEB 项目。",
+            "type": "site",
+            "status": "public"
+        },
+        {
+            "slug": "bootstrap-icons",
+            "title": "Bootstrap 图标库",
+            "url": "https://icons.bootcss.com/",
+            "ico": "https://icons.bootcss.com/assets/img/favicons/favicon-32x32.png",
+            "keywords": "",
+            "description": "Bootstrap 官方开源图标（icon）库",
+            "type": "site",
+            "status": "public"
+        },
+        {
+            "slug": "packagist-p2hp",
+            "title": "Packagist 中文网",
+            "ico": "http://packagist.p2hp.com/favicon.ico",
+            "url": "http://packagist.p2hp.com/",
+            "keywords": "",
+            "description": "Packagist中文网 PHP软件包仓库",
+            "type": "site",
+            "status": "public"
+        },
+        {
+            "slug": "phpspider",
+            "title": "phpspider 开发文档",
+            "ico": "https://gstatic.gitbook.com/images/b1c4c86ca817a71628d2debe73be9a64.ico",
+            "url": "https://doc.phpspider.org/",
+            "keywords": "",
+            "description": "",
+            "type": "site",
+            "status": "public"
+        },
+        {
+            "slug": "unpkg",
+            "title": "UNPKG",
+            "ico": "https://unpkg.com/favicon.ico",
+            "url": "https://unpkg.com/",
+            "keywords": "",
+            "description": "",
+            "type": "site",
+            "status": "public"
+        },
+        {
+            "slug": "npmjs",
+            "title": "NPM",
+            "ico": "https://static-production.npmjs.com/b0f1a8318363185cc2ea6a40ac23eeb2.png",
+            "url": "https://www.npmjs.com/",
+            "keywords": "",
+            "description": "",
+            "type": "site",
+            "status": "public"
+        },
+        {
+            "slug": "",
+            "title": "laravel-modules",
+            "ico": "",
+            "url": "",
+            "keywords": "",
+            "description": "",
+            "type": "site",
+            "status": "public"
+        },
+        {
+            "slug": "",
+            "title": "swagger",
+            "ico": "",
+            "url": "",
+            "keywords": "",
+            "description": "",
+            "type": "site",
+            "status": "public"
+        },
+        {
+            "slug": "",
+            "title": "",
+            "ico": "",
+            "url": "",
+            "keywords": "",
+            "description": "",
+            "type": "site",
+            "status": "public"
+        },
+        {
+            "slug": "",
+            "title": "",
+            "ico": "",
+            "url": "",
+            "keywords": "",
+            "description": "",
+            "type": "site",
+            "status": "public"
+        },
+        {
+            "slug": "",
+            "title": "",
+            "ico": "",
+            "url": "",
+            "keywords": "",
+            "description": "",
+            "type": "site",
+            "status": "public"
+        },
+        {
+            "slug": "",
+            "title": "",
+            "ico": "",
+            "url": "",
+            "keywords": "",
+            "description": "",
+            "type": "site",
+            "status": "public"
+        },
+        {
+            "slug": "",
+            "title": "",
+            "ico": "",
+            "url": "",
+            "keywords": "",
+            "description": "",
+            "type": "site",
+            "status": "public"
+        },
+        {
+            "slug": "",
+            "title": "",
+            "ico": "",
+            "url": "",
+            "keywords": "",
+            "description": "",
+            "type": "site",
+            "status": "public"
+        },
+        {
+            "slug": "",
+            "title": "",
+            "ico": "",
+            "url": "",
+            "keywords": "",
+            "description": "",
+            "type": "site",
+            "status": "public"
+        },
+        {
+            "slug": "",
+            "title": "",
+            "ico": "",
+            "url": "",
+            "keywords": "",
+            "description": "",
+            "type": "site",
+            "status": "public"
+        },
+        {
+            "slug": "",
+            "title": "",
+            "ico": "",
+            "url": "",
+            "keywords": "",
+            "description": "",
+            "type": "site",
+            "status": "public"
+        },
+        {
+            "slug": "",
+            "title": "",
+            "ico": "",
+            "url": "",
+            "keywords": "",
+            "description": "",
+            "type": "site",
+            "status": "public"
+        },
+        {
+            "slug": "",
+            "title": "",
+            "ico": "",
+            "url": "",
+            "keywords": "",
+            "description": "",
+            "type": "site",
+            "status": "public"
+        },
+        {
+            "slug": "",
+            "title": "",
+            "ico": "",
+            "url": "",
+            "keywords": "",
+            "description": "",
+            "type": "site",
+            "status": "public"
+        },
+        {
+            "slug": "",
+            "title": "",
+            "ico": "",
+            "url": "",
+            "keywords": "",
+            "description": "",
+            "type": "site",
+            "status": "public"
+        },
+        {
+            "slug": "",
+            "title": "",
+            "ico": "",
+            "url": "",
+            "keywords": "",
+            "description": "",
+            "type": "site",
+            "status": "public"
+        }
+    ]
+}

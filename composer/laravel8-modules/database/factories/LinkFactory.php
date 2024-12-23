@@ -14,15 +14,25 @@ class LinkFactory extends Factory
      */
     public function definition()
     {
+        $typeOptions = \App\Models\Option::where('name', 'link.type')->first()->toArray()['value'];
+        if (empty($typeOptions)) {
+            $typeOptions = \App\Models\Option::where('name', 'global.type')->first()->toArray()['value'];
+        }
+        $statusOptions = \App\Models\Option::where('name', 'link.status')->first()->toArray()['value'];
+        if (empty($statusOptions)) {
+            $typeOptions = \App\Models\Option::where('name', 'global.status')->first()->toArray()['value'];
+        }
         return [
             // "lid" => $this->faker->randomNumber(),
             "slug" => $this->faker->slug(),
             //
             "title" => $this->faker->sentence(),
             "ico" => $this->faker->imageUrl(72, 72),
+            "url" => $this->faker->url(),
+            "keywords" => $this->faker->sentence(),
             "description" => $this->faker->sentence(),
-            "type" => $this->faker->randomElement(['site', 'page']),
-            "status" => $this->faker->randomElement(['publish', 'protect', 'private']),
+            "type" => $this->faker->randomElement(array_keys($typeOptions)),
+            "status" => $this->faker->randomElement(array_keys($statusOptions)),
 
             "count" => $this->faker->randomNumber(),
             "order" => $this->faker->randomNumber(),

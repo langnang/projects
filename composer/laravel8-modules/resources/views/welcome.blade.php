@@ -428,17 +428,20 @@
   <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
     @if (Route::has('login'))
       <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
+        <a href="./home" class="text-sm text-gray-700 dark:text-gray-500 underline">
+          Home
+        </a>
         @auth
-          <a href="#" class="text-sm text-gray-700 dark:text-gray-500 underline">
+          <a href="#" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">
             <img src="{{ Auth::user()->ico }}" alt="" height="18px">
             {{ Auth::user()->name }}
           </a>
-          <a href="{{ route('logout') }}" class="text-sm text-gray-700 dark:text-gray-500 underline" onclick="event.preventDefault();document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
+          <a href="{{ route('logout') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline" onclick="event.preventDefault();document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
           <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
             @csrf
           </form>
         @else
-          <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">{{ __('Login') }}</a>
+          <a href="{{ route('login') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">{{ __('Login') }}</a>
 
           @if (Route::has('register'))
             <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">{{ __('Register') }}</a>
@@ -533,6 +536,18 @@
 
       <div class="mt-8">
         <div class="grid grid-cols-1 md:grid-cols-3" style="margin-left: -.5rem;margin-right: -.5rem;">
+          <div class="p-6 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg" style="margin: .5rem;">
+            <div class="flex items-center">
+              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-8 h-8 text-gray-500">
+                <path d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                </path>
+              </svg>
+              <div class="ml-4 text-lg leading-7 font-semibold">
+                <a href="./home" class="underline text-gray-900 dark:text-white">Home
+                </a>
+              </div>
+            </div>
+          </div>
           @foreach (Module::allEnabled() as $module)
             @if (Auth::check() || config($module->getLowerName() . '.status', 'public') == 'public')
               <div class="p-6 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg" style="margin: .5rem;">

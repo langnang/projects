@@ -15,7 +15,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'App\Http\Controllers\Controller@view_index');
 
-Route::get('/welcome', 'App\Http\Controllers\Controller@view_index');
+Route::prefix('home')->group(function () {
+    Route::get('/', 'App\Http\Controllers\HomeController@view_index');
+});
 
 // Route::match(['get', 'post'], '/login', 'App\Http\Controllers\Controller@view_login');
 // Route::match(['get', 'post'], '/register', 'App\Http\Controllers\Controller@view_register');
@@ -30,8 +32,6 @@ Route::get('/welcome', 'App\Http\Controllers\Controller@view_index');
 // use Illuminate\Support\Facades\Blade;
 
 // var_dump(Blade::render("123"));
-
-
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+

@@ -17,6 +17,7 @@ abstract class Controller extends \Illuminate\Routing\Controller
     protected $moduleOption;
     protected $moduleMeta;
     protected $user;
+    protected $sqls = [];
 
     protected $models = [
         'content' => \App\Models\Content::class,
@@ -33,26 +34,15 @@ abstract class Controller extends \Illuminate\Routing\Controller
                 $this->moduleName = $moduleMatches[1];
             }
         }
-        if (empty($moduleName = $this->moduleName))
-            return;
-        $this->module = $module = \Module::find($moduleName);
-        if (empty($module))
-            return;
-        // Cache::put($moduleName, $moduleName);
-        $this->moduleAlias = $module->getAlias();
-        $this->moduleConfig = config($this->moduleAlias);
-
-        $this->moduleMeta = \App\Models\Meta::where('slug', 'module:' . $this->moduleAlias)->first();
-
-        $options = \App\Models\Option::where('name', 'like', 'global.%')
-            ->orWhere('name', 'like', 'meta.%')
-            ->orWhere('name', 'like', 'content.%')
-            ->orWhere('name', 'like', 'link.%')
-            ->orWhere('name', 'like', $this->moduleAlias . '.%')
-            ->get()->toArray();
-        foreach ($options as $option) {
-            \Arr::set($this->moduleOption, $option['name'], $option['value'], );
+        if (!empty($moduleName = $this->moduleName)) {
+            $this->module = $module = \Module::find($moduleName);
+            $this->moduleAlias = $module->getAlias();
+            $this->moduleConfig = config($this->moduleAlias);
         }
+
+        $this->moduleMeta = $this->moduleName ? \App\Models\Meta::where('slug', 'module:' . $this->moduleAlias)->first() : new \App\Models\Meta(['id' => 0]);
+
+        $this->queryModuleOption();
 
         // var_dump($this->moduleOption);
         // $this->moduleOption = \App\Models\Option::find();
@@ -70,9 +60,24 @@ abstract class Controller extends \Illuminate\Routing\Controller
      * @param mixed $default
      * @return mixed
      */
-    public function config($key, $default = null)
+    protected function config($key, $default = null)
     {
         return $this->moduleName ? \Arr::get($this->moduleConfig, $key, $default) : config($key, $default);
+    }
+    protected function queryModuleOption()
+    {
+        $builder = \App\Models\Option::where('name', 'like', 'global.%');
+        foreach ($this->models ?? [] as $tableKey => $tableModel) {
+            $builder = $builder->orWhere('name', 'like', $tableKey . '.%');
+        }
+        if ($this->moduleName)
+            $builder = $builder->orWhere('name', 'like', $this->moduleAlias . '.%');
+        \Arr::set($this->sqls, 'select_option_list', $builder->toRawSql());
+        $options = $builder->get()->toArray();
+        // var_dump($options);
+        foreach ($options as $option) {
+            \Arr::set($this->moduleOption, $option['name'], $option['value'], );
+        }
     }
     /**
      * Summary of option
@@ -80,7 +85,7 @@ abstract class Controller extends \Illuminate\Routing\Controller
      * @param mixed $default
      * @return mixed
      */
-    public function option($key, $default = null)
+    protected function option($key, $default = null)
     {
         return $this->moduleName ? \Arr::get($this->moduleOption, $key, $default) : config($key, $default);
     }
@@ -94,7 +99,7 @@ abstract class Controller extends \Illuminate\Routing\Controller
      * @return \Illuminate\Contracts\View\Factory
      * @return \Illuminate\Contracts\View\View
      */
-    public function view($view = null, $data = [], $mergeData = [])
+    protected function view($view = null, $data = [], $mergeData = [])
     {
         $return = array_merge(
             [
@@ -120,6 +125,7 @@ abstract class Controller extends \Illuminate\Routing\Controller
                 ],
                 '$request' => request()->all(),
                 '$user' => Auth::check() ? Auth::user() : null,
+                '$sqls' => $this->sqls,
                 'module' => $this->getModuleAttributes(),
                 'options' => $this->moduleOption,
                 'layout' => null,
@@ -133,8 +139,11 @@ abstract class Controller extends \Illuminate\Routing\Controller
         );
         if (!isset($return['view']))
             abort(403);
-        if ($this->moduleName) {
-            $return['layout'] = $this->config('framework') . '.' . $return['view'];
+        if (empty($return['layout'])) {
+            $return['layout'] = $this->config('view.framework', ) . '.' . $return['view'];
+            if (!View::exists($return['layout'])) {
+                $return['layout'] = $return['view'];
+            }
             $return['view'] = $this->moduleAlias . '::' . $this->config('framework') . '.' . $return['view'];
         }
         if (!View::exists($return['view'])) {
@@ -147,10 +156,10 @@ abstract class Controller extends \Illuminate\Routing\Controller
         // dump($return);
         return view($return['view'], $return, $mergeData);
     }
-    public function response()
+    protected function response()
     {
     }
-    public function getModuleAttributes()
+    protected function getModuleAttributes()
     {
         if (empty($this->moduleName))
             return;
@@ -170,15 +179,14 @@ abstract class Controller extends \Illuminate\Routing\Controller
             'requires' => $module->getRequires(),
         ]);
     }
-
-    public function view_index($idOrSlug = null)
+    protected function view_index($idOrSlug = null)
     {
         $return = [];
 
         return $this->view('index', $return);
     }
 
-    public function view_model($model, $idOrSlug = null)
+    protected function view_model($model, $idOrSlug = null)
     {
         if (!in_array($model, array_keys($this->models)))
             abort(404);
@@ -201,7 +209,7 @@ abstract class Controller extends \Illuminate\Routing\Controller
         return $this->view($view, $return);
     }
 
-    public function crud_model($model, $idOrSlug = null)
+    protected function crud_model($model, $idOrSlug = null)
     {
         if (!in_array($model, array_keys($this->models)))
             abort(404);
@@ -244,7 +252,7 @@ abstract class Controller extends \Illuminate\Routing\Controller
             'name' => [trans('auth.failed')],
         ]);
     }
-    public function view_meta($idOrSlug)
+    protected function view_meta($idOrSlug)
     {
         if (is_string($idOrSlug)) {
         }
@@ -253,7 +261,7 @@ abstract class Controller extends \Illuminate\Routing\Controller
         ];
         return $this->view('meta', $return);
     }
-    public function view_content($idOrSlug)
+    protected function view_content($idOrSlug)
     {
         if (is_string($idOrSlug)) {
         }
@@ -263,7 +271,7 @@ abstract class Controller extends \Illuminate\Routing\Controller
 
         return $this->view('content', $return);
     }
-    public function view_link($idOrSlug)
+    protected function view_link($idOrSlug)
     {
         if (is_string($idOrSlug)) {
         }
@@ -272,23 +280,27 @@ abstract class Controller extends \Illuminate\Routing\Controller
         ];
         return $this->view('link', $return);
     }
-    public function view_admin()
+    protected function view_admin()
     {
     }
 
-    public function view_market()
+    protected function view_market()
     {
     }
-    public function getTableData($default = [])
+    protected function getTableData($default = [])
     {
+        var_dump(__METHOD__);
         $return = [];
+        var_dump($this->models);
         foreach ($this->models ?? [] as $tableKey => $tableModel) {
+            var_dump($tableKey);
             $plural_tableKey = \Str::plural($tableKey);
             $tableTypeOptions = $this->option($tableKey . ".type", []);
+            var_dump($tableTypeOptions);
             $return[$plural_tableKey] = sizeof($tableTypeOptions) > 0
                 ? array_reduce(
                     $tableTypeOptions,
-                    function ($total, $item) use ($default, $tableModel, $plural_tableKey) {
+                    function ($total, $item) use ($default, $tableModel, $tableKey, $plural_tableKey) {
                         if (\Arr::get($item, 'auth', false))
                             return $total;
                         $key = $item['value'];
@@ -297,20 +309,22 @@ abstract class Controller extends \Illuminate\Routing\Controller
                             $total[$plural_key] = \Arr::get(
                                 $default,
                                 $plural_tableKey . '.' . $plural_key,
-                                $tableModel::where('type', $key)
+                                $builder = $tableModel::where('type', $key)
                                     ->where('user', Auth::id())
                                     ->orderBy('updated_at', 'desc')
-                                    ->paginate(15)
                             );
                         } else {
                             $total[$plural_key] = \Arr::get(
                                 $default,
                                 $plural_tableKey . '.' . $plural_key,
-                                $tableModel::where('type', $key)
+                                $builder = $tableModel::where('type', $key)
                                     ->whereIn('status', ['publish', 'public'])
                                     ->orderBy('updated_at', 'desc')
-                                    ->paginate(15)
                             );
+                        }
+                        if (isset($builder)) {
+                            \Arr::set($this->sqls, "select_{$tableKey}_{$key}_list", $builder->toSql());
+                            $total[$plural_key] = $builder->paginate(15);
                         }
                         return $total;
                     },
