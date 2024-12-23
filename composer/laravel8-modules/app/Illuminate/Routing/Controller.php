@@ -160,8 +160,45 @@ abstract class Controller extends \Illuminate\Routing\Controller
         // dump($return);
         return view($return['view'], $return, $mergeData);
     }
-    protected function response()
+    protected function response($data = [], $mergeData = [])
     {
+        $return = array_merge(
+            [
+                '$options' => [],
+                '$servers' => [],
+                '$constants' => [],
+                '$variables' => [
+                    'route' => [
+                        'method' => request()->method(),
+                        'url' => request()->url(),
+                        'fullUrl' => request()->fullUrl(),
+                        'path' => request()->path(),
+                        'pathInfo' => request()->getPathInfo(),
+                    ],
+                    'request' => request()->all(),
+                ],
+                '$route' => [
+                    'method' => request()->method(),
+                    'url' => request()->url(),
+                    'fullUrl' => request()->fullUrl(),
+                    'path' => request()->path(),
+                    'pathInfo' => request()->getPathInfo(),
+                ],
+                '$request' => request()->all(),
+                '$user' => Auth::check() ? Auth::user() : null,
+                '$sqls' => $this->sqls,
+                'module' => $this->getModuleAttributes(),
+                'options' => $this->moduleOption,
+                'layout' => null,
+                'view' => null,
+                'children' => $this->config('hasChildren') ? \App\Models\Meta::factory()->times(10)->make() : null,
+                // 'layout' => "layouts.master",
+            ],
+            $this->getTableData($data),
+            $data
+        );
+        // dump($return);
+        return response()->json($return, 200, []);
     }
     protected function getModuleAttributes()
     {
@@ -343,5 +380,10 @@ abstract class Controller extends \Illuminate\Routing\Controller
         }
         return $return;
     }
+    protected function response_index()
+    {
+        $return = [];
 
+        return $this->response($return);
+    }
 }

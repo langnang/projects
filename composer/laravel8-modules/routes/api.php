@@ -19,6 +19,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::prefix('home')->group(function () {
+    Route::get('/', 'App\Http\Controllers\HomeController@response_index');
+});
+
 // API 接口代理
 Route::match(['get', 'post', 'put', 'delete'], '/proxy', "\App\Http\Controllers\ApiController@proxy")->name('proxy');
 
