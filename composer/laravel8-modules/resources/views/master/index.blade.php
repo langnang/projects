@@ -16,9 +16,9 @@
               </div>
               <div class="card-body px-3 py-2">
                 {!! markdown_to_html($content->text) !!}
-                <small class="alert alert-info d-block text-center py-1 mb-0" role="alert">
-                  阅读更多
-                </small>
+                <a href="{{ url((isset($module) ? $module['alias'] . '/' : 'home/') . 'content/' . ($content->id ?? $content->slug)) }}" class="alert alert-info d-block text-center py-1 mb-0" role="alert">
+                  <small>阅读更多</small>
+                </a>
               </div>
               <div class="card-footer py-2 small">
                 <a href="{{ url((isset($module) ? $module['alias'] . '/' : 'home/') . 'content/' . ($content->id ?? $content->slug)) }}" class="btn btn-sm btn-primary"><small>Go somewhere</small></a>
