@@ -78,7 +78,6 @@
             Modules
           </a>
           <div class="dropdown-menu dropdown-menu-right">
-            <a class="dropdown-item px-2 small" href="{{ env('APP_URL') }}home">Home</a>
             @foreach (Module::allEnabled() ?? [] as $moduleName => $moduleObject)
               @if (Auth::check() || config($moduleObject->getLowerName() . '.status', 'public') == 'public')
                 <a class="dropdown-item px-2 small" href="{{ env('APP_URL') }}{{ $moduleObject->getLowerName() ?? strtolower($moduleName) }}">{{ $moduleName }}（{{ config($moduleObject->getLowerName() . '.nameCn') }}）</a>

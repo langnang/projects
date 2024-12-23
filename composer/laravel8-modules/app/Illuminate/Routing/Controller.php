@@ -64,6 +64,10 @@ abstract class Controller extends \Illuminate\Routing\Controller
     {
         return $this->moduleName ? \Arr::get($this->moduleConfig, $key, $default) : config($key, $default);
     }
+    /**
+     * Summary of queryModuleOption
+     * @return void
+     */
     protected function queryModuleOption()
     {
         $builder = \App\Models\Option::where('name', 'like', 'global.%');
@@ -87,7 +91,7 @@ abstract class Controller extends \Illuminate\Routing\Controller
      */
     protected function option($key, $default = null)
     {
-        return $this->moduleName ? \Arr::get($this->moduleOption, $key, $default) : config($key, $default);
+        return \Arr::get($this->moduleOption, $key, config($key, $default));
     }
     /**
      * Summary of view
@@ -222,9 +226,9 @@ abstract class Controller extends \Illuminate\Routing\Controller
         $method = explode('-', $idOrSlug);
         array_splice($method, 1, 0, $model);
         $method = implode('_', $method);
-        var_dump($method);
+        // var_dump($method);
 
-        var_dump(request()->all());
+        // var_dump(request()->all());
         switch ($method) {
             case 'create_meta_item':
             case 'insert_meta_item':
@@ -289,14 +293,15 @@ abstract class Controller extends \Illuminate\Routing\Controller
     }
     protected function getTableData($default = [])
     {
-        var_dump(__METHOD__);
+        // var_dump(__METHOD__);
         $return = [];
-        var_dump($this->models);
+        // var_dump($this->models);
+        // var_dump($this->moduleOption);
         foreach ($this->models ?? [] as $tableKey => $tableModel) {
-            var_dump($tableKey);
+            // var_dump($tableKey);
             $plural_tableKey = \Str::plural($tableKey);
             $tableTypeOptions = $this->option($tableKey . ".type", []);
-            var_dump($tableTypeOptions);
+            // var_dump($tableTypeOptions);
             $return[$plural_tableKey] = sizeof($tableTypeOptions) > 0
                 ? array_reduce(
                     $tableTypeOptions,
