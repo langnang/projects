@@ -11,10 +11,12 @@
   <div class="col-md-0 col-lg-10">
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="{{ env('APP_URL') }}{{ $module['alias'] }}">{{ $module['name'] }}{{ $module['nameCn'] ? '（' . $module['nameCn'] . '）' : null }}
-            <span class="sr-only">(current)</span></a>
-        </li>
+        @isset($module)
+          <li class="nav-item active">
+            <a class="nav-link" href="{{ env('APP_URL') }}{{ $module['alias'] }}">{{ $module['name'] }}{{ $module['nameCn'] ? '（' . $module['nameCn'] . '）' : null }}
+              <span class="sr-only">(current)</span></a>
+          </li>
+        @endisset
         @foreach ($module['navbar'] ?? [] as $navbar)
           @if (sizeof($navbar['children'] ?? []) > 0)
             <li class="nav-item dropdown">
