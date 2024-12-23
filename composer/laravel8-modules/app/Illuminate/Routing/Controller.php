@@ -23,7 +23,7 @@ abstract class Controller extends \Illuminate\Routing\Controller
         'content' => \App\Models\Content::class,
         'meta' => \App\Models\Meta::class,
         'link' => \App\Models\Link::class,
-        'conmment' => \App\Models\Comment::class,
+        'comment' => \App\Models\Comment::class,
     ];
 
     public function __construct()
@@ -306,10 +306,12 @@ abstract class Controller extends \Illuminate\Routing\Controller
     {
         if (is_string($idOrSlug)) {
         }
+        $content = \App\Models\Content::find($idOrSlug);
+        if (empty($content))
+            abort(404);
         $return = [
-            'content' => \App\Models\Content::factory()->times(1)->make()->first(),
+            'content' => $content,
         ];
-
         return $this->view('content', $return);
     }
     protected function view_link($idOrSlug)

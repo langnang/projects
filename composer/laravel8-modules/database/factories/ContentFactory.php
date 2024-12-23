@@ -29,7 +29,7 @@ class ContentFactory extends Factory
 
             "title" => $this->faker->sentence(),
             "description" => $this->faker->sentence(),
-            "text" => '<!--markdown-->\r\n' . $this->faker->text() . '<!--more-->\r\n',
+            "text" => "<!--markdown-->\r\n{$this->faker->text()}\r\n<!--more-->\r\n",
             "type" => $this->faker->randomElement(array_keys($typeOptions)),
             "status" => $this->faker->randomElement(array_keys($statusOptions)),
 

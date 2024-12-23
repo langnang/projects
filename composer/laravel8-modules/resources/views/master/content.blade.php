@@ -14,7 +14,11 @@
             <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
           </div>
           <article>
-            {{ is_string($content->text) ? $content->text : json_encode($content->text, JSON_UNESCAPED_UNICODE) }}
+            @if (is_string($content->text))
+              {!! markdown_to_html($content->text) !!}
+            @else
+              {{ json_encode($content->text, JSON_UNESCAPED_UNICODE) }}
+            @endif
           </article>
         @endempty
       </div>

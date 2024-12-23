@@ -18,7 +18,10 @@ class DatabaseSeeder extends Seeder
         $this->call([
             OptionTableSeeder::class,
         ]);
-        \App\Models\link::upsert(array_filter(\Arr::get($this->initializations, 'links', []), function ($item) {
+        var_dump(array_filter(array_keys($this->initializations), function ($key) {
+            return str_starts_with($key, 'links');
+        }), );
+        \App\Models\link::upsert(array_filter(\Arr::get($this->initializations, 'links*', []), function ($item) {
             return $item['title'];
         }), ['slug'], ['slug', 'title', 'url', 'ico', 'description', 'keywords', 'type', 'status']);
         // \App\Models\User::factory(1)->insert();

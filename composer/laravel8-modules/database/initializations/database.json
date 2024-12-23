@@ -39,16 +39,16 @@
         "value": ""
     },
     "metas": [],
-    "metas[type=category][status=public]": [
+    "metas[type=category&status=public]": [
         {
             "slug": "cheatsheet",
             "name": "速查"
         }
     ],
-    "metas[type=tag][status=public]": [],
+    "metas[type=tag&status=public]": [],
     "contents": [],
     "links": [],
-    "links[type=site][status=public]": [
+    "links[type=site&status=public]": [
         {
             "slug": "bootstrap-docs@4",
             "title": "Bootstrap v4 中文文档",

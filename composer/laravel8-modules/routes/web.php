@@ -17,6 +17,8 @@ Route::get('/', 'App\Http\Controllers\Controller@view_index');
 
 Route::prefix('home')->group(function () {
     Route::get('/', 'App\Http\Controllers\HomeController@view_index');
+    Route::get('/meta/{id}', 'App\Http\Controllers\HomeController@view_meta');
+    Route::get('/content/{id}', 'App\Http\Controllers\HomeController@view_content');
 });
 
 // Route::match(['get', 'post'], '/login', 'App\Http\Controllers\Controller@view_login');
