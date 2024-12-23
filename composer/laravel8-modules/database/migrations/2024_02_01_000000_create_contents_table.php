@@ -29,7 +29,7 @@ class CreateContentsTable extends Migration
             $table->string('ico')->nullable()->comment('徽标');
 
             $table->string('title')->nullable()->comment('标题');
-            $table->string('description')->nullable()->comment('描述');
+            // $table->string('description')->nullable()->comment('描述');
             $table->longText('text')->nullable()->comment('内容');
 
             $table->string('type', 16)->nullable()->comment('类型');

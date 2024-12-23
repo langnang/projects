@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Models;
+use Symfony\Component\DependencyInjection\Dumper\YamlDumper;
+use Symfony\Component\Yaml\Yaml;
 
 
 class Content extends \Illuminate\Database\Eloquent\Model
@@ -32,12 +34,16 @@ class Content extends \Illuminate\Database\Eloquent\Model
         'release_at',
         'deleted_at',
     ];
+    protected $appends = [
+        'config'
+    ];
     protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
         'release_at' => 'datetime',
         'deleted_at' => 'datetime',
     ];
+
 
     static $fields = [];
     /**
@@ -95,7 +101,28 @@ class Content extends \Illuminate\Database\Eloquent\Model
     {
         return $this->hasMany(\App\Models\Comment::class, $this->primaryKey, $this->primaryKey);
     }
+    public function getConfigAttribute()
+    {
+        $return = [];
+        $text = trim("
+        
+----
+layout: master
+theme: default
+----
 
+
+");
+        if (\Str::startsWith($text, '----')) {
+            // var_dump($text);
+            // var_dump(\Str::between($text, '----', '----'));
+            // var_dump(Yaml::parse(\Str::between($text, '----', '----')));
+
+            $return = Yaml::parse(\Str::between($text, '----', '----'));
+        }
+        return $return;
+
+    }
     public function toArray()
     {
         $return = parent::toArray();
