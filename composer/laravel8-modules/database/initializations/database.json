@@ -39,13 +39,21 @@
         "value": ""
     },
     "metas": [],
-    "metas[type=category&status=public]": [
+    "metas[type=category&status=public]": [],
+    "metas[type=tag&status=public]": [
+        {
+            "slug": "admin",
+            "name": "Admin"
+        },
+        {
+            "slug": "audio",
+            "name": "Audio"
+        },
         {
             "slug": "cheatsheet",
-            "name": "速查"
+            "name": "CheatSheet"
         }
     ],
-    "metas[type=tag&status=public]": [],
     "contents": [],
     "links": [],
     "links[type=site&status=public]": [

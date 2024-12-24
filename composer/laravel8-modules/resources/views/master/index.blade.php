@@ -15,7 +15,7 @@
                 </h5>
               </div>
               <div class="card-body px-3 py-2">
-                {!! markdown_to_html($content->description) !!}
+                <p class="card-text mb-2">{{ $content->description }}</p>
                 <a href="{{ url((isset($module) ? $module['alias'] . '/' : 'home/') . 'content/' . ($content->id ?? $content->slug)) }}" class="alert alert-info d-block text-center py-1 mb-0" role="alert">
                   <small>阅读更多</small>
                 </a>
