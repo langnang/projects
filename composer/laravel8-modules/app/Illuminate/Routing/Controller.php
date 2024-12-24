@@ -129,7 +129,6 @@ abstract class Controller extends \Illuminate\Routing\Controller
                 ],
                 '$request' => request()->all(),
                 '$user' => Auth::check() ? Auth::user() : null,
-                '$sqls' => $this->sqls,
                 'module' => $this->getModuleAttributes(),
                 'options' => $this->moduleOption,
                 'layout' => null,
@@ -141,6 +140,7 @@ abstract class Controller extends \Illuminate\Routing\Controller
             is_array($view) ? $view : ['view' => $view],
             $data
         );
+        $return['$sqls'] = $this->sqls;
         if (!isset($return['view']))
             abort(403);
         if (empty($return['layout'])) {
@@ -367,7 +367,9 @@ abstract class Controller extends \Illuminate\Routing\Controller
                             );
                         }
                         if (isset($builder)) {
-                            \Arr::set($this->sqls, "select_{$tableKey}_{$key}_list", $builder->toSql());
+                            // var_dump("select_{$tableKey}_{$key}_list");
+                            // var_dump($builder->toRawSql());
+                            \Arr::set($this->sqls, "select_{$tableKey}_{$key}_list", $builder->toRawSql());
                             $total[$plural_key] = $builder->paginate(15);
                         }
                         return $total;
@@ -379,6 +381,8 @@ abstract class Controller extends \Illuminate\Routing\Controller
                     $plural_tableKey,
                     $tableModel::where('user', Auth::id() ?? 0)->orderBy('updated_at', 'desc')->paginate(15)
                 );
+            $return['latest_' . $plural_tableKey] = [];
+            $return['hottest_' . $plural_tableKey] = [];
         }
         return $return;
     }

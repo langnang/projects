@@ -22,6 +22,7 @@
     "livewire/livewire": "^2.12",
     "markhilton/monolog-mysql": "^0.1.6",
     "nwidart/laravel-modules": "^8.6",
+    "recca0120/terminal": "^1.12",
     "wapmorgan/unified-archive": "^1.2",
     "zircote/swagger-php": "^4.9"
   },

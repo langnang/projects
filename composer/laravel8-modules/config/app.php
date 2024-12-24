@@ -169,6 +169,7 @@ return [
         Nwidart\Modules\LaravelModulesServiceProvider::class,
         L5Swagger\L5SwaggerServiceProvider::class,
         Logger\Laravel\Provider\MonologMysqlHandlerServiceProvider::class,
+        Recca0120\Terminal\TerminalServiceProvider::class,
         /*
          * Application Service Providers...
          */
