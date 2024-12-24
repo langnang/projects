@@ -55,9 +55,7 @@
             "url": "https://v4.bootcss.com/",
             "ico": "https://v4.bootcss.com/docs/4.6/assets/img/favicons/favicon-32x32.png",
             "keywords": "",
-            "description": "Bootstrap 是全球最受欢迎的 HTML、CSS 和 JS 框架，用于开发响应式布局、移动设备优先的 WEB 项目。",
-            "type": "site",
-            "status": "public"
+            "description": "Bootstrap 是全球最受欢迎的 HTML、CSS 和 JS 框架，用于开发响应式布局、移动设备优先的 WEB 项目。"
         },
         {
             "slug": "bootstrap-icons",
@@ -65,9 +63,7 @@
             "url": "https://icons.bootcss.com/",
             "ico": "https://icons.bootcss.com/assets/img/favicons/favicon-32x32.png",
             "keywords": "",
-            "description": "Bootstrap 官方开源图标（icon）库",
-            "type": "site",
-            "status": "public"
+            "description": "Bootstrap 官方开源图标（icon）库"
         },
         {
             "slug": "packagist-p2hp",
@@ -75,9 +71,7 @@
             "ico": "http://packagist.p2hp.com/favicon.ico",
             "url": "http://packagist.p2hp.com/",
             "keywords": "",
-            "description": "Packagist中文网 PHP软件包仓库",
-            "type": "site",
-            "status": "public"
+            "description": "Packagist中文网 PHP软件包仓库"
         },
         {
             "slug": "phpspider",
@@ -85,9 +79,7 @@
             "ico": "https://gstatic.gitbook.com/images/b1c4c86ca817a71628d2debe73be9a64.ico",
             "url": "https://doc.phpspider.org/",
             "keywords": "",
-            "description": "",
-            "type": "site",
-            "status": "public"
+            "description": ""
         },
         {
             "slug": "unpkg",
@@ -95,9 +87,7 @@
             "ico": "https://unpkg.com/favicon.ico",
             "url": "https://unpkg.com/",
             "keywords": "",
-            "description": "",
-            "type": "site",
-            "status": "public"
+            "description": ""
         },
         {
             "slug": "npmjs",
@@ -105,9 +95,7 @@
             "ico": "https://static-production.npmjs.com/b0f1a8318363185cc2ea6a40ac23eeb2.png",
             "url": "https://www.npmjs.com/",
             "keywords": "",
-            "description": "",
-            "type": "site",
-            "status": "public"
+            "description": ""
         },
         {
             "slug": "laravel-modules",
@@ -115,9 +103,7 @@
             "ico": "https://laravelmodules.com/favicon.ico",
             "url": "https://laravelmodules.com/",
             "keywords": "",
-            "description": "",
-            "type": "site",
-            "status": "public"
+            "description": ""
         },
         {
             "slug": "swagger",
@@ -125,9 +111,7 @@
             "ico": "https://swagger.io/favicon.ico",
             "url": "https://swagger.io/",
             "keywords": "",
-            "description": "Simplify API development for users, teams, and enterprises with our open source and professional toolset. Find out how Swagger can help you and get started today.",
-            "type": "site",
-            "status": "public"
+            "description": "Simplify API development for users, teams, and enterprises with our open source and professional toolset. Find out how Swagger can help you and get started today."
         },
         {
             "slug": "fakerphp",
@@ -135,9 +119,7 @@
             "ico": "https://fakerphp.org/images/favicon.ico",
             "url": "https://fakerphp.org/",
             "keywords": "",
-            "description": "Documentation for FakerPHP / Faker",
-            "type": "site",
-            "status": "public"
+            "description": "Documentation for FakerPHP / Faker"
         },
         {
             "slug": "",
@@ -145,9 +127,7 @@
             "ico": "",
             "url": "",
             "keywords": "",
-            "description": "",
-            "type": "site",
-            "status": "public"
+            "description": ""
         },
         {
             "slug": "",
@@ -155,9 +135,7 @@
             "ico": "",
             "url": "",
             "keywords": "",
-            "description": "",
-            "type": "site",
-            "status": "public"
+            "description": ""
         },
         {
             "slug": "",
@@ -165,9 +143,7 @@
             "ico": "",
             "url": "",
             "keywords": "",
-            "description": "",
-            "type": "site",
-            "status": "public"
+            "description": ""
         },
         {
             "slug": "",
@@ -175,9 +151,7 @@
             "ico": "",
             "url": "",
             "keywords": "",
-            "description": "",
-            "type": "site",
-            "status": "public"
+            "description": ""
         },
         {
             "slug": "",
@@ -185,9 +159,7 @@
             "ico": "",
             "url": "",
             "keywords": "",
-            "description": "",
-            "type": "site",
-            "status": "public"
+            "description": ""
         },
         {
             "slug": "",
@@ -195,9 +167,7 @@
             "ico": "",
             "url": "",
             "keywords": "",
-            "description": "",
-            "type": "site",
-            "status": "public"
+            "description": ""
         },
         {
             "slug": "",
@@ -205,9 +175,7 @@
             "ico": "",
             "url": "",
             "keywords": "",
-            "description": "",
-            "type": "site",
-            "status": "public"
+            "description": ""
         },
         {
             "slug": "",
@@ -215,9 +183,7 @@
             "ico": "",
             "url": "",
             "keywords": "",
-            "description": "",
-            "type": "site",
-            "status": "public"
+            "description": ""
         },
         {
             "slug": "",
@@ -225,9 +191,7 @@
             "ico": "",
             "url": "",
             "keywords": "",
-            "description": "",
-            "type": "site",
-            "status": "public"
+            "description": ""
         },
         {
             "slug": "",
@@ -235,9 +199,7 @@
             "ico": "",
             "url": "",
             "keywords": "",
-            "description": "",
-            "type": "site",
-            "status": "public"
+            "description": ""
         },
         {
             "slug": "",
@@ -245,9 +207,7 @@
             "ico": "",
             "url": "",
             "keywords": "",
-            "description": "",
-            "type": "site",
-            "status": "public"
+            "description": ""
         },
         {
             "slug": "",
@@ -255,9 +215,7 @@
             "ico": "",
             "url": "",
             "keywords": "",
-            "description": "",
-            "type": "site",
-            "status": "public"
+            "description": ""
         },
         {
             "slug": "",
@@ -265,9 +223,7 @@
             "ico": "",
             "url": "",
             "keywords": "",
-            "description": "",
-            "type": "site",
-            "status": "public"
+            "description": ""
         }
     ]
 }

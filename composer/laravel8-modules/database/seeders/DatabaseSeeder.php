@@ -18,12 +18,20 @@ class DatabaseSeeder extends Seeder
         $this->call([
             OptionTableSeeder::class,
         ]);
-        var_dump(array_filter(array_keys($this->initializations), function ($key) {
+        $link_initializations = array_filter(array_keys($this->initializations), function ($key) {
             return str_starts_with($key, 'links');
-        }), );
-        \App\Models\link::upsert(array_filter(\Arr::get($this->initializations, 'links*', []), function ($item) {
-            return $item['title'];
-        }), ['slug'], ['slug', 'title', 'url', 'ico', 'description', 'keywords', 'type', 'status']);
+        });
+        // var_dump($link_initializations);
+        foreach ($link_initializations as $link_key) {
+            $values = parse_ini_string(str_replace("&", "\n", \Str::between($link_key, '[', ']')));
+
+            \App\Models\link::upsert(array_map(function ($item) use ($values) {
+                return array_merge($item, $values);
+            }, array_filter(\Arr::get($this->initializations, $link_key, []), function ($item) {
+                return $item['title'];
+            })), ['slug'], ['slug', 'title', 'url', 'ico', 'description', 'keywords', 'type', 'status']);
+
+        }
         // \App\Models\User::factory(1)->insert();
         \App\Models\Meta::factory(100)->create();
         \App\Models\Content::factory(100)->create();
