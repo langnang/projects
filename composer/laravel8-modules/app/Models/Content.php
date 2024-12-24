@@ -11,6 +11,7 @@ class Content extends \Illuminate\Database\Eloquent\Model
 
     use \App\Traits\Model\HasFamily;
     use \App\Traits\Model\HasRelationship;
+    use \App\Traits\Model\HasUser;
     protected $table = "contents";
 
     // protected $primaryKey = 'cid';

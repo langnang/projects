@@ -23,67 +23,67 @@
     </ul>
   </div>
 @endempty
-@empty($metas['categories'])
+@empty($categories)
 @else
   <div class="card my-2">
     <div class="card-header p-2">
       分类
     </div>
     <ul class="list-group list-group-flush">
-      @foreach ($metas['categories'] ?? [] as $meta)
-        <a class="list-group-item text-truncate py-1 pr-1" href="{{ url((isset($module) ? $module['alias'] . '/' : 'home/') . 'meta/' . ($meta->id ?? $meta->slug)) }}" title="{{ $meta->name }}">{{ $meta->name }}</a>
+      @foreach ($categories ?? [] as $category)
+        <a class="list-group-item text-truncate py-1 pr-1" href="{{ url((isset($module) ? $module['alias'] . '/' : 'home/') . 'meta/' . ($category->id ?? $category->slug)) }}" title="{{ $category->name }}">{{ $category->name }}</a>
       @endforeach
     </ul>
   </div>
 @endempty
-@empty($metas['tags'])
+@empty($tags)
 @else
   <div class="card my-2">
     <div class="card-header p-2">
       标签
     </div>
     <div class="card-body py-2 pl-2 pr-1">
-      @foreach ($metas['tags'] ?? [] as $meta)
-        <a class="badge badge-pill badge-primary text-truncate my-1" href="{{ url((isset($module) ? $module['alias'] . '/' : 'home/') . 'meta/' . ($meta->id ?? $meta->slug)) }}" title="{{ $meta->name }}" style="max-width: 100%;">{{ $meta->name }}</a>
+      @foreach ($tags ?? [] as $tag)
+        <a class="badge badge-pill badge-primary text-truncate my-1" href="{{ url((isset($module) ? $module['alias'] . '/' : 'home/') . 'meta/' . ($tag->id ?? $tag->slug)) }}" title="{{ $tag->name }}" style="max-width: 100%;">{{ $tag->name }}</a>
       @endforeach
     </div>
   </div>
 @endempty
-@empty($contents['latest'])
+@empty($latest_contents)
 @else
   <div class="card my-2">
     <div class="card-header p-2">
       最新
     </div>
     <ul class="list-group list-group-flush">
-      @foreach ($contents['latest'] ?? [] as $content)
-        <a class="list-group-item text-truncate py-1  pr-1" href="{{ url((isset($module) ? $module['alias'] . '/' : 'home/') . 'content/' . ($content->id ?? $content->slug)) }}" title="{{ $content->title }}">{{ $content->title }}</a>
+      @foreach ($latest_contents ?? [] as $latest_content)
+        <a class="list-group-item text-truncate py-1  pr-1" href="{{ url((isset($module) ? $module['alias'] . '/' : 'home/') . 'content/' . ($latest_content->id ?? $latest_content->slug)) }}" title="{{ $latest_content->title }}">{{ $latest_content->title }}</a>
       @endforeach
     </ul>
   </div>
 @endempty
-@empty($contents['hottest'])
+@empty($hottest_contents)
 @else
   <div class="card my-2">
     <div class="card-header p-2">
       最热
     </div>
     <ul class="list-group list-group-flush">
-      @foreach ($contents['hottest'] ?? [] as $content)
-        <a class="list-group-item text-truncate py-1 pr-1" href="{{ url((isset($module) ? $module['alias'] . '/' : 'home/') . 'content/' . ($content->id ?? $content->slug)) }}" title="{{ $content->title }}">{{ $content->title }}</a>
+      @foreach ($hottest_contents ?? [] as $hottest_content)
+        <a class="list-group-item text-truncate py-1 pr-1" href="{{ url((isset($module) ? $module['alias'] . '/' : 'home/') . 'content/' . ($hottest_content->id ?? $hottest_content->slug)) }}" title="{{ $hottest_content->title }}">{{ $hottest_content->title }}</a>
       @endforeach
     </ul>
   </div>
 @endempty
-@empty($comments['latest'])
+@empty($latest_comments)
 @else
   <div class="card my-2">
     <div class="card-header p-2">
       最新回复
     </div>
     <ul class="list-group list-group-flush">
-      @foreach ($comments['latest'] ?? [] as $comment)
-        <a class="list-group-item text-truncate py-1 pr-1" href="{{ url((isset($module) ? $module['alias'] . '/' : 'home/') . 'content/' . $comment->content_id) }}" title="{{ $comment->text }}">{{ $comment->text }}</a>
+      @foreach ($latest_comments ?? [] as $latest_comment)
+        <a class="list-group-item text-truncate py-1 pr-1" href="{{ url((isset($module) ? $module['alias'] . '/' : 'home/') . 'content/' . $latest_comment->content_id) }}" title="{{ $latest_comment->text }}">{{ $latest_comment->text }}</a>
       @endforeach
     </ul>
   </div>

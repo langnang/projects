@@ -135,8 +135,14 @@ abstract class Controller extends \Illuminate\Routing\Controller
                 'view' => null,
                 'children' => $this->config('hasChildren') ? \App\Models\Meta::factory()->times(10)->make() : null,
                 // 'layout' => "layouts.master",
+                'contents' => \App\Models\Content::with(['user'])->whereIn('type', ['post'])->whereIn('status', ['public', 'publish'])->orderByDesc('updated_at')->paginate(),
+                'links' => \App\Models\Link::with(['user'])->whereIn('type', ['site'])->whereIn('status', ['public', 'publish'])->orderByDesc('updated_at')->limit(20)->get(),
+                'categories' => \App\Models\Meta::with(['children'])->where('type', 'category')->whereIn('status', ['public', 'publish'])->get(),
+                'tags' => \App\Models\Meta::where('type', 'category')->whereIn('status', ['public', 'publish'])->get(),
+                'latest_contents' => \App\Models\Content::orderByDesc('updated_at')->limit(10)->get(),
+                'latest_comments' => \App\Models\Comment::orderByDesc('updated_at')->limit(10)->get(),
             ],
-            $this->getTableData($data),
+            // $this->getTableData($data),
             is_array($view) ? $view : ['view' => $view],
             $data
         );
@@ -193,8 +199,14 @@ abstract class Controller extends \Illuminate\Routing\Controller
                 'view' => null,
                 'children' => $this->config('hasChildren') ? \App\Models\Meta::factory()->times(10)->make() : null,
                 // 'layout' => "layouts.master",
+                'contents' => \App\Models\Content::with(['user'])->whereIn('type', ['post'])->whereIn('status', ['public', 'publish'])->orderByDesc('updated_at')->paginate(),
+                'links' => \App\Models\Link::with(['user'])->whereIn('type', ['site'])->whereIn('status', ['public', 'publish'])->orderByDesc('updated_at')->limit(20)->get(),
+                'categories' => \App\Models\Meta::with(['children'])->where('type', 'category')->whereIn('status', ['public', 'publish'])->get(),
+                'tags' => \App\Models\Meta::where('type', 'category')->whereIn('status', ['public', 'publish'])->get(),
+                'latest_contents' => \App\Models\Content::orderByDesc('updated_at')->limit(10)->get(),
+                'latest_comments' => \App\Models\Comment::orderByDesc('updated_at')->limit(10)->get(),
             ],
-            $this->getTableData($data),
+            // $this->getTableData($data),
             $data
         );
         // dump($return);
@@ -222,7 +234,10 @@ abstract class Controller extends \Illuminate\Routing\Controller
     }
     protected function view_index($idOrSlug = null)
     {
-        $return = [];
+        $this->mergeRequest(['idOrSlug' => $idOrSlug]);
+
+        $return = [
+        ];
 
         return $this->view('index', $return);
     }
@@ -298,7 +313,7 @@ abstract class Controller extends \Illuminate\Routing\Controller
         if (is_string($idOrSlug)) {
         }
         $return = [
-            'content' => \App\Models\Meta::factory()->times(1)->make()->first(),
+            'meta' => \App\Models\Meta::factory()->times(1)->make()->first(),
         ];
         return $this->view('meta', $return);
     }
@@ -311,6 +326,7 @@ abstract class Controller extends \Illuminate\Routing\Controller
             abort(404);
         $return = [
             'content' => $content,
+
         ];
         return $this->view('content', $return);
     }
@@ -391,5 +407,10 @@ abstract class Controller extends \Illuminate\Routing\Controller
         $return = [];
 
         return $this->response($return);
+    }
+
+    protected function mergeRequest($values)
+    {
+
     }
 }

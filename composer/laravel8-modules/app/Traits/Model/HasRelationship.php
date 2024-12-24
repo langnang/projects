@@ -34,4 +34,6 @@ trait HasRelationship
     public function logs()
     {
     }
+
+
 }

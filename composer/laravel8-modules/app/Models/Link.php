@@ -8,6 +8,7 @@ class Link extends \Illuminate\Database\Eloquent\Model
     use \Illuminate\Database\Eloquent\Factories\HasFactory;
     use \App\Traits\Model\HasFamily;
     use \App\Traits\Model\HasRelationship;
+    use \App\Traits\Model\HasUser;
     protected $table = "links";
 
     // protected $primaryKey = 'lid';

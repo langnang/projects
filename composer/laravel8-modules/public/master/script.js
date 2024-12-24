@@ -2,6 +2,9 @@
 (function () {
   'use strict'
 
+  $('[data-toggle="tooltip"]').tooltip();
+
+
   $('#meta-item-modal').on('show.bs.modal', function (event) {
     const button = $(event.relatedTarget); // Button that triggered the modal
     console.log(button);
