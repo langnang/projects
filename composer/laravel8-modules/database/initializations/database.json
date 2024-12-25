@@ -233,5 +233,222 @@
             "keywords": "",
             "description": ""
         }
+    ],
+    "_webhunt": {
+        "slug": "",
+        "title": "",
+        "ico": "",
+        "description": "",
+        "text": {
+            "urls": [],
+            "export_table": "",
+            "groups": [],
+            "fields": [],
+            "list_fields": [],
+            "content_fields": []
+        },
+        "type": "",
+        "status": ""
+    },
+    "webhunts": [],
+    "webhunts[type=post&status=public]": [
+        {
+            "slug": "cdrcxg",
+            "ico": "",
+            "title": "书本网-免费全本小说",
+            "description": "免费小说推荐,更多好看的小说阅读尽在书本网，书本网是国内全集全本完结TXT电子书免费下载分享平台，大家可以把好看的完结电子书免费上传到这里，也可下载其他书友的全集txt小说，快来书本网分享你的优秀电子书吧！",
+            "text": {
+                "urls": [
+                    "https://www.cdrcxg.com/"
+                ],
+                "domains": [
+                    "cdrcxg.com",
+                    "www.cdrcxg.com"
+                ],
+                "scan_urls": [
+                    "https: //www.cdrcxg.com/"
+                ],
+                "content_url_regexes": [
+                    "https: //www.cdrcxg.com/tn/\\d+/"
+                ],
+                "list_url_regexes": [
+                    "https: //www.cdrcxg.com/\\.+"
+                ],
+                "export": {
+                    "type": "db",
+                    "table": "novels"
+                },
+                "export_table": "novels",
+                "groups": [
+                    {
+                        "name": "玄幻奇幻",
+                        "additional_url": "/class/1_1/"
+                    },
+                    {
+                        "name": "武侠仙侠",
+                        "additional_url": "/class/2_1/"
+                    },
+                    {
+                        "name": "女频言情",
+                        "additional_url": "/class/3_1/"
+                    },
+                    {
+                        "name": "现代都市",
+                        "additional_url": "/class/4_1/"
+                    },
+                    {
+                        "name": "历史军事",
+                        "additional_url": "/class/5_1/"
+                    },
+                    {
+                        "name": "游戏竞技",
+                        "additional_url": "/class/6_1/"
+                    },
+                    {
+                        "name": "科幻灵异",
+                        "additional_url": "/class/7_1/"
+                    },
+                    {
+                        "name": "美文同人",
+                        "additional_url": "/class/8_1/"
+                    },
+                    {
+                        "name": "其他类型",
+                        "additional_url": "/class/9_1/"
+                    }
+                ],
+                "fields": [
+                    {
+                        "name": "title",
+                        "seletor": "//*[@id='newscontent']/div/ul/li[1]/span[2]/a",
+                        "required": true
+                    },
+                    {
+                        "name": "latest_chapter",
+                        "seletor": "//*[@id='newscontent']/div/ul/li[1]/span[3]/a"
+                    },
+                    {
+                        "name": "author",
+                        "seletor": "//*[@id='newscontent']/div/ul/li[1]/span[4]"
+                    },
+                    {
+                        "name": "created_at",
+                        "seletor": "//*[@id='newscontent']/div/ul/li[1]/span[5]"
+                    }
+                ],
+                "list_fields": [],
+                "content_fields": []
+            }
+        },
+        {
+            "slug": "xb6v",
+            "ico": "https://www.xb6v.com/images/favicon.ico",
+            "title": "6v电影-新版",
+            "description": "",
+            "text": {
+                "url": "https://www.xb6v.com/",
+                "export_table": "videos",
+                "groups": [
+                    {
+                        "name": "喜剧片",
+                        "additional_url": "/xijupian/index_{$page}.html",
+                        "params": {},
+                        "next": "videos"
+                    },
+                    {
+                        "name": "动作片",
+                        "additional_url": "/dongzuopian/index_{$page}.html",
+                        "next": "videos"
+                    },
+                    {
+                        "name": "电视剧",
+                        "additional_url": "/dianshiju/index_{$page}.html",
+                        "next": "videos"
+                    },
+                    {
+                        "name": "电视剧-国剧",
+                        "additional_url": "/dianshiju/guoju/index_{$page}.html",
+                        "next": "videos"
+                    },
+                    {
+                        "name": "电视剧-短剧",
+                        "additional_url": "/dianshiju/guoju/index_{$page}.html",
+                        "next": "videos"
+                    },
+                    {
+                        "name": "电视剧-国剧",
+                        "additional_url": "/dianshiju/duanju/index_{$page}.html",
+                        "next": "videos"
+                    },
+                    {
+                        "name": "电视剧-日韩剧",
+                        "additional_url": "/dianshiju/rihanju/index_{$page}.html",
+                        "next": "videos"
+                    },
+                    {
+                        "name": "电视剧-欧美剧",
+                        "additional_url": "/dianshiju/oumeiju/index_{$page}.html",
+                        "next": "videos"
+                    }
+                ],
+                "novels": {
+                    "next": "novel_categories",
+                    "fields": []
+                },
+                "novel_categories": {
+                    "next": "novel_chapters",
+                    "fields": []
+                },
+                "novel_chapters": {
+                    "fields": []
+                },
+                "videos": {
+                    "next": "video_seasons",
+                    "fields": [
+                        {
+                            "name": "items",
+                            "selector": "//*[@id=\"post_container\"]/li",
+                            "repeated": true,
+                            "children": [
+                                {
+                                    "name": "title",
+                                    "selector": "//div[2]/h2/a"
+                                },
+                                {
+                                    "name": "url",
+                                    "selector": "//div[2]/h2/a/@href"
+                                },
+                                {
+                                    "name": "ico",
+                                    "selector": "//div[1]/a/img"
+                                },
+                                {
+                                    "name": "description",
+                                    "selector": "//div[2]/div[1]/p"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "page",
+                            "selector": "/html/body/div[6]/div/a[contains(@class,\"current\")]"
+                        },
+                        {
+                            "name": "lastPage",
+                            "selector": "/html/body/div[6]/div/a[last()-2]"
+                        },
+                        {
+                            "name": "total"
+                        }
+                    ]
+                },
+                "video_seasons": {
+                    "next": "videos_episodes",
+                    "fields": []
+                },
+                "videos_episodes": {
+                    "fields": []
+                }
+            }
+        }
     ]
 }

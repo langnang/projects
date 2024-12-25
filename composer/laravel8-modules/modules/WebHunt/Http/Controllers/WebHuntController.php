@@ -2,29 +2,21 @@
 
 namespace Modules\WebHunt\Http\Controllers;
 
+use App\Illuminate\PhpSpider\PhpSpider;
+use App\Illuminate\PhpSpider\Selector;
+use Http;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use App\Illuminate\Routing\Controller;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Pagination\Paginator;
 
 class WebHuntController extends Controller
 {
     public function view_index($idOrSlug = null)
     {
         $return = [
-            'metas' => \App\Models\Meta::with([
-                'children' => function (HasMany $query) {
-                    $query->where('type', 'category');
-                },
-                'contents'
-            ])
-                ->where('type', 'category')
-                ->where('parent', $this->moduleMeta->id)
-                ->whereNull('deleted_at')
-                ->get(),
-            'contents' => [
-                "paginator" => \Modules\WebHunt\Models\WebHunt::paginate(),
-            ]
+            'contents' => \Modules\WebHunt\Models\WebHunt::paginate(),
         ];
         // dump($return);
         return $this->view('index', $return);
@@ -32,11 +24,43 @@ class WebHuntController extends Controller
     public function view_content($idOrSlug)
     {
         if (is_string($id = $idOrSlug)) {
-            $id = explode('-', $idOrSlug)[0];
             // var_dump($id);
         }
+
+        $page = request()->input('page', 1);
+        [$id, $group] = explode('-', $idOrSlug);
         // var_dump($idOrSlug);
+        var_dump([$id, $group]);
         $content = \Modules\WebHunt\Models\WebHunt::find($id);
+        // var_dump($content);
+
+        $config = $content->text;
+        $group = $content->text['groups'][$group];
+        var_dump([$id, $group]);
+        $return = [
+            'content' => $content,
+            'content_group' => $group,
+            'hunt_contents' => [],
+        ];
+        $url = (\Str::endsWith($config['url'], '/') ? $config['url'] . '/' : $config['url']) . (\Str::startsWith($group['additional_url'], '/', ) ? substr($group['additional_url'], 1) : $group['additional_url']);
+
+
+        $url = preg_replace(['{$page}'], [$page], $url);
+        // $url = preg_replace([], [], $url);
+        // $urlSlug = Str::
+        var_dump($url);
+
+        $response = Http::get($url);
+        $spider = new PhpSpider([]);
+
+        var_dump($response->body());
+
+        $html = $response->body();
+
+        $fields = $spider->get_fields($config[$group['next']]['fields'], $html, $url, []);
+        $return['hunt_contents'] = new \Illuminate\Pagination\Paginator($fields['items'], 17, $page, $fields);
+        var_dump($fields);
+        var_dump($return['hunt_contents']->getOptions());
         // $spiderConfig = $content->text;
         // $spiderConfig['name'] = $content->title;
         // $spiderConfig['db_config'] = [
@@ -141,9 +165,7 @@ class WebHuntController extends Controller
         //     //}
         // };
         // $spider->start();
-        $return = [
-            'content' => $content,
-        ];
+
 
         return $this->view('content', $return);
     }

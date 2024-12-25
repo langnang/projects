@@ -3,6 +3,8 @@
 return [
     'name' => 'WebTerminal',
     'nameCn' => "终端",
-    'framework' => 'master',
+    'view' => [
+        'framework' => 'master',
+    ],
     'status' => 'private',
 ];

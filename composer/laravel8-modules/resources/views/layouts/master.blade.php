@@ -42,7 +42,7 @@
   <link rel="stylesheet" href="{{ asset('./public/master/style.css') }}">
 
   @isset($module)
-    <link rel="stylesheet" href="{{ asset('./modules/' . $module['name'] . '/Public/' . $module['framework'] . '/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('./modules/' . $module['name'] . '/Public/' . \Arr::get($module, 'view.framework') . '/style.css') }}">
   @endisset
 
   @stack('styles')
@@ -89,7 +89,7 @@
   @stack('scripts')
 
   @isset($module)
-    <script crossorigin="anonymous" src="{{ asset('./modules/' . $module['name'] . '/Public/' . $module['framework'] . '/script.js') }}"></script>
+    <script crossorigin="anonymous" src="{{ asset('./modules/' . $module['name'] . '/Public/' . \Arr::get($module, 'view.framework') . '/script.js') }}"></script>
   @endisset
 </body>
 

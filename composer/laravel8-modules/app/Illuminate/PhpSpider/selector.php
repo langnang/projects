@@ -20,7 +20,7 @@ use DOMDocument;
 use DOMXpath;
 use Exception;
 
-class selector
+class Selector
 {
     /**
      * 版本号

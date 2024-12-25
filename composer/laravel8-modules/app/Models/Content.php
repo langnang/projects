@@ -79,15 +79,15 @@ class Content extends \Illuminate\Database\Eloquent\Model
     public function metas()
     {
         return $this
-            ->hasMany(\App\Models\Relationship::class, $this->primaryKey, $this->primaryKey)
-            ->leftJoin("metas", "relationships.mid", '=', "metas.mid");
+            ->hasMany(\App\Models\Relationship::class, 'meta_id', 'meta_id')
+            ->leftJoin("metas", "relationships.meta_id", '=', "metas.id");
     }
 
     public function links()
     {
         return $this
-            ->hasMany(\App\Models\Relationship::class, $this->primaryKey, $this->primaryKey)
-            ->leftJoin("links", "relationships.lid", '=', "links.lid");
+            ->hasMany(\App\Models\Relationship::class, 'link_id', 'link_id')
+            ->leftJoin("links", "relationships.link_id", '=', "links.id");
     }
 
     public function relationships()

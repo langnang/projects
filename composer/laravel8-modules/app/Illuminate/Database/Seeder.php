@@ -32,7 +32,7 @@ abstract class Seeder extends \Illuminate\Database\Seeder
                 array_map(function ($item) use ($mergeData) {
                     return array_merge($item, $mergeData);
                 }, array_filter(\Arr::get($this->initializations, $initialization_key, []), function ($item) {
-                    return $item['title'];
+                    return empty($item['title']) || empty($item['name']);
                 }))
             );
 

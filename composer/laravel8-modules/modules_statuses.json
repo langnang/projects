@@ -6,5 +6,9 @@
     "Snippet": true,
     "WebHunt": true,
     "Toolkit": true,
-    "WebTerminal": true
+    "WebTerminal": true,
+    "CheatSheet": true,
+    "Awesome": true,
+    "Application": true,
+    "Software": true
 }

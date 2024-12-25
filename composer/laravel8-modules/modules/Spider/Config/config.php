@@ -3,5 +3,7 @@
 return [
     'name' => 'Spider',
     'nameCn' => "爬虫",
-    'framework' => 'master',
+    'view' => [
+        'framework' => 'master',
+    ],
 ];

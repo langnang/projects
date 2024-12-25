@@ -151,10 +151,11 @@ abstract class Controller extends \Illuminate\Routing\Controller
             abort(403);
         if (empty($return['layout'])) {
             $return['layout'] = $this->config('view.framework', ) . '.' . $return['view'];
+            // var_dump($return['layout']);
             if (!View::exists($return['layout'])) {
                 $return['layout'] = $return['view'];
             }
-            $return['view'] = $this->moduleAlias . '::' . $this->config('framework') . '.' . $return['view'];
+            $return['view'] = $this->moduleAlias . '::' . $this->config('view.framework') . '.' . $return['view'];
         }
         if (!View::exists($return['view'])) {
             $return['view'] = $return['layout'];
@@ -321,7 +322,7 @@ abstract class Controller extends \Illuminate\Routing\Controller
     {
         if (is_string($idOrSlug)) {
         }
-        $content = \App\Models\Content::find($idOrSlug);
+        $content = \App\Models\Content::with(['metas', 'links'])->find($idOrSlug);
         if (empty($content))
             abort(404);
         $return = [

@@ -3,6 +3,8 @@
 return [
     'name' => 'WebHunt',
     'nameCn' => '发现',
-    'framework' => 'master',
-    'status' => 'private',
+    'view' => [
+        'framework' => 'master',
+    ],
+    // 'status' => 'private',
 ];

@@ -4,7 +4,9 @@ return [
     'name' => 'Wiki',
     'nameCn' => '百科',
     'slug' => 'wiki',
-    'framework' => 'master',
+    'view' => [
+        'framework' => 'master',
+    ],
     'layout' => 'index',
     'theme' => 'default',
     'status' => 'public',
