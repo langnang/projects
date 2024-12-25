@@ -139,7 +139,7 @@ abstract class Controller extends \Illuminate\Routing\Controller
                 'links' => \App\Models\Link::with(['user'])->whereIn('type', ['site'])->whereIn('status', ['public', 'publish'])->orderByDesc('updated_at')->limit(20)->get(),
                 'categories' => \App\Models\Meta::with(['children'])->where('type', 'category')->whereIn('status', ['public', 'publish'])->get(),
                 'tags' => \App\Models\Meta::where('type', 'category')->whereIn('status', ['public', 'publish'])->get(),
-                'latest_contents' => \App\Models\Content::orderByDesc('updated_at')->limit(10)->get(),
+                'latest_contents' => \App\Models\Content::whereIn('type', ['post'])->whereIn('status', ['public', 'publish'])->orderByDesc('updated_at')->limit(10)->get(),
                 'latest_comments' => \App\Models\Comment::orderByDesc('updated_at')->limit(10)->get(),
             ],
             // $this->getTableData($data),
