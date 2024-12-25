@@ -10,7 +10,7 @@
             <div class="card my-2 @switch($content->status) @case('public') border-secondary @case('publish') border-primary @break @case('protected') border-warning @break @case('private') border-danger @break @default @break @endswitch">
               <div class="card-header">
                 <h5 class="card-title mb-0">
-                  <i class="bi bi-circle-fill " data-toggle="tooltip" data-placement="right" title="{{ $content->status }}"></i>
+                  <i class="bi bi-record-fill " data-toggle="tooltip" data-placement="right" title="{{ $content->status }}"></i>
                   {{ $content->title }}
                 </h5>
               </div>
