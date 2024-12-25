@@ -25,6 +25,9 @@ class CreateWebnavsTable extends Migration
             $table->string('ico')->nullable()->comment('徽标');
 
             $table->string('title')->nullable()->comment('标题');
+            $table->string('url')->nullable()->comment('地址');
+
+            $table->string('keywords')->nullable()->comment('关键字');
             $table->string('description')->nullable()->comment('描述');
 
             $table->longText('text')->nullable()->comment('内容');
