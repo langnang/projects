@@ -11,6 +11,6 @@
 |
 */
 
-Route::prefix('software')->group(function() {
-    Route::get('/', 'SoftwareController@index');
+Route::prefix('software')->group(function () {
+    Route::get('/', 'SoftwareController@view_index');
 });

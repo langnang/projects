@@ -4,7 +4,7 @@ namespace Modules\Awesome\Http\Controllers;
 
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
+use App\Illuminate\Routing\Controller;
 
 class AwesomeController extends Controller
 {

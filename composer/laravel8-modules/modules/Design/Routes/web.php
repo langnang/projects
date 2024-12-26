@@ -11,6 +11,6 @@
 |
 */
 
-Route::prefix('design')->group(function() {
-    Route::get('/', 'DesignController@index');
+Route::prefix('design')->group(function () {
+    Route::get('/', 'DesignController@view_index');
 });

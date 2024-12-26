@@ -4,7 +4,7 @@ namespace Modules\Develop\Http\Controllers;
 
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
+use App\Illuminate\Routing\Controller;
 
 class DevelopController extends \App\Illuminate\Routing\Controller
 {

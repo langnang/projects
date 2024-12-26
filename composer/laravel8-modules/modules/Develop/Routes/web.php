@@ -11,6 +11,6 @@
 |
 */
 
-Route::prefix('develop')->group(function() {
-    Route::get('/', 'DevelopController@index');
+Route::prefix('develop')->group(function () {
+    Route::get('/', 'DevelopController@view_index');
 });

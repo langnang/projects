@@ -11,6 +11,6 @@
 |
 */
 
-Route::prefix('demand')->group(function() {
-    Route::get('/', 'DemandController@index');
+Route::prefix('demand')->group(function () {
+    Route::get('/', 'DemandController@view_index');
 });

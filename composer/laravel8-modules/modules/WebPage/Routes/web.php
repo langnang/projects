@@ -11,6 +11,6 @@
 |
 */
 
-Route::prefix('webpage')->group(function() {
-    Route::get('/', 'WebPageController@index');
+Route::prefix('webpage')->group(function () {
+    Route::get('/', 'WebPageController@view_index');
 });

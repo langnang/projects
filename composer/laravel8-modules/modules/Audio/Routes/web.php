@@ -11,6 +11,6 @@
 |
 */
 
-Route::prefix('audio')->group(function() {
-    Route::get('/', 'AudioController@index');
+Route::prefix('audio')->group(function () {
+    Route::get('/', 'AudioController@view_index');
 });

@@ -5,7 +5,7 @@ namespace Modules\Market\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
-use Illuminate\Routing\Controller;
+use App\Illuminate\Routing\Controller;
 use Modules\Market\Support\Market;
 use wapmorgan\UnifiedArchive\Abilities;
 use wapmorgan\UnifiedArchive\UnifiedArchive;

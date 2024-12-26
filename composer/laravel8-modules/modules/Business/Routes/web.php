@@ -11,6 +11,6 @@
 |
 */
 
-Route::prefix('business')->group(function() {
-    Route::get('/', 'BusinessController@index');
+Route::prefix('business')->group(function () {
+    Route::get('/', 'BusinessController@view_index');
 });
