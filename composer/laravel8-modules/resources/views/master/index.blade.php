@@ -30,8 +30,7 @@
                 <button type="button" class="btn btn-sm mx-1 btn-dark">Dark</button> --}}
               </div>
               <div class="card-body px-3 py-2">
-                <p class="card-text mb-2">{{ $content->description }}</p>
-
+                <p class="card-text mb-0">{{ $content->description }}</p>
               </div>
               <div class="card-footer py-2 small d-flex align-items-center">
                 <span class="px-2">{{ $content->updated_at }}</span>
@@ -70,7 +69,7 @@
               <ul class="list-inline row row-cols-1 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 mb-0">
                 @foreach ($links as $link)
                   <li class="list-inline-item col mr-0 my-1 d-flex align-items-center">
-                    <img src="{{ $link->ico }}" alt="" height="20px">
+                    <img class="mr-1" src="{{ $link->ico }}" alt="" height="20px">
                     <a class="text-truncate mr-auto" href="{{ url((isset($module) ? $module['alias'] . '/' : 'home/') . 'link/' . ($link->id ?? $link->slug)) }}"> <small>{{ $link->title }}</small></a>
                   </li>
                 @endforeach

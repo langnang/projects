@@ -38,13 +38,13 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label">Slug</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" name="slug">
+            <input type="text" class="form-control" name="slug" value="{{ $content->slug }}">
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-2 col-form-label">Ico</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" name="ico">
+            <input type="text" class="form-control" name="ico" value="{{ $content->ico }}">
           </div>
         </div>
 

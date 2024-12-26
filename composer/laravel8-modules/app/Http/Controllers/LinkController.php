@@ -13,7 +13,12 @@ class LinkController extends Controller
      */
     public function create()
     {
-        return $this->view('link-form');
+        $return = [
+            'links' => \App\Models\Link::with(['children'])
+                ->whereNull('deleted_at')
+                ->get()
+        ];
+        return $this->view('link-form', $return);
     }
 
     /**
@@ -23,7 +28,18 @@ class LinkController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validateLink($request);
         //
+        $request->merge(['user' => \Auth::id()]);
+
+        $link = new \App\Models\Link();
+        $link->fill($request->all());
+        $link->save();
+
+        // return $this->edit($link->id);
+
+        return redirect(($this->moduleAlias ?? 'home') . '/update-link/' . $link->id);
+
     }
 
     /**
@@ -46,7 +62,15 @@ class LinkController extends Controller
      */
     public function edit($id)
     {
-        return $this->view('link-form');
+        $return = [
+            'link' => \App\Models\Link::find($id),
+            'links' => \App\Models\Link::with(['children'])
+                ->whereIn('type', ['template',])
+                ->whereKeyNot($id)
+                ->whereNull('deleted_at')
+                ->get()
+        ];
+        return $this->view('link-form', $return);
     }
 
     /**
@@ -58,6 +82,13 @@ class LinkController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $this->validateLink($request);
+        $request->merge(['user' => \Auth::id()]);
+        $link = \App\Models\Link::find($id);
+        $link->fill($request->all());
+        $link->save();
+
+        return $this->edit($link->id);
     }
 
     /**
@@ -68,5 +99,26 @@ class LinkController extends Controller
     public function destroy($id)
     {
         //
+        $link = \App\Models\Link::find($id);
+        $link->timestamps = false;
+        $link->update([
+            'deleted_at' => now()
+        ]);
+
+        \App\Models\Relationship::where('link_id', request()->input('id'))->delete();
+
+        return redirect(($this->moduleAlias ?? 'home'));
+        // return $this->view('index');
+
+    }
+
+    protected function validateLink(Request $request)
+    {
+        $request->validate([
+            'title' => 'required|string',
+            'url' => 'required|string',
+            'type' => 'required|string',
+            'status' => 'required|string',
+        ]);
     }
 }

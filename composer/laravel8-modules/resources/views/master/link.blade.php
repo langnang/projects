@@ -13,7 +13,10 @@
             <p class="lead">{{ $link->keywords }}</p>
             <hr class="my-2">
             <p>{{ $link->description }}</p>
-            <a class="btn btn-primary btn-lg" href="{{ $link->url }}" role="button" target="_blank">Jump</a>
+            <a class="btn btn-primary" href="{{ $link->url }}" role="button" target="_blank">Jump</a>
+            @if (Auth::check())
+              <a class="btn btn-warning" href="{{ url((isset($module) ? $module['alias'] . '/' : 'home/') . 'update-link/' . ($link->id ?? $link->slug)) }}" role="button">Edit</a>
+            @endif
           </div>
           <article>
             @isset($link->text)
