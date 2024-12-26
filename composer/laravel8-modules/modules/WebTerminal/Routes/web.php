@@ -12,5 +12,5 @@
 */
 
 Route::prefix('webterminal')->group(function () {
-    Route::get('/', 'WebTerminalController@view_index');
+    Route::get('/', 'WebTerminalController@index');
 });

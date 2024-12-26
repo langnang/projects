@@ -4,6 +4,20 @@
   <div class="container">
     <div class="row">
       <div class="col-9">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb mt-2 py-1">
+            <li class="breadcrumb-item py-1"><a href="{{ url(isset($module) ? $module['alias'] . '/' : 'home/') }}">{{ Arr::get($module, 'alias', 'Home') }}</a></li>
+
+            <li class="breadcrumb-item py-1 active" aria-current="page"> {{ $content->title }}
+            </li>
+            @if (Auth::check())
+              <li class="ml-auto">
+                <a class="btn btn-sm btn-warning" href="{{ url((isset($module) ? $module['alias'] . '/' : 'home/') . 'update-content/' . ($content->id ?? $content->slug)) }}" role="button">Update</a>
+                <a class="btn btn-sm btn-danger" href="{{ url((isset($module) ? $module['alias'] . '/' : 'home/') . 'delete-content/' . ($content->id ?? $content->slug)) }}" role="button">Delete</a>
+              </li>
+            @endif
+          </ol>
+        </nav>
         @isset($content)
           <div class="jumbotron mt-2">
             <h3 class="display-6">{{ $content->title }}</h3>

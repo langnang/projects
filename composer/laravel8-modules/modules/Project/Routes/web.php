@@ -12,7 +12,7 @@
 */
 
 Route::prefix('project')->group(function () {
-    Route::get('/', 'ProjectController@view_index');
-    Route::get('/meta/{midOrSlug}', 'ProjectController@view_index');
+    Route::get('/', 'ProjectController@index');
+    Route::get('/meta/{midOrSlug}', 'ProjectController@index');
     Route::get('/content/{cidOrSlug}', 'ProjectController@view_content');
 });

@@ -12,5 +12,5 @@
 */
 
 Route::prefix('awesome')->group(function () {
-    Route::get('/', 'AwesomeController@view_index');
+    Route::get('/', 'AwesomeController@index');
 });

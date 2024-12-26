@@ -12,7 +12,7 @@
 */
 
 Route::prefix('wiki')->group(function () {
-    Route::get('/', 'WikiController@view_index');
-    Route::get('/meta/{midOrSlug}', 'WikiController@view_index');
+    Route::get('/', 'WikiController@index');
+    Route::get('/meta/{midOrSlug}', 'WikiController@index');
     Route::get('/content/{cidOrSlug}', 'WikiController@view_content');
 });

@@ -12,7 +12,7 @@
 */
 
 Route::prefix('webnav')->group(function () {
-    Route::get('/', 'WebNavController@view_index');
+    Route::get('/', 'WebNavController@index');
 
     Route::prefix('{model}')->group(function () {
         Route::get('/{idOrSlug}', 'WebNavController@view_model');

@@ -12,7 +12,7 @@
 */
 
 Route::prefix('webhunt')->group(function () {
-    Route::get('/', 'WebHuntController@view_index');
-    Route::get('/meta/{midOrSlug}', 'WebHuntController@view_index');
+    Route::get('/', 'WebHuntController@index');
+    Route::get('/meta/{midOrSlug}', 'WebHuntController@index');
     Route::get('/content/{cidOrSlug}', 'WebHuntController@view_content');
 });

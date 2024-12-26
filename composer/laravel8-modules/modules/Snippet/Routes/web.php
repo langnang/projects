@@ -12,7 +12,7 @@
 */
 
 Route::prefix('snippet')->group(function () {
-    Route::get('/', 'SnippetController@view_index');
-    Route::get('/meta/{midOrSlug}', 'SnippetController@view_index');
+    Route::get('/', 'SnippetController@index');
+    Route::get('/meta/{midOrSlug}', 'SnippetController@index');
     Route::get('/content/{cidOrSlug}', 'SnippetController@view_content');
 });

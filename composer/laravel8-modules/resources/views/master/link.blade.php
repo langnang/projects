@@ -4,6 +4,20 @@
   <div class="container">
     <div class="row">
       <div class="col-9">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb mt-2 py-1">
+            <li class="breadcrumb-item py-1"><a href="{{ url(isset($module) ? $module['alias'] . '/' : 'home/') }}">{{ Arr::get($module, 'alias', 'Home') }}</a></li>
+
+            <li class="breadcrumb-item py-1 active" aria-current="page"> {{ $link->title }}
+            </li>
+            @if (Auth::check())
+              <li class="ml-auto">
+                <a class="btn btn-sm btn-warning" href="{{ url((isset($module) ? $module['alias'] . '/' : 'home/') . 'update-link/' . ($link->id ?? $link->slug)) }}" role="button">Update</a>
+                <a class="btn btn-sm btn-danger" href="{{ url((isset($module) ? $module['alias'] . '/' : 'home/') . 'delete-link/' . ($link->id ?? $link->slug)) }}" role="button">Delete</a>
+              </li>
+            @endif
+          </ol>
+        </nav>
         @isset($link)
           <div class="jumbotron mt-2">
             <h3 class="display-6 d-flex align-items-center">
@@ -21,7 +35,7 @@
           <article>
             @isset($link->text)
               @if (is_string($link->text))
-                {!! markdown_to_html($content->text) !!}
+                {!! markdown_to_html($link->text) !!}
               @else
                 {{ json_encode($link->text, JSON_UNESCAPED_UNICODE) }}
               @endif

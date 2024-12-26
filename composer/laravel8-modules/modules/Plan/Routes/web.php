@@ -12,5 +12,5 @@
 */
 
 Route::prefix('plan')->group(function () {
-    Route::get('/', 'PlanController@view_index');
+    Route::get('/', 'PlanController@index');
 });

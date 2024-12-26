@@ -12,5 +12,5 @@
 */
 
 Route::prefix('toolkit')->group(function () {
-    Route::get('/', 'ToolkitController@view_index');
+    Route::get('/', 'ToolkitController@index');
 });

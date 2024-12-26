@@ -12,5 +12,5 @@
 */
 
 Route::prefix('user')->group(function () {
-    Route::get('/', 'UserController@view_index');
+    Route::get('/', 'UserController@index');
 });

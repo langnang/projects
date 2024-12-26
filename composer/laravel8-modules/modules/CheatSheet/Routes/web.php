@@ -12,5 +12,5 @@
 */
 
 Route::prefix('cheatsheet')->group(function () {
-    Route::get('/', 'CheatSheetController@view_index');
+    Route::get('/', 'CheatSheetController@index');
 });

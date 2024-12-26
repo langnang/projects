@@ -12,5 +12,5 @@
 */
 
 Route::prefix('test')->group(function () {
-    Route::get('/', 'TestController@view_index');
+    Route::get('/', 'TestController@index');
 });

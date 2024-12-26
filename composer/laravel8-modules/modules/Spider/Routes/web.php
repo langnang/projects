@@ -12,5 +12,5 @@
 */
 
 Route::prefix('spider')->group(function () {
-    Route::get('/', 'SpiderController@view_index');
+    Route::get('/', 'SpiderController@index');
 });

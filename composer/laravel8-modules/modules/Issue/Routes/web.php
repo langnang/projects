@@ -12,5 +12,5 @@
 */
 
 Route::prefix('issue')->group(function () {
-    Route::get('/', 'IssueController@view_index');
+    Route::get('/', 'IssueController@index');
 });

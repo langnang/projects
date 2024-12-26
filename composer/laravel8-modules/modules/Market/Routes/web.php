@@ -16,12 +16,12 @@ use Illuminate\Http\Request;
 */
 
 // Route::prefix('market')->group(function () {
-//     Route::get('/', 'MarketController@view_index');
+//     Route::get('/', 'MarketController@index');
 // });
 Route::prefix('market')->group(function () {
-    Route::get('', "MarketController@view_index");
+    Route::get('', "MarketController@index");
     Route::prefix('npm')->group(function () {
-        Route::get('', "MarketNpmController@view_index");
+        Route::get('', "MarketNpmController@index");
         Route::match(['get', 'post'], '/{name}', "MarketNpmController@view_slug");
         Route::match(['get', 'post'], '/{name}/{version}', "MarketNpmController@view_package");
     });
@@ -29,7 +29,7 @@ Route::prefix('market')->group(function () {
 
 // Route::prefix(Module::currentConfig('admin.prefix'))->group(function () {
 //     Route::prefix(Module::currentConfig('web.prefix'))->group(function () {
-//         Route::get('', "MarketController@view_index");
+//         Route::get('', "MarketController@index");
 //         Route::get('/{module}', "MarketController@view_admin_modules_intro");
 //         Route::get('/{module}/install', "MarketController@view_admin_modules_install");
 //         Route::get('/installed', "MarketController@view_admin_installed");

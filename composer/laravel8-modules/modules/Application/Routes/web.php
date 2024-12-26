@@ -12,5 +12,5 @@
 */
 
 Route::prefix('application')->group(function () {
-    Route::get('/', 'ApplicationController@view_index');
+    Route::get('/', 'ApplicationController@index');
 });
