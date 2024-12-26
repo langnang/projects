@@ -21,8 +21,8 @@
   <link rel="stylesheet" href="/public/app/css/app.css"> --}}
 
   @section('head')
-    @if (\View::exists('shared.master.head'))
-      @include('shared.master.head')
+    @if (\View::exists('master.shared.head'))
+      @include('master.shared.head')
     @endif
   @show
 
@@ -35,8 +35,8 @@
 
   @sectionMissing('main')
     @section('header')
-      @if (View::exists('shared.master.header') && !empty($config))
-        @include('shared.master.header')
+      @if (View::exists('master.shared.header') && !empty($config))
+        @include('master.shared.header')
       @endif
     @show
 
@@ -47,8 +47,8 @@
   </div>
 
   @section('footer')
-  @if (View::exists('shared.master.footer'))
-    @include('shared.master.footer')
+  @if (View::exists('master.shared.footer'))
+    @include('master.shared.footer')
   @endif
   @show
   @endif

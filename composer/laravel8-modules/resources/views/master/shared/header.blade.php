@@ -111,13 +111,13 @@
             </a>
 
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item small px-2" href="{{ env('APP_URL') }}{{ $module['alias'] }}/meta/create-item">
+              <a class="dropdown-item small px-2" href="{{ env('APP_URL') }}{{ \Arr::get($module, 'alias', 'home') }}/create-meta">
                 <i class="bi bi-plus-lg"></i> Meta
               </a>
-              <a class="dropdown-item small px-2" href="{{ env('APP_URL') }}{{ $module['alias'] }}/content/create-item">
+              <a class="dropdown-item small px-2" href="{{ env('APP_URL') }}{{ \Arr::get($module, 'alias', 'home') }}/create-content">
                 <i class="bi bi-plus-lg"></i> Content
               </a>
-              <a class="dropdown-item small px-2" href="{{ env('APP_URL') }}{{ $module['alias'] }}/link/create-item">
+              <a class="dropdown-item small px-2" href="{{ env('APP_URL') }}{{ \Arr::get($module, 'alias', 'home') }}/create-link">
                 <i class="bi bi-plus-lg"></i> Link
               </a>
               <a class="dropdown-item small px-2" href="#">
@@ -137,18 +137,19 @@
             </div>
           </li>
         @else
-        @endif
-        @if (Route::has('login'))
-          <li class="nav-item">
-            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-          </li>
+          @if (Route::has('login'))
+            <li class="nav-item">
+              <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+            </li>
+          @endif
+
+          @if (Route::has('register'))
+            <li class="nav-item">
+              <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+            </li>
+          @endif
         @endif
 
-        @if (Route::has('register'))
-          <li class="nav-item">
-            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-          </li>
-        @endif
       </ul>
     </div>
   </div>

@@ -1,5 +1,20 @@
 @extends('layouts.master')
 
+@php
+  if (!isset($meta)) {
+      $meta = new \App\Models\Meta([
+          'id' => old('id'),
+          'slug' => old('slug'),
+          'name' => old('name'),
+          'ico' => old('ico'),
+          'description' => old('description'),
+          'type' => old('type'),
+          'status' => old('status'),
+          'parent' => old('parent'),
+      ]);
+  }
+@endphp
+
 @section('content')
   <div class="container py-3">
     <form class="card" method="POST">
@@ -8,14 +23,10 @@
       </div>
       <div class="card-body">
         @csrf
-        <input type="hidden" name="_target" value="">
-        <input type="hidden" name="id" value="">
-        <input type="hidden" name="content_ids" value="">
-        <input type="hidden" name="parent" value="">
         <div class="form-group row">
           <label class="col-sm-2 col-form-label">Name</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}">
+            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $meta->name }}">
             @error('name')
               <div class="invalid-feedback">
                 {{ $message }}
@@ -43,7 +54,7 @@
               @foreach (\Arr::get($options, 'meta.type') ?? [] as $option)
                 <div class="col">
                   <div class="form-check">
-                    <input class="form-check-input @error('type') is-invalid @enderror" type="radio" name="type" value="{{ $option['value'] }}" @if (old('type') == $option['value']) checked @endif>
+                    <input class="form-check-input @error('type') is-invalid @enderror" type="radio" name="type" value="{{ $option['value'] }}" @if ($meta->type == $option['value']) checked @endif>
                     <label class="form-check-label">
                       {{ $option['name'] }}
                     </label>
@@ -65,7 +76,7 @@
               @foreach (\Arr::get($options, 'meta.status') ?? [] as $option)
                 <div class="col">
                   <div class="form-check">
-                    <input class="form-check-input @error('status') is-invalid @enderror" type="radio" name="status" value="{{ $option['value'] }}" @if (old('status') == $option['value']) checked @endif>
+                    <input class="form-check-input @error('status') is-invalid @enderror" type="radio" name="status" value="{{ $option['value'] }}" @if ($meta->status == $option['value']) checked @endif>
                     <label class="form-check-label">
                       {{ $option['name'] }}
                     </label>
@@ -83,17 +94,38 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label">Description</label>
           <div class="col-sm-10">
-            <textarea class="form-control" name="description" rows="3"></textarea>
+            <textarea class="form-control" name="description" rows="3">{{ $meta->description }}</textarea>
           </div>
         </div>
+        <fieldset class="form-group row">
+          <legend class="col-form-label col-sm-2 float-sm-left pt-0">Parent</legend>
+          <div class="col-sm-10">
+            <select class="form-control" name="parent">
+              <option value="0">Choose...</option>
+              @isset($metas)
+                @foreach ($metas as $_meta)
+                  <option value="{{ $_meta->id }}" class="d-flex align-items-center" @if ($_meta->id == $meta->parent) selected @endif>
+                    {{ $_meta->status }} |
+                    {{ $_meta->type }} |
+                    {{ $_meta->name }}
+                  </option>
+                @endforeach
+              @endisset
+            </select>
+          </div>
+        </fieldset>
       </div>
       <div class="card-footer d-flex justify-content-end">
-        <button type="button" class="btn ml-2 btn-secondary" data-dismiss="modal">Cancel</button>
+        <a type="submit" class="btn btn-danger mr-auto" href="{{ url((isset($module) ? $module['alias'] . '/' : 'home/') . 'delete-meta/' . $meta->id) }}" onclick="event.preventDefault();document.getElementById('destroy-form').submit();">destroy</a>
+        <a href="{{ url(isset($module) ? $module['alias'] . '/' : 'home/') }}" role="button" class="btn ml-2 btn-secondary" data-dismiss="modal">Cancel</a>
         <div class="alert alert-danger my-0 d-none" name="delete-alert" role="alert" style="flex-grow: 1">
           确定要删除吗？
         </div>
         <button type="submit" class="btn ml-2 btn-primary">Confirm</button>
       </div>
+    </form>
+    <form id="destroy-form" action="{{ url((isset($module) ? $module['alias'] . '/' : 'home/') . 'delete-meta/' . $meta->id) }}" method="POST" class="d-none">
+      @csrf
     </form>
   </div>
 @endsection

@@ -13,16 +13,18 @@
             <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
           </div>
           <article>
-            @if (is_string($content->text))
-              {!! markdown_to_html($content->text) !!}
-            @else
-              {{ json_encode($content->text, JSON_UNESCAPED_UNICODE) }}
-            @endif
+            @isset($content->text)
+              @if (is_string($content->text))
+                {!! markdown_to_html($content->text) !!}
+              @else
+                {{ json_encode($content->text, JSON_UNESCAPED_UNICODE) }}
+              @endif
+            @endisset
           </article>
         @endempty
       </div>
       <aside class="col-3">
-        @include('shared.master.main-aside')
+        @include('master.shared.main-aside')
       </aside>
     </div>
   </div>

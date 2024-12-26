@@ -26,6 +26,8 @@ abstract class Controller extends \Illuminate\Routing\Controller
         'comment' => \App\Models\Comment::class,
     ];
 
+    protected $modelMegers = [];
+
     public function __construct()
     {
         // $this->middleware('auth');
@@ -132,18 +134,12 @@ abstract class Controller extends \Illuminate\Routing\Controller
                 'module' => $this->getModuleAttributes(),
                 'options' => $this->moduleOption,
                 'layout' => null,
-                'view' => null,
+                'view' => $view,
                 'children' => $this->config('hasChildren') ? \App\Models\Meta::factory()->times(10)->make() : null,
                 // 'layout' => "layouts.master",
-                'contents' => \App\Models\Content::with(['user'])->whereIn('type', ['post'])->whereIn('status', ['public', 'publish'])->orderByDesc('updated_at')->paginate(),
-                'links' => \App\Models\Link::with(['user'])->whereIn('type', ['site'])->whereIn('status', ['public', 'publish'])->orderByDesc('updated_at')->limit(20)->get(),
-                'categories' => \App\Models\Meta::with(['children'])->where('type', 'category')->whereIn('status', ['public', 'publish'])->get(),
-                'tags' => \App\Models\Meta::where('type', 'category')->whereIn('status', ['public', 'publish'])->get(),
-                'latest_contents' => \App\Models\Content::whereIn('type', ['post'])->whereIn('status', ['public', 'publish'])->orderByDesc('updated_at')->limit(10)->get(),
-                'latest_comments' => \App\Models\Comment::orderByDesc('updated_at')->limit(10)->get(),
+
             ],
             // $this->getTableData($data),
-            is_array($view) ? $view : ['view' => $view],
             $data
         );
         $return['$sqls'] = $this->sqls;
@@ -233,15 +229,7 @@ abstract class Controller extends \Illuminate\Routing\Controller
             'requires' => $module->getRequires(),
         ]);
     }
-    protected function view_index($idOrSlug = null)
-    {
-        $this->mergeRequest(['idOrSlug' => $idOrSlug]);
 
-        $return = [
-        ];
-
-        return $this->view('index', $return);
-    }
 
     protected function view_model($model, $idOrSlug = null)
     {
@@ -308,44 +296,6 @@ abstract class Controller extends \Illuminate\Routing\Controller
         throw ValidationException::withMessages([
             'name' => [trans('auth.failed')],
         ]);
-    }
-    protected function view_meta($idOrSlug)
-    {
-        if (is_string($idOrSlug)) {
-        }
-        $return = [
-            'meta' => \App\Models\Meta::factory()->times(1)->make()->first(),
-        ];
-        return $this->view('meta', $return);
-    }
-    protected function view_content($idOrSlug)
-    {
-        if (is_string($idOrSlug)) {
-        }
-        $content = \App\Models\Content::with(['metas', 'links'])->find($idOrSlug);
-        if (empty($content))
-            abort(404);
-        $return = [
-            'content' => $content,
-
-        ];
-        return $this->view('content', $return);
-    }
-    protected function view_link($idOrSlug)
-    {
-        if (is_string($idOrSlug)) {
-        }
-        $return = [
-            'content' => \App\Models\Meta::factory()->times(1)->make()->first(),
-        ];
-        return $this->view('link', $return);
-    }
-    protected function view_admin()
-    {
-    }
-
-    protected function view_market()
-    {
     }
     protected function getTableData($default = [])
     {
