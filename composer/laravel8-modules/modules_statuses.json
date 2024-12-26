@@ -12,5 +12,6 @@
     "Application": true,
     "Software": true,
     "Audio": true,
-    "Video": true
+    "Video": true,
+    "Blog": true
 }
