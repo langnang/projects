@@ -105,6 +105,45 @@
             </p>
           </a>
           <ul class="nav nav-treeview">
+            @foreach (\Module::allEnabled() as $moduleName => $moduleObject)
+              @if (!in_array($moduleName, ['Admin']))
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-th"></i>
+                    <p>
+                      {{ $moduleName }}
+                    </p>
+                  </a>
+                </li>
+              @endif
+            @endforeach
+          </ul>
+        </li>
+        <li class="nav-item menu-open">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-tachometer-alt"></i>
+            <p>
+              Laravel
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-th"></i>
+                <p>
+                  Migrations
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-th"></i>
+                <p>
+                  Seeders
+                </p>
+              </a>
+            </li>
           </ul>
         </li>
         @foreach ($module['menu'] ?? [] as $menu)
