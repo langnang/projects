@@ -13,5 +13,6 @@
     "Software": true,
     "Audio": true,
     "Video": true,
-    "Blog": true
+    "Blog": true,
+    "Question": true
 }
