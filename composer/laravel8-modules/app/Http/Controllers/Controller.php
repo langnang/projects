@@ -6,13 +6,20 @@ use Illuminate\Http\Request;
 
 class Controller extends \App\Illuminate\Routing\Controller
 {
+    protected $metaModel = \App\Models\Meta::class;
+    protected $contentModel = \App\Models\Content::class;
+    protected $linkModel = \App\Models\Link::class;
+    protected $fieldModel = \App\Models\Field::class;
+    protected $commentModel = \App\Models\Comment::class;
     protected function view($view = null, $data = [], $mergeData = [])
     {
         $return = array_merge($data, [
             'contents' => \Arr::get(
                 $data,
                 'contents',
-                \App\Models\Content::with(['user'])
+                $this->hasModule()
+                ? []
+                : $this->contentModel::with(['user'])
                     ->whereIn('type', ['post'])
                     ->whereIn('status', \Auth::check() ? ['public', 'publish', 'protected', 'private'] : ['public', 'publish'])
                     ->whereNull('deleted_at')
@@ -21,36 +28,44 @@ class Controller extends \App\Illuminate\Routing\Controller
             ),
             'links' => \Arr::get(
                 $data,
-                'contents',
-                \App\Models\Link::with(['user'])
+                'links',
+                $this->hasModule()
+                ? $this->linkModel::belongsToMany(\App\Models\Relationship::class)->where('meta_id', $this->moduleMeta->id)
+                : $this->linkModel::with(['user', 'relationships'])
                     ->whereIn('type', ['site'])
                     ->whereIn('status', \Auth::check() ? ['public', 'publish', 'protected', 'private'] : ['public', 'publish'])
                     ->whereNull('deleted_at')
-                    ->orderByDesc('updated_at')
-                    ->limit(20)
-                    ->get()
+                    ->orderByDesc('updated_at')->limit(20)->get()
             ),
             'categories' => \Arr::get(
                 $data,
-                'contents',
-                \App\Models\Meta::with(['children'])
+                'categories',
+                $this->hasModule()
+                ? []
+                : $this->metaModel::with(['children'])
                     ->where('type', 'category')
                     ->whereIn('status', \Auth::check() ? ['public', 'publish', 'protected', 'private'] : ['public', 'publish'])
+                    ->where('parent', 0)
                     ->whereNull('deleted_at')
                     ->get()
             ),
             'tags' => \Arr::get(
                 $data,
-                'contents',
-                \App\Models\Meta::where('type', 'tag')
+                'tags',
+                $this->hasModule()
+                ? []
+                : $this->metaModel::where('type', 'tag')
                     ->whereIn('status', \Auth::check() ? ['public', 'publish', 'protected', 'private'] : ['public', 'publish'])
+                    ->where('parent', 0)
                     ->whereNull('deleted_at')
                     ->get()
             ),
             'latest_contents' => \Arr::get(
                 $data,
-                'contents',
-                \App\Models\Content::whereIn('type', ['post'])
+                'latest_contents',
+                $this->hasModule()
+                ? []
+                : $this->contentModel::whereIn('type', ['post'])
                     ->whereIn('status', \Auth::check() ? ['public', 'publish', 'protected', 'private'] : ['public', 'publish'])
                     ->whereNull('deleted_at')
                     ->orderByDesc('updated_at')
@@ -59,8 +74,10 @@ class Controller extends \App\Illuminate\Routing\Controller
             ),
             'latest_comments' => \Arr::get(
                 $data,
-                'contents',
-                \App\Models\Comment::orderByDesc('updated_at')
+                'latest_comments',
+                $this->hasModule()
+                ? []
+                : $this->commentModel::orderByDesc('updated_at')
                     ->whereNull('deleted_at')
                     ->limit(10)
                     ->get()

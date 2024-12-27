@@ -6,7 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use App\Illuminate\Routing\Controller;
 
-class CheatSheetController extends \App\Http\Controllers\Controller
+class CheatSheetContentController extends \App\Http\Controllers\ContentController
 {
     protected $contentModel = \Modules\CheatSheet\Models\CheatSheet::class;
 }

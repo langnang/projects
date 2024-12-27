@@ -35,6 +35,7 @@ class OptionTableSeeder extends Seeder
                         'draft-post' => ['value' => 'post-draft', 'auth' => true, 'name' => 'Post(Draft)', 'nameCn' => '文章（草稿）',],
                         'page' => ['value' => 'page', 'name' => 'Page', 'nameCn' => '页面',],
                         'draft-page' => ['value' => 'page-draft', 'auth' => true, 'name' => 'Page(Draft)', 'nameCn' => '页面（草稿）',],
+                        'archive' => ['value' => 'archive', 'auth' => true, 'name' => 'Archive', 'nameCn' => '归档',],
                     ])
                 ],
                 [

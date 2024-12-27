@@ -2,5 +2,6 @@
 
 return [
     'name' => 'CheatSheet',
-    'nameCn' => '速查'
+    'nameCn' => '速查',
+    'view' => ['framework' => 'master'],
 ];

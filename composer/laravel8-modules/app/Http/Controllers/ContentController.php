@@ -14,7 +14,7 @@ class ContentController extends Controller
     public function create()
     {
         $return = [
-            'contents' => \App\Models\Content::with(['children'])
+            'contents' => $this->contentModel::with(['children'])
                 ->whereIn('type', ['template',])
                 ->whereNull('deleted_at')
                 ->get()
@@ -33,7 +33,7 @@ class ContentController extends Controller
         //
         $request->merge(['user' => \Auth::id()]);
 
-        $content = new \App\Models\Content();
+        $content = new $this->contentModel();
         $content->fill($request->all());
         $content->save();
 
@@ -50,7 +50,7 @@ class ContentController extends Controller
      */
     public function show($id)
     {
-        $content = \App\Models\Content::with(['contents', 'links'])->find($id);
+        $content = $this->contentModel::with(['contents', 'links'])->find($id);
         if (empty($content))
             abort(404);
         $return = [
@@ -67,8 +67,8 @@ class ContentController extends Controller
     public function edit($id)
     {
         $return = [
-            'content' => \App\Models\Content::find($id),
-            'contents' => \App\Models\Content::with(['children'])
+            'content' => $this->contentModel::find($id),
+            'contents' => $this->contentModel::with(['children'])
                 ->whereIn('type', ['template',])
                 ->whereKeyNot($id)
                 ->whereNull('deleted_at')
@@ -88,7 +88,7 @@ class ContentController extends Controller
         //
         $this->validateContent($request);
         $request->merge(['user' => \Auth::id()]);
-        $content = \App\Models\Content::find($id);
+        $content = $this->contentModel::find($id);
         $content->fill($request->all());
         $content->save();
 
@@ -103,7 +103,7 @@ class ContentController extends Controller
     public function destroy($id)
     {
         //
-        $content = \App\Models\Content::find($id);
+        $content = $this->contentModel::find($id);
         $content->timestamps = false;
         $content->update([
             'deleted_at' => now()

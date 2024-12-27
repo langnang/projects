@@ -364,4 +364,9 @@ abstract class Controller extends \Illuminate\Routing\Controller
     {
 
     }
+
+    protected function hasModule()
+    {
+        return empty($this->module);
+    }
 }
