@@ -14,5 +14,6 @@
     "Audio": true,
     "Video": true,
     "Blog": true,
-    "Question": true
+    "Question": true,
+    "Dependency": true
 }

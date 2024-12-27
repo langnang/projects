@@ -121,10 +121,10 @@
                 <i class="bi bi-plus-lg"></i> Link
               </a>
               <a class="dropdown-item small px-2" href="#">
-                <i class="bi bi-upload"></i> Import
+                <i class="bi bi-cloud-upload"></i> Import
               </a>
               <a class="dropdown-item small px-2" href="#">
-                <i class="bi bi-download"></i> Export
+                <i class="bi bi-cloud-download"></i> Export
               </a>
               <a class="dropdown-item small px-2" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                 <i class="bi bi-asterisk"></i> {{ __('Logout') }}
