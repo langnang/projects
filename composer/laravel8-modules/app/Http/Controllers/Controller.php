@@ -13,6 +13,9 @@ class Controller extends \App\Illuminate\Routing\Controller
     protected $commentModel = \App\Models\Comment::class;
     protected function view($view = null, $data = [], $mergeData = [])
     {
+        // $sql = \Blade::render('SELECT meta_id, cheatsheet_id  FROM `relationships`', $data);
+        // $links = \App\Models\Link::with(['relationships'])->limit(1)->toSql();
+        // var_dump($links);
         $return = array_merge($data, [
             'contents' => \Arr::get(
                 $data,
@@ -26,11 +29,17 @@ class Controller extends \App\Illuminate\Routing\Controller
                     ->orderByDesc('updated_at')
                     ->paginate()
             ),
+
+
             'links' => \Arr::get(
                 $data,
                 'links',
                 $this->hasModule()
-                ? $this->linkModel::belongsToMany(\App\Models\Relationship::class)->where('meta_id', $this->moduleMeta->id)
+                ? $this->linkModel::with(['user', 'relationships'])
+                    ->whereIn('type', ['site'])
+                    ->whereIn('status', \Auth::check() ? ['public', 'publish', 'protected', 'private'] : ['public', 'publish'])
+                    ->whereNull('deleted_at')
+                    ->orderByDesc('updated_at')->limit(20)->get()
                 : $this->linkModel::with(['user', 'relationships'])
                     ->whereIn('type', ['site'])
                     ->whereIn('status', \Auth::check() ? ['public', 'publish', 'protected', 'private'] : ['public', 'publish'])

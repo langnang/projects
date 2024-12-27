@@ -72,15 +72,19 @@
     @show
   @endif
 
-  <script crossorigin="anonymous" src="https://unpkg.com/axios"></script>
-  <script crossorigin="anonymous" src="https://unpkg.com/jquery"></script>
-  <script crossorigin="anonymous" src="https://unpkg.com/popper.js"></script>
-  <script crossorigin="anonymous" src="https://unpkg.com/bootstrap@4"></script>
-  <script crossorigin="anonymous" src="https://unpkg.com/lodash"></script>
-  <script crossorigin="anonymous" src="https://unpkg.com/holderjs"></script>
-  <script crossorigin="anonymous" src="https://unpkg.com/mockjs"></script>
-  <script crossorigin="anonymous" src="https://unpkg.com/moment"></script>
-  <script crossorigin="anonymous" src="https://unpkg.com/masonry-layout"></script>
+  <script crossorigin="anonymous" src="{{ asset('public/lib/axios/0.21.4/axios.min.js') }}"></script>
+  {{-- <script crossorigin="anonymous" src="https://unpkg.com/axios"></script> --}}
+  <script crossorigin="anonymous" src="{{ asset('public/lib/jquery/3.6.4/jquery.slim.min.js') }}"></script>
+  {{-- <script crossorigin="anonymous" src="https://unpkg.com/jquery"></script> --}}
+  <script crossorigin="anonymous" src="{{ asset('public/lib/popper.js/1.16.1/popper.min.js') }}"></script>
+  {{-- <script crossorigin="anonymous" src="https://unpkg.com/popper.js"></script> --}}
+  <script crossorigin="anonymous" src="{{ asset('public/lib/bootstrap/4.6.2/js/bootstrap.min.js') }}"></script>
+  {{-- <script crossorigin="anonymous" src="https://unpkg.com/bootstrap@4"></script> --}}
+  {{-- <script crossorigin="anonymous" src="https://unpkg.com/lodash"></script> --}}
+  {{-- <script crossorigin="anonymous" src="https://unpkg.com/holderjs"></script> --}}
+  {{-- <script crossorigin="anonymous" src="https://unpkg.com/mockjs"></script> --}}
+  {{-- <script crossorigin="anonymous" src="https://unpkg.com/moment"></script> --}}
+  {{-- <script crossorigin="anonymous" src="https://unpkg.com/masonry-layout"></script> --}}
 
   <script crossorigin="anonymous" src="{{ asset('./public/app/script.js') }}"></script>
 
