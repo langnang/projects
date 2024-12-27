@@ -47,6 +47,9 @@
         @endforeach
       @endforeach
     </ul>
+    {{-- <x-bootstrap4.tree-group class="list-group-flush" item-class="py-1 pr-1 d-flex align-items-center" :data="$categories">
+
+    </x-bootstrap4.tree-group> --}}
   </div>
 @endempty
 @empty($tags)

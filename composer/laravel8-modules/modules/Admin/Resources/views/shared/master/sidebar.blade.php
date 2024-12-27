@@ -37,6 +37,76 @@
     <!-- Sidebar Menu -->
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <li class="nav-item menu-open">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-tachometer-alt"></i>
+            <p>
+              Admin
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{ asset('admin/metas') }}" class="nav-link">
+                <i class="nav-icon fas fa-th"></i>
+                <p>
+                  Metas
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ asset('admin/contents') }}" class="nav-link">
+                <i class="nav-icon fas fa-th"></i>
+                <p>
+                  Contents
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ asset('admin/links') }}" class="nav-link">
+                <i class="nav-icon fas fa-th"></i>
+                <p>
+                  Links
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ asset('admin/user') }}" class="nav-link">
+                <i class="nav-icon fas fa-th"></i>
+                <p>
+                  User
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ asset('admin/options') }}" class="nav-link">
+                <i class="nav-icon fas fa-th"></i>
+                <p>
+                  Options
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ asset('admin/logs') }}" class="nav-link">
+                <i class="nav-icon fas fa-th"></i>
+                <p>
+                  Logs
+                </p>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item menu-open">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-tachometer-alt"></i>
+            <p>
+              Modules
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+          </ul>
+        </li>
         @foreach ($module['menu'] ?? [] as $menu)
           @switch($menu['type']??'')
             @case('header')
@@ -98,7 +168,7 @@
               </li>
           @endswitch
         @endforeach
-        @if (false)
+        @if (true)
           <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
           <li class="nav-item menu-open">
             <a href="#" class="nav-link active">
