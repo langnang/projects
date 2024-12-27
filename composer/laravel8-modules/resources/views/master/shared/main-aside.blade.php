@@ -30,7 +30,7 @@
     <div class="card-header p-2">
       分类
     </div>
-    <ul class="list-group list-group-flush">
+    <ul class="list-group list-group-flush" style="max-height: 329px;overflow: auto;">
       @foreach ($categories ?? [] as $category)
         <li class="list-group-item py-1 pr-1 d-flex align-items-center">
           <a class="text-truncate mr-auto" href="{{ url((isset($module) ? $module['alias'] . '/' : 'home/') . 'meta/' . ($category->id ?? $category->slug)) }}" title="{{ $category->name }}">{{ $category->name }}</a>
@@ -38,6 +38,14 @@
             <a class="bi ml-1 bi-pen" href="{{ url((isset($module) ? $module['alias'] . '/' : 'home/') . 'update-meta/' . ($category->id ?? $category->slug)) }}"></a>
           @endif
         </li>
+        @foreach ($category['children'] ?? [] as $child)
+          <li class="list-group-item py-1 pr-1 d-flex align-items-center">
+            <a class="text-truncate mr-auto" href="{{ url((isset($module) ? $module['alias'] . '/' : 'home/') . 'meta/' . ($child->id ?? $child->slug)) }}" title="{{ $child->name }}">{{ $child->name }}</a>
+            @if (Auth::check())
+              <a class="bi ml-1 bi-pen" href="{{ url((isset($module) ? $module['alias'] . '/' : 'home/') . 'update-meta/' . ($child->id ?? $child->slug)) }}"></a>
+            @endif
+          </li>
+        @endforeach
       @endforeach
     </ul>
   </div>

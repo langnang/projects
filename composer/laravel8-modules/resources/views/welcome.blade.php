@@ -417,6 +417,7 @@
     }
   </style>
 
+  <link rel="stylesheet" href="{{ asset('public/app/app.css') }}">
   <style>
     body {
       font-family: 'Nunito', sans-serif;

@@ -29,11 +29,21 @@ abstract class Seeder extends \Illuminate\Database\Seeder
 
             $return = array_merge(
                 $return,
-                array_map(function ($item) use ($mergeData) {
-                    return array_merge($item, $mergeData);
-                }, array_filter(\Arr::get($this->initializations, $initialization_key, []), function ($item) {
-                    return empty($item['title']) || empty($item['name']);
-                }))
+                array_map(
+                    function ($item) use ($mergeData) {
+                        return array_merge($item, $mergeData);
+                    },
+                    array_filter(
+                        \Arr::get($this->initializations, $initialization_key, []),
+                        function ($item) {
+                            // var_dump([
+                            //     empty($item['title']),
+                            //     empty($item['name']),
+                            // ]);
+                            return empty($item['title']) && empty($item['name']);
+                        }
+                    )
+                )
             );
 
             // \App\Models\link::upsert(, ['slug'], ['slug', 'title', 'url', 'ico', 'description', 'keywords', 'type', 'status']);

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use \App\Illuminate\Routing\Controller;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-class WebNavController extends Controller
+class WebNavController extends \App\Http\Controllers\Controller
 {
     public function view_meta($idOrSlug = null)
     {

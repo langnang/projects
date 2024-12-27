@@ -64,7 +64,7 @@ abstract class Controller extends \Illuminate\Routing\Controller
      */
     protected function config($key, $default = null)
     {
-        return $this->moduleName ? \Arr::get($this->moduleConfig, $key, $default) : config($key, $default);
+        return $this->moduleName ? \Arr::get($this->moduleConfig, $key, config($key, $default)) : config($key, $default);
     }
     /**
      * Summary of queryModuleOption
@@ -151,11 +151,14 @@ abstract class Controller extends \Illuminate\Routing\Controller
             if (!View::exists($return['layout'])) {
                 $return['layout'] = $return['view'];
             }
+            // var_dump($return['layout']);
             $return['view'] = $this->moduleAlias . '::' . $this->config('view.framework') . '.' . $return['view'];
+            // var_dump($return['view']);
         }
         if (!View::exists($return['view'])) {
             $return['view'] = $return['layout'];
         }
+        // var_dump($return['view']);
         if (env('WEB_CONSOLE')) {
             echo "<script>window.\$app=" . json_encode($return, JSON_UNESCAPED_UNICODE) . ";</script>";
             echo "<script>console.log('window.\$app',window.\$app);</script>";
@@ -368,5 +371,11 @@ abstract class Controller extends \Illuminate\Routing\Controller
     protected function hasModule()
     {
         return !empty($this->module);
+    }
+
+    protected function getAuthStatus($key = 'global.status')
+    {
+        return $this->option($key);
+        // return Auth::check() ? [] : [];
     }
 }

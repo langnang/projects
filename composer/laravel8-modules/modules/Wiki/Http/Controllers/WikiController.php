@@ -5,7 +5,7 @@ namespace Modules\Wiki\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 
-class WikiController extends \App\Illuminate\Routing\Controller
+class WikiController extends \App\Http\Controllers\Controller
 {
     public function view_index($idOrSlug = null)
     {

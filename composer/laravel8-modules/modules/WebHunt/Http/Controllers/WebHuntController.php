@@ -11,7 +11,7 @@ use App\Illuminate\Routing\Controller;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Pagination\Paginator;
 
-class WebHuntController extends Controller
+class WebHuntController extends \App\Http\Controllers\Controller
 {
     public function view_index($idOrSlug = null)
     {

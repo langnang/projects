@@ -17,10 +17,11 @@
           @foreach ($contents as $content)
             <div class="card my-2 @switch($content->status) @case('public') border-secondary @case('publish') border-primary @break @case('protected') border-warning @break @case('private') border-danger @break @default @break @endswitch">
               <div class="card-header d-flex align-items-center">
-                <i class="bi bi-circle-fill mr-2" data-toggle="tooltip" data-placement="right" title="{{ $content->status }}" style="margin-left: -.5rem;"></i>
+                <i class="bi bi-circle-fill mr-2 @switch($content->status) @case('public') text-secondary @case('publish') text-primary @break @case('protected') text-warning @break @case('private') text-danger @break @default @break @endswitch" data-toggle="tooltip" data-placement="right" title="{{ $content->status }}" style="margin-left: -.5rem;"></i>
                 <h5 class="card-title mb-0 text-truncate mr-auto">
                   {{ $content->title }}
                 </h5>
+                <span class="badge text-capitalize @switch($content->status) @case('public') badge-secondary @case('publish') badge-primary @break @case('protected') badge-warning @break @case('private') badge-danger @break @default @break @endswitch">{{ $content->status }}</span>
                 {{-- <button type="button" class="btn btn-sm mx-1 btn-primary">Primary</button>
                 <button type="button" class="btn btn-sm mx-1 btn-secondary">Secondary</button>
                 <button type="button" class="btn btn-sm mx-1 btn-success">Success</button>

@@ -13,39 +13,17 @@ class Controller extends \App\Illuminate\Routing\Controller
     protected $commentModel = \App\Models\Comment::class;
     protected function view($view = null, $data = [], $mergeData = [])
     {
+
+        // $metaRelations = $this->moduleMeta->relationships()->get();
+        // var_dump($metaRelations->toArray());
+
+        // $links = $this->linkModel::get();
+
         // $sql = \Blade::render('SELECT meta_id, cheatsheet_id  FROM `relationships`', $data);
         // $links = \App\Models\Link::with(['relationships'])->limit(1)->toSql();
-        // var_dump($links);
+        // var_dump($links->toArray());
         $return = array_merge($data, [
-            'contents' => \Arr::get(
-                $data,
-                'contents',
-                $this->hasModule()
-                ? []
-                : $this->contentModel::with(['user'])
-                    ->whereIn('type', ['post'])
-                    ->whereIn('status', \Auth::check() ? ['public', 'publish', 'protected', 'private'] : ['public', 'publish'])
-                    ->whereNull('deleted_at')
-                    ->orderByDesc('updated_at')
-                    ->paginate()
-            ),
-
-
-            'links' => \Arr::get(
-                $data,
-                'links',
-                $this->hasModule()
-                ? $this->linkModel::with(['user', 'relationships'])
-                    ->whereIn('type', ['site'])
-                    ->whereIn('status', \Auth::check() ? ['public', 'publish', 'protected', 'private'] : ['public', 'publish'])
-                    ->whereNull('deleted_at')
-                    ->orderByDesc('updated_at')->limit(20)->get()
-                : $this->linkModel::with(['user', 'relationships'])
-                    ->whereIn('type', ['site'])
-                    ->whereIn('status', \Auth::check() ? ['public', 'publish', 'protected', 'private'] : ['public', 'publish'])
-                    ->whereNull('deleted_at')
-                    ->orderByDesc('updated_at')->limit(20)->get()
-            ),
+            // metas[type=category]
             'categories' => \Arr::get(
                 $data,
                 'categories',
@@ -58,6 +36,7 @@ class Controller extends \App\Illuminate\Routing\Controller
                     ->whereNull('deleted_at')
                     ->get()
             ),
+            // metas[type=tag]
             'tags' => \Arr::get(
                 $data,
                 'tags',
@@ -69,12 +48,57 @@ class Controller extends \App\Illuminate\Routing\Controller
                     ->whereNull('deleted_at')
                     ->get()
             ),
+            // metas[type=module]
+            'modules' => \Arr::get(
+                $data,
+                'modules',
+                $this->hasModule()
+                ? []
+                : $this->metaModel::where('type', 'module')
+                    ->whereIn('status', \Auth::check() ? ['public', 'publish', 'protected', 'private'] : ['public', 'publish'])
+                    ->where('parent', 0)
+                    ->whereNull('deleted_at')
+                    ->get()
+            ),
+            // contents[type=post]
+            // contents[type=template]
+            // contents[type=page]
+            'contents' => \Arr::get(
+                $data,
+                'contents',
+                ($this->hasModule()
+                ? $this->moduleMeta->contents()
+                : $this->contentModel::with(['user']))
+                    ->where('type', 'post')
+                    ->whereIn('status', \Auth::check() ? ['public', 'publish', 'protected', 'private'] : ['public', 'publish'])
+                    ->whereNull('deleted_at')
+                    ->orderByDesc('updated_at')
+                    ->paginate()
+            ),
+            // contents[type=post]
+
+            // links[type=site]
+            // 根据模块对应的 MetaID 
+            'links' => \Arr::get(
+                $data,
+                'links',
+                ($this->hasModule()
+                ? $this->moduleMeta->links()
+                : $this->linkModel::with(['user', 'relationships']))
+                    ->whereIn('type', ['site'])
+                    ->whereIn('status', \Auth::check() ? ['public', 'publish', 'protected', 'private'] : ['public', 'publish'])
+                    ->whereNull('deleted_at')
+                    ->where('title', '!=', '')
+                    ->orderByDesc('updated_at')->limit(20)->get()
+            ),
+
+
             'latest_contents' => \Arr::get(
                 $data,
                 'latest_contents',
-                $this->hasModule()
-                ? []
-                : $this->contentModel::whereIn('type', ['post'])
+                ($this->hasModule()
+                ? $this->moduleMeta->contents()
+                : $this->contentModel::whereIn('type', ['post']))
                     ->whereIn('status', \Auth::check() ? ['public', 'publish', 'protected', 'private'] : ['public', 'publish'])
                     ->whereNull('deleted_at')
                     ->orderByDesc('updated_at')
@@ -102,5 +126,13 @@ class Controller extends \App\Illuminate\Routing\Controller
     public function index()
     {
         return $this->view('index');
+    }
+    public function welcome()
+    {
+        return $this->view('welcome');
+    }
+
+    protected function getContentTypeList()
+    {
     }
 }

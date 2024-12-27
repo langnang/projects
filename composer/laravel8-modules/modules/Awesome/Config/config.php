@@ -2,5 +2,8 @@
 
 return [
     'name' => 'Awesome',
-    'nameCn' => '推荐'
+    'nameCn' => '推荐',
+    'view' => [
+        'framework' => 'master'
+    ],
 ];

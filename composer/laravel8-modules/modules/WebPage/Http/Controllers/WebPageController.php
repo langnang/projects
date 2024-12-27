@@ -6,7 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use App\Illuminate\Routing\Controller;
 
-class WebPageController extends \App\Illuminate\Routing\Controller
+class WebPageController extends \App\Http\Controllers\Controller
 {
     /**
      * Display a listing of the resource.
