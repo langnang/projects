@@ -1,10 +1,9 @@
 <form class="my-2" action="" method="GET">
-  @csrf
   <div class="form-group mb-2">
     <div class="input-group input-group-sm mb-0">
       <input type="text" class="form-control form-control-sm" name="title" placeholder="Title">
       <div class="input-group-append">
-        <button class="btn btn-outline-secondary" type="button">Search</button>
+        <button class="btn btn-outline-secondary" type="submit">Search</button>
       </div>
     </div>
   </div>
@@ -56,7 +55,7 @@
     <div class="card-header p-2">
       标签
     </div>
-    <div class="card-body py-2 pl-2 pr-1">
+    <div class="card-body py-2 pl-2 pr-1" style="max-height: 320px;overflow: auto;">
       @foreach ($tags ?? [] as $tag)
         <a class="badge badge-pill badge-primary text-truncate my-1" href="{{ url((isset($module) ? $module['alias'] . '/' : 'home/') . 'meta/' . ($tag->id ?? $tag->slug)) }}" title="{{ $tag->name }}" style="max-width: 100%;">{{ $tag->name }}</a>
       @endforeach

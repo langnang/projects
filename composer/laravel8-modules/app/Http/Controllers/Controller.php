@@ -66,14 +66,7 @@ class Controller extends \App\Illuminate\Routing\Controller
             'contents' => \Arr::get(
                 $data,
                 'contents',
-                ($this->hasModule()
-                ? $this->moduleMeta->contents()
-                : $this->contentModel::with(['user']))
-                    ->where('type', 'post')
-                    ->whereIn('status', \Auth::check() ? ['public', 'publish', 'protected', 'private'] : ['public', 'publish'])
-                    ->whereNull('deleted_at')
-                    ->orderByDesc('updated_at')
-                    ->paginate()
+
             ),
             // contents[type=post]
 
@@ -116,6 +109,23 @@ class Controller extends \App\Illuminate\Routing\Controller
                     ->get()
             ),
         ]);
+
+
+        if (empty($return['contents'])) {
+            $query = $this->hasModule()
+                ? $this->moduleMeta->contents()
+                : $this->contentModel::with(['user']);
+            if (request()->filled('title'))
+                $query = $query->where('title', 'like', '%' . request()->input('title') . '%');
+            $query = $query->where('type', 'post');
+            $query = $query->whereIn('status', \Auth::check() ? ['public', 'publish', 'protected', 'private'] : ['public', 'publish']);
+            $query = $query->whereNull('deleted_at');
+            $query = $query->orderByDesc('updated_at');
+            $query = $query->paginate();
+            $return['contents'] = $query;
+            unset($query);
+        }
+
         return parent::view($view, $return, $mergeData);
     }
 
@@ -132,7 +142,8 @@ class Controller extends \App\Illuminate\Routing\Controller
         return $this->view('welcome');
     }
 
-    protected function getContentTypeList()
+    protected function select_content_list(Request $request)
     {
+
     }
 }

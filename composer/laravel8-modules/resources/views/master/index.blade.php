@@ -52,7 +52,7 @@
               </div>
             </div>
           @endforeach
-          {{ $contents->links() }}
+          {{ $contents->withQueryString()->links() }}
         @endempty
 
       </div>
