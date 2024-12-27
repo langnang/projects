@@ -1,12 +1,7 @@
 @extends('layouts.master')
 
 @push('styles')
-  <x-styles :props="[
-      ['modules/Admin/Public/admin/master/css/adminlte.min.css'],
-      ['summernote', 'summernote-bs4.min'],
-      ['codemirror', 'codemirror'],
-      ['codemirror', 'theme/monokai'],
-  ]"></x-styles>
+  <x-styles :props="[['modules/Admin/Public/admin/master/css/adminlte.min.css'], ['summernote', 'summernote-bs4.min'], ['codemirror', 'codemirror'], ['codemirror', 'theme/monokai']]"></x-styles>
   <style>
     .nav-sidebar .nav-treeview {
       padding-left: .5rem;
@@ -17,8 +12,8 @@
 @section('main')
   <div class="wrapper">
     {{-- @section('preloader') @include('adminlte::layouts.preloader') @show --}}
-    @section('navbar') @include($config['slug'] . '::shared.' . $config['layout'] . '.navbar') @show
-    @section('sidebar') @include($config['slug'] . '::shared.' . $config['layout'] . '.sidebar') @show
+    @section('navbar') @include($module['slug'] . '::shared.' . $module['layout'] . '.navbar') @show
+    @section('sidebar') @include($module['slug'] . '::shared.' . $module['layout'] . '.sidebar') @show
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper" style="height: calc(100vh - 114px); overflow-y: auto; min-height: auto;">
       <!-- Content Header (Page header) -->
@@ -26,12 +21,12 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0">{{ $config['menu_actives'][0]['title'] ?? 'Dashboard' }}</h1>
+              <h1 class="m-0">{{ $module['menu_actives'][0]['title'] ?? 'Dashboard' }}</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                @foreach ($config['menu_actives'] ?? [] as $menu_item)
+                @foreach ($module['menu_actives'] ?? [] as $menu_item)
                   @if ($loop->last)
                     <li class="breadcrumb-item active">{{ $menu_item['title'] }}</li>
                   @else
@@ -47,16 +42,11 @@
       @yield('content')
     </div>
     <!-- /.content-wrapper -->
-    @section('footer') @include($config['slug'] . '::shared.' . $config['layout'] . '.footer') @show
-    @section('control-sidebar') @include($config['slug'] . '::shared.' . $config['layout'] . '.control-sidebar') @show
+    @section('footer') @include($module['slug'] . '::shared.' . $module['layout'] . '.footer') @show
+    @section('control-sidebar') @include($module['slug'] . '::shared.' . $module['layout'] . '.control-sidebar') @show
   </div>
 @endsection
 
 @push('scripts')
-  <x-scripts :props="[
-      ['modules/Admin/Public/admin/master/js/adminlte.min'],
-      ['summernote', 'summernote-bs4.min'],
-      ['codemirror', 'codemirror'],
-      ['codemirror', 'mode/markdown/markdown'],
-  ]"></x-scripts>
+  <x-scripts :props="[['modules/Admin/Public/admin/master/js/adminlte.min'], ['summernote', 'summernote-bs4.min'], ['codemirror', 'codemirror'], ['codemirror', 'mode/markdown/markdown']]"></x-scripts>
 @endpush

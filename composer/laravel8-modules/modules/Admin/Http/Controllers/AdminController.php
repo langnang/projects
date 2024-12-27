@@ -10,7 +10,6 @@ class AdminController extends \App\Http\Controllers\Controller
 {
     public function index()
     {
-        var_dump(__METHOD__);
         return $this->view('index');
     }
 }

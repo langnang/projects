@@ -1,13 +1,14 @@
 <?php
 
 return array(
-    'name' => 'admin',
+    'name' => 'Admin',
     'nameCn' => '管理',
     'slug' => 'admin',
     'status' => 'private',
     'roles' => [],
     'title' => 'Laravel Modular',
     'prefix' => 'admin',
+    'logo' => asset('modules/Admin/Public/admin/master/img/AdminLTELogo.png'),
     'key' => '',
     'md5' => '',
     'component' => NULL,

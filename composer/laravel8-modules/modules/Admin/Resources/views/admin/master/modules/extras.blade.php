@@ -1,1 +1,1 @@
-@extends($config['slug'] . '::layouts.' . $config['layout'])
+@extends($module['slug'] . '::layouts.' . $module['layout'])

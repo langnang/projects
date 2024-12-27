@@ -2,10 +2,10 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <!-- Brand Logo -->
-  <a href="{{ env('APP_URL') . $config['slug'] }}" class="brand-link text-center">
-    @empty($config['logo'])
+  <a href="{{ env('APP_URL') . $module['slug'] }}" class="brand-link text-center">
+    @empty($module['logo'])
     @else
-      <img src="{{ $config['logo'] }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <img src="{{ $module['logo'] }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
     @endempty
     <span class="brand-text font-weight-light">{{ env('APP_NAME') }}</span>
   </a>
@@ -15,8 +15,7 @@
     <!-- Sidebar user panel (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-none">
       <div class="image">
-        <img src="/modules/admin/public/admin/master/img/user2-160x160.jpg" class="img-circle elevation-2"
-          alt="User Image">
+        <img src="/modules/admin/public/admin/master/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
       </div>
       <div class="info">
         <a href="#" class="d-block">Alexander Pierce</a>
@@ -38,17 +37,15 @@
     <!-- Sidebar Menu -->
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-        @foreach ($config['menu'] ?? [] as $menu)
+        @foreach ($module['menu'] ?? [] as $menu)
           @switch($menu['type']??'')
             @case('header')
               <li class="nav-header">{!! $menu['title'] !!}</li>
             @break
 
             @default
-              <li
-                class="nav-item @empty($menu['active']) @else menu-open @endempty @if (($menu['visible'] ?? true) == false) d-none @endif">
-                <a href="@empty($menu['children']) {{ env('APP_URL') . $menu['path'] }} @else # @endempty"
-                  class="nav-link @empty($menu['active']) @else active @endempty">
+              <li class="nav-item @empty($menu['active']) @else menu-open @endempty @if (($menu['visible'] ?? true) == false) d-none @endif">
+                <a href="@empty($menu['children']) {{ env('APP_URL') . $menu['path'] }} @else # @endempty" class="nav-link @empty($menu['active']) @else active @endempty">
                   <i class="nav-icon {{ $menu['icon'] ?? 'fas fa-circle' }}"></i>
                   <p>
                     {!! $menu['title'] !!}
@@ -58,8 +55,7 @@
                     @endempty
                     @empty($menu['badge'])
                     @else
-                      <span
-                        class="right badge badge-{{ $menu['badge']['type'] ?? 'info' }}">{{ $menu['badge']['value'] ?? '' }}</span>
+                      <span class="right badge badge-{{ $menu['badge']['type'] ?? 'info' }}">{{ $menu['badge']['value'] ?? '' }}</span>
                     @endempty
                   </p>
                 </a>
@@ -70,13 +66,11 @@
                   <ul class="nav nav-treeview">
                     @foreach ($menu['children'] ?? [] as $menu_item)
                       <li class="nav-item @if (($menu_item['visible'] ?? true) == false) d-none @endif">
-                        <a href="{{ env('APP_URL') . $menu_item['path'] }}"
-                          class="nav-link @empty($menu_item['active'] ?? false) @else active @endempty">
+                        <a href="{{ env('APP_URL') . $menu_item['path'] }}" class="nav-link @empty($menu_item['active'] ?? false) @else active @endempty">
                           <i class="nav-icon {{ $menu_item['icon'] ?? 'far fa-circle' }}"></i>
                           <p> {!! $menu_item['title'] !!}
                             @if (sizeof(array_filter($menu_item['children'] ?? [], function ($child) {
-                                        return ($child['active'] ?? false) === true &&
-                                            (isset($child['visible']) ? $child['visible'] : true) === true;
+                                        return ($child['active'] ?? false) === true && (isset($child['visible']) ? $child['visible'] : true) === true;
                                     })) > 0)
                               <i class="right fas fa-angle-left"></i>
                             @endif
@@ -116,19 +110,19 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ $config['slug'] }}/index" class="nav-link active">
+                <a href="{{ $module['slug'] }}/index" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Dashboard v1</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ $config['slug'] }}/index2" class="nav-link">
+                <a href="{{ $module['slug'] }}/index2" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Dashboard v2</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ $config['slug'] }}/index3" class="nav-link">
+                <a href="{{ $module['slug'] }}/index3" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Dashboard v3</p>
                 </a>
@@ -136,7 +130,7 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a href="{{ $config['slug'] }}/pages/widgets.html" class="nav-link">
+            <a href="{{ $module['slug'] }}/pages/widgets.html" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Widgets
@@ -155,7 +149,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ $config['slug'] }}/pages/layout/top-nav.html" class="nav-link">
+                <a href="{{ $module['slug'] }}/pages/layout/top-nav.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Top Navigation</p>
                 </a>
