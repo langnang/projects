@@ -31,7 +31,9 @@
                 <button type="button" class="btn btn-sm mx-1 btn-dark">Dark</button> --}}
               </div>
               <div class="card-body px-3 py-2">
-                <p class="card-text mb-0">{{ $content->description }}</p>
+                <section class="markdown">
+                  {!! markdown_to_html($content->description) !!}
+                </section>
               </div>
               <div class="card-footer py-2 small d-flex align-items-center">
                 <span class="px-2">{{ $content->updated_at }}</span>

@@ -93,3 +93,9 @@ body {
     max-width: 1480px;
   }
 }
+
+.markdown {}
+
+.markdown p {
+  margin-bottom: 0;
+}

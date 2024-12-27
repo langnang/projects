@@ -23,13 +23,15 @@
             <h3 class="display-6">{{ $content->title }}</h3>
             <p class="lead">{{ $content->subtitle }}</p>
             <hr class="my-2">
-            <p>{{ $content->description }}</p>
+            <section class="markdown">
+              {!! markdown_to_html($content->description) !!}
+            </section>
             <a class="btn btn-primary" href="#" role="button">Learn more</a>
             @if (Auth::check())
               <a class="btn btn-warning" href="{{ url((isset($module) ? $module['alias'] . '/' : 'home/') . 'update-content/' . ($content->id ?? $content->slug)) }}" role="button">Edit</a>
             @endif
           </div>
-          <article>
+          <section class="markdown">
             @isset($content->text)
               @if (is_string($content->text))
                 {!! markdown_to_html($content->text) !!}
@@ -37,7 +39,7 @@
                 {{ json_encode($content->text, JSON_UNESCAPED_UNICODE) }}
               @endif
             @endisset
-          </article>
+          </section>
         @endempty
       </div>
       <aside class="col-3">
