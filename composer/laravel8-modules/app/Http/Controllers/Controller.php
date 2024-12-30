@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 class Controller extends \App\Illuminate\Routing\Controller
 {
     protected $metaModel = \App\Models\Meta::class;
-    protected $contentModel = \App\Models\Content::class;
+    protected $contentModel;
     protected $linkModel = \App\Models\Link::class;
     protected $fieldModel = \App\Models\Field::class;
     protected $commentModel = \App\Models\Comment::class;
@@ -113,14 +113,20 @@ class Controller extends \App\Illuminate\Routing\Controller
 
         if (empty($return['contents'])) {
             $query = $this->hasModule()
-                ? $this->moduleMeta->contents()
+                ? (empty($this->contentModel)
+                    ? \App\Models\Content::contents()
+                    : $this->contentModel::with(['user']))
                 : $this->contentModel::with(['user']);
+
+
+
             if (request()->filled('title'))
                 $query = $query->where('title', 'like', '%' . request()->input('title') . '%');
             $query = $query->where('type', 'post');
             $query = $query->whereIn('status', \Auth::check() ? ['public', 'publish', 'protected', 'private'] : ['public', 'publish']);
             $query = $query->whereNull('deleted_at');
             $query = $query->orderByDesc('updated_at');
+            \Arr::set($this->sqls, 'select_content_list', $query->toRawSql());
             $query = $query->paginate();
             $return['contents'] = $query;
             unset($query);

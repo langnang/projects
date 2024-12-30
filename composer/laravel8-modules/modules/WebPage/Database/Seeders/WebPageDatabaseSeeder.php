@@ -2,7 +2,7 @@
 
 namespace Modules\WebPage\Database\Seeders;
 
-use Illuminate\Database\Seeder;
+use App\Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
 class WebPageDatabaseSeeder extends Seeder
@@ -17,5 +17,9 @@ class WebPageDatabaseSeeder extends Seeder
         Model::unguard();
 
         // $this->call("OthersTableSeeder");
+
+        // var_dump($this->getInitializaions('webpages'));
+
+        \Modules\WebPage\Models\WebPage::upsert($this->getInitializaions('webpages'), ['slug'], ['slug', 'title', 'ico', 'description', "style", 'html', 'script', 'type', 'status']);
     }
 }

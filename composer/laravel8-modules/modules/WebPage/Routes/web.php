@@ -13,4 +13,9 @@
 
 Route::prefix('webpage')->group(function () {
     Route::get('/', 'WebPageController@index');
+
+
+    Route::get('/meta/{id}', 'WebPageMetaController@show');
+    Route::get('/content/{id}', 'WebPageContentController@show');
+    Route::get('/link/{id}', 'WebPageLinkController@show');
 });

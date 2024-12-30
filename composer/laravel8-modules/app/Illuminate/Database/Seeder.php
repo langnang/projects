@@ -23,10 +23,11 @@ abstract class Seeder extends \Illuminate\Database\Seeder
         $initialization_keys = array_filter(array_keys($this->initializations), function ($item) use ($key) {
             return str_starts_with($item, $key);
         });
-        // // var_dump($link_initializations);
+        // var_dump($initialization_keys);
         foreach ($initialization_keys as $initialization_key) {
             $mergeData = parse_ini_string(str_replace("&", "\n", \Str::between($initialization_key, '[', ']')));
 
+            // var_dump($mergeData);
             $return = array_merge(
                 $return,
                 array_map(
@@ -40,7 +41,7 @@ abstract class Seeder extends \Illuminate\Database\Seeder
                             //     empty($item['title']),
                             //     empty($item['name']),
                             // ]);
-                            return empty($item['title']) && empty($item['name']);
+                            return !(empty($item['title'])) || !(empty($item['name']));
                         }
                     )
                 )

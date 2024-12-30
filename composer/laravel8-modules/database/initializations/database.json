@@ -450,5 +450,97 @@
                 }
             }
         }
+    ],
+    "_webpage": {
+        "slug": "",
+        "ico": "",
+        "title": "",
+        "description": "",
+        "style": "",
+        "html": "",
+        "script": ""
+    },
+    "webpages[type=post&status=public]": [
+        {
+            "slug": "HM",
+            "ico": "",
+            "title": "header-main",
+            "description": "",
+            "style": "body{font-size: 2rem;}header{height: 80px;background-color: #b3c0d1;color: #333;text-align: center;line-height: 80px;}main{background-color: #e9eef3;color: #333;text-align: center;line-height: calc(100vh - 80px);}",
+            "html": "<section> <header>Header</header> <main>Main</main> </section>",
+            "script": ""
+        },
+        {
+            "slug": "HMF",
+            "ico": "",
+            "title": "header-main-footer",
+            "description": "",
+            "style": "body{font-size: 2rem;}header{height: 80px;background-color: #b3c0d1;color: #333;text-align: center;line-height: 80px;}main{background-color: #e9eef3;color: #333;text-align: center;line-height: calc(100vh - 200px);}footer{background-color: #b3c0d1;color: #333;text-align: center;line-height: 120px;height: 120px;}",
+            "html": "<section> <header>Header</header> <main>Main</main> <footer>Footer</footer> </section>",
+            "script": ""
+        },
+        {
+            "slug": "SM",
+            "ico": "",
+            "title": "side-main",
+            "description": "",
+            "style": "body{font-size: 2rem;}aside{float: left;width: 200px;background-color: #d3dce6;text-align: center;line-height: calc(100vh);}main{float: right;width: calc(100vw - 200px);background-color: #e9eef3;color: #333;text-align: center;line-height: calc(100vh);}",
+            "html": "<section> <aside>Aside</aside> <main>Main</main> </section>",
+            "script": ""
+        },
+        {
+            "slug": "HSM",
+            "ico": "",
+            "title": "header-side-main",
+            "description": "",
+            "style": "body{font-size: 2rem;}header{height: 80px;background-color: #b3c0d1;color: #333;text-align: center;line-height: 80px;}aside{float: left;width: 200px;background-color: #d3dce6;text-align: center;line-height: calc(100vh - 80px);}main{float: right;width: calc(100vw - 200px);background-color: #e9eef3;color: #333;text-align: center;line-height: calc(100vh - 80px);}",
+            "html": "<section> <header>Header</header> <section><aside>Aside</aside> <main>Main</main></section></section>",
+            "script": ""
+        },
+        {
+            "slug": "HSMF",
+            "ico": "",
+            "title": "header-side-main-footer",
+            "description": "",
+            "style": "body{font-size: 2rem;}header{height: 80px;background-color: #b3c0d1;color: #333;text-align: center;line-height: 80px;}aside{float: left;width: 200px;background-color: #d3dce6;text-align: center;line-height: calc(100vh - 80px);}main{width: calc(100vw - 200px);background-color: #e9eef3;color: #333;text-align: center;line-height: calc(100vh - 200px);}footer{background-color: #b3c0d1;color: #333;text-align: center;line-height: 120px;height: 120px;}",
+            "html": "<section><header>Header</header> <section><aside>Aside</aside> <section style=\"float: right;\"><main>Main</main> <footer>Footer</footer></section></section></section>",
+            "script": ""
+        },
+        {
+            "slug": "SHM",
+            "ico": "",
+            "title": "side-header-main",
+            "description": "",
+            "style": "body{font-size: 2rem;}header{height: 80px;background-color: #b3c0d1;color: #333;text-align: center;line-height: 80px;}aside{float: left;width: 200px;background-color: #d3dce6;text-align: center;line-height: calc(100vh);}main{width: calc(100vw - 200px);background-color: #e9eef3;color: #333;text-align: center;line-height: calc(100vh - 80px);}footer{background-color: #b3c0d1;color: #333;text-align: center;line-height: 120px;height: 120px;}",
+            "html": "<section> <aside>Aside</aside> <section style=\"float: right;\"><header>Header</header> <main>Main</main></section></section>",
+            "script": ""
+        },
+        {
+            "slug": "SHMF",
+            "ico": "",
+            "title": "side-header-main-footer",
+            "description": "",
+            "style": "body{font-size: 2rem;}header{height: 80px;background-color: #b3c0d1;color: #333;text-align: center;line-height: 80px;}aside{float: left;width: 200px;background-color: #d3dce6;text-align: center;line-height: calc(100vh);}main{width: calc(100vw - 200px);background-color: #e9eef3;color: #333;text-align: center;line-height: calc(100vh - 200px);}footer{background-color: #b3c0d1;color: #333;text-align: center;line-height: 120px;height: 120px;}",
+            "html": "<section> <aside>Aside</aside> <section style=\"float: right;\"><header>Header</header> <main>Main</main> <footer>Footer</footer></section></section>",
+            "script": ""
+        },
+        {
+            "slug": "",
+            "ico": "",
+            "title": "",
+            "description": "",
+            "style": "",
+            "html": "",
+            "script": ""
+        },
+        {
+            "slug": "",
+            "ico": "",
+            "title": "",
+            "description": "",
+            "style": "",
+            "html": "",
+            "script": ""
+        }
     ]
 }
