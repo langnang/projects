@@ -23,6 +23,38 @@ use App\Support\Module;
 // var_dump(Module::currentConfig('name'));
 Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('/', 'AdminController@index');
+
+
+    Route::prefix('metas')->group(function () {
+        Route::get('/', 'AdminMetaController@index');
+        Route::get('/create', 'AdminMetaController@create');
+        Route::post('/create', 'AdminMetaController@store');
+        Route::get('/{id}', 'AdminMetaController@edit');
+        Route::post('/{id}', 'AdminMetaController@update');
+        Route::post('/delete/{id}', 'AdminMetaController@destroy');
+    });
+    Route::prefix('contents')->group(function () {
+        Route::get('/', 'AdminContentController@index');
+        Route::get('/create', 'AdminContentController@create');
+        Route::post('/create', 'AdminContentController@store');
+        Route::get('/{id}', 'AdminContentController@edit');
+        Route::post('/{id}', 'AdminContentController@update');
+        Route::post('/delete/{id}', 'AdminContentController@destroy');
+    });
+
+    Route::prefix('links')->group(function () {
+        Route::get('/', 'AdminLinkController@index');
+        Route::get('/create', 'AdminLinkController@create');
+        Route::post('/create', 'AdminLinkController@store');
+        Route::get('/{id}', 'AdminLinkController@edit');
+        Route::post('/{id}', 'AdminLinkController@update');
+        Route::post('/delete/{id}', 'AdminLinkController@destroy');
+
+    });
+
+
+
+
     // Route::match(['get', 'post'], '/register', 'AdminController@view_register');
     // Route::match(['get', 'post'], '/login', 'AdminController@view_login');
     // Route::match(['get', 'post'], '/forgot-password', 'AdminController@view_forgot_password');

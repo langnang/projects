@@ -1,1 +1,1 @@
-@extends($module['slug'] . '::layouts.' . $module['layout'])
+@extends('admin::layouts.master')

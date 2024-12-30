@@ -1,4 +1,4 @@
-@extends($module['slug'] . '::layouts.' . $module['layout'])
+@extends('admin::layouts.master')
 
 @push('styles')
   <style>
@@ -21,33 +21,53 @@
             <!-- /.card-header -->
             <!-- form start -->
             <div class="card-body">
-              <div class="form-group">
-                <label>Title</label>
-                <input type="text" class="form-control form-control-sm" name='title' value="{{ $content['title'] ?? '' }}">
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Title</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control form-control-sm" name='title' value="{{ old('title', $content['title']) }}">
+                </div>
               </div>
-              <div class="form-group">
-                <label>Slug</label>
-                <input type="text" class="form-control form-control-sm" name='slug' value="{{ $content['slug'] ?? '' }}">
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Slug</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control form-control-sm" name='slug' value="{{ $content['slug'] ?? '' }}">
+                </div>
               </div>
-              <div class="form-group">
-                <label>ICO</label>
-                <input type="text" class="form-control form-control-sm" name='ico' value="{{ $content['ico'] ?? '' }}">
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">ICO</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control form-control-sm" name='ico' value="{{ $content['ico'] ?? '' }}">
+                </div>
               </div>
-              <div class="form-group">
-                <label>Type</label>
-                <input type="text" class="form-control form-control-sm" name='type' value="{{ $content['type'] ?? '' }}">
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Type</label>
+                <div class="col-sm-10">
+                  <select class="form-control form-control-sm" name='type'>
+                    @foreach (Arr::get($options, 'content.type', []) as $option)
+                      <option value="{{ $option['value'] }}" @if ($option['value'] == old('type', $content['type'])) selected @endif>{{ $option['name'] }}</option>
+                    @endforeach
+                  </select>
+                </div>
               </div>
-              <div class="form-group">
-                <label>Status</label>
-                <input type="text" class="form-control form-control-sm" name='status' value="{{ $content['status'] ?? '' }}">
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Status</label>
+                <div class="col-sm-10">
+                  <select class="form-control form-control-sm" name='status'>
+                    @foreach (Arr::get($options, 'content.status', []) as $option)
+                      <option value="{{ $option['value'] }}" @if ($option['value'] == old('type', $content['status'])) selected @endif>{{ $option['name'] }}</option>
+                    @endforeach
+                  </select>
+                </div>
               </div>
-              <div class="form-group">
-                <label>Description</label>
-                <textarea name="description" id="" class="form-control form-control-sm" cols="30" rows="3">{{ $content['description'] ?? '' }}</textarea>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Description</label>
+                <div class="col-sm-10">
+                  <textarea name="description" id="" class="form-control form-control-sm" rows="2">{{ $content['description'] ?? '' }}</textarea>
+                </div>
               </div>
               <div class="form-group d-none">
                 <label>Text</label>
-                <textarea name="text" id="" class="form-control form-control-sm" cols="30" rows="5">{!! $content['text'] ?? '' !!}</textarea>
+                <textarea name="text" id="" class="form-control form-control-sm" rows="5">{!! $content['text'] ?? '' !!}</textarea>
               </div>
             </div>
 

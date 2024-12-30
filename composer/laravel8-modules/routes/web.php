@@ -21,25 +21,25 @@ Route::prefix('home')->group(function () {
     Route::get('/content/{id}', 'App\Http\Controllers\ContentController@show');
     Route::get('/link/{id}', 'App\Http\Controllers\LinkController@show');
 
-    Route::middleware(['auth'])->group(function () {
-        Route::get('/create-meta', 'App\Http\Controllers\MetaController@create');
-        Route::post('/create-meta', 'App\Http\Controllers\MetaController@store');
-        Route::get('/create-content', 'App\Http\Controllers\ContentController@create');
-        Route::post('/create-content', 'App\Http\Controllers\ContentController@store');
-        Route::get('/create-link', 'App\Http\Controllers\LinkController@create');
-        Route::post('/create-link', 'App\Http\Controllers\LinkController@store');
+    // Route::middleware(['auth'])->group(function () {
+    //     Route::get('/create-meta', 'App\Http\Controllers\MetaController@create');
+    //     Route::post('/create-meta', 'App\Http\Controllers\MetaController@store');
+    //     Route::get('/create-content', 'App\Http\Controllers\ContentController@create');
+    //     Route::post('/create-content', 'App\Http\Controllers\ContentController@store');
+    //     Route::get('/create-link', 'App\Http\Controllers\LinkController@create');
+    //     Route::post('/create-link', 'App\Http\Controllers\LinkController@store');
 
-        Route::get('/update-meta/{id}', 'App\Http\Controllers\MetaController@edit');
-        Route::post('/update-meta/{id}', 'App\Http\Controllers\MetaController@update');
-        Route::get('/update-content/{id}', 'App\Http\Controllers\ContentController@edit');
-        Route::post('/update-content/{id}', 'App\Http\Controllers\ContentController@update');
-        Route::get('/update-link/{id}', 'App\Http\Controllers\LinkController@edit');
-        Route::post('/update-link/{id}', 'App\Http\Controllers\LinkController@update');
+    //     Route::get('/update-meta/{id}', 'App\Http\Controllers\MetaController@edit');
+    //     Route::post('/update-meta/{id}', 'App\Http\Controllers\MetaController@update');
+    //     Route::get('/update-content/{id}', 'App\Http\Controllers\ContentController@edit');
+    //     Route::post('/update-content/{id}', 'App\Http\Controllers\ContentController@update');
+    //     Route::get('/update-link/{id}', 'App\Http\Controllers\LinkController@edit');
+    //     Route::post('/update-link/{id}', 'App\Http\Controllers\LinkController@update');
 
-        Route::post('/delete-meta/{id}', 'App\Http\Controllers\MetaController@destroy');
-        Route::post('/delete-content/{id}', 'App\Http\Controllers\ContentController@destroy');
-        Route::post('/delete-link/{id}', 'App\Http\Controllers\LinkController@destroy');
-    });
+    //     Route::post('/delete-meta/{id}', 'App\Http\Controllers\MetaController@destroy');
+    //     Route::post('/delete-content/{id}', 'App\Http\Controllers\ContentController@destroy');
+    //     Route::post('/delete-link/{id}', 'App\Http\Controllers\LinkController@destroy');
+    // });
 });
 
 // Route::match(['get', 'post'], '/login', 'App\Http\Controllers\Controller@view_login');

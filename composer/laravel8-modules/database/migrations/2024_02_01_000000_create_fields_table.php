@@ -20,7 +20,7 @@ class CreateFieldsTable extends Migration
         if (!$tableName = $this->getTableName())
             return;
         Schema::create($tableName, function (Blueprint $table) {
-            $table->integer('content')->comment("内容编号");
+            $table->integer('id')->comment("内容编号");
             $table->string('name')->comment("字段名称");
 
             $table->string('type')->nullable()->comment("字段类型");
@@ -34,6 +34,8 @@ class CreateFieldsTable extends Migration
             $table->timestamps();
             $table->timestamp('release_at')->nullable()->comment('发布时间');
             $table->timestamp('deleted_at')->nullable()->comment('删除时间');
+
+            $table->unique(['id', 'name']);
         });
     }
 

@@ -1,4 +1,4 @@
-@extends($module['slug'] . '::layouts.' . $module['layout'])
+@extends('admin::layouts.master')
 
 @section('content')
   <!-- Main content -->
@@ -29,24 +29,28 @@
                   <tr>
                     <th width="14px">#</th>
                     <th>ID</th>
+                    <th>Slug</th>
                     <th>Name</th>
-                    <th>Date</th>
+                    <th>Type</th>
                     <th>Status</th>
+                    <th>Date</th>
                     <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach ($metas ?? [] as $meta)
+                  @foreach ($paginator ?? [] as $item)
                     <tr>
                       <td>
                         <div class="form-check">
                           <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
                         </div>
                       </td>
-                      <td>{{ $meta['mid'] }}</td>
-                      <td>{{ $meta['name'] }}</td>
-                      <td>{{ $meta['updated_at'] }}</td>
-                      <td>{{ $meta['status'] }}</td>
+                      <td>{{ $item['id'] }}</td>
+                      <td>{{ $item['slug'] }}</td>
+                      <td>{{ $item['name'] }}</td>
+                      <td>{{ $item['type'] }}</td>
+                      <td>{{ $item['status'] }}</td>
+                      <td>{{ $item['updated_at'] }}</td>
                       <td style="padding: 0.5rem 0.75rem;">
                         <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
                           <button type="button" class="btn btn-secondary">编辑</button>

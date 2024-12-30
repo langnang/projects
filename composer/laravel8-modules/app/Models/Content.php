@@ -92,7 +92,7 @@ class Content extends \Illuminate\Database\Eloquent\Model
 
     public function relationships()
     {
-        return $this->hasMany(\App\Models\Relationship::class, $this->primaryKey, $this->primaryKey);
+        return $this->hasMany(\App\Models\Relationship::class, $this->relationshipKey, $this->primaryKey);
     }
     public function fields()
     {

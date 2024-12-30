@@ -114,7 +114,7 @@ class Controller extends \App\Illuminate\Routing\Controller
         if (empty($return['contents'])) {
             $query = $this->hasModule()
                 ? (empty($this->contentModel)
-                    ? \App\Models\Content::contents()
+                    ? \App\Models\Content::with(['user'])
                     : $this->contentModel::with(['user']))
                 : $this->contentModel::with(['user']);
 
@@ -147,9 +147,16 @@ class Controller extends \App\Illuminate\Routing\Controller
     {
         return $this->view('welcome');
     }
-
-    protected function select_content_list(Request $request)
+    protected function getMetaClass()
     {
-
+        return $this->contentModel ?? \App\Models\Meta::class;
+    }
+    protected function getContentClass()
+    {
+        return $this->contentModel ?? \App\Models\Content::class;
+    }
+    protected function getLinkClass()
+    {
+        return $this->contentModel ?? \App\Models\Link::class;
     }
 }

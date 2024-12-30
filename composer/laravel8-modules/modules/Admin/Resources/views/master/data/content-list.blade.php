@@ -1,4 +1,4 @@
-@extends($module['slug'] . '::layouts.' . $module['layout'])
+@extends('admin::layouts.master')
 
 @section('content')
   <!-- Main content -->
@@ -14,11 +14,6 @@
                 <div class="form-group mr-1">
                   <select class="form-control form-control-sm" name="module" placeholder="Module">
                     <option value="">--Module--</option>
-                    @foreach (\Module::all() as $moduleName => $module)
-                      @php $moduleSlug = strtolower($moduleName); @endphp
-                      <option value="{{ $moduleSlug }}" @if (request()->input('module') == $moduleSlug) selected @endif>
-                        {{ $moduleName }}</option>
-                    @endforeach
                   </select>
                 </div>
                 <div class="form-group mr-1">
@@ -64,24 +59,30 @@
                     <th>Created At</th>
                     <th>Updated At</th>
                     <th>Release At</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach ($contents ?? [] as $content)
+                  @foreach ($paginator ?? [] as $item)
                     <tr>
                       <td>
                         <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="{{ $content['cid'] }}">
+                          <input class="form-check-input" type="checkbox" value="{{ $item['id'] }}">
                         </div>
                       </td>
-                      <td><a class="" href="content/{{ $content['cid'] }}">{{ $content['cid'] }}</a></td>
-                      <td>{{ $content['slug'] }}</td>
-                      <td>{{ $content['title'] }}</td>
-                      <td>{{ $content['type'] }}</td>
-                      <td>{{ $content['status'] }}</td>
-                      <td>{{ $content['created_at'] }}</td>
-                      <td>{{ $content['updated_at'] }}</td>
-                      <td>{{ $content['release_at'] }}</td>
+                      <td><a class="" href="contents/{{ $item['id'] }}">{{ $item['id'] }}</a></td>
+                      <td>{{ $item['slug'] }}</td>
+                      <td>{{ $item['title'] }}</td>
+                      <td>{{ $item['type'] }}</td>
+                      <td>{{ $item['status'] }}</td>
+                      <td>{{ $item['created_at'] }}</td>
+                      <td>{{ $item['updated_at'] }}</td>
+                      <td>{{ $item['release_at'] }}</td>
+                      <td class="" style="padding-top: 3px;padding-bottom: 3px;">
+                        <button type="button" class="btn btn-sm py-0 btn-secondary">预览</button>
+                        <button type="button" class="btn btn-sm py-0 btn-primary">编辑</button>
+                        <button type="button" class="btn btn-sm py-0 btn-danger">删除</button>
+                      </td>
                     </tr>
                   @endforeach
                 </tbody>
@@ -91,12 +92,12 @@
             <!-- /.card-body -->
             <div class="card-footer clearfix">
               <div class="card-footer__left float-left">
-                <a type="button" class="btn btn-sm btn-info" href="content/insert">新增</a>
+                <a type="button" class="btn btn-sm btn-info" href="contents/create">新增</a>
                 <button type="button" class="btn btn-sm btn-danger">删除</button>
                 <button type="button" class="btn btn-sm btn-secondary">Right</button>
               </div>
               <div class="card-footer__right float-right" style="margin-bottom: -1rem;">
-                {{ $contents->withQueryString(['status'])->links() }}
+                {{ $paginator->withQueryString(['status'])->links() }}
               </div>
             </div>
             <!-- /.card-footer -->

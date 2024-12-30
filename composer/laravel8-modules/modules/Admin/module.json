@@ -9,7 +9,9 @@
     ],
     "aliases": {},
     "files": [],
-    "requires": [
-        "adminlte"
-    ]
+    "requires": [],
+    "modules": {
+        "Admin": "master"
+    },
+    "dependencies": {}
 }
