@@ -38,9 +38,15 @@ abstract class Controller extends \Illuminate\Routing\Controller
         if (empty($this->moduleName)) {
             if (preg_match('/^Modules\\\\(\w*)\\\\Http/i', static::class, $moduleMatches)) {
                 $this->moduleName = $moduleMatches[1];
+            } else {
+                $this->moduleName = 'Home';
             }
         }
-        if (!empty($moduleName = $this->moduleName)) {
+        $moduleName = $this->moduleName;
+        if (in_array($moduleName, ['Home'])) {
+            $this->moduleAlias = 'home';
+            $this->moduleConfig = ['name' => "Home", 'nameCn' => "首页"];
+        } else if (!empty($moduleName)) {
             $this->module = $module = \Module::find($moduleName);
             $this->moduleAlias = $module->getAlias();
             $this->moduleConfig = config($this->moduleAlias);
@@ -225,18 +231,18 @@ abstract class Controller extends \Illuminate\Routing\Controller
             return;
 
         $module = $this->module;
-        return array_merge($this->moduleConfig, [
+        return array_merge($this->moduleConfig ?? [], [
             'alias' => $this->moduleAlias,
             'config' => $this->moduleConfig,
             'wrapperMeta' => $this->moduleMeta,
-            'lowerName' => $module->getLowerName(),
-            'studlyName' => $module->getStudlyName(),
-            'path' => $module->getPath(),
-            'extraPath' => $module->getExtraPath('Public'),
-            'enabled' => $module->isEnabled(),
-            'disabled' => $module->isDisabled(),
-            'status' => $module->IsStatus(true),
-            'requires' => $module->getRequires(),
+            'lowerName' => empty($module) ? \Str::lower($this->moduleName) : $module->getLowerName(),
+            'studlyName' => empty($module) ? \Str::studly($this->moduleName) : $module->getStudlyName(),
+            'path' => empty($module) ? app_path() : $module->getPath(),
+            'extraPath' => empty($module) ? public_path() : $module->getExtraPath('Public'),
+            'enabled' => empty($module) ? true : $module->isEnabled(),
+            'disabled' => empty($module) ? false : $module->isDisabled(),
+            'status' => empty($module) ? 'public' : $module->IsStatus(true),
+            'requires' => empty($module) ? [] : $module->getRequires(),
         ]);
     }
 

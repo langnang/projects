@@ -11,10 +11,10 @@
             <li class="breadcrumb-item py-1 active" aria-current="page"> {{ $link->title }}
             </li>
             @if (Auth::check())
-              <li class="ml-auto">
+              {{-- <li class="ml-auto">
                 <a class="btn btn-sm btn-warning" href="{{ url((isset($module) ? $module['alias'] . '/' : 'home/') . 'update-link/' . ($link->id ?? $link->slug)) }}" role="button">Update</a>
                 <a class="btn btn-sm btn-danger" href="{{ url((isset($module) ? $module['alias'] . '/' : 'home/') . 'delete-link/' . ($link->id ?? $link->slug)) }}" role="button">Delete</a>
-              </li>
+              </li> --}}
             @endif
           </ol>
         </nav>
@@ -29,7 +29,7 @@
             <p>{{ $link->description }}</p>
             <a class="btn btn-primary" href="{{ $link->url }}" role="button" target="_blank">Jump</a>
             @if (Auth::check())
-              <a class="btn btn-warning" href="{{ url((isset($module) ? $module['alias'] . '/' : 'home/') . 'update-link/' . ($link->id ?? $link->slug)) }}" role="button">Edit</a>
+              {{-- <a class="btn btn-warning" href="{{ url((isset($module) ? $module['alias'] . '/' : 'home/') . 'update-link/' . ($link->id ?? $link->slug)) }}" role="button">Edit</a> --}}
             @endif
           </div>
           <article>

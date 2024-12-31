@@ -42,7 +42,7 @@
                   {{-- <button type="button" class="btn btn-sm mx-1 btn-primary">Primary</button>
                 <button type="button" class="btn btn-sm mx-1 btn-secondary">Secondary</button>
                 <button type="button" class="btn btn-sm mx-1 btn-success">Success</button> --}}
-                  <a href="{{ url((isset($module) ? $module['alias'] . '/' : 'home/') . 'update-content/' . ($content->id ?? $content->slug)) }}" role="button" class="btn btn-sm mx-1 btn-warning">编辑</a>
+                  {{-- <a href="{{ url((isset($module) ? $module['alias'] . '/' : 'home/') . 'update-content/' . ($content->id ?? $content->slug)) }}" role="button" class="btn btn-sm mx-1 btn-warning">编辑</a> --}}
                   {{-- <button type="button" class="btn btn-sm mx-1 btn-info">Info</button>
                 <button type="button" class="btn btn-sm mx-1 btn-dark">Dark</button> --}}
                 @endif
@@ -52,7 +52,7 @@
               </div>
             </div>
           @endforeach
-          {{ $contents->withQueryString()->links() }}
+          {{ $contents->withQueryString(['slug', 'title', 'type', 'status'])->links() }}
         @endempty
 
       </div>

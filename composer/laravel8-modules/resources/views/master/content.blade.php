@@ -11,10 +11,10 @@
             <li class="breadcrumb-item py-1 active" aria-current="page"> {{ $content->title }}
             </li>
             @if (Auth::check())
-              <li class="ml-auto">
+              {{-- <li class="ml-auto">
                 <a class="btn btn-sm btn-warning" href="{{ url((isset($module) ? $module['alias'] . '/' : 'home/') . 'update-content/' . ($content->id ?? $content->slug)) }}" role="button">Update</a>
                 <a class="btn btn-sm btn-danger" href="{{ url((isset($module) ? $module['alias'] . '/' : 'home/') . 'delete-content/' . ($content->id ?? $content->slug)) }}" role="button">Delete</a>
-              </li>
+              </li> --}}
             @endif
           </ol>
         </nav>
@@ -28,7 +28,7 @@
             </section>
             <a class="btn btn-primary" href="#" role="button">Learn more</a>
             @if (Auth::check())
-              <a class="btn btn-warning" href="{{ url((isset($module) ? $module['alias'] . '/' : 'home/') . 'update-content/' . ($content->id ?? $content->slug)) }}" role="button">Edit</a>
+              {{-- <a class="btn btn-warning" href="{{ url((isset($module) ? $module['alias'] . '/' : 'home/') . 'update-content/' . ($content->id ?? $content->slug)) }}" role="button">Edit</a> --}}
             @endif
           </div>
           <section class="markdown">

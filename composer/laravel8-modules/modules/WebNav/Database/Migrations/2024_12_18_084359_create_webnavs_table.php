@@ -48,9 +48,6 @@ class CreateWebnavsTable extends Migration
             $table->timestamp('release_at')->nullable()->comment('发布时间');
             $table->timestamp('deleted_at')->nullable()->comment('删除时间');
         });
-        Schema::table('relationships', function (Blueprint $table) {
-            $table->integer('webnav_id')->nullable()->comment("WebNav");
-        });
     }
 
     /**

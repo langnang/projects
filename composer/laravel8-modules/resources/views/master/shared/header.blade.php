@@ -104,7 +104,7 @@
           </div>
         </li>
         @if (Auth::check())
-          <li class="nav-item dropdown">
+          {{-- <li class="nav-item dropdown">
             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
               <img src="{{ Auth::user()->ico }}" alt="" height="19px">
               {{ Auth::user()->name }}
@@ -135,7 +135,7 @@
               </form>
 
             </div>
-          </li>
+          </li> --}}
         @else
           @if (Route::has('login'))
             <li class="nav-item">

@@ -16,9 +16,14 @@ class ModuleDatabaseSeeder extends Seeder
         $globalMetaStatusOption = unserialize(\App\Models\Option::where('name', 'global.status')->where('user', 0)->first('value')->value);
         // var_dump($globalMetaStatusOption);
         //
-        foreach (\Module::allEnabled() as $module) {
+        \App\Models\Meta::upsert(
+            ['name' => "Module:Home", 'slug' => 'module:home', 'type' => 'module', 'status' => 'public'],
+            ['slug'],
+            ['name', 'type', 'status']
+        );
+        foreach (\Module::allEnabled() as $moduleName => $moduleObject) {
             \App\Models\Meta::upsert(
-                ['name' => "Module:" . $module->getName(), 'slug' => 'module:' . $module->getAlias(), 'type' => 'module', 'status' => 'public'],
+                ['name' => "Module:" . $moduleName, 'slug' => 'module:' . $moduleObject->getAlias(), 'type' => 'module', 'status' => config($moduleObject->getAlias() . '.status', 'public')],
                 ['slug'],
                 ['name', 'type', 'status']
             );

@@ -33,7 +33,7 @@ class MetaController extends Controller
         //
         $request->merge(['user' => \Auth::id()]);
 
-        $meta = new $this->getModel('meta')();
+        $meta = new $this->getModel('meta');
         $meta->fill($request->all());
         $meta->save();
 
