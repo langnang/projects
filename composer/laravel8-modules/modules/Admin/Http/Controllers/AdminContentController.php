@@ -12,10 +12,10 @@ class AdminContentController extends AdminController
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
         return $this->view('data.content-list', [
-            'paginator' => $this->getContentClass()::paginate(20),
+            'paginator' => $this->getModel('content')::paginate(20),
         ]);
     }
 
@@ -26,7 +26,7 @@ class AdminContentController extends AdminController
     public function create()
     {
         $return = [
-            'contents' => $this->getContentClass()::with(['children'])
+            'contents' => $this->getModel('content')::with(['children'])
                 ->whereIn('type', ['template',])
                 ->whereNull('deleted_at')
                 ->get()
@@ -45,7 +45,7 @@ class AdminContentController extends AdminController
         //
         $request->merge(['user' => \Auth::id()]);
 
-        $content = new $this->getContentClass();
+        $content = new $this->getModel('content');
         $content->fill($request->all());
         $content->save();
 
@@ -62,8 +62,8 @@ class AdminContentController extends AdminController
     public function edit($id)
     {
         $return = [
-            'content' => $this->getContentClass()::with(['fields', 'relationships'])->find($id),
-            // 'contents' => $this->getContentClass()::with(['children'])
+            'content' => $this->getModel('content')::with(['fields', 'relationships'])->find($id),
+            // 'contents' => $this->getModel('content')::with(['children'])
             //     ->whereIn('type', ['template',])
             //     ->whereKeyNot($id)
             //     ->whereNull('deleted_at')
@@ -83,7 +83,7 @@ class AdminContentController extends AdminController
         //
         $this->validateContent($request);
         $request->merge(['user' => \Auth::id()]);
-        $content = $this->getContentClass()::find($id);
+        $content = $this->getModel('content')::find($id);
         $content->fill($request->all());
         $content->save();
 
@@ -98,7 +98,7 @@ class AdminContentController extends AdminController
     public function destroy($id)
     {
         //
-        $content = $this->getContentClass()::find($id);
+        $content = $this->getModel('content')::find($id);
         $content->timestamps = false;
         $content->update([
             'deleted_at' => now()

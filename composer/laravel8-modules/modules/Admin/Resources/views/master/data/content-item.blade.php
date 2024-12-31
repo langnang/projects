@@ -78,7 +78,7 @@
                     </div>
                     <select class="form-control" name='status'>
                       @foreach (Arr::get($options, 'content.status', []) as $option)
-                        <option value="{{ $option['value'] }}" @if ($option['value'] == old('type', $content['status'])) selected @endif>{{ $option['name'] }}</option>
+                        <option value="{{ $option['value'] }}" @if ($option['value'] == old('status', $content['status'])) selected @endif>{{ $option['name'] }}</option>
                       @endforeach
                     </select>
                   </div>

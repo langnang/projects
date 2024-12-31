@@ -45,7 +45,7 @@
                         </div>
                       </td>
                       <td>{{ $item['id'] }}</td>
-                      <td>{{ $item['name'] }}</td>
+                      <td>{{ $item['title'] }}</td>
                       <td>{{ $item['type'] }}</td>
                       <td>{{ $item['status'] }}</td>
                       <td>{{ $item['updated_at'] }}</td>

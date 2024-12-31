@@ -79,4 +79,9 @@ trait HasFamily
     {
         return $this->hasMany(static::class, $this->parentKey, $this->primaryKey)->with('children');
     }
+
+    public function count_children()
+    {
+        return $this->hasMany(static::class, $this->parentKey, $this->primaryKey)->count();
+    }
 }

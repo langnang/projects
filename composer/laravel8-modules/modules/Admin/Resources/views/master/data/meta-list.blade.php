@@ -7,42 +7,44 @@
       <div class="row">
         <div class="col-12">
           <div class="card">
-            <div class="card-header">
-              <h3 class="card-title">Fixed Header Table</h3>
+            <div class="card-header d-flex align-items-center">
+              <h3 class="card-title mr-auto">Fixed Header Table</h3>
 
-              <form class="form-inline card-tools float-right mb-0">
-                <div class="form-group mr-1">
+              <form class="form-inline card-tools mb-0">
+                <input type="hidden" name="parent" value="{{ request()->input('parent', 0) }}">
+                <div class="form-group ml-1">
                   <select class="form-control form-control-sm" name="module" placeholder="Module">
                     <option value="">--Module--</option>
+                    @foreach (\Module::allEnabled() as $moduleName => $moduleObject)
+                      <option value="{{ $moduleObject->getAlias() }}" @if (request()->input('module') == $moduleObject->getAlias()) selected @endif>{{ $moduleName }}</option>
+                    @endforeach
                   </select>
                 </div>
-                <div class="form-group mr-1">
+                <div class="form-group ml-1">
                   <input type="text" name="slug" class="form-control form-control-sm" placeholder="Slug" value="{{ request()->input('slug') }}">
                 </div>
-                <div class="form-group mr-1">
+                <div class="form-group ml-1">
                   <input type="text" name="title" class="form-control form-control-sm" placeholder="Title" value="{{ request()->input('title') }}">
                 </div>
-                <div class="form-group mr-1">
+                <div class="form-group ml-1">
                   <select class="form-control form-control-sm" name="type">
-                    <option value="post" @if (request()->input('type') == 'post') selected @endif>post</option>
-                    <option value="page" @if (request()->input('type') == 'page') selected @endif>page</option>
-                    <option value="template" @if (request()->input('type') == 'template') selected @endif>template</option>
-                    <option value="draft-post" @if (request()->input('type') == 'draft-post') selected @endif>draft-post</option>
-                    <option value="draft-page" @if (request()->input('type') == 'draft-page') selected @endif>draft-page</option>
-                    <option value="draft-template" @if (request()->input('type') == 'draft-template') selected @endif>draft-template
-                    </option>
+                    <option value="">--Type--</option>
+                    @foreach (Arr::get($options, 'meta.type') as $option)
+                      <option value="{{ $option['value'] }}" @if (request()->input('type') == $option['value']) selected @endif>{{ $option['name'] }}</option>
+                    @endforeach
                   </select>
                 </div>
-                <div class="form-group mr-1">
+                <div class="form-group ml-1">
                   <select class="form-control form-control-sm" name="status">
-                    <option value="publish" @if (request()->input('status') == 'publish') selected @endif>publish</option>
-                    <option value="private" @if (request()->input('status') == 'private') selected @endif>private</option>
+                    <option value="">--Status--</option>
+                    @foreach (Arr::get($options, 'meta.status') as $option)
+                      <option value="{{ $option['value'] }}" @if (request()->input('status') == $option['value']) selected @endif>{{ $option['name'] }}</option>
+                    @endforeach
                   </select>
                 </div>
-                <button type="submit" class="btn btn-sm btn-default form-control form-control-sm">
+                <button type="submit" class="btn btn-sm btn-default form-control form-control-sm ml-1">
                   <i class="fas fa-search"></i>
                 </button>
-
               </form>
             </div>
             <!-- /.card-header -->
@@ -53,6 +55,7 @@
                     <th width="14px">#</th>
                     <th>ID</th>
                     <th>Name</th>
+                    <th>Children</th>
                     <th>Type</th>
                     <th>Status</th>
                     <th>Created At</th>
@@ -69,8 +72,9 @@
                           <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
                         </div>
                       </td>
-                      <td>{{ $item['id'] }}</td>
+                      <td><a class="" href="metas/{{ $item['id'] }}">{{ $item['id'] }}</a></td>
                       <td>{{ $item['name'] }}</td>
+                      <td><a class="" href="metas?parent={{ $item['id'] }}">{{ $item['children_count'] }}</a></td>
                       <td>{{ $item['type'] }}</td>
                       <td>{{ $item['status'] }}</td>
                       <td>{{ $item['created_at'] }}</td>
@@ -78,7 +82,7 @@
                       <td>{{ $item['release_at'] }}</td>
                       <td style="padding-top: 3px;padding-bottom: 3px;">
                         <button type="button" class="btn btn-sm py-0 btn-secondary">预览</button>
-                        <button type="button" class="btn btn-sm py-0 btn-primary">编辑</button>
+                        <a href="metas/{{ $item['id'] }}" type="button" class="btn btn-sm py-0 btn-warning">编辑</a>
                         <button type="button" class="btn btn-sm py-0 btn-danger">删除</button>
                       </td>
                     </tr>

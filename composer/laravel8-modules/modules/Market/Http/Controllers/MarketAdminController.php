@@ -23,7 +23,7 @@ class MarketAdminController extends \Modules\Admin\Http\Controllers\AdminControl
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
         return view('market::index');
     }

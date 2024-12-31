@@ -2,7 +2,7 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <!-- Brand Logo -->
-  <a href="{{ env('APP_URL') . $module['slug'] }}" class="brand-link text-center">
+  <a href="{{ env('APP_URL') . $module['alias'] }}" class="brand-link text-center">
     @empty($module['logo'])
     @else
       <img src="{{ $module['logo'] }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
@@ -37,115 +37,40 @@
     <!-- Sidebar Menu -->
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-        <li class="nav-item menu-open">
-          <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-tachometer-alt"></i>
-            <p>
-              Essential
-              <i class="right fas fa-angle-left"></i>
-            </p>
-          </a>
-          <ul class="nav nav-treeview">
+        @foreach ($categories ?? [] as $category)
+          @if (sizeof($category['children']) > 0)
+            <li class="nav-item @if (Str::startsWith(request()->path(), Str::replace(':', '/', $category['slug']))) menu-open @endif">
+              <a href="{{ url(Str::replace(':', '/', $category['slug'])) }}" class="nav-link @if (Str::startsWith(request()->path(), Str::replace(':', '/', $category['slug']))) active @endif">
+                <i class="nav-icon @empty($category['ico'])  'fas fa-circle' @else {{ $category['ico'] }}  @endempty"></i>
+                <p class="text-truncate">
+                  {{ $category['name'] }}
+                  <i class="fas fa-angle-left right"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                @foreach ($category['children'] ?? [] as $child_01)
+                  <li class="nav-item">
+                    <a href="{{ url(Str::replace(':', '/', $child_01['slug'])) }}" class="nav-link @if (Str::startsWith(request()->path(), Str::replace(':', '/', $child_01['slug']))) active @endif">
+                      <i class="nav-icon @empty($child_01['ico']) far fa-circle @else {{ $child_01['ico'] }}  @endempty"></i>
+                      <p class="text-truncate">
+                        {{ $child_01['name'] }}
+                      </p>
+                    </a>
+                  </li>
+                @endforeach
+              </ul>
+            </li>
+          @else
             <li class="nav-item">
-              <a href="{{ asset('admin/metas') }}" class="nav-link">
-                <i class="nav-icon fas fa-th"></i>
+              <a href="{{ url(Str::replace(':', '/', $category['slug'])) }}" class="nav-link">
+                <i class="nav-icon @empty($category['ico'])  'fas fa-circle' @else {{ $category['ico'] }}  @endempty"></i>
                 <p>
-                  Metas
+                  {{ $category['name'] }}
                 </p>
               </a>
             </li>
-            <li class="nav-item">
-              <a href="{{ asset('admin/contents') }}" class="nav-link">
-                <i class="nav-icon fas fa-th"></i>
-                <p>
-                  Contents
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="{{ asset('admin/links') }}" class="nav-link">
-                <i class="nav-icon fas fa-th"></i>
-                <p>
-                  Links
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="{{ asset('admin/user') }}" class="nav-link">
-                <i class="nav-icon fas fa-th"></i>
-                <p>
-                  Users
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="{{ asset('admin/options') }}" class="nav-link">
-                <i class="nav-icon fas fa-th"></i>
-                <p>
-                  Options
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="{{ asset('admin/logs') }}" class="nav-link">
-                <i class="nav-icon fas fa-th"></i>
-                <p>
-                  Logs
-                </p>
-              </a>
-            </li>
-          </ul>
-        </li>
-        <li class="nav-item menu-open">
-          <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-tachometer-alt"></i>
-            <p>
-              Modules
-              <i class="right fas fa-angle-left"></i>
-            </p>
-          </a>
-          <ul class="nav nav-treeview">
-            @foreach (\Module::allEnabled() as $moduleName => $moduleObject)
-              @if (!in_array($moduleName, ['Admin']))
-                <li class="nav-item">
-                  <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-th"></i>
-                    <p>
-                      {{ $moduleName }}
-                    </p>
-                  </a>
-                </li>
-              @endif
-            @endforeach
-          </ul>
-        </li>
-        <li class="nav-item menu-open">
-          <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-tachometer-alt"></i>
-            <p>
-              Laravel
-              <i class="right fas fa-angle-left"></i>
-            </p>
-          </a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-th"></i>
-                <p>
-                  Migrations
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-th"></i>
-                <p>
-                  Seeders
-                </p>
-              </a>
-            </li>
-          </ul>
-        </li>
+          @endif
+        @endforeach
         @foreach ($module['menu'] ?? [] as $menu)
           @switch($menu['type']??'')
             @case('header')
@@ -219,19 +144,19 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ $module['slug'] }}/index" class="nav-link active">
+                <a href="{{ $module['alias'] }}/index" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Dashboard v1</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ $module['slug'] }}/index2" class="nav-link">
+                <a href="{{ $module['alias'] }}/index2" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Dashboard v2</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ $module['slug'] }}/index3" class="nav-link">
+                <a href="{{ $module['alias'] }}/index3" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Dashboard v3</p>
                 </a>
@@ -239,7 +164,7 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a href="{{ $module['slug'] }}/pages/widgets.html" class="nav-link">
+            <a href="{{ $module['alias'] }}/pages/widgets.html" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Widgets
@@ -258,7 +183,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ $module['slug'] }}/pages/layout/top-nav.html" class="nav-link">
+                <a href="{{ $module['alias'] }}/pages/layout/top-nav.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Top Navigation</p>
                 </a>

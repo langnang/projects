@@ -28,7 +28,7 @@
   <link rel="stylesheet" href="{{ asset('/modules/Admin/Public/master/plugins/summernote/summernote-bs4.min.css') }}">
   <style>
     .nav-sidebar .nav-treeview {
-      padding-left: .5rem;
+      /* padding-left: .5rem; */
     }
 
     .pagination {
@@ -57,9 +57,14 @@
           <!-- Content Header (Page header) -->
           <div class="content-header px-3 d-flex align-items-center">
 
-            <h1 class="m-0 mr-auto">{{ $module['menu_actives'][0]['title'] ?? 'Dashboard' }}</h1>
+            <h1 class="m-0 mr-auto">{{ $meta['name'] ?? 'Dashboard' }}</h1>
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item"><a href="#">Admin</a></li>
+              @foreach ($categories ?? [] as $category)
+                @if (Str::startsWith(request()->path(), Str::replace(':', '/', $category['slug'])))
+                  <li class="breadcrumb-item"><a href="{{ url(Str::replace(':', '/', $category['slug'])) }}">{{ $category['name'] }}</a></li>
+                @endif
+              @endforeach
               @foreach ($module['menu_actives'] ?? [] as $menu_item)
                 @if ($loop->last)
                   <li class="breadcrumb-item active">{{ $menu_item['title'] }}</li>

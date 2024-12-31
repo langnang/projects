@@ -8,7 +8,7 @@ class Controller extends \App\Illuminate\Routing\Controller
 {
     protected function view($view = null, $data = [], $mergeData = [])
     {
-
+        // var_dump(__METHOD__);
         // $metaRelations = $this->moduleMeta->relationships()->get();
         // var_dump($metaRelations->toArray());
 
@@ -25,7 +25,7 @@ class Controller extends \App\Illuminate\Routing\Controller
                 $this->getModel('meta')::with(['children'])
                     ->where('type', 'category')
                     ->whereIn('status', \Auth::check() ? ['public', 'publish', 'protected', 'private'] : ['public', 'publish'])
-                    ->where('parent', 0)
+                    ->where('parent', $this->moduleMeta['id'])
                     ->whereNull('deleted_at')
                     ->where('name', '!=', '')
                     ->get()
@@ -36,7 +36,7 @@ class Controller extends \App\Illuminate\Routing\Controller
                 'tags',
                 $this->getModel('meta')::where('type', 'tag')
                     ->whereIn('status', \Auth::check() ? ['public', 'publish', 'protected', 'private'] : ['public', 'publish'])
-                    ->where('parent', 0)
+                    ->where('parent', $this->moduleMeta['id'])
                     ->whereNull('deleted_at')
                     ->where('name', '!=', '')
                     ->get()
@@ -47,7 +47,7 @@ class Controller extends \App\Illuminate\Routing\Controller
                 'modules',
                 $this->getModel('meta')::where('type', 'module')
                     ->whereIn('status', \Auth::check() ? ['public', 'publish', 'protected', 'private'] : ['public', 'publish'])
-                    ->where('parent', 0)
+                    ->where('parent', $this->moduleMeta['id'])
                     ->whereNull('deleted_at')
                     ->where('name', '!=', '')
                     ->get()
