@@ -104,14 +104,14 @@
           </div>
         </li>
         @if (Auth::check())
-          {{-- <li class="nav-item dropdown">
+          <li class="nav-item dropdown">
             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
               <img src="{{ Auth::user()->ico }}" alt="" height="19px">
               {{ Auth::user()->name }}
             </a>
 
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item small px-2" href="{{ env('APP_URL') }}{{ \Arr::get($module, 'alias', 'home') }}/create-meta">
+              {{--   <a class="dropdown-item small px-2" href="{{ env('APP_URL') }}{{ \Arr::get($module, 'alias', 'home') }}/create-meta">
                 <i class="bi bi-plus-lg"></i> Meta
               </a>
               <a class="dropdown-item small px-2" href="{{ env('APP_URL') }}{{ \Arr::get($module, 'alias', 'home') }}/create-content">
@@ -126,6 +126,8 @@
               <a class="dropdown-item small px-2" href="#">
                 <i class="bi bi-cloud-download"></i> Export
               </a>
+--}}
+
               <a class="dropdown-item small px-2" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                 <i class="bi bi-asterisk"></i> {{ __('Logout') }}
               </a>
@@ -133,9 +135,8 @@
               <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                 @csrf
               </form>
-
             </div>
-          </li> --}}
+          </li>
         @else
           @if (Route::has('login'))
             <li class="nav-item">

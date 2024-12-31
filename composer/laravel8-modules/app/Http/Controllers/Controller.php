@@ -22,37 +22,34 @@ class Controller extends \App\Illuminate\Routing\Controller
             'categories' => \Arr::get(
                 $data,
                 'categories',
-                $this->hasModule()
-                ? []
-                : $this->getModel('meta')::with(['children'])
+                $this->getModel('meta')::with(['children'])
                     ->where('type', 'category')
                     ->whereIn('status', \Auth::check() ? ['public', 'publish', 'protected', 'private'] : ['public', 'publish'])
                     ->where('parent', 0)
                     ->whereNull('deleted_at')
+                    ->where('name', '!=', '')
                     ->get()
             ),
             // metas[type=tag]
             'tags' => \Arr::get(
                 $data,
                 'tags',
-                $this->hasModule()
-                ? []
-                : $this->getModel('meta')::where('type', 'tag')
+                $this->getModel('meta')::where('type', 'tag')
                     ->whereIn('status', \Auth::check() ? ['public', 'publish', 'protected', 'private'] : ['public', 'publish'])
                     ->where('parent', 0)
                     ->whereNull('deleted_at')
+                    ->where('name', '!=', '')
                     ->get()
             ),
             // metas[type=module]
             'modules' => \Arr::get(
                 $data,
                 'modules',
-                $this->hasModule()
-                ? []
-                : $this->getModel('meta')::where('type', 'module')
+                $this->getModel('meta')::where('type', 'module')
                     ->whereIn('status', \Auth::check() ? ['public', 'publish', 'protected', 'private'] : ['public', 'publish'])
                     ->where('parent', 0)
                     ->whereNull('deleted_at')
+                    ->where('name', '!=', '')
                     ->get()
             ),
             // contents[type=post]
@@ -61,7 +58,6 @@ class Controller extends \App\Illuminate\Routing\Controller
             'contents' => \Arr::get(
                 $data,
                 'contents',
-
             ),
             // contents[type=post]
 
@@ -70,23 +66,21 @@ class Controller extends \App\Illuminate\Routing\Controller
             'links' => \Arr::get(
                 $data,
                 'links',
-                ($this->hasModule()
-                ? $this->moduleMeta->links()
-                : $this->getModel('link')::with(['user', 'relationships']))
+                $this->getModel('link')::with(['user', 'relationships'])
                     ->whereIn('type', ['site'])
                     ->whereIn('status', \Auth::check() ? ['public', 'publish', 'protected', 'private'] : ['public', 'publish'])
                     ->whereNull('deleted_at')
                     ->where('title', '!=', '')
-                    ->orderByDesc('updated_at')->limit(20)->get()
+                    ->orderByDesc('updated_at')
+                    ->limit(20)
+                    ->get()
             ),
 
 
             'latest_contents' => \Arr::get(
                 $data,
                 'latest_contents',
-                ($this->hasModule()
-                ? $this->moduleMeta->contents()
-                : $this->getModel('content')::whereIn('type', ['post']))
+                $this->getModel('content')::whereIn('type', ['post'])
                     ->whereIn('status', \Auth::check() ? ['public', 'publish', 'protected', 'private'] : ['public', 'publish'])
                     ->whereNull('deleted_at')
                     ->orderByDesc('updated_at')
@@ -96,9 +90,7 @@ class Controller extends \App\Illuminate\Routing\Controller
             'latest_comments' => \Arr::get(
                 $data,
                 'latest_comments',
-                $this->hasModule()
-                ? []
-                : $this->getModel('comment')::orderByDesc('updated_at')
+                $this->getModel('comment')::orderByDesc('updated_at')
                     ->whereNull('deleted_at')
                     ->limit(10)
                     ->get()
@@ -115,8 +107,9 @@ class Controller extends \App\Illuminate\Routing\Controller
 
 
 
-            if (request()->filled('title'))
+            if (request()->filled('title')) {
                 $query = $query->where('title', 'like', '%' . request()->input('title') . '%');
+            }
             $query = $query->where('type', 'post');
             $query = $query->whereIn('status', \Auth::check() ? ['public', 'publish', 'protected', 'private'] : ['public', 'publish']);
             $query = $query->whereNull('deleted_at');
