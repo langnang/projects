@@ -14,8 +14,17 @@ class AdminContentController extends AdminController
      */
     public function index(Request $request)
     {
+        $query = $this->getModel('content')::withCount('children')
+            ->where('slug', 'like', '%' . $request->input('slug') . '%')
+            ->where('title', 'like', '%' . $request->input('title') . '%')
+            ->whereIn('type', $request->filled('type') ? [$request->input('type')] : array_keys(\Arr::get($this->moduleOption, 'content.type')))
+            ->whereIn('status', $request->filled('status') ? [$request->input('status')] : array_keys(\Arr::get($this->moduleOption, 'content.status')))
+            ->where('parent', $request->input('parent', 0))
+            ->whereNull('deleted_at')
+            ->orderByDesc('updated_at');
+        \Arr::set($this->sqls, 'select_content_list', $query->toRawSql());
         return $this->view('data.content-list', [
-            'paginator' => $this->getModel('content')::paginate(20),
+            'paginator' => $query->paginate(20),
         ]);
     }
 
@@ -25,11 +34,9 @@ class AdminContentController extends AdminController
      */
     public function create()
     {
+        $contentModel = $this->getModel('content');
         $return = [
-            'contents' => $this->getModel('content')::with(['children'])
-                ->whereIn('type', ['template',])
-                ->whereNull('deleted_at')
-                ->get()
+            'content' => new $contentModel
         ];
         return $this->view('data.content-item', $return);
     }
@@ -44,14 +51,20 @@ class AdminContentController extends AdminController
         $this->validateContent($request);
         //
         $request->merge(['user' => \Auth::id()]);
+        $contentModel = $this->getModel('content');
 
-        $content = new $this->getModel('content');
+        $content = new $contentModel;
         $content->fill($request->all());
         $content->save();
-
+        if (empty($content->slug)) {
+            $content->slug = $content->id;
+            $content->save();
+        }
+        // var_dump($content['slug']);
         // return $this->edit($content->id);
+        return $this->edit($content->id);
 
-        return redirect(($this->moduleAlias ?? 'home') . '/contents/' . $content->id);
+        // return redirect(str_replace('create', $content->id, $request->path()));
     }
 
     /**
@@ -85,6 +98,9 @@ class AdminContentController extends AdminController
         $request->merge(['user' => \Auth::id()]);
         $content = $this->getModel('content')::find($id);
         $content->fill($request->all());
+        if (empty($content->slug)) {
+            $content->slug = $content->id;
+        }
         $content->save();
 
         return $this->edit($content->id);

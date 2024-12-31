@@ -53,6 +53,7 @@
                     <th width="14px">#</th>
                     <th>ID</th>
                     <th>Title</th>
+                    <th>Children</th>
                     <th>Type</th>
                     <th>Status</th>
                     <th>Created At</th>
@@ -71,6 +72,7 @@
                       </td>
                       <td><a class="" href="contents/{{ $item['id'] }}">{{ $item['id'] }}</a></td>
                       <td>{{ $item['title'] }}</td>
+                      <td>{{ $item['children_count'] }}</td>
                       <td>{{ $item['type'] }}</td>
                       <td>{{ $item['status'] }}</td>
                       <td>{{ $item['created_at'] }}</td>
@@ -88,17 +90,34 @@
 
             </div>
             <!-- /.card-body -->
-            <div class="card-footer py-2 clearfix">
-              <div class="card-footer__left float-left">
+            <div class="card-footer py-2 clearfix d-flex align-items-center">
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox">
+                <label class="form-check-label">全选 </label>
+              </div>
+              <div class="form-group form-group-sm mb-0 mr-2">
+                <select class="form-control">
+                  <option>选中项：</option>
+                  <optgroup label="选中项：">
+                    <option>编辑</option>
+                    <option>复制</option>
+                    <option>删除</option>
+                    <option>导出</option>
+                    <option>迁移</option>
+                  </optgroup>
+
+                  <optgroup label="----"></optgroup>
+                </select>
+              </div>
+              <div class="mr-auto">
+
                 <a type="button" class="btn btn-sm btn-primary" href="contents/create">新增</a>
                 <button type="button" class="btn btn-sm btn-warning">修改</button>
                 <button type="button" class="btn btn-sm btn-danger">删除</button>
                 <button type="button" class="btn btn-sm btn-secondary">上传</button>
                 <button type="button" class="btn btn-sm btn-secondary">下载</button>
               </div>
-              <div class="card-footer__right float-right">
-                {{ $paginator->withQueryString(['slug', 'title', 'type', 'status'])->links() }}
-              </div>
+              {{ $paginator->withQueryString(['slug', 'title', 'type', 'status'])->links() }}
             </div>
             <!-- /.card-footer -->
           </div>
