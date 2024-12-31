@@ -15,7 +15,7 @@ class AdminMetaController extends AdminController
     public function index()
     {
         return $this->view('data.meta-list', [
-            'paginator' => $this->getContentClass()::paginate(20),
+            'paginator' => $this->getMetaClass()::paginate(20),
         ]);
     }
 }

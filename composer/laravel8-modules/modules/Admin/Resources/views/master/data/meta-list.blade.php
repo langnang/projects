@@ -10,30 +10,54 @@
             <div class="card-header">
               <h3 class="card-title">Fixed Header Table</h3>
 
-              <div class="card-tools">
-                <div class="input-group input-group-sm" style="width: 150px;">
-                  <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
-                  <div class="input-group-append">
-                    <button type="submit" class="btn btn-default">
-                      <i class="fas fa-search"></i>
-                    </button>
-                  </div>
+              <form class="form-inline card-tools float-right mb-0">
+                <div class="form-group mr-1">
+                  <select class="form-control form-control-sm" name="module" placeholder="Module">
+                    <option value="">--Module--</option>
+                  </select>
                 </div>
-              </div>
+                <div class="form-group mr-1">
+                  <input type="text" name="slug" class="form-control form-control-sm" placeholder="Slug" value="{{ request()->input('slug') }}">
+                </div>
+                <div class="form-group mr-1">
+                  <input type="text" name="title" class="form-control form-control-sm" placeholder="Title" value="{{ request()->input('title') }}">
+                </div>
+                <div class="form-group mr-1">
+                  <select class="form-control form-control-sm" name="type">
+                    <option value="post" @if (request()->input('type') == 'post') selected @endif>post</option>
+                    <option value="page" @if (request()->input('type') == 'page') selected @endif>page</option>
+                    <option value="template" @if (request()->input('type') == 'template') selected @endif>template</option>
+                    <option value="draft-post" @if (request()->input('type') == 'draft-post') selected @endif>draft-post</option>
+                    <option value="draft-page" @if (request()->input('type') == 'draft-page') selected @endif>draft-page</option>
+                    <option value="draft-template" @if (request()->input('type') == 'draft-template') selected @endif>draft-template
+                    </option>
+                  </select>
+                </div>
+                <div class="form-group mr-1">
+                  <select class="form-control form-control-sm" name="status">
+                    <option value="publish" @if (request()->input('status') == 'publish') selected @endif>publish</option>
+                    <option value="private" @if (request()->input('status') == 'private') selected @endif>private</option>
+                  </select>
+                </div>
+                <button type="submit" class="btn btn-sm btn-default form-control form-control-sm">
+                  <i class="fas fa-search"></i>
+                </button>
+
+              </form>
             </div>
             <!-- /.card-header -->
-            <div class="card-body table-responsive p-0" style="height: calc(100vh - 311px);;">
-              <table class="table table-striped table-hover table-head-fixed text-nowrap">
+            <div class="card-body table-responsive p-0" style="height: calc(100vh - 321px);;">
+              <table class="table table-sm table-striped table-hover table-head-fixed text-nowrap">
                 <thead>
                   <tr>
                     <th width="14px">#</th>
                     <th>ID</th>
-                    <th>Slug</th>
                     <th>Name</th>
                     <th>Type</th>
                     <th>Status</th>
-                    <th>Date</th>
+                    <th>Created At</th>
+                    <th>Updated At</th>
+                    <th>Release At</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -46,17 +70,16 @@
                         </div>
                       </td>
                       <td>{{ $item['id'] }}</td>
-                      <td>{{ $item['slug'] }}</td>
                       <td>{{ $item['name'] }}</td>
                       <td>{{ $item['type'] }}</td>
                       <td>{{ $item['status'] }}</td>
+                      <td>{{ $item['created_at'] }}</td>
                       <td>{{ $item['updated_at'] }}</td>
-                      <td style="padding: 0.5rem 0.75rem;">
-                        <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-                          <button type="button" class="btn btn-secondary">编辑</button>
-                          <button type="button" class="btn btn-secondary">Middle</button>
-                          <button type="button" class="btn btn-secondary">Right</button>
-                        </div>
+                      <td>{{ $item['release_at'] }}</td>
+                      <td style="padding-top: 3px;padding-bottom: 3px;">
+                        <button type="button" class="btn btn-sm py-0 btn-secondary">预览</button>
+                        <button type="button" class="btn btn-sm py-0 btn-primary">编辑</button>
+                        <button type="button" class="btn btn-sm py-0 btn-danger">删除</button>
                       </td>
                     </tr>
                   @endforeach
@@ -67,13 +90,7 @@
             <!-- /.card-body -->
             <div class="card-footer clearfix">
               <div class="card-footer__left float-left">
-                <ul class="pagination m-0">
-                  <li class="page-item"><a class="page-link" href="#">«</a></li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#">»</a></li>
-                </ul>
+                {{ $paginator->withQueryString(['status'])->links() }}
               </div>
               <div class="card-footer__right float-right">
                 <a type="button" class="btn btn-secondary" href="/admin/webstack/metas/insert">新增</a>

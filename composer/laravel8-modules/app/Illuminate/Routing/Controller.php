@@ -20,13 +20,17 @@ abstract class Controller extends \Illuminate\Routing\Controller
     protected $sqls = [];
 
     protected $models = [
-        'content' => \App\Models\Content::class,
         'meta' => \App\Models\Meta::class,
+        'content' => \App\Models\Content::class,
+        'field' => \App\Models\Field::class,
         'link' => \App\Models\Link::class,
         'comment' => \App\Models\Comment::class,
+        'user' => \App\Models\User::class,
+        'option' => \App\Models\Option::class,
+        'log' => \App\Models\Log::class,
+        'relationship' => \App\Models\Relationship::class,
     ];
-
-    protected $modelMegers = [];
+    protected $mergeModels = [];
 
     public function __construct()
     {
@@ -135,6 +139,9 @@ abstract class Controller extends \Illuminate\Routing\Controller
                 'options' => $this->moduleOption,
                 'layout' => null,
                 'view' => $view,
+                'metas' => [],
+                'contents' => [],
+                'links' => [],
                 'children' => $this->config('hasChildren') ? \App\Models\Meta::factory()->times(10)->make() : null,
                 // 'layout' => "layouts.master",
 
@@ -377,5 +384,14 @@ abstract class Controller extends \Illuminate\Routing\Controller
     {
         return $this->option($key);
         // return Auth::check() ? [] : [];
+    }
+
+    protected function getModel($key)
+    {
+        $models = array_merge($this->models, $this->mergeModels);
+        if (!array_key_exists($key, $models))
+            return;
+
+        return $models[$key];
     }
 }

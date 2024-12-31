@@ -52,7 +52,6 @@
                   <tr>
                     <th width="14px">#</th>
                     <th>ID</th>
-                    <th>Slug</th>
                     <th>Title</th>
                     <th>Type</th>
                     <th>Status</th>
@@ -71,7 +70,6 @@
                         </div>
                       </td>
                       <td><a class="" href="contents/{{ $item['id'] }}">{{ $item['id'] }}</a></td>
-                      <td>{{ $item['slug'] }}</td>
                       <td>{{ $item['title'] }}</td>
                       <td>{{ $item['type'] }}</td>
                       <td>{{ $item['status'] }}</td>
@@ -90,14 +88,16 @@
 
             </div>
             <!-- /.card-body -->
-            <div class="card-footer clearfix">
+            <div class="card-footer py-2 clearfix">
               <div class="card-footer__left float-left">
-                <a type="button" class="btn btn-sm btn-info" href="contents/create">新增</a>
+                <a type="button" class="btn btn-sm btn-primary" href="contents/create">新增</a>
+                <button type="button" class="btn btn-sm btn-warning">修改</button>
                 <button type="button" class="btn btn-sm btn-danger">删除</button>
-                <button type="button" class="btn btn-sm btn-secondary">Right</button>
+                <button type="button" class="btn btn-sm btn-secondary">上传</button>
+                <button type="button" class="btn btn-sm btn-secondary">下载</button>
               </div>
-              <div class="card-footer__right float-right" style="margin-bottom: -1rem;">
-                {{ $paginator->withQueryString(['status'])->links() }}
+              <div class="card-footer__right float-right">
+                {{ $paginator->withQueryString(['slug', 'title', 'type', 'status'])->links() }}
               </div>
             </div>
             <!-- /.card-footer -->

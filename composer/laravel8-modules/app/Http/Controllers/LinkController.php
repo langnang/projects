@@ -14,7 +14,7 @@ class LinkController extends Controller
     public function create()
     {
         $return = [
-            'links' => $this->linkModel::with(['children'])
+            'links' => $this->getModel('link')::with(['children'])
                 ->whereNull('deleted_at')
                 ->get()
         ];
@@ -32,7 +32,7 @@ class LinkController extends Controller
         //
         $request->merge(['user' => \Auth::id()]);
 
-        $link = new $this->linkModel();
+        $link = new $this->getModel('link');
         $link->fill($request->all());
         $link->save();
 
@@ -50,7 +50,7 @@ class LinkController extends Controller
     public function show($id)
     {
         $return = [
-            'link' => $this->linkModel::find($id),
+            'link' => $this->getModel('link')::find($id),
         ];
         return $this->view('link', $return);
     }
@@ -63,8 +63,8 @@ class LinkController extends Controller
     public function edit($id)
     {
         $return = [
-            'link' => $this->linkModel::find($id),
-            'links' => $this->linkModel::with(['children'])
+            'link' => $this->getModel('link')::find($id),
+            'links' => $this->getModel('link')::with(['children'])
                 ->whereIn('type', ['template',])
                 ->whereKeyNot($id)
                 ->whereNull('deleted_at')
@@ -84,7 +84,7 @@ class LinkController extends Controller
         //
         $this->validateLink($request);
         $request->merge(['user' => \Auth::id()]);
-        $link = $this->linkModel::find($id);
+        $link = $this->getModel('link')::find($id);
         $link->fill($request->all());
         $link->save();
 
@@ -99,7 +99,7 @@ class LinkController extends Controller
     public function destroy($id)
     {
         //
-        $link = $this->linkModel::find($id);
+        $link = $this->getModel('link')::find($id);
         $link->timestamps = false;
         $link->update([
             'deleted_at' => now()

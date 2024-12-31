@@ -62,6 +62,8 @@ class OptionTableSeeder extends Seeder
                         'group' => ['value' => 'group', 'name' => 'Group', 'nameCn' => '分组',],
                         'collection' => ['value' => 'collection', 'name' => 'Collection', 'nameCn' => '专辑',],
                         'compilation' => ['value' => 'compilation', 'name' => 'Compilation', 'nameCn' => '合集',],
+                        'menu' => ['value' => 'menu', "staus" => "private", 'name' => 'Menu', 'nameCn' => '菜单',],
+                        'nav' => ['value' => 'nav', "staus" => "private", 'name' => 'Nav', 'nameCn' => '导航',],
 
                     ])
                 ],

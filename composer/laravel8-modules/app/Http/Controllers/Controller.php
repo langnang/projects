@@ -6,18 +6,13 @@ use Illuminate\Http\Request;
 
 class Controller extends \App\Illuminate\Routing\Controller
 {
-    protected $metaModel = \App\Models\Meta::class;
-    protected $contentModel;
-    protected $linkModel = \App\Models\Link::class;
-    protected $fieldModel = \App\Models\Field::class;
-    protected $commentModel = \App\Models\Comment::class;
     protected function view($view = null, $data = [], $mergeData = [])
     {
 
         // $metaRelations = $this->moduleMeta->relationships()->get();
         // var_dump($metaRelations->toArray());
 
-        // $links = $this->linkModel::get();
+        // $links = $this->getModel('link')::get();
 
         // $sql = \Blade::render('SELECT meta_id, cheatsheet_id  FROM `relationships`', $data);
         // $links = \App\Models\Link::with(['relationships'])->limit(1)->toSql();
@@ -29,7 +24,7 @@ class Controller extends \App\Illuminate\Routing\Controller
                 'categories',
                 $this->hasModule()
                 ? []
-                : $this->metaModel::with(['children'])
+                : $this->getModel('meta')::with(['children'])
                     ->where('type', 'category')
                     ->whereIn('status', \Auth::check() ? ['public', 'publish', 'protected', 'private'] : ['public', 'publish'])
                     ->where('parent', 0)
@@ -42,7 +37,7 @@ class Controller extends \App\Illuminate\Routing\Controller
                 'tags',
                 $this->hasModule()
                 ? []
-                : $this->metaModel::where('type', 'tag')
+                : $this->getModel('meta')::where('type', 'tag')
                     ->whereIn('status', \Auth::check() ? ['public', 'publish', 'protected', 'private'] : ['public', 'publish'])
                     ->where('parent', 0)
                     ->whereNull('deleted_at')
@@ -54,7 +49,7 @@ class Controller extends \App\Illuminate\Routing\Controller
                 'modules',
                 $this->hasModule()
                 ? []
-                : $this->metaModel::where('type', 'module')
+                : $this->getModel('meta')::where('type', 'module')
                     ->whereIn('status', \Auth::check() ? ['public', 'publish', 'protected', 'private'] : ['public', 'publish'])
                     ->where('parent', 0)
                     ->whereNull('deleted_at')
@@ -77,7 +72,7 @@ class Controller extends \App\Illuminate\Routing\Controller
                 'links',
                 ($this->hasModule()
                 ? $this->moduleMeta->links()
-                : $this->linkModel::with(['user', 'relationships']))
+                : $this->getModel('link')::with(['user', 'relationships']))
                     ->whereIn('type', ['site'])
                     ->whereIn('status', \Auth::check() ? ['public', 'publish', 'protected', 'private'] : ['public', 'publish'])
                     ->whereNull('deleted_at')
@@ -91,7 +86,7 @@ class Controller extends \App\Illuminate\Routing\Controller
                 'latest_contents',
                 ($this->hasModule()
                 ? $this->moduleMeta->contents()
-                : $this->contentModel::whereIn('type', ['post']))
+                : $this->getModel('content')::whereIn('type', ['post']))
                     ->whereIn('status', \Auth::check() ? ['public', 'publish', 'protected', 'private'] : ['public', 'publish'])
                     ->whereNull('deleted_at')
                     ->orderByDesc('updated_at')
@@ -103,7 +98,7 @@ class Controller extends \App\Illuminate\Routing\Controller
                 'latest_comments',
                 $this->hasModule()
                 ? []
-                : $this->commentModel::orderByDesc('updated_at')
+                : $this->getModel('comment')::orderByDesc('updated_at')
                     ->whereNull('deleted_at')
                     ->limit(10)
                     ->get()
@@ -113,10 +108,10 @@ class Controller extends \App\Illuminate\Routing\Controller
 
         if (empty($return['contents'])) {
             $query = $this->hasModule()
-                ? (empty($this->contentModel)
-                    ? \App\Models\Content::with(['user'])
-                    : $this->contentModel::with(['user']))
-                : $this->contentModel::with(['user']);
+                ? (empty($this->getModel('content'))
+                    ? $this->getModel('content')::with(['user'])
+                    : $this->getModel('content')::with(['user']))
+                : $this->getModel('content')::with(['user']);
 
 
 
@@ -146,17 +141,5 @@ class Controller extends \App\Illuminate\Routing\Controller
     public function welcome()
     {
         return $this->view('welcome');
-    }
-    protected function getMetaClass()
-    {
-        return $this->contentModel ?? \App\Models\Meta::class;
-    }
-    protected function getContentClass()
-    {
-        return $this->contentModel ?? \App\Models\Content::class;
-    }
-    protected function getLinkClass()
-    {
-        return $this->contentModel ?? \App\Models\Link::class;
     }
 }

@@ -13,67 +13,87 @@
     <div class="container-fluid">
       <form class="row" method="post" name="content">
         @csrf
-        <div class="col-8">
+        <div class="col-12">
+
+        </div>
+        <div class="col-12">
           <div class="card card-outline card-primary">
             <div class="card-header py-2">
               <h3 class="card-title">Content</h3>
             </div>
-            <!-- /.card-header -->
-            <!-- form start -->
-            <div class="card-body pt-2 pb-0">
-              <div class="form-group mb-2 row">
-                <label class="col-sm-2 col-form-label">Title</label>
-                <div class="col-sm-10">
-                  <input type="text" class="form-control form-control-sm" name='title' value="{{ old('title', $content['title']) }}">
+            <div class="card-body pb-0">
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <div class="input-group input-group-sm">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Title</span>
+                    </div>
+                    <input type="text" class="form-control" name='title' value="{{ old('title', $content['title']) }}">
+                  </div>
                 </div>
-              </div>
-              <div class="form-group mb-2 row">
-                <label class="col-sm-2 col-form-label">Slug</label>
-                <div class="col-sm-10">
-                  <input type="text" class="form-control form-control-sm" name='slug' value="{{ $content['slug'] ?? '' }}">
+                <div class="form-group col-md-3">
+                  <div class="input-group input-group-sm">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Slug</span>
+                    </div>
+                    <input type="text" class="form-control" name='slug' value="{{ $content['slug'] ?? '' }}">
+                  </div>
                 </div>
-              </div>
-              <div class="form-group mb-2 row">
-                <label class="col-sm-2 col-form-label">ICO</label>
-                <div class="col-sm-10">
-                  <input type="text" class="form-control form-control-sm" name='ico' value="{{ $content['ico'] ?? '' }}">
+                <div class="form-group col-md-3">
+                  <div class="input-group input-group-sm">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Module</span>
+                    </div>
+                    <select class="form-control" name='module'>
+                      @foreach (Module::all() ?? [] as $moduleName => $moduleObject)
+                        <option value="{{ $moduleObject->getAlias() }}" @if ($moduleObject->getAlias() == old('module', $content['module'])) selected @endif>{{ $moduleName }}</option>
+                      @endforeach
+                    </select>
+                  </div>
                 </div>
-              </div>
-              <div class="form-group mb-2 row">
-                <label class="col-sm-2 col-form-label">Type</label>
-                <div class="col-sm-10">
-                  <select class="form-control form-control-sm" name='type'>
-                    @foreach (Arr::get($options, 'content.type', []) as $option)
-                      <option value="{{ $option['value'] }}" @if ($option['value'] == old('type', $content['type'])) selected @endif>{{ $option['name'] }}</option>
-                    @endforeach
-                  </select>
+                <div class="form-group col-md-6">
+                  <div class="input-group input-group-sm">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Ico</span>
+                    </div>
+                    <input type="text" class="form-control" name='ico' value="{{ $content['ico'] ?? '' }}">
+                  </div>
                 </div>
-              </div>
-              <div class="form-group mb-2 row">
-                <label class="col-sm-2 col-form-label">Status</label>
-                <div class="col-sm-10">
-                  <select class="form-control form-control-sm" name='status'>
-                    @foreach (Arr::get($options, 'content.status', []) as $option)
-                      <option value="{{ $option['value'] }}" @if ($option['value'] == old('type', $content['status'])) selected @endif>{{ $option['name'] }}</option>
-                    @endforeach
-                  </select>
+                <div class="form-group col-md-3">
+                  <div class="input-group input-group-sm">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Type</span>
+                    </div>
+                    <select class="form-control" name='type'>
+                      @foreach (Arr::get($options, 'content.type', []) as $option)
+                        <option value="{{ $option['value'] }}" @if ($option['value'] == old('type', $content['type'])) selected @endif>{{ $option['name'] }}</option>
+                      @endforeach
+                    </select>
+                  </div>
                 </div>
-              </div>
-              <div class="form-group mb-2 row">
-                <label class="col-sm-2 col-form-label">Description</label>
-                <div class="col-sm-10">
-                  <textarea name="description" id="" class="form-control form-control-sm" rows="2">{{ $content['description'] ?? '' }}</textarea>
+                <div class="form-group col-md-3">
+                  <div class="input-group input-group-sm">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Status</span>
+                    </div>
+                    <select class="form-control" name='status'>
+                      @foreach (Arr::get($options, 'content.status', []) as $option)
+                        <option value="{{ $option['value'] }}" @if ($option['value'] == old('type', $content['status'])) selected @endif>{{ $option['name'] }}</option>
+                      @endforeach
+                    </select>
+                  </div>
                 </div>
-              </div>
-              <div class="form-group mb-2 d-none">
-                <label>Text</label>
-                <textarea name="text" id="" class="form-control form-control-sm" rows="5">{!! $content['text'] ?? '' !!}</textarea>
+                <div class="form-group col-12">
+                  <div class="input-group input-group-sm">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Description</span>
+                    </div>
+                    <textarea name="description" id="" class="form-control" rows="2">{{ $content['description'] ?? '' }}</textarea>
+                  </div>
+                </div>
               </div>
             </div>
-
-            <!-- /.card-body -->
-
-            <div class="card-footer">
+            <div class="card-footer py-2">
               <div class="row">
                 <div class="col mr-auto">
                   <button type="submit" class="btn btn-sm btn-primary">Submit</button>
@@ -86,13 +106,16 @@
               </div>
             </div>
           </div>
+        </div>
+        <div class="col-8">
           <div class="card card-outline card-primary">
-            <div class="card-header">
-              <h3 class="card-title"> Text </h3>
+            <div class="card-header py-2 d-flex align-items-center">
+              <h3 class="card-title mr-auto"> Text </h3>
+              <span>SummerNote</span>
             </div>
             <div class="card-body p-1">
               <div class="form-group mb-0">
-                <div id="summernote" style="height: 10rem;"> {!! $content['text'] ?? '' !!} </div>
+                <div id="summernote" style="height: 10rem;"> {!! old('text', $content['text']) !!} </div>
               </div>
             </div>
             <div class="card-footer">
@@ -139,7 +162,7 @@
                 </div>
                 <div class="col-auto ml-auto">
                   <button class="btn btn-primary" type="button" name="insert-field">
-                    <i class="bi bi-patch-plus-fill "></i>
+                    <i class="bi bi-patch-plus-fill"></i>
                   </button>
                 </div>
               </div>

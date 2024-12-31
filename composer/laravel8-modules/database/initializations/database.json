@@ -35,9 +35,24 @@
     },
     "_option": {
         "name": "",
+        "user": 0,
         "type": "",
         "value": ""
     },
+    "options": [
+        {
+            "name": "global.type",
+            "user": 0,
+            "type": "",
+            "value": ""
+        },
+        {
+            "name": "global.status",
+            "user": 0,
+            "type": "",
+            "value": ""
+        }
+    ],
     "metas": [],
     "metas[type=category&status=public]": [],
     "metas[type=tag&status=public]": [

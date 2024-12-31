@@ -30,6 +30,10 @@
     .nav-sidebar .nav-treeview {
       padding-left: .5rem;
     }
+
+    .pagination {
+      margin-bottom: 0;
+    }
   </style>
   @stack('styles')
 </head>
@@ -49,28 +53,21 @@
         @section('navbar') @include('admin::master.shared.navbar') @show
         @section('sidebar') @include('admin::master.shared.sidebar') @show
         <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper" style="height: calc(100vh - 114px); overflow-y: auto; min-height: auto;">
+        <div class="container-flud content-wrapper" style="height: calc(100vh - 114px); overflow-y: auto; min-height: auto;">
           <!-- Content Header (Page header) -->
-          <div class="content-header">
-            <div class="container-fluid">
-              <div class="row">
-                <div class="col-sm-6">
-                  <h1 class="m-0">{{ $module['menu_actives'][0]['title'] ?? 'Dashboard' }}</h1>
-                </div><!-- /.col -->
-                <div class="col-sm-6">
-                  <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    @foreach ($module['menu_actives'] ?? [] as $menu_item)
-                      @if ($loop->last)
-                        <li class="breadcrumb-item active">{{ $menu_item['title'] }}</li>
-                      @else
-                        <li class="breadcrumb-item"><a href="{{ $menu_item['path'] }}">{{ $menu_item['title'] }}</a></li>
-                      @endif
-                    @endforeach
-                  </ol>
-                </div><!-- /.col -->
-              </div><!-- /.row -->
-            </div><!-- /.container-fluid -->
+          <div class="content-header px-3 d-flex align-items-center">
+
+            <h1 class="m-0 mr-auto">{{ $module['menu_actives'][0]['title'] ?? 'Dashboard' }}</h1>
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              @foreach ($module['menu_actives'] ?? [] as $menu_item)
+                @if ($loop->last)
+                  <li class="breadcrumb-item active">{{ $menu_item['title'] }}</li>
+                @else
+                  <li class="breadcrumb-item"><a href="{{ $menu_item['path'] }}">{{ $menu_item['title'] }}</a></li>
+                @endif
+              @endforeach
+            </ol>
           </div>
           <!-- /.content-header -->
           @yield('content')

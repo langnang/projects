@@ -13,7 +13,7 @@ class ContentController extends Controller
      */
     public function show($id)
     {
-        $content = $this->contentModel::with(['contents', 'links'])->find($id);
+        $content = $this->getModel('content')::with(['contents', 'links'])->find($id);
         if (empty($content))
             abort(404);
         $return = [

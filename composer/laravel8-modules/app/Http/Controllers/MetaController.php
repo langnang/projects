@@ -14,7 +14,7 @@ class MetaController extends Controller
     public function create()
     {
         $return = [
-            'metas' => $this->metaModel::with(['children'])
+            'metas' => $this->getModel('meta')::with(['children'])
                 ->whereIn('type', ['category', 'branch', 'module',])
                 ->whereNull('deleted_at')
                 ->get()
@@ -33,7 +33,7 @@ class MetaController extends Controller
         //
         $request->merge(['user' => \Auth::id()]);
 
-        $meta = new $this->metaModel();
+        $meta = new $this->getModel('meta')();
         $meta->fill($request->all());
         $meta->save();
 
@@ -52,7 +52,7 @@ class MetaController extends Controller
     public function show($id)
     {
         $return = [
-            'meta' => $this->metaModel::find($id),
+            'meta' => $this->getModel('meta')::find($id),
         ];
         return $this->view('meta', $return);
     }
@@ -65,8 +65,8 @@ class MetaController extends Controller
     public function edit($id)
     {
         $return = [
-            'meta' => $this->metaModel::find($id),
-            'metas' => $this->metaModel::with(['children'])
+            'meta' => $this->getModel('meta')::find($id),
+            'metas' => $this->getModel('meta')::with(['children'])
                 ->whereIn('type', ['category', 'branch', 'module',])
                 ->whereKeyNot($id)
                 ->get()
@@ -85,7 +85,7 @@ class MetaController extends Controller
         //
         $this->validateMeta($request);
         $request->merge(['user' => \Auth::id()]);
-        $meta = $this->metaModel::find($id);
+        $meta = $this->getModel('meta')::find($id);
         $meta->fill($request->all());
         $meta->save();
 
@@ -100,7 +100,7 @@ class MetaController extends Controller
     public function destroy($id)
     {
         //
-        $meta = $this->metaModel::find($id);
+        $meta = $this->getModel('meta')::find($id);
         $meta->timestamps = false;
         $meta->update([
             'deleted_at' => now()
