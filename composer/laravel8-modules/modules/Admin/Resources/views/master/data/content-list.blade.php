@@ -12,8 +12,12 @@
 
               <form class="form-inline card-tools float-right mb-0">
                 <div class="form-group mr-1">
-                  <select class="form-control form-control-sm" name="module" placeholder="Module">
+                  <select class="form-control form-control-sm" name="module" placeholder="Module" disabled>
                     <option value="">--Module--</option>
+                    <option value="home">Home</option>
+                    @foreach (Module::allEnabled() as $moduleName => $moduleObject)
+                      <option value="{{ $moduleObject->getAlias() }}">{{ $moduleName }}</option>
+                    @endforeach
                   </select>
                 </div>
                 <div class="form-group mr-1">
@@ -24,6 +28,7 @@
                 </div>
                 <div class="form-group mr-1">
                   <select class="form-control form-control-sm" name="type">
+                    <option value="">--Type--</option>
                     <option value="post" @if (request()->input('type') == 'post') selected @endif>post</option>
                     <option value="page" @if (request()->input('type') == 'page') selected @endif>page</option>
                     <option value="template" @if (request()->input('type') == 'template') selected @endif>template</option>
@@ -35,6 +40,7 @@
                 </div>
                 <div class="form-group mr-1">
                   <select class="form-control form-control-sm" name="status">
+                    <option value="">--Status--</option>
                     <option value="publish" @if (request()->input('status') == 'publish') selected @endif>publish</option>
                     <option value="private" @if (request()->input('status') == 'private') selected @endif>private</option>
                   </select>
@@ -93,10 +99,10 @@
             <div class="card-footer py-2 clearfix d-flex align-items-center">
               <div class="form-check form-check-inline">
                 <input class="form-check-input" type="checkbox">
-                <label class="form-check-label">全选 </label>
+                <button type="button" class="btn btn-sm btn-link form-check-label">全选</button>
               </div>
-              <div class="form-group form-group-sm mb-0 mr-2">
-                <select class="form-control">
+              <div class="form-group mb-0 mr-2">
+                <select class="form-control form-control-sm">
                   <option>选中项：</option>
                   <optgroup label="选中项：">
                     <option>编辑</option>
@@ -117,7 +123,9 @@
                 <button type="button" class="btn btn-sm btn-secondary">上传</button>
                 <button type="button" class="btn btn-sm btn-secondary">下载</button>
               </div>
-              {{ $paginator->withQueryString(['slug', 'title', 'type', 'status'])->links() }}
+              <span class="px-1"> 共 {{ $paginator->total() }} 条</span>
+              <span class="px-1"> {{ $paginator->currentPage() }}/{{ $paginator->count() }} </span>
+              {{ $paginator->onEachSide(5)->withQueryString(['slug', 'title', 'type', 'status'])->links() }}
             </div>
             <!-- /.card-footer -->
           </div>

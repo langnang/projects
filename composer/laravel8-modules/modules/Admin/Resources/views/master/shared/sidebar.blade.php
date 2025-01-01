@@ -39,7 +39,7 @@
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         @foreach ($categories ?? [] as $category)
           @if (sizeof($category['children']) > 0)
-            <li class="nav-item @if (Str::startsWith(request()->path(), Str::replace(':', '/', $category['slug']))) menu-open @endif">
+            <li class="nav-item @if (Str::startsWith(request()->path(), Str::replace(':', '/', $category['slug']))) menu-is-opening menu-open @endif">
               <a href="{{ url(Str::replace(':', '/', $category['slug'])) }}" class="nav-link @if (Str::startsWith(request()->path(), Str::replace(':', '/', $category['slug']))) active @endif">
                 <i class="nav-icon @empty($category['ico'])  'fas fa-circle' @else {{ $category['ico'] }}  @endempty"></i>
                 <p class="text-truncate">
@@ -47,7 +47,7 @@
                   <i class="fas fa-angle-left right"></i>
                 </p>
               </a>
-              <ul class="nav nav-treeview">
+              <ul class="nav nav-treeview" @if (Str::startsWith(request()->path(), Str::replace(':', '/', $category['slug']))) style="display: block;" @endif>
                 @foreach ($category['children'] ?? [] as $child_01)
                   <li class="nav-item">
                     <a href="{{ url(Str::replace(':', '/', $child_01['slug'])) }}" class="nav-link @if (Str::startsWith(request()->path(), Str::replace(':', '/', $child_01['slug']))) active @endif">

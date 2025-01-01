@@ -32,8 +32,11 @@ abstract class Controller extends \Illuminate\Routing\Controller
     ];
     protected $mergeModels = [];
 
-    public function __construct()
+    public function __construct($moduleName = null)
     {
+        if (!empty($moduleName))
+            $this->moduleName = \Str::studly($moduleName);
+
         // $this->middleware('auth');
         if (empty($this->moduleName)) {
             if (preg_match('/^Modules\\\\(\w*)\\\\Http/i', static::class, $moduleMatches)) {

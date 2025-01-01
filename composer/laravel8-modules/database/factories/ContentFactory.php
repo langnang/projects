@@ -37,9 +37,9 @@ class ContentFactory extends Factory
             "views" => $this->faker->randomNumber(),
             "count" => $this->faker->randomNumber(),
             "order" => $this->faker->randomNumber(),
-            "parent" => $this->model::inRandomOrder()->first('id'),
+            "parent" => $this->model::inRandomOrder()->first('id') ?? 0,
 
-            "user" => \App\Models\User::inRandomOrder()->first('id'),
+            "user" => \App\Models\User::inRandomOrder()->first('id') ?? 0,
 
             // "created_at" => $this->faker->date() . ' ' . $this->faker->time(),
             // "updated_at" => $this->faker->date() . ' ' . $this->faker->time(),

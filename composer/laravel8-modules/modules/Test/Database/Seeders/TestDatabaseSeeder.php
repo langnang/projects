@@ -2,7 +2,7 @@
 
 namespace Modules\Test\Database\Seeders;
 
-use Illuminate\Database\Seeder;
+use App\Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
 class TestDatabaseSeeder extends Seeder

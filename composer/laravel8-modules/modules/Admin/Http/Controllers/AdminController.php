@@ -8,6 +8,12 @@ use Illuminate\Support\Facades\View;
 
 class AdminController extends \App\Illuminate\Routing\Controller
 {
+    protected $childModuleController;
+    public function __construct()
+    {
+        parent::__construct();
+        $this->childModuleController = new \App\Http\Controllers\Controller('Home');
+    }
     protected function view($view = null, $data = [], $mergeData = [])
     {
         $return = array_merge($data, [
@@ -24,6 +30,7 @@ class AdminController extends \App\Illuminate\Routing\Controller
                     ->get()
             ),
             'active_category' => $this->getModel('meta')::where('slug', \Str::replace('/', ':', request()->path()))->first(),
+            'childModule' => $this->childModuleController->getModuleAttributes(),
         ]);
         if (empty($return['layout'])) {
             $return['layout'] = 'admin::' . $this->config('view.framework', ) . '.' . $return['view'];

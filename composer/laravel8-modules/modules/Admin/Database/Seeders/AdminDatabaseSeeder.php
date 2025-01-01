@@ -2,8 +2,9 @@
 
 namespace Modules\Admin\Database\Seeders;
 
-use Illuminate\Database\Seeder;
+use App\Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Storage;
 
 class AdminDatabaseSeeder extends Seeder
 {
@@ -17,9 +18,9 @@ class AdminDatabaseSeeder extends Seeder
         Model::unguard();
 
         // $this->call("OthersTableSeeder");
-
         $adminMetaId = \App\Models\Meta::where('slug', 'module:admin')->first()->id;
         // var_dump($adminMeta);
+
 
         \App\Models\Meta::upsert(
             [
@@ -69,5 +70,6 @@ class AdminDatabaseSeeder extends Seeder
             ['slug'],
             ['slug', 'ico', 'name', 'type', 'status', 'parent']
         );
+
     }
 }

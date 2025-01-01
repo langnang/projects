@@ -27,8 +27,12 @@
   <!-- summernote -->
   <link rel="stylesheet" href="{{ asset('/modules/Admin/Public/master/plugins/summernote/summernote-bs4.min.css') }}">
   <style>
-    .nav-sidebar .nav-treeview {
-      /* padding-left: .5rem; */
+    .nav-sidebar .nav-treeview .nav-link {
+      padding-left: 1.5rem;
+    }
+
+    .nav-sidebar .nav-treeview .nav-treeview .nav-link {
+      padding-left: 2rem;
     }
 
     .pagination {

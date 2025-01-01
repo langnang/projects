@@ -2,7 +2,7 @@
 
 namespace Modules\CheatSheet\Database\Seeders;
 
-use Illuminate\Database\Seeder;
+use App\Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
 class CheatSheetDatabaseSeeder extends Seeder

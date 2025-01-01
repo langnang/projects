@@ -2,7 +2,7 @@
 
 namespace Modules\Market\Database\Seeders;
 
-use Illuminate\Database\Seeder;
+use App\Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
 class MarketDatabaseSeeder extends Seeder
