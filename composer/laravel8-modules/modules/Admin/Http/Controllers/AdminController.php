@@ -78,5 +78,15 @@ class AdminController extends \App\Illuminate\Routing\Controller
     {
         return $this->view('index');
     }
+
+    protected function getMetasWithModule()
+    {
+    }
+    protected function getContentsWithModule()
+    {
+    }
+    protected function getLinksWithModule()
+    {
+    }
 }
 

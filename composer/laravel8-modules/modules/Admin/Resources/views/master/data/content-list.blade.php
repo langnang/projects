@@ -7,24 +7,24 @@
       <div class="row">
         <div class="col-12">
           <div class="card">
-            <div class="card-header pl-3">
-              <h3 class="card-title">Content List</h3>
+            <div class="card-header pl-3 d-flex align-items-center">
+              <h3 class="card-title mr-auto">Content List</h3>
 
               <form class="form-inline card-tools float-right mb-0">
                 <div class="form-group mr-1">
                   <select class="form-control form-control-sm" name="module" placeholder="Module" disabled>
                     <option value="">--Module--</option>
-                    <option value="home">Home</option>
+                    <option value="home" @if ($module['alias'] == 'home') selected @endif>Home</option>
                     @foreach (Module::allEnabled() as $moduleName => $moduleObject)
-                      <option value="{{ $moduleObject->getAlias() }}">{{ $moduleName }}</option>
+                      <option value="{{ $moduleObject->getAlias() }}" @if ($module['alias'] == $moduleObject->getAlias()) selected @endif>{{ $moduleName }}</option>
                     @endforeach
                   </select>
                 </div>
                 <div class="form-group mr-1">
-                  <input type="text" name="slug" class="form-control form-control-sm" placeholder="Slug" value="{{ request()->input('slug') }}">
+                  <input type="text" name="slug" class="form-control form-control-sm" placeholder="--Slug--" value="{{ request()->input('slug') }}">
                 </div>
                 <div class="form-group mr-1">
-                  <input type="text" name="title" class="form-control form-control-sm" placeholder="Title" value="{{ request()->input('title') }}">
+                  <input type="text" name="title" class="form-control form-control-sm" placeholder="--Title--" value="{{ request()->input('title') }}">
                 </div>
                 <div class="form-group mr-1">
                   <select class="form-control form-control-sm" name="type">
@@ -125,7 +125,7 @@
               </div>
               <span class="px-1"> 共 {{ $paginator->total() }} 条</span>
               <span class="px-1"> {{ $paginator->currentPage() }}/{{ $paginator->count() }} </span>
-              {{ $paginator->onEachSide(5)->withQueryString(['slug', 'title', 'type', 'status'])->links() }}
+              {{ $paginator->onEachSide(2)->withQueryString(['slug', 'title', 'type', 'status'])->links() }}
             </div>
             <!-- /.card-footer -->
           </div>

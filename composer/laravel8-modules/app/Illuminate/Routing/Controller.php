@@ -403,4 +403,20 @@ abstract class Controller extends \Illuminate\Routing\Controller
 
         return $models[$key];
     }
+
+    protected function setSqls($key, $values = null)
+    {
+        if (empty($values)) {
+            $values = [];
+            $queryLogs = \DB::getQueryLog();
+            foreach ($queryLogs as $queryLog) {
+                $queryLog['bindings'] = array_map(function ($item) {
+                    return is_string($item) ? "'$item'" : $item;
+                }, $queryLog['bindings']);
+                $sql = \Str::replaceArray('?', $queryLog['bindings'], $queryLog['query']);
+                array_push($values, $sql);
+            }
+        }
+        \Arr::set($this->sqls, $key, $values);
+    }
 }

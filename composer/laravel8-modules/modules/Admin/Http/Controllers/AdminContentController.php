@@ -14,17 +14,43 @@ class AdminContentController extends AdminController
      */
     public function index(Request $request)
     {
-        $query = $this->getModel('content')::withCount('children')
+
+        // var_dump($this->getModel('content')::belongsToMany(\App\Models\Meta::class, 'relationships', 'content_id', 'meta_id'));
+
+        // $query = $this->getModel('content')::with([
+        //     'relationships',
+        //     'belongsToMeta' => function ($query) {
+        //         $query->wherePivot('meta_id', $this->moduleMeta->id);
+        //     }
+        // ])->withCount('children')
+        //     ->where('slug', 'like', '%' . $request->input('slug') . '%')
+        //     ->where('title', 'like', '%' . $request->input('title') . '%')
+        //     ->whereIn('type', $request->filled('type') ? [$request->input('type')] : array_keys(\Arr::get($this->moduleOption, 'content.type')))
+        //     ->whereIn('status', $request->filled('status') ? [$request->input('status')] : array_keys(\Arr::get($this->moduleOption, 'content.status')))
+        //     ->where('parent', $request->input('parent', 0))
+        //     ->whereNull('deleted_at')
+        //     ->orderByDesc('updated_at');
+        \DB::enableQueryLog();
+        \DB::flushQueryLog();
+        $paginator = $this->getModel('content')::with([
+            'relationships',
+            'belongsToMeta'
+        ])->whereHas('belongsToMeta', function ($query) {
+            $query->where('meta_id', $this->moduleMeta->id);
+        })->withCount('children')
             ->where('slug', 'like', '%' . $request->input('slug') . '%')
             ->where('title', 'like', '%' . $request->input('title') . '%')
             ->whereIn('type', $request->filled('type') ? [$request->input('type')] : array_keys(\Arr::get($this->moduleOption, 'content.type')))
             ->whereIn('status', $request->filled('status') ? [$request->input('status')] : array_keys(\Arr::get($this->moduleOption, 'content.status')))
             ->where('parent', $request->input('parent', 0))
             ->whereNull('deleted_at')
-            ->orderByDesc('updated_at');
-        \Arr::set($this->sqls, 'select_content_list', $query->toRawSql());
+            ->orderByDesc('updated_at')
+            ->paginate(20);
+
+        $this->setSqls('select_content_list', \DB::getQueryLog());
+        \DB::disableQueryLog();
         return $this->view('data.content-list', [
-            'paginator' => $query->paginate(20),
+            'paginator' => $paginator,
         ]);
     }
 

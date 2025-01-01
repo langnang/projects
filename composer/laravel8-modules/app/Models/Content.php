@@ -94,6 +94,10 @@ class Content extends \Illuminate\Database\Eloquent\Model
     {
         return $this->hasMany(\App\Models\Relationship::class, $this->relationshipKey, $this->primaryKey);
     }
+    public function belongsToMeta()
+    {
+        return $this->belongsToMany(\App\Models\Meta::class, \App\Models\Relationship::class, 'content_id', 'meta_id');
+    }
     public function fields()
     {
         return $this->hasMany(\App\Models\Field::class, $this->primaryKey, $this->primaryKey);

@@ -135,4 +135,14 @@ class Controller extends \App\Illuminate\Routing\Controller
     {
         return $this->view('welcome');
     }
+
+    protected function getMetasWithModule()
+    {
+    }
+    protected function getContentsWithModule()
+    {
+    }
+    protected function getLinksWithModule()
+    {
+    }
 }
