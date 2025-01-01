@@ -61,10 +61,10 @@
           <!-- Content Header (Page header) -->
           <div class="content-header px-3 d-flex align-items-center">
 
-            <h1 class="m-0 mr-auto">{{ $meta['name'] ?? 'Dashboard' }}</h1>
+            <h1 class="m-0 mr-auto">{{ Arr::get($adminModule, 'active_category.name', 'Dashboard') }}</h1>
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="#">Admin</a></li>
-              @foreach ($categories ?? [] as $category)
+              @foreach (Arr::get($adminModule, 'categories', []) as $category)
                 @if (Str::startsWith(request()->path(), Str::replace(':', '/', $category['slug'])))
                   <li class="breadcrumb-item"><a href="{{ url(Str::replace(':', '/', $category['slug'])) }}">{{ $category['name'] }}</a></li>
                 @endif

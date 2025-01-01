@@ -237,7 +237,7 @@ abstract class Controller extends \Illuminate\Routing\Controller
         return array_merge($this->moduleConfig ?? [], [
             'alias' => $this->moduleAlias,
             'config' => $this->moduleConfig,
-            'wrapperMeta' => $this->moduleMeta,
+            'meta' => $this->moduleMeta,
             'lowerName' => empty($module) ? \Str::lower($this->moduleName) : $module->getLowerName(),
             'studlyName' => empty($module) ? \Str::studly($this->moduleName) : $module->getStudlyName(),
             'path' => empty($module) ? app_path() : $module->getPath(),

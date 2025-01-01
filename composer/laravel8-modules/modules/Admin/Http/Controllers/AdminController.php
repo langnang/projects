@@ -9,27 +9,50 @@ use Illuminate\Support\Facades\View;
 class AdminController extends \App\Illuminate\Routing\Controller
 {
     protected $childModuleController;
-    public function __construct()
+    protected $adminModule;
+    public function __construct($moduleName = null)
     {
-        parent::__construct();
+        if (!empty($moduleName))
+            $this->moduleName = \Str::studly($moduleName);
+
+        // $this->middleware('auth');
+        if (empty($this->moduleName)) {
+            if (preg_match('/^admin\/modules\/(\w*)/i', request()->path(), $moduleMatches)) {
+                $this->moduleName = \Str::studly($moduleMatches[1]);
+            } else {
+                $this->moduleName = 'Home';
+            }
+        }
+        $moduleName = $this->moduleName;
+        if (in_array($moduleName, ['Home'])) {
+            $this->moduleAlias = 'home';
+            $this->moduleConfig = ['name' => "Home", 'nameCn' => "首页"];
+        } else if (!empty($moduleName)) {
+            $this->module = $module = \Module::find($moduleName);
+            $this->moduleAlias = $module->getAlias();
+            $this->moduleConfig = config($this->moduleAlias);
+        }
+
+        $this->moduleMeta = $this->moduleName ? \App\Models\Meta::where('slug', 'module:' . $this->moduleAlias)->first() : new \App\Models\Meta(['id' => 0]);
+
+        $this->queryModuleOption();
         $this->childModuleController = new \App\Http\Controllers\Controller('Home');
+        $this->adminModule = new \App\Http\Controllers\Controller('Admin');
     }
     protected function view($view = null, $data = [], $mergeData = [])
     {
         $return = array_merge($data, [
             'view' => $view,
-            'categories' => \Arr::get(
-                $data,
-                'categories',
-                $this->getModel('meta')::with(['children'])
+            'adminModule' => array_merge($this->adminModule->getModuleAttributes(), [
+                'categories' => $this->getModel('meta')::with(['children'])
                     ->where('type', 'category')
                     ->whereIn('status', \Auth::check() ? ['public', 'publish', 'protected', 'private'] : ['public', 'publish'])
-                    ->where('parent', $this->getModel('meta')::where('slug', 'module:admin')->first()->id)
+                    ->where('parent', $this->adminModule->moduleMeta->id)
                     ->whereNull('deleted_at')
                     ->where('name', '!=', '')
-                    ->get()
-            ),
-            'active_category' => $this->getModel('meta')::where('slug', \Str::replace('/', ':', request()->path()))->first(),
+                    ->get(),
+                'active_category' => $this->getModel('meta')::where('slug', \Str::replace('/', ':', request()->path()))->first(),
+            ]),
             'childModule' => $this->childModuleController->getModuleAttributes(),
         ]);
         if (empty($return['layout'])) {

@@ -6,7 +6,7 @@
       <nav class="col-lg-2 d-md-none d-lg-block bg-light sidebar collapse">
         <div class="sidebar-sticky pt-2">
           <ul class="nav flex-column">
-            @include('webnav::shared.master.nav-item', ['module' => $module['alias'], 'metas' => $meta['children'] ?? [], 'mids' => Arr::get($module, 'wrapperMeta.id')])
+            @include('webnav::shared.master.nav-item', ['module' => $module['alias'], 'metas' => $meta['children'] ?? [], 'mids' => Arr::get($module, 'meta.id')])
             @auth
               <li class="nav-item text-center" style="width: 100%;">
                 <a class="nav-link" href="{{ asset('./meta/create-item?' . request()->query()) }}" style="font-size: 21px;">
@@ -49,8 +49,8 @@
                       </div>
                       <p class="card-text text-truncate" style="display: -webkit-box;white-space: unset;-webkit-line-clamp: 3;-webkit-box-orient: vertical;height: 65px;">{{ $content->description . $content->description . $content->description . $content->description . $content->description }}</p>
                       <p class="mb-0 flex justify-content-end">
-                        <a href="#" class="btn btn-sm btn-outline-warning ml-1" data-toggle="modal" data-target="#{{ $module['alias'] }}-content-item-modal" data-method="update_content_item" data-mids="{{ Arr::get($module, 'wrapperMeta.mid') . '-' . $meta->mid }}" data-cids="{{ $content->cid }}">编辑</a>
-                        <a href="#" class="btn btn-sm btn-outline-danger ml-1 mr-auto" data-toggle="modal" data-target="#{{ $module['alias'] }}-content-item-modal" data-method="delete_content_item" data-mids="{{ Arr::get($module, 'wrapperMeta.mid') . '-' . $meta->mid }}" data-cids="{{ $content->cid }}">删除</a>
+                        <a href="#" class="btn btn-sm btn-outline-warning ml-1" data-toggle="modal" data-target="#{{ $module['alias'] }}-content-item-modal" data-method="update_content_item" data-mids="{{ Arr::get($module, 'meta.mid') . '-' . $meta->mid }}" data-cids="{{ $content->cid }}">编辑</a>
+                        <a href="#" class="btn btn-sm btn-outline-danger ml-1 mr-auto" data-toggle="modal" data-target="#{{ $module['alias'] }}-content-item-modal" data-method="delete_content_item" data-mids="{{ Arr::get($module, 'meta.mid') . '-' . $meta->mid }}" data-cids="{{ $content->cid }}">删除</a>
                         <a href="#" class="btn btn-sm btn-outline-primary ml-1">详情</a>
                         <a href="#" class="btn btn-sm btn-outline-primary ml-1">跳转</a>
                       </p>
@@ -61,7 +61,7 @@
               @auth
                 <div class="col my-2 px-2">
                   <div class="card">
-                    <a class="card-body d-flex justify-content-center align-items-center" href="#" data-toggle="modal" data-target="#{{ $module['alias'] }}-content-item-modal" data-method="insert_content_item" data-mids="{{ Arr::get($module, 'wrapperMeta.mid') . '-' . $meta->mid }}" style="height: 190px; font-size: 48px;">
+                    <a class="card-body d-flex justify-content-center align-items-center" href="#" data-toggle="modal" data-target="#{{ $module['alias'] }}-content-item-modal" data-method="insert_content_item" data-mids="{{ Arr::get($module, 'meta.mid') . '-' . $meta->mid }}" style="height: 190px; font-size: 48px;">
                       <i class="bi bi-plus-circle"></i>
                     </a>
                   </div>

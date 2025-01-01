@@ -2,10 +2,10 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <!-- Brand Logo -->
-  <a href="{{ env('APP_URL') . $module['alias'] }}" class="brand-link text-center">
-    @empty($module['logo'])
+  <a href="{{ env('APP_URL') . $adminModule['alias'] }}" class="brand-link text-center">
+    @empty($adminModule['logo'])
     @else
-      <img src="{{ $module['logo'] }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <img src="{{ $adminModule['logo'] }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
     @endempty
     <span class="brand-text font-weight-light">{{ env('APP_NAME') }}</span>
   </a>
@@ -37,7 +37,7 @@
     <!-- Sidebar Menu -->
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-        @foreach ($categories ?? [] as $category)
+        @foreach (Arr::get($adminModule, 'categories', []) as $category)
           @if (sizeof($category['children']) > 0)
             <li class="nav-item @if (Str::startsWith(request()->path(), Str::replace(':', '/', $category['slug']))) menu-is-opening menu-open @endif">
               <a href="{{ url(Str::replace(':', '/', $category['slug'])) }}" class="nav-link @if (Str::startsWith(request()->path(), Str::replace(':', '/', $category['slug']))) active @endif">
@@ -71,7 +71,7 @@
             </li>
           @endif
         @endforeach
-        @foreach ($module['menu'] ?? [] as $menu)
+        @foreach ($adminModule['menu'] ?? [] as $menu)
           @switch($menu['type']??'')
             @case('header')
               <li class="nav-header">{!! $menu['title'] !!}</li>
@@ -144,19 +144,19 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ $module['alias'] }}/index" class="nav-link active">
+                <a href="{{ $adminModule['alias'] }}/index" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Dashboard v1</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ $module['alias'] }}/index2" class="nav-link">
+                <a href="{{ $adminModule['alias'] }}/index2" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Dashboard v2</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ $module['alias'] }}/index3" class="nav-link">
+                <a href="{{ $adminModule['alias'] }}/index3" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Dashboard v3</p>
                 </a>
@@ -164,7 +164,7 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a href="{{ $module['alias'] }}/pages/widgets.html" class="nav-link">
+            <a href="{{ $adminModule['alias'] }}/pages/widgets.html" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Widgets
@@ -183,7 +183,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ $module['alias'] }}/pages/layout/top-nav.html" class="nav-link">
+                <a href="{{ $adminModule['alias'] }}/pages/layout/top-nav.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Top Navigation</p>
                 </a>
