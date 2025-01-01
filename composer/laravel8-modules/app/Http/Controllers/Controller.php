@@ -99,14 +99,9 @@ class Controller extends \App\Illuminate\Routing\Controller
 
 
         if (empty($return['contents'])) {
-            $query = $this->hasModule()
-                ? (empty($this->getModel('content'))
-                    ? $this->getModel('content')::with(['user'])
-                    : $this->getModel('content')::with(['user']))
-                : $this->getModel('content')::with(['user']);
-
-
-
+            $query = $this->getModel('content')::with(['belongsToMeta', 'user'])->whereHas('belongsToMeta', function ($query) {
+                $query->where('meta_id', $this->moduleMeta->id);
+            });
             if (request()->filled('title')) {
                 $query = $query->where('title', 'like', '%' . request()->input('title') . '%');
             }
@@ -114,7 +109,6 @@ class Controller extends \App\Illuminate\Routing\Controller
             $query = $query->whereIn('status', \Auth::check() ? ['public', 'publish', 'protected', 'private'] : ['public', 'publish']);
             $query = $query->whereNull('deleted_at');
             $query = $query->orderByDesc('updated_at');
-            \Arr::set($this->sqls, 'select_content_list', $query->toRawSql());
             $query = $query->paginate();
             $return['contents'] = $query;
             unset($query);
