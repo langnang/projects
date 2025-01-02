@@ -46,7 +46,7 @@
                   </select>
                 </div>
                 <button type="submit" class="btn btn-sm btn-default form-control form-control-sm">
-                  <i class="fas fa-search"></i>
+                  查询
                 </button>
 
               </form>
@@ -57,7 +57,6 @@
                 <thead>
                   <tr>
                     <th width="14px">#</th>
-                    <th>ID</th>
                     <th>Title</th>
                     <th>Children</th>
                     <th>Type</th>
@@ -65,7 +64,6 @@
                     <th>Created At</th>
                     <th>Updated At</th>
                     <th>Release At</th>
-                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -76,19 +74,13 @@
                           <input class="form-check-input" type="checkbox" value="{{ $item['id'] }}">
                         </div>
                       </td>
-                      <td><a class="" href="contents/{{ $item['id'] }}">{{ $item['id'] }}</a></td>
-                      <td>{{ $item['title'] }}</td>
+                      <td><a class="" href="contents/{{ $item['id'] }}">{{ $item['title'] }}</a></td>
                       <td>{{ $item['children_count'] }}</td>
                       <td>{{ $item['type'] }}</td>
                       <td>{{ $item['status'] }}</td>
                       <td>{{ $item['created_at'] }}</td>
                       <td>{{ $item['updated_at'] }}</td>
                       <td>{{ $item['release_at'] }}</td>
-                      <td class="" style="padding-top: 3px;padding-bottom: 3px;">
-                        <button type="button" class="btn btn-sm py-0 btn-secondary">预览</button>
-                        <button type="button" class="btn btn-sm py-0 btn-primary">编辑</button>
-                        <button type="button" class="btn btn-sm py-0 btn-danger">删除</button>
-                      </td>
                     </tr>
                   @endforeach
                 </tbody>
@@ -98,28 +90,30 @@
             <!-- /.card-body -->
             <div class="card-footer py-2 clearfix d-flex align-items-center">
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox">
+                <input class="form-check-input checkbox-toggle" type="checkbox">
                 <button type="button" class="btn btn-sm btn-link form-check-label">全选</button>
               </div>
               <div class="form-group mb-0 mr-2">
                 <select class="form-control form-control-sm">
                   <option>选中项：</option>
-                  <optgroup label="选中项：">
-                    <option>编辑</option>
-                    <option>复制</option>
-                    <option>删除</option>
-                    <option>导出</option>
-                    <option>迁移</option>
-                  </optgroup>
+                  <option>&nbsp;&nbsp;编辑</option>
+                  <option>&nbsp;&nbsp;&nbsp;复制</option>
+                  <option>&nbsp;&nbsp;&nbsp;&nbsp;删除</option>
+                  <option>&nbsp;&nbsp;导出</option>
+                  <option>&nbsp;&nbsp;迁移</option>
 
-                  <optgroup label="----"></optgroup>
+                  <optgroup label="导出：">
+                    <option>CSV</option>
+                    <option>Excel</option>
+                    <option>PDF</option>
+                  </optgroup>
                 </select>
               </div>
               <div class="mr-auto">
-
                 <a type="button" class="btn btn-sm btn-primary" href="contents/create">新增</a>
                 <button type="button" class="btn btn-sm btn-warning">修改</button>
                 <button type="button" class="btn btn-sm btn-danger">删除</button>
+                <button type="button" class="btn btn-sm btn-secondary">打印</button>
                 <button type="button" class="btn btn-sm btn-secondary">上传</button>
                 <button type="button" class="btn btn-sm btn-secondary">下载</button>
               </div>
@@ -136,3 +130,29 @@
   </section>
   <!-- /.content -->
 @endsection
+
+
+@push('scripts')
+  <script>
+    $('.checkbox-toggle').click(function() {
+      var clicks = $(this).data('clicks')
+      if (clicks) {
+        //Uncheck all checkboxes
+        $('.card-body input[type=\'checkbox\']').prop('checked', false)
+        $('.checkbox-toggle .far.fa-check-square').removeClass('fa-check-square').addClass('fa-square')
+      } else {
+        //Check all checkboxes
+        $('.card-body input[type=\'checkbox\']').prop('checked', true)
+        $('.checkbox-toggle .far.fa-square').removeClass('fa-square').addClass('fa-check-square')
+      }
+      $(this).data('clicks', !clicks)
+    })
+    $('.checkbox-toggle+.btn').click(function() {
+      //Check all checkboxes
+      $('.card-body input[type=\'checkbox\']').prop('checked', true)
+      $('.checkbox-toggle .far.fa-square').removeClass('fa-square').addClass('fa-check-square')
+      $('.checkbox-toggle').data('clicks', true)
+      $('.checkbox-toggle').prop('checked', true)
+    })
+  </script>
+@endpush

@@ -27,11 +27,13 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::prefix('ssential')->group(function () {
         Route::prefix('metas')->group(function () {
             Route::get('/', 'AdminMetaController@index');
+            Route::post('/', 'AdminMetaController@export');
             Route::get('/create', 'AdminMetaController@create');
             Route::post('/create', 'AdminMetaController@store');
             Route::get('/{id}', 'AdminMetaController@edit');
             Route::post('/{id}', 'AdminMetaController@update');
             Route::post('/delete/{id}', 'AdminMetaController@destroy');
+            Route::post('/import/{id}', 'AdminMetaController@import');
         });
         Route::prefix('contents')->group(function () {
             Route::get('/', 'AdminContentController@index');

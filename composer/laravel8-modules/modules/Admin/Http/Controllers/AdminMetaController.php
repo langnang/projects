@@ -14,15 +14,20 @@ class AdminMetaController extends AdminController
      */
     public function index(Request $request)
     {
-        $query = $this->getModel('meta')::withCount('children')
-            ->where('slug', 'like', '%' . $request->input('slug') . '%')
+        $query = $this->getModel('meta')::withCount('children');
+
+        $request->whenFilled('slug', function ($input) use (&$query) {
+            $query = $query->where('slug', 'like', "%$input%");
+        });
+
+        $query = $query
             ->where('name', 'like', '%' . $request->input('name') . '%')
             ->whereIn('type', $request->filled('type') ? [$request->input('type')] : array_keys(\Arr::get($this->moduleOption, 'meta.type')))
             ->whereIn('status', $request->filled('status') ? [$request->input('status')] : array_keys(\Arr::get($this->moduleOption, 'meta.status')))
             ->where('parent', $request->input('parent', 0))
             ->whereNull('deleted_at');
         \Arr::set($this->sqls, 'select_meta_list', $query->toRawSql());
-        return $this->view('data.meta-list', [
+        return $this->view('data.meta-table', [
             'paginator' => $query->paginate(20),
         ]);
     }
@@ -33,11 +38,9 @@ class AdminMetaController extends AdminController
      */
     public function create()
     {
+        $metaModel = $this->getModel('meta');
         $return = [
-            'metas' => $this->getModel('meta')::with(['children'])
-                ->whereIn('type', ['category', 'branch', 'module',])
-                ->whereNull('deleted_at')
-                ->get()
+            'meta' => new $metaModel(request()->all()),
         ];
         return $this->view('data.meta-item', $return);
     }
@@ -52,12 +55,14 @@ class AdminMetaController extends AdminController
         $this->validateMeta($request);
         //
         $request->merge(['user' => \Auth::id()]);
+        $metaModel = $this->getModel('meta');
 
-        $meta = new $this->getModel('meta');
-        $meta->fill($request->all());
+        $meta = new $metaModel($request->all());
+        // $meta->fill($request->all());
         $meta->save();
 
-        return redirect(($this->moduleAlias ?? 'home') . '/update-content/' . $meta->id);
+        return redirect(str_replace('create', $meta->id, $request->path()));
+        // return redirect(($this->moduleAlias ?? 'home') . '/update-content/' . $meta->id);
         // return $this->edit($meta->id);
 
         // return redirect(($this->moduleAlias ?? 'home') . '/update-meta/' . $meta->id)->withInput($meta->toArray());
@@ -70,12 +75,29 @@ class AdminMetaController extends AdminController
      */
     public function edit($id)
     {
+        $meta = $this->getModel('meta')::find($id);
+
+        if ($meta['type'] == 'module') {
+            $meta['modules'] = $this->getModel('meta')::with(['children'])
+                ->where('type', 'module')
+                ->where('parent', $meta->id)
+                ->get();
+            $meta['branches'] = $this->getModel('meta')::with([])
+                ->where('type', 'branch')
+                ->where('parent', $meta->id)
+                ->get();
+            $meta['categories'] = $this->getModel('meta')::with(['children'])
+                ->where('type', 'category')
+                ->where('parent', $meta->id)
+                ->get();
+            $meta['tags'] = $this->getModel('meta')::with([])
+                ->where('type', 'tag')
+                ->where('parent', $meta->id)
+                ->get();
+        }
+
         $return = [
-            'meta' => $this->getModel('meta')::find($id),
-            'metas' => $this->getModel('meta')::with(['children'])
-                ->whereIn('type', ['category', 'branch', 'module',])
-                ->whereKeyNot($id)
-                ->get()
+            'meta' => $meta,
         ];
         return $this->view('data.meta-item', $return);
     }
@@ -118,6 +140,20 @@ class AdminMetaController extends AdminController
         // return $this->view('index');
 
     }
+    /**
+     * Summary of import
+     * @param \Illuminate\Http\Request $request
+     * @return Renderable
+     */
+    public function import(Request $request)
+    {
+        // $file = $request->file('file');
+        // var_dump($file);
+
+        return $this->index($request);
+    }
+
+
 
     protected function validateMeta(Request $request)
     {

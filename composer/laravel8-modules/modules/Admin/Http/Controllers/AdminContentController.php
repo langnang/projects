@@ -62,7 +62,7 @@ class AdminContentController extends AdminController
     {
         $contentModel = $this->getModel('content');
         $return = [
-            'content' => new $contentModel
+            'content' => new $contentModel(request()->all())
         ];
         return $this->view('data.content-item', $return);
     }
@@ -86,11 +86,16 @@ class AdminContentController extends AdminController
             $content->slug = $content->id;
             $content->save();
         }
+        $this->getModel('relationship')::where("content_id", $content->id)->delete();
+        $this->getModel('relationship')::insert([
+            "meta_id" => $this->moduleMeta->id,
+            "content_id" => $content->id,
+        ]);
         // var_dump($content['slug']);
         // return $this->edit($content->id);
-        return $this->edit($content->id);
+        // return $this->edit($content->id);
 
-        // return redirect(str_replace('create', $content->id, $request->path()));
+        return redirect(str_replace('create', $content->id, $request->path()));
     }
 
     /**
@@ -128,6 +133,12 @@ class AdminContentController extends AdminController
             $content->slug = $content->id;
         }
         $content->save();
+
+        $this->getModel('relationship')::where("content_id", $content->id)->delete();
+        $this->getModel('relationship')::insert([
+            "meta_id" => $this->moduleMeta->id,
+            "content_id" => $content->id,
+        ]);
 
         return $this->edit($content->id);
     }

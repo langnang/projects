@@ -59,7 +59,7 @@
         <!-- Content Wrapper. Contains page content -->
         <div class="container-flud content-wrapper" style="height: calc(100vh - 114px); overflow-y: auto; min-height: auto;">
           <!-- Content Header (Page header) -->
-          <div class="content-header px-3 d-flex align-items-center">
+          <div class="content-header px-3 d-flex align-items-center py-2">
 
             <h1 class="m-0 mr-auto">{{ Arr::get($adminModule, 'active_category.name', 'Dashboard') }}</h1>
             <ol class="breadcrumb">
@@ -68,6 +68,11 @@
                 @if (Str::startsWith(request()->path(), Str::replace(':', '/', $category['slug'])))
                   <li class="breadcrumb-item"><a href="{{ url(Str::replace(':', '/', $category['slug'])) }}">{{ $category['name'] }}</a></li>
                 @endif
+                @foreach (Arr::get($category, 'children', []) as $category_child)
+                  @if (Str::startsWith(request()->path(), Str::replace(':', '/', $category_child['slug'])))
+                    <li class="breadcrumb-item"><a href="{{ url(Str::replace(':', '/', $category_child['slug'])) }}">{{ $category_child['name'] }}</a></li>
+                  @endif
+                @endforeach
               @endforeach
               @foreach ($module['menu_actives'] ?? [] as $menu_item)
                 @if ($loop->last)

@@ -28,7 +28,12 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text">Title</span>
                     </div>
-                    <input type="text" class="form-control" name='title' value="{{ old('title', $content['title']) }}">
+                    <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title', $content['title']) }}">
+                    @error('title')
+                      <div class="invalid-feedback">
+                        {{ $message }}
+                      </div>
+                    @enderror
                   </div>
                 </div>
                 <div class="form-group col-md-3">
@@ -91,12 +96,20 @@
                     <textarea name="description" id="" class="form-control" rows="2">{{ $content['description'] ?? '' }}</textarea>
                   </div>
                 </div>
+                <div class="form-group col-12 d-none">
+                  <div class="input-group input-group-sm">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Text</span>
+                    </div>
+                    <textarea name="text" id="" class="form-control" rows="2">{{ $content['text'] ?? '' }}</textarea>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="card-footer py-2">
               <div class="row">
                 <div class="col mr-auto">
-                  <button type="submit" class="btn btn-sm btn-primary">Submit</button>
+                  <button type="button" class="btn btn-sm btn-primary" onclick="$('[name=text]').text($('#summernote').summernote('code').trim());$('form[name=content]').submit()">Submit</button>
                   <button type="button" class="btn btn-sm btn-warning">Release</button>
                 </div>
                 <div class="col col-auto">
@@ -111,7 +124,7 @@
           <div class="card card-outline card-primary">
             <div class="card-header py-2 d-flex align-items-center">
               <h3 class="card-title mr-auto"> Text </h3>
-              <span>SummerNote</span>
+              <a target="_blank" href="https://github.com/summernote/summernote/">SummerNote</a>
             </div>
             <div class="card-body p-1">
               <div class="form-group mb-0">

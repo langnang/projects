@@ -133,10 +133,16 @@ class Controller extends \App\Illuminate\Routing\Controller
     protected function getMetasWithModule()
     {
     }
-    protected function getContentsWithModule()
+    protected function getContentsWithModule($id)
     {
+        return $this->getModel('content')::with(['belongsToMeta'])->whereHas('belongsToMeta', function ($query) use ($id) {
+            $query->where('meta_id', $id);
+        });
     }
-    protected function getLinksWithModule()
+    protected function getLinksWithModule($id)
     {
+        return $this->getModel('content')::with(['belongsToMeta'])->whereHas('belongsToMeta', function ($query) use ($id) {
+            $query->where('meta_id', $id);
+        });
     }
 }

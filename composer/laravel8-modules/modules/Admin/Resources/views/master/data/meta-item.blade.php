@@ -1,6 +1,7 @@
 @extends('admin::layouts.master')
 
 @push('styles')
+  <link rel="stylesheet" href="{{ url('/modules/Admin/Public/master/plugins/plugins/dropzone/min/dropzone.min.css') }}">
   <style>
     .note-editor.card {
       margin-bottom: 0;
@@ -11,159 +12,282 @@
 @section('content')
   <section class="content">
     <div class="container-fluid">
-      <form class="row" method="post" name="content">
-        @csrf
-        <div class="col-12">
+      <div class="row">
 
+        <div class="col-md-12">
+          <form method="post" name="content-row">
+            @csrf
+            <input type="hidden" name="_action" value="{{ old('_action') }}">
+            <div class="card card-outline card-primary">
+              <div class="card-header py-2">
+                <h3 class="card-title">Meta Row</h3>
+              </div>
+              <div class="card-body pt-3 pb-0">
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <div class="input-group input-group-sm">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">Name</span>
+                      </div>
+                      <input type="text" class="form-control" name='name' value="{{ old('name', $meta['name']) }}">
+                    </div>
+                  </div>
+                  <div class="form-group col-md-3">
+                    <div class="input-group input-group-sm">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">Slug</span>
+                      </div>
+                      <input type="text" class="form-control" name='slug' value="{{ $meta['slug'] ?? '' }}">
+                    </div>
+                  </div>
+                  <div class="form-group col-md-3">
+                    <div class="input-group input-group-sm">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">Module</span>
+                      </div>
+                      <select class="form-control" name='module'>
+                        @foreach (Module::all() ?? [] as $moduleName => $moduleObject)
+                          <option value="{{ $moduleObject->getAlias() }}" @if ($moduleObject->getAlias() == old('module', $meta['module'])) selected @endif>{{ $moduleName }}</option>
+                        @endforeach
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <div class="input-group input-group-sm">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">Ico</span>
+                      </div>
+                      <input type="text" class="form-control" name='ico' value="{{ $meta['ico'] ?? '' }}">
+                    </div>
+                  </div>
+                  <div class="form-group col-md-3">
+                    <div class="input-group input-group-sm">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">Type</span>
+                      </div>
+                      <select class="form-control" name='type'>
+                        @foreach (Arr::get($options, 'meta.type', []) as $option)
+                          <option value="{{ $option['value'] }}" @if ($option['value'] == old('type', $meta['type'])) selected @endif>{{ $option['name'] }}</option>
+                        @endforeach
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group col-md-3">
+                    <div class="input-group input-group-sm">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">Status</span>
+                      </div>
+                      <select class="form-control" name='status'>
+                        @foreach (Arr::get($options, 'meta.status', []) as $option)
+                          <option value="{{ $option['value'] }}" @if ($option['value'] == old('status', $meta['status'])) selected @endif>{{ $option['name'] }}</option>
+                        @endforeach
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group col-12">
+                    <div class="input-group input-group-sm">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">Description</span>
+                      </div>
+                      <textarea name="description" class="form-control" rows="1">{{ $meta['description'] ?? '' }}</textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer py-2">
+                <div class="row">
+                  <div class="col mr-auto">
+                  </div>
+                  <div class="col col-auto">
+                    {{-- <button type="button" class="btn btn-sm btn-secondary" onclick="$('[name=_action]').val('draft');$('form[name=content-row]').submit()">Draft</button> --}}
+                    <button type="submit" class="btn btn-sm btn-primary">Submit</button>
+                    {{-- <button type="button" class="btn btn-sm btn-warning" onclick="$('[name=_action]').val('release');$('form[name=content-row]').submit()">Release</button> --}}
+                    <button type="button" class="btn btn-sm btn-warning" onclick="$('[name=_action]').val('factory');$('form[name=content-row]').submit()">Factory</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
         </div>
-        <div class="col-12">
+        <div class="col-md-12">
           <div class="card card-outline card-primary">
-            <div class="card-header py-2">
-              <h3 class="card-title">Meta</h3>
+            <div class="card-header">
+              <h3 class="card-title">Dropzone.js <small><em>jQuery File Upload</em> like look</small></h3>
             </div>
-            <div class="card-body pb-0">
-              <div class="form-row">
-                <div class="form-group col-md-6">
-                  <div class="input-group input-group-sm">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">Name</span>
-                    </div>
-                    <input type="text" class="form-control" name='name' value="{{ old('name', $meta['name']) }}">
+            <div class="card-body">
+              <div id="actions" class="row">
+                <div class="col-lg-6">
+                  <div class="btn-group w-100">
+                    <span class="btn btn-success col fileinput-button">
+                      <i class="fas fa-plus"></i>
+                      <span>Add files</span>
+                    </span>
+                    <button type="submit" class="btn btn-primary col start">
+                      <i class="fas fa-upload"></i>
+                      <span>Start upload</span>
+                    </button>
+                    <button type="reset" class="btn btn-warning col cancel">
+                      <i class="fas fa-times-circle"></i>
+                      <span>Cancel upload</span>
+                    </button>
                   </div>
                 </div>
-                <div class="form-group col-md-3">
-                  <div class="input-group input-group-sm">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">Slug</span>
+                <div class="col-lg-6 d-flex align-items-center">
+                  <div class="fileupload-process w-100">
+                    <div id="total-progress" class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                      <div class="progress-bar progress-bar-success" style="width:0%;" data-dz-uploadprogress></div>
                     </div>
-                    <input type="text" class="form-control" name='slug' value="{{ $meta['slug'] ?? '' }}">
                   </div>
                 </div>
-                <div class="form-group col-md-3">
-                  <div class="input-group input-group-sm">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">Module</span>
-                    </div>
-                    <select class="form-control" name='module'>
-                      @foreach (Module::all() ?? [] as $moduleName => $moduleObject)
-                        <option value="{{ $moduleObject->getAlias() }}" @if ($moduleObject->getAlias() == old('module', $meta['module'])) selected @endif>{{ $moduleName }}</option>
-                      @endforeach
-                    </select>
+              </div>
+              <div class="table table-striped files" id="previews">
+                <div id="template" class="row mt-2">
+                  <div class="col-auto">
+                    <span class="preview"><img src="data:," alt="" data-dz-thumbnail /></span>
                   </div>
-                </div>
-                <div class="form-group col-md-6">
-                  <div class="input-group input-group-sm">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">Ico</span>
-                    </div>
-                    <input type="text" class="form-control" name='ico' value="{{ $meta['ico'] ?? '' }}">
+                  <div class="col d-flex align-items-center">
+                    <p class="mb-0">
+                      <span class="lead" data-dz-name></span>
+                      (<span data-dz-size></span>)
+                    </p>
+                    <strong class="error text-danger" data-dz-errormessage></strong>
                   </div>
-                </div>
-                <div class="form-group col-md-3">
-                  <div class="input-group input-group-sm">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">Type</span>
+                  <div class="col-4 d-flex align-items-center">
+                    <div class="progress progress-striped active w-100" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                      <div class="progress-bar progress-bar-success" style="width:0%;" data-dz-uploadprogress></div>
                     </div>
-                    <select class="form-control" name='type'>
-                      @foreach (Arr::get($options, 'meta.type', []) as $option)
-                        <option value="{{ $option['value'] }}" @if ($option['value'] == old('type', $meta['type'])) selected @endif>{{ $option['name'] }}</option>
-                      @endforeach
-                    </select>
                   </div>
-                </div>
-                <div class="form-group col-md-3">
-                  <div class="input-group input-group-sm">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">Status</span>
+                  <div class="col-auto d-flex align-items-center">
+                    <div class="btn-group">
+                      <button class="btn btn-primary start">
+                        <i class="fas fa-upload"></i>
+                        <span>Start</span>
+                      </button>
+                      <button data-dz-remove class="btn btn-warning cancel">
+                        <i class="fas fa-times-circle"></i>
+                        <span>Cancel</span>
+                      </button>
+                      <button data-dz-remove class="btn btn-danger delete">
+                        <i class="fas fa-trash"></i>
+                        <span>Delete</span>
+                      </button>
                     </div>
-                    <select class="form-control" name='status'>
-                      @foreach (Arr::get($options, 'meta.status', []) as $option)
-                        <option value="{{ $option['value'] }}" @if ($option['value'] == old('status', $meta['status'])) selected @endif>{{ $option['name'] }}</option>
-                      @endforeach
-                    </select>
-                  </div>
-                </div>
-                <div class="form-group col-12">
-                  <div class="input-group input-group-sm">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">Description</span>
-                    </div>
-                    <textarea name="description" id="" class="form-control" rows="2">{{ $meta['description'] ?? '' }}</textarea>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="card-footer py-2">
-              <div class="row">
-                <div class="col mr-auto">
-                  <button type="submit" class="btn btn-sm btn-primary">Submit</button>
-                  <button type="button" class="btn btn-sm btn-warning">Release</button>
-                </div>
-                <div class="col col-auto">
-                  <button type="button" class="btn btn-sm btn-secondary">Draft</button>
-                  <button type="button" class="btn btn-sm btn-danger">Faker</button>
+            <!-- /.card-body -->
+            <div class="card-footer">
+              Visit <a target="_blank" href="https://www.dropzonejs.com">dropzone.js documentation</a> for more examples and information about the plugin.
+            </div>
+          </div>
+          <!-- /.card -->
+        </div>
+
+        @if (isset($meta['id']) && $meta->type == 'module')
+          <div class="col-4">
+            <div class="card card-outline card-info">
+              <div class="card-header py-2">
+                <h3 class="card-title">Modules</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <div class="card-body pt-3 pb-0">
+                <div class="form-group">
+                  @foreach ($meta['modules'] ?? [] as $meta_child)
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" disabled>
+                      <label class="form-check-label">{{ $meta_child['name'] }}</label>
+                    </div>
+                  @endforeach
                 </div>
               </div>
+
+              <!-- /.card-body -->
+
             </div>
           </div>
-        </div>
-        <div class="col-4">
-          <div class="card card-outline card-info">
-            <div class="card-header">
-              <h3 class="card-title">Categories</h3>
-            </div>
-            <!-- /.card-header -->
-            <!-- form start -->
-            <div class="card-body">
+          <div class="col-4">
+            <div class="card card-outline card-info">
+              <div class="card-header py-2">
+                <h3 class="card-title">Branches</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <div class="card-body pt-3 pb-0">
+                <div class="form-group">
+                  @foreach ($meta['branches'] ?? [] as $meta_child)
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" disabled>
+                      <label class="form-check-label">{{ $meta_child['name'] }}</label>
+                    </div>
+                  @endforeach
+                </div>
+              </div>
 
-            </div>
+              <!-- /.card-body -->
 
-            <!-- /.card-body -->
-
-            <div class="card-footer">
-              <button type="submit" class="btn btn-sm btn-primary">Submit</button>
             </div>
           </div>
-          <div class="card">
-            <div class="card-header">
-              <h3 class="card-title">Tags</h3>
-            </div>
-            <!-- /.card-header -->
-            <!-- form start -->
-            <div class="card-body">
+          <div class="col-4">
+            <div class="card card-outline card-info">
+              <div class="card-header py-2">
+                <h3 class="card-title">Categories</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <div class="card-body pt-3 pb-0">
+                <div class="form-group">
+                  @foreach ($meta['categories'] ?? [] as $meta_child)
+                    <div class="form-check" style="padding-left: 1rem;">
+                      <input class="form-check-input" type="checkbox" disabled>
+                      <label class="form-check-label">{{ $meta_child['name'] }}</label>
+                    </div>
+                    @foreach ($meta_child['children'] ?? [] as $meta_child_02)
+                      <div class="form-check" style="padding-left: 1.5rem;">
+                        <input class="form-check-input" type="checkbox" disabled>
+                        <label class="form-check-label">{{ $meta_child_02['name'] }}</label>
+                      </div>
+                      @foreach ($meta_child_02['children'] ?? [] as $meta_child_03)
+                        <div class="form-check" style="padding-left: 2rem;">
+                          <input class="form-check-input" type="checkbox" disabled>
+                          <label class="form-check-label">{{ $meta_child_03['name'] }}</label>
+                        </div>
+                      @endforeach
+                    @endforeach
+                  @endforeach
+                </div>
+              </div>
+
+              <!-- /.card-body -->
 
             </div>
 
-            <!-- /.card-body -->
+            <div class="card card-outline card-info">
+              <div class="card-header py-2">
+                <h3 class="card-title">Tags</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <div class="card-body pt-3 pb-0">
+                <div class="form-group">
+                  @foreach ($meta['tags'] ?? [] as $meta_child)
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" disabled>
+                      <label class="form-check-label">{{ $meta_child['name'] }}</label>
+                    </div>
+                  @endforeach
+                </div>
+              </div>
 
-            <div class="card-footer">
-              <button type="submit" class="btn btn-sm btn-primary">Submit</button>
+              <!-- /.card-body -->
+
             </div>
           </div>
-          <div class="card">
-            <div class="card-header">
-              <h3 class="card-title">Links</h3>
-            </div>
-            <!-- /.card-header -->
-            <!-- form start -->
-            <div class="card-body">
+        @endif
 
-            </div>
-
-            <!-- /.card-body -->
-
-            <div class="card-footer">
-              <button type="submit" class="btn btn-sm btn-primary">Submit</button>
-            </div>
-          </div>
-        </div>
-      </form>
-
-    </div>
-    <div class="d-none">
-      <div id="editor">
-        {{ $meta['text'] ?? '' }}
       </div>
+
     </div>
   </section>
 
@@ -208,6 +332,7 @@
 
 
 @push('scripts')
+  <script src="{{ asset('/modules/Admin/Public/master/plugins/dropzone/min/dropzone.min.js') }}"></script>
   {{-- <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script> --}}
   {{-- <script src="https://cdn.jsdelivr.net/npm/ckeditor5@41.4.2/dist/browser/index.umd.min.js"></script> --}}
   {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ckeditor5@41.4.2/dist/browser/index.min.css"> --}}
@@ -245,44 +370,60 @@
   </script>
   <script>
     $(function() {
-      // Summernote
-      //   $('#summernote').summernote()
+      // DropzoneJS Demo Code Start
+      Dropzone.autoDiscover = false
 
-      // CodeMirror
-      //   CodeMirror.fromTextArea(document.getElementById("codeMirror"), {
-      //     mode: "markdown",
-      //     theme: "monokai"
-      //   });
+      // Get the template HTML and remove it from the doumenthe template HTML and remove it from the doument
+      var previewNode = document.querySelector("#template")
+      previewNode.id = ""
+      var previewTemplate = previewNode.parentNode.innerHTML
+      previewNode.parentNode.removeChild(previewNode)
+
+      var myDropzone = new Dropzone(document.body, { // Make the whole body a dropzone
+        url: "import/{{ $meta->id }}", // Set the url
+        thumbnailWidth: 80,
+        thumbnailHeight: 80,
+        parallelUploads: 20,
+        previewTemplate: previewTemplate,
+        autoQueue: false, // Make sure the files aren't queued until manually added
+        previewsContainer: "#previews", // Define the container to display the previews
+        clickable: ".fileinput-button" // Define the element that should be used as click trigger to select files.
+      })
+
+      myDropzone.on("addedfile", function(file) {
+        // Hookup the start button
+        file.previewElement.querySelector(".start").onclick = function() {
+          myDropzone.enqueueFile(file)
+        }
+      })
+
+      // Update the total progress bar
+      myDropzone.on("totaluploadprogress", function(progress) {
+        document.querySelector("#total-progress .progress-bar").style.width = progress + "%"
+      })
+
+      myDropzone.on("sending", function(file) {
+        // Show the total progress bar when upload starts
+        document.querySelector("#total-progress").style.opacity = "1"
+        // And disable the start button
+        file.previewElement.querySelector(".start").setAttribute("disabled", "disabled")
+      })
+
+      // Hide the total progress bar when nothing's uploading anymore
+      myDropzone.on("queuecomplete", function(progress) {
+        document.querySelector("#total-progress").style.opacity = "0"
+      })
+
+      // Setup the buttons for all transfers
+      // The "add files" button doesn't need to be setup because the config
+      // `clickable` has already been specified.
+      document.querySelector("#actions .start").onclick = function() {
+        myDropzone.enqueueFiles(myDropzone.getFilesWithStatus(Dropzone.ADDED))
+      }
+      document.querySelector("#actions .cancel").onclick = function() {
+        myDropzone.removeAllFiles(true)
+      }
+
     })
-
-    // $(document).ready(() => {
-    //   ckeditor5.ClassicEditor
-    //     .create(document.querySelector('#editor'), {
-    //       toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
-    //       heading: {
-    //         options: [{
-    //             model: 'paragraph',
-    //             title: 'Paragraph',
-    //             class: 'ck-heading_paragraph'
-    //           },
-    //           {
-    //             model: 'heading1',
-    //             view: 'h1',
-    //             title: 'Heading 1',
-    //             class: 'ck-heading_heading1'
-    //           },
-    //           {
-    //             model: 'heading2',
-    //             view: 'h2',
-    //             title: 'Heading 2',
-    //             class: 'ck-heading_heading2'
-    //           }
-    //         ]
-    //       }
-    //     })
-    //     .catch(error => {
-    //       console.error(error);
-    //     });
-    // })
   </script>
 @endpush
