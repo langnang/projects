@@ -126,8 +126,6 @@
               </div>
               <div class="mr-auto">
                 <a type="button" class="btn btn-sm btn-primary" href="metas/create?{{ Arr::query(request()->all()) }}">新增</a>
-                <button type="button" class="btn btn-sm btn-warning">修改</button>
-                <button type="button" class="btn btn-sm btn-danger">删除</button>
                 <button type="button" class="btn btn-sm btn-secondary">打印</button>
                 <button type="button" class="btn btn-sm btn-secondary">上传</button>
                 <button type="button" class="btn btn-sm btn-secondary">下载</button>

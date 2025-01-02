@@ -1,7 +1,7 @@
 @extends('admin::layouts.master')
 
 @push('styles')
-  <link rel="stylesheet" href="{{ url('/modules/Admin/Public/master/plugins/plugins/dropzone/min/dropzone.min.css') }}">
+  <link rel="stylesheet" href="{{ url('/modules/Admin/Public/master/plugins/dropzone/min/dropzone.min.css') }}">
   <style>
     .note-editor.card {
       margin-bottom: 0;

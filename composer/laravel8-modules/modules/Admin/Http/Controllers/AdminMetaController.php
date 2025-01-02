@@ -152,7 +152,29 @@ class AdminMetaController extends AdminController
 
         return $this->index($request);
     }
+    public function list(Request $request)
+    {
+        $request->validate([
+            'ids' => 'required|string',
+            'operation' => 'required|string',
+        ]);
+        $ids = explode('|', $request->input('ids'));
 
+        $return = [
+            "list" => $this->getModel('meta')::whereIn('id', $ids)->get(),
+        ];
+
+        return $this->view('data.meta-list', $return);
+    }
+    public function batch(Request $request)
+    {
+        // var_dump($request->all());
+        return $this->list($request);
+        // $file = $request->file('file');
+        // var_dump($file);
+
+        // return $this->index($request);
+    }
 
 
     protected function validateMeta(Request $request)

@@ -34,6 +34,8 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
             Route::post('/{id}', 'AdminMetaController@update');
             Route::post('/delete/{id}', 'AdminMetaController@destroy');
             Route::post('/import/{id}', 'AdminMetaController@import');
+            Route::get('/batch', 'AdminMetaController@list');
+            Route::post('/batch', 'AdminMetaController@batch');
         });
         Route::prefix('contents')->group(function () {
             Route::get('/', 'AdminContentController@index');
