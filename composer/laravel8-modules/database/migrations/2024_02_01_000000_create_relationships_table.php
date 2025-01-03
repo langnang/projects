@@ -24,6 +24,7 @@ class CreateRelationshipsTable extends Migration
             $table->integer('meta_id')->nullable()->comment("Meta");
             $table->integer('content_id')->nullable()->comment("Content");
             $table->integer('link_id')->nullable()->comment("Link");
+            $table->integer('file_id')->nullable()->comment("File");
             foreach (\Module::allEnabled() as $moduleName => $moduleObject) {
                 $table->integer($moduleObject->getAlias() . '_id')->nullable()->comment($moduleName);
             }

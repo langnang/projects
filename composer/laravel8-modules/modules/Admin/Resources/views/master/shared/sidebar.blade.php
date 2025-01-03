@@ -42,7 +42,7 @@
             <li class="nav-item @if (Str::startsWith(request()->path(), Str::replace(':', '/', $category['slug']))) menu-is-opening menu-open @endif">
               <a href="{{ url(Str::replace(':', '/', $category['slug'])) }}" class="nav-link @if (Str::startsWith(request()->path(), Str::replace(':', '/', $category['slug']))) active @endif">
                 <i class="nav-icon @empty($category['ico'])  'fas fa-circle' @else {{ $category['ico'] }}  @endempty"></i>
-                <p class="text-truncate">
+                <p class="">
                   {{ $category['name'] }}
                   <i class="fas fa-angle-left right"></i>
                 </p>
@@ -52,7 +52,7 @@
                   <li class="nav-item">
                     <a href="{{ url(Str::replace(':', '/', $child_01['slug'])) }}" class="nav-link @if (Str::startsWith(request()->path(), Str::replace(':', '/', $child_01['slug']))) active @endif">
                       <i class="nav-icon @empty($child_01['ico']) far fa-circle @else {{ $child_01['ico'] }}  @endempty"></i>
-                      <p class="text-truncate">
+                      <p class="">
                         {{ $child_01['name'] }}
                       </p>
                     </a>

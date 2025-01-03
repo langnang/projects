@@ -15,7 +15,7 @@
       <div class="row">
 
         <div class="col-md-12">
-          <form method="post" name="content-row">
+          <form method="post" enctype="multipart/form-data" name="content-row">
             @csrf
             <input type="hidden" name="_action" value="{{ old('_action') }}">
             <div class="card card-outline card-primary">
@@ -29,7 +29,7 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text">Name</span>
                       </div>
-                      <input type="text" class="form-control" name='name' value="{{ old('name', $meta['name']) }}">
+                      <input type="text" class="form-control" name='name' placeholder="--Name--" value="{{ old('name', $meta['name']) }}"required>
                     </div>
                   </div>
                   <div class="form-group col-md-3">
@@ -37,7 +37,7 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text">Slug</span>
                       </div>
-                      <input type="text" class="form-control" name='slug' value="{{ $meta['slug'] ?? '' }}">
+                      <input type="text" class="form-control" name='slug' placeholder="--Slug--" value="{{ $meta['slug'] ?? '' }}">
                     </div>
                   </div>
                   <div class="form-group col-md-3">
@@ -46,18 +46,19 @@
                         <span class="input-group-text">Module</span>
                       </div>
                       <select class="form-control" name='module'>
+                        <option value="">--Module--</option>
                         @foreach (Module::all() ?? [] as $moduleName => $moduleObject)
                           <option value="{{ $moduleObject->getAlias() }}" @if ($moduleObject->getAlias() == old('module', $meta['module'])) selected @endif>{{ $moduleName }}</option>
                         @endforeach
                       </select>
                     </div>
                   </div>
-                  <div class="form-group col-md-6">
+                  <div class="form-group col-md-4">
                     <div class="input-group input-group-sm">
                       <div class="input-group-prepend">
                         <span class="input-group-text">Ico</span>
                       </div>
-                      <input type="text" class="form-control" name='ico' value="{{ $meta['ico'] ?? '' }}">
+                      <input type="text" class="form-control" name='ico' placeholder="--Ico--" value="{{ $meta['ico'] ?? '' }}">
                     </div>
                   </div>
                   <div class="form-group col-md-3">
@@ -66,6 +67,7 @@
                         <span class="input-group-text">Type</span>
                       </div>
                       <select class="form-control" name='type'>
+                        <option value="">--Type--</option>
                         @foreach (Arr::get($options, 'meta.type', []) as $option)
                           <option value="{{ $option['value'] }}" @if ($option['value'] == old('type', $meta['type'])) selected @endif>{{ $option['name'] }}</option>
                         @endforeach
@@ -78,13 +80,22 @@
                         <span class="input-group-text">Status</span>
                       </div>
                       <select class="form-control" name='status'>
+                        <option value="">--Status--</option>
                         @foreach (Arr::get($options, 'meta.status', []) as $option)
                           <option value="{{ $option['value'] }}" @if ($option['value'] == old('status', $meta['status'])) selected @endif>{{ $option['name'] }}</option>
                         @endforeach
                       </select>
                     </div>
                   </div>
-                  <div class="form-group col-12">
+                  <div class="form-group col-md-2">
+                    <div class="input-group input-group-sm">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">Order</span>
+                      </div>
+                      <input type="number" min="0" max="99" class="form-control" name='order' placeholder="--Order--" value="{{ $meta['order'] ?? 0 }}">
+                    </div>
+                  </div>
+                  <div class="form-group col-md-12">
                     <div class="input-group input-group-sm">
                       <div class="input-group-prepend">
                         <span class="input-group-text">Description</span>
@@ -92,11 +103,24 @@
                       <textarea name="description" class="form-control" rows="1">{{ $meta['description'] ?? '' }}</textarea>
                     </div>
                   </div>
+
+                  <div class="form-group col-md-12">
+                    <div class="input-group input-group-sm">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">Upload</span>
+                      </div>
+                      <div class="custom-file">
+                        <input type="file" class="custom-file-input" accept=".json,.xlsx,.csv,.md,.txt" name="file">
+                        <label class="custom-file-label">Choose file...</label>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="card-footer py-2">
                 <div class="row">
                   <div class="col mr-auto">
+
                   </div>
                   <div class="col col-auto">
                     {{-- <button type="button" class="btn btn-sm btn-secondary" onclick="$('[name=_action]').val('draft');$('form[name=content-row]').submit()">Draft</button> --}}
@@ -333,6 +357,7 @@
 
 @push('scripts')
   <script src="{{ asset('/modules/Admin/Public/master/plugins/dropzone/min/dropzone.min.js') }}"></script>
+  <script src="{{ asset('/modules/Admin/Public/master/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
   {{-- <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script> --}}
   {{-- <script src="https://cdn.jsdelivr.net/npm/ckeditor5@41.4.2/dist/browser/index.umd.min.js"></script> --}}
   {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ckeditor5@41.4.2/dist/browser/index.min.css"> --}}
@@ -424,6 +449,11 @@
         myDropzone.removeAllFiles(true)
       }
 
+    })
+  </script>
+  <script>
+    $(function() {
+      bsCustomFileInput.init();
     })
   </script>
 @endpush

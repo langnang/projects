@@ -7,9 +7,12 @@
       <form method="POST" class="row">
         @csrf
         <div class="col-md-12">
-          <div class="callout callout-danger">
-            <h5><i class="fas fa-info"></i> Danger:</h5>
-            This page has been enhanced for printing. Click the print button at the bottom of the invoice to test.
+          <div class="alert alert-danger alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h5><i class="icon fas fa-ban"></i> Alert!</h5>
+            Danger alert preview. This alert is dismissable. A wonderful serenity has taken possession of my
+            entire
+            soul, like these sweet mornings of spring which I enjoy with my whole heart.
           </div>
         </div>
         <div class="col-md-8">

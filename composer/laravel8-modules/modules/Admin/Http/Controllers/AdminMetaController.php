@@ -14,18 +14,25 @@ class AdminMetaController extends AdminController
      */
     public function index(Request $request)
     {
+
+        if ($request->method() == 'POST')
+            $this->import($request->merge(['meta_id' => $request->input('parent', 0)]));
+
         $query = $this->getModel('meta')::withCount('children');
 
         $request->whenFilled('slug', function ($input) use (&$query) {
             $query = $query->where('slug', 'like', "%$input%");
         });
-
+        $request->whenFilled('name', function ($input) use (&$query) {
+            $query = $query->where('name', 'like', "%$input%");
+        });
         $query = $query
-            ->where('name', 'like', '%' . $request->input('name') . '%')
             ->whereIn('type', $request->filled('type') ? [$request->input('type')] : array_keys(\Arr::get($this->moduleOption, 'meta.type')))
             ->whereIn('status', $request->filled('status') ? [$request->input('status')] : array_keys(\Arr::get($this->moduleOption, 'meta.status')))
             ->where('parent', $request->input('parent', 0))
-            ->whereNull('deleted_at');
+            ->whereNull('deleted_at')
+            ->orderBy('order')
+            ->orderByDesc('updated_at');
         \Arr::set($this->sqls, 'select_meta_list', $query->toRawSql());
         return $this->view('data.meta-table', [
             'paginator' => $query->paginate(20),
@@ -112,8 +119,12 @@ class AdminMetaController extends AdminController
     {
         //
         $this->validateMeta($request);
+
+        // 
         $request->merge(['user' => \Auth::id()]);
+        // 
         $meta = $this->getModel('meta')::find($id);
+        // 
         $meta->fill($request->all());
         $meta->save();
 
@@ -143,14 +154,71 @@ class AdminMetaController extends AdminController
     /**
      * Summary of import
      * @param \Illuminate\Http\Request $request
-     * @return Renderable
      */
     public function import(Request $request)
     {
+        if ($request->method() == 'GET')
+            return;
         // $file = $request->file('file');
         // var_dump($file);
+        if ($request->hasFile('file') && $request->file('file')->isValid()) {
+            //
+            var_dump($request->file('file'));
 
-        return $this->index($request);
+            var_dump([
+                'path' => $request->file->path(),
+                'extension' => $request->file->extension(),
+                'getPath' => $request->file->getPath(),
+                'getPathInfo' => $request->file->getPathInfo(),
+                'getClientOriginalName' => $request->file->getClientOriginalName(),
+                'getClientOriginalExtension' => $request->file->getClientOriginalExtension(),
+                'getMaxFilesize' => $request->file->getMaxFilesize(),
+                'getErrorMessage' => $request->file->getErrorMessage(),
+                'getError' => $request->file->getError(),
+                'getPathname' => $request->file->getPathname(),
+                'getClientMimeType' => $request->file->getClientMimeType(),
+            ]);
+
+
+            $fileModel = $this->getModel("file");
+            $file = new $fileModel;
+            $file->fill([
+                'slug' => basename($request->file->hashName(), '.txt'),
+                'name' => $request->file->getClientOriginalName(),
+                'extension' => $request->file->getClientOriginalExtension(),
+                'type' => $request->file->getClientMimeType(),
+                'user' => \Auth::id(),
+            ]);
+            $file->save();
+
+            $this->getModel('relationship')::insert([
+                'meta_id' => $request->input('meta_id', 0),
+                'file_id' => $file->id,
+            ]);
+            var_dump($file);
+
+            $path = $request->file->storeAs('metas/' . $request->file->getClientOriginalExtension(), str_replace(['-', ' ', ':'], '_', $file->created_at) . '_' . $request->file->getClientOriginalName());
+            var_dump($path);
+            $file->timestamps = false;
+            $file->update([
+                'path' => $path,
+            ]);
+            $file->save();
+            switch ($file->type) {
+                case 'application/json':
+                    $fileContent = \Storage::get($path);
+                    $this->upsertData($request, json_decode($fileContent, true));
+                    break;
+                case 'md':
+                    break;
+                default:
+                    break;
+            }
+
+
+        } else {
+        }
+        // return $this->index($request);
     }
     public function list(Request $request)
     {
@@ -159,7 +227,6 @@ class AdminMetaController extends AdminController
             'operation' => 'required|string',
         ]);
         $ids = explode('|', $request->input('ids'));
-
         $return = [
             "list" => $this->getModel('meta')::whereIn('id', $ids)->get(),
         ];
@@ -168,6 +235,25 @@ class AdminMetaController extends AdminController
     }
     public function batch(Request $request)
     {
+        $request->validate([
+            'ids' => 'required|string',
+            'operation' => 'required|string',
+        ]);
+        $ids = explode('|', $request->input('ids'));
+        $list = $this->getModel('meta')::whereIn('id', $ids)->get();
+
+        switch ($request->input('operation')) {
+            case 'export-json':
+                $path = 'metas/' . date_format(now(), 'Y_m_d_H_i_s_ms') . '_metas.json';
+                \Storage::put($path, json_encode($list, JSON_UNESCAPED_UNICODE));
+                // return response()->download(\Storage::path($path), basename($path), ['content-type' => 'application/json']);
+
+                return \Storage::download($path, basename($path));
+                break;
+            default:
+                break;
+        }
+
         // var_dump($request->all());
         return $this->list($request);
         // $file = $request->file('file');

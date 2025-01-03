@@ -27,6 +27,15 @@
   <!-- summernote -->
   <link rel="stylesheet" href="{{ asset('/modules/Admin/Public/master/plugins/summernote/summernote-bs4.min.css') }}">
   <style>
+    .sidebar-mini .xdebug-var-dump {
+      transition: margin-left .3s ease-in-out;
+      margin-left: 250px;
+    }
+
+    .sidebar-mini.sidebar-collapse .xdebug-var-dump {
+      margin-left: 4.6rem !important
+    }
+
     .nav-sidebar .nav-treeview .nav-link {
       padding-left: 1.5rem;
     }
@@ -37,6 +46,15 @@
 
     .pagination {
       margin-bottom: 0;
+    }
+
+    .input-group-sm>.custom-file,
+    .input-group-sm>.custom-file>.custom-file-input,
+    .input-group-sm>.custom-file>.custom-file-label,
+    .input-group-sm>.custom-file>.custom-file-label::after {
+      height: calc(1.8125rem + 2px);
+      padding: .25rem .5rem;
+      font-size: .875rem;
     }
   </style>
   @stack('styles')

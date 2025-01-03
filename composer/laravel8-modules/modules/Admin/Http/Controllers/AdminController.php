@@ -44,12 +44,17 @@ class AdminController extends \App\Illuminate\Routing\Controller
         $return = array_merge($data, [
             'view' => $view,
             'adminModule' => array_merge($this->adminModule->getModuleAttributes(), [
-                'categories' => $this->getModel('meta')::with(['children'])
+                'categories' => $this->getModel('meta')::with([
+                    'children' => function ($query) {
+                        return $query->orderBy('order');
+                    }
+                ])
                     ->where('type', 'category')
                     ->whereIn('status', \Auth::check() ? ['public', 'publish', 'protected', 'private'] : ['public', 'publish'])
                     ->where('parent', $this->adminModule->moduleMeta->id)
                     ->whereNull('deleted_at')
                     ->where('name', '!=', '')
+                    ->orderBy('order')
                     ->get(),
                 'active_category' => $this->getModel('meta')::where('slug', \Str::replace('/', ':', request()->path()))->first(),
             ]),
@@ -87,6 +92,18 @@ class AdminController extends \App\Illuminate\Routing\Controller
     }
     protected function getLinksWithModule()
     {
+    }
+
+    protected function upsertData(Request $request, ...$values)
+    {
+        var_dump(__METHOD__);
+        var_dump($request->all());
+        var_dump($values);
+
+        foreach (array_merge([$this->moduleAlias], array_keys($this->getModel())) as $modelKey) {
+            var_dump($modelKey);
+            var_dump(\Str::plural($modelKey));
+        }
     }
 }
 

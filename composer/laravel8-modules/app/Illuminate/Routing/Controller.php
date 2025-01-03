@@ -22,13 +22,14 @@ abstract class Controller extends \Illuminate\Routing\Controller
     protected $models = [
         'meta' => \App\Models\Meta::class,
         'content' => \App\Models\Content::class,
-        'field' => \App\Models\Field::class,
         'link' => \App\Models\Link::class,
+        'file' => \App\Models\File::class,
+        'relationship' => \App\Models\Relationship::class,
+        'field' => \App\Models\Field::class,
         'comment' => \App\Models\Comment::class,
         'user' => \App\Models\User::class,
         'option' => \App\Models\Option::class,
         'log' => \App\Models\Log::class,
-        'relationship' => \App\Models\Relationship::class,
     ];
     protected $mergeModels = [];
 
@@ -395,9 +396,11 @@ abstract class Controller extends \Illuminate\Routing\Controller
         // return Auth::check() ? [] : [];
     }
 
-    protected function getModel($key)
+    protected function getModel($key = null)
     {
         $models = array_merge($this->models, $this->mergeModels);
+        if (empty($key))
+            return $models;
         if (!array_key_exists($key, $models))
             return;
 
