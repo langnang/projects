@@ -6,16 +6,18 @@
     <div class="container-fluid">
       <form method="POST" class="row">
         @csrf
-        <div class="col-md-12">
-          <div class="alert alert-danger alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            <h5><i class="icon fas fa-ban"></i> Alert!</h5>
-            Danger alert preview. This alert is dismissable. A wonderful serenity has taken possession of my
-            entire
-            soul, like these sweet mornings of spring which I enjoy with my whole heart.
+        @if (request()->input('operation') == 'delete')
+          <div class="col-md-12">
+            <div class="alert alert-danger alert-dismissible">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+              <h5><i class="icon fas fa-ban"></i> Alert!</h5>
+              Danger alert preview. This alert is dismissable. A wonderful serenity has taken possession of my
+              entire
+              soul, like these sweet mornings of spring which I enjoy with my whole heart.
+            </div>
           </div>
-        </div>
-        <div class="col-md-8">
+        @endif
+        <div class="@if (request()->input('operation') == 'remove') col-md-8 @else col-md-12 @endif">
           <div class="card">
             <div class="card-header d-flex align-items-center py-2">
               <h4 class="mb-0 mr-auto">Meta List</h4>
@@ -121,56 +123,65 @@
             </div>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="card">
-            <div class="card-header d-flex align-items-center py-2">
-              <h4 class="mb-0 mr-auto">Modules</h4>
-              <div class="">
-                {{-- <button type="button" class="btn btn-sm btn-secondary" onclick="$('[name=_action]').val('draft');$('form[name=content-row]').submit()">Draft</button> --}}
-                <button type="submit" class="btn btn-sm btn-primary">Submit</button>
-                {{-- <button type="button" class="btn btn-sm btn-warning" onclick="$('[name=_action]').val('release');$('form[name=content-row]').submit()">Release</button> --}}
-                <button type="button" class="btn btn-sm btn-warning" onclick="$('[name=_action]').val('factory');$('form[name=content-row]').submit()">Factory</button>
-              </div>
-            </div>
-            <ul class="list-group list-group-flush"></ul>
-            <div class="card-footer py-2">
-              <div class="row">
-                <div class="col mr-auto">
-                </div>
-                <div class="col col-auto">
+        @if (request()->input('operation') == 'remove')
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-header d-flex align-items-center py-2">
+                <h4 class="mb-0 mr-auto">Modules</h4>
+                <div class="">
                   {{-- <button type="button" class="btn btn-sm btn-secondary" onclick="$('[name=_action]').val('draft');$('form[name=content-row]').submit()">Draft</button> --}}
                   <button type="submit" class="btn btn-sm btn-primary">Submit</button>
                   {{-- <button type="button" class="btn btn-sm btn-warning" onclick="$('[name=_action]').val('release');$('form[name=content-row]').submit()">Release</button> --}}
                   <button type="button" class="btn btn-sm btn-warning" onclick="$('[name=_action]').val('factory');$('form[name=content-row]').submit()">Factory</button>
                 </div>
               </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-header d-flex align-items-center py-2">
-              <h4 class="mb-0 mr-auto">Modules</h4>
-              <div class="">
-                {{-- <button type="button" class="btn btn-sm btn-secondary" onclick="$('[name=_action]').val('draft');$('form[name=content-row]').submit()">Draft</button> --}}
-                <button type="submit" class="btn btn-sm btn-primary">Submit</button>
-                {{-- <button type="button" class="btn btn-sm btn-warning" onclick="$('[name=_action]').val('release');$('form[name=content-row]').submit()">Release</button> --}}
-                <button type="button" class="btn btn-sm btn-warning" onclick="$('[name=_action]').val('factory');$('form[name=content-row]').submit()">Factory</button>
+              <div class="card-body pt-3 pb-0">
+                <div class="form-group">
+                  <div class="form-check" style="padding-left: .5rem;">
+                    <input class="form-check-input" type="radio" name="module" value="0">
+                    <label class="form-check-label">Root</label>
+                  </div>
+                  @foreach ($modules ?? [] as $meta_module)
+                    <div class="form-check" style="padding-left: 1rem;">
+                      <input class="form-check-input" type="radio" name="module" value="{{ $meta_module['id'] }}">
+                      <label class="form-check-label">{{ $meta_module['name'] }}</label>
+                    </div>
+                    @foreach ($meta_module['children'] ?? [] as $meta_module_01)
+                      <div class="form-check" style="padding-left: 1.5rem;">
+                        <input class="form-check-input" type="radio" name="module" value="{{ $meta_module_01['id'] }}">
+                        <label class="form-check-label">{{ $meta_module_01['name'] }}</label>
+                      </div>
+                      @foreach ($meta_module_01['children'] ?? [] as $meta_module_02)
+                        <div class="form-check" style="padding-left: 2rem;">
+                          <input class="form-check-input" type="radio" name="module" value="{{ $meta_module_02['id'] }}">
+                          <label class="form-check-label">{{ $meta_module_02['name'] }}</label>
+                        </div>
+                      @endforeach
+                      @foreach ($meta_module_02['children'] ?? [] as $meta_module_03)
+                        <div class="form-check" style="padding-left: 2.5rem;">
+                          <input class="form-check-input" type="radio" name="module" value="{{ $meta_module_03['id'] }}">
+                          <label class="form-check-label">{{ $meta_module_03['name'] }}</label>
+                        </div>
+                      @endforeach
+                    @endforeach
+                  @endforeach
+                </div>
+              </div>
+              <div class="card-footer py-2">
+                <div class="row">
+                  <div class="col mr-auto">
+                  </div>
+                  <div class="col col-auto">
+                    {{-- <button type="button" class="btn btn-sm btn-secondary" onclick="$('[name=_action]').val('draft');$('form[name=content-row]').submit()">Draft</button> --}}
+                    <button type="submit" class="btn btn-sm btn-primary">Submit</button>
+                    {{-- <button type="button" class="btn btn-sm btn-warning" onclick="$('[name=_action]').val('release');$('form[name=content-row]').submit()">Release</button> --}}
+                    <button type="button" class="btn btn-sm btn-warning" onclick="$('[name=_action]').val('factory');$('form[name=content-row]').submit()">Factory</button>
+                  </div>
+                </div>
               </div>
             </div>
-            <ul class="list-group list-group-flush"></ul>
-            <div class="card-footer py-2">
-              <div class="row">
-                <div class="col mr-auto">
-                </div>
-                <div class="col col-auto">
-                  {{-- <button type="button" class="btn btn-sm btn-secondary" onclick="$('[name=_action]').val('draft');$('form[name=content-row]').submit()">Draft</button> --}}
-                  <button type="submit" class="btn btn-sm btn-primary">Submit</button>
-                  {{-- <button type="button" class="btn btn-sm btn-warning" onclick="$('[name=_action]').val('release');$('form[name=content-row]').submit()">Release</button> --}}
-                  <button type="button" class="btn btn-sm btn-warning" onclick="$('[name=_action]').val('factory');$('form[name=content-row]').submit()">Factory</button>
-                </div>
-              </div>
-            </div>
           </div>
-        </div>
+        @endif
       </form>
       <!-- /.row -->
     </div><!-- /.container-fluid -->

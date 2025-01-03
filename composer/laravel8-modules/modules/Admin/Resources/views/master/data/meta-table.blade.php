@@ -117,7 +117,6 @@
                     <option value="update">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;编辑</option>
                     <option value="copy">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;复制</option>
                     <option value="delete">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;删除</option>
-                    <option value="export">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;导出</option>
                     <option value="remove">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;移动</option>
 
                     <optgroup label="导出：">

@@ -207,7 +207,7 @@ class AdminMetaController extends AdminController
             switch ($file->type) {
                 case 'application/json':
                     $fileContent = \Storage::get($path);
-                    $this->upsertData($request, json_decode($fileContent, true));
+                    $this->upsertModelData($request, json_decode($fileContent, true));
                     break;
                 case 'md':
                     break;
@@ -229,6 +229,11 @@ class AdminMetaController extends AdminController
         $ids = explode('|', $request->input('ids'));
         $return = [
             "list" => $this->getModel('meta')::whereIn('id', $ids)->get(),
+            "modules" => $this->getModel('meta')::with([
+                'children' => function ($query) {
+                    $query->where('type', 'module');
+                }
+            ])->where('type', 'module')->where('parent', 0)->get(),
         ];
 
         return $this->view('data.meta-list', $return);
@@ -243,12 +248,30 @@ class AdminMetaController extends AdminController
         $list = $this->getModel('meta')::whereIn('id', $ids)->get();
 
         switch ($request->input('operation')) {
+            case 'update':
+            case 'copy':
+            case 'delete':
+
+                break;
+            case 'remove':
+                $request->whenFilled('module', function ($input) use (&$list) {
+                    foreach ($list as $item) {
+                        $item->fill(['parent' => $input]);
+                        $item->save();
+                    }
+                });
+                break;
+
             case 'export-json':
                 $path = 'metas/' . date_format(now(), 'Y_m_d_H_i_s_ms') . '_metas.json';
-                \Storage::put($path, json_encode($list, JSON_UNESCAPED_UNICODE));
+                \Storage::put($path, json_encode(["metas" => $list], JSON_UNESCAPED_UNICODE));
                 // return response()->download(\Storage::path($path), basename($path), ['content-type' => 'application/json']);
 
                 return \Storage::download($path, basename($path));
+                break;
+            case 'export-csv':
+            case 'export-xlsx':
+            case 'export-pdf':
                 break;
             default:
                 break;

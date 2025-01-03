@@ -94,16 +94,5 @@ class AdminController extends \App\Illuminate\Routing\Controller
     {
     }
 
-    protected function upsertData(Request $request, ...$values)
-    {
-        var_dump(__METHOD__);
-        var_dump($request->all());
-        var_dump($values);
-
-        foreach (array_merge([$this->moduleAlias], array_keys($this->getModel())) as $modelKey) {
-            var_dump($modelKey);
-            var_dump(\Str::plural($modelKey));
-        }
-    }
 }
 

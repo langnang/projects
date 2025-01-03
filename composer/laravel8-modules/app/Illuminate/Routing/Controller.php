@@ -422,4 +422,23 @@ abstract class Controller extends \Illuminate\Routing\Controller
         }
         \Arr::set($this->sqls, $key, $values);
     }
+
+    protected function upsertModelData(\Illuminate\Http\Request $request, ...$values)
+    {
+        var_dump(__METHOD__);
+        var_dump($request->all());
+        var_dump($values);
+        foreach ($this->getModel() as $modelKey => $modelClass) {
+            var_dump($modelClass);
+            var_dump(get_class_vars($modelClass));
+            if (array_key_exists($modelKey, $values)) {
+
+            } else if (array_key_exists(\Str::plural($modelKey), $values)) {
+
+            }
+            continue;
+
+        }
+
+    }
 }
