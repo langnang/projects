@@ -71,7 +71,34 @@
             </li>
           @endif
         @endforeach
-        <li class="nav-header text-uppercase">Helpers</li>
+        <li class="nav-item d-none">
+          <a href="admin/helpers" class="nav-link ">
+            <i class="nav-icon fas fa-tachometer-alt text-info"></i>
+            <p class="">
+              Helpers
+              <i class="fas fa-angle-left right"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="admin/helpers/about" class="nav-link ">
+                <i class="nav-icon  far fa-circle "></i>
+                <p class="">
+                  About
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="admin/helpers/plugins" class="nav-link ">
+                <i class="nav-icon  far fa-circle "></i>
+                <p class="">
+                  Plugins
+                </p>
+              </a>
+            </li>
+
+          </ul>
+        </li>
       </ul>
     </nav>
     <!-- /.sidebar-menu -->

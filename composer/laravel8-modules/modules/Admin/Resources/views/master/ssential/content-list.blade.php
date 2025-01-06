@@ -7,9 +7,8 @@
       <div class="row">
         <div class="col-12">
           <div class="card mb-2">
-            <div class="card-header pl-3 d-flex align-items-center">
+            <div class="card-header py-2 pl-3 d-flex align-items-center">
               <h3 class="card-title mr-auto">Content List</h3>
-
               <form class="form-inline card-tools float-right mb-0">
                 <div class="form-group mr-1">
                   <select class="form-control form-control-sm" name="module" placeholder="Module" disabled>
