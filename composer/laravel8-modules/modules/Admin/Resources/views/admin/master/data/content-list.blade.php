@@ -6,7 +6,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-12">
-          <div class="card">
+          <div class="card mb-2">
             <div class="card-header pl-3">
               <h3 class="card-title">Content List</h3>
 
@@ -51,7 +51,7 @@
               </form>
             </div>
             <!-- /.card-header -->
-            <div class="card-body table-responsive p-0" style="height: calc(100vh - 321px);">
+            <div class="card-body table-responsive p-0" style="height: calc(100vh - 275px);">
               <table class="table table-sm table-striped table-hover table-head-fixed text-nowrap">
                 <thead>
                   <tr>

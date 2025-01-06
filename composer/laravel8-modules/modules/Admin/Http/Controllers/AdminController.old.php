@@ -172,12 +172,12 @@ class AdminController extends AdminApiController
 
     public function view_content_list(Request $request)
     {
-        $request->merge(['$view' => 'data.content-list']);
+        $request->merge(['$view' => 'ssential.content-list']);
         return parent::{__FUNCTION__}($request);
     }
     public function view_content_item(Request $request, $cid = 0)
     {
-        $request->merge(['$view' => 'data.content-item']);
+        $request->merge(['$view' => 'ssential.content-item']);
         if ($request->method() == 'GET') {
         }
 
@@ -315,7 +315,7 @@ trait ViewAdminTrait
             'view' => 'admin::admin.' . Module::currentConfig('layout') . '.modules.index',
             'moduleConfig' => Module::currentConfig(null, $module, 'files'),
             'method' => 'view_admin_index',
-            // 'jsdelivrs' => Http::get('http://data.jsdelivr.com/v1/stats/packages')->json()
+            // 'jsdelivrs' => Http::get('http://ssential.jsdelivr.com/v1/stats/packages')->json()
         ];
         foreach (Arr::get($return, 'moduleConfig.controllers') as $controller) {
             if (strtolower(basename($controller)) === strtolower(Arr::get($return, 'moduleConfig.name') . 'AdminController')) {
@@ -329,7 +329,7 @@ trait ViewAdminTrait
         }
         // var_dump(Arr::get($return['moduleConfig'], 'controllers'));
         // var_dump(Arr::get($return['moduleConfig'], 'name') . 'AdminController');
-        // $response = Http::get('http://data.jsdelivr.com/v1/stats/packages');
+        // $response = Http::get('http://ssential.jsdelivr.com/v1/stats/packages');
         // var_dump($response->json());
         return $this->view($return['view'], $return);
     }

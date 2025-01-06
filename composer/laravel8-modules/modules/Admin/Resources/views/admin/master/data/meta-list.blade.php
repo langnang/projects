@@ -23,7 +23,7 @@
               </div>
             </div>
             <!-- /.card-header -->
-            <div class="card-body table-responsive p-0" style="height: calc(100vh - 311px);;">
+            <div class="card-body table-responsive p-0" style="height: calc(100vh - 311px);">
               <table class="table table-striped table-hover table-head-fixed text-nowrap">
                 <thead>
                   <tr>

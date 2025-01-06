@@ -49,7 +49,7 @@ class AdminContentController extends AdminController
 
         $this->setSqls('select_content_list', \DB::getQueryLog());
         \DB::disableQueryLog();
-        return $this->view('data.content-list', [
+        return $this->view('ssential.content-list', [
             'paginator' => $paginator,
         ]);
     }
@@ -64,7 +64,7 @@ class AdminContentController extends AdminController
         $return = [
             'content' => new $contentModel(request()->all())
         ];
-        return $this->view('data.content-item', $return);
+        return $this->view('ssential.content-item', $return);
     }
 
     /**
@@ -113,7 +113,7 @@ class AdminContentController extends AdminController
             //     ->whereNull('deleted_at')
             //     ->get()
         ];
-        return $this->view('data.content-item', $return);
+        return $this->view('ssential.content-item', $return);
     }
 
     /**

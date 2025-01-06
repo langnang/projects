@@ -14,7 +14,7 @@ class AdminLinkController extends AdminController
      */
     public function index(Request $request)
     {
-        return $this->view('data.link-list', [
+        return $this->view('ssential.link-list', [
             'paginator' => $this->getModel('link')::paginate(20),
         ]);
     }

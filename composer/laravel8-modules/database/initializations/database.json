@@ -268,6 +268,13 @@
     "webhunts": [],
     "webhunts[type=post&status=public]": [
         {
+            "slug": "movie.douban.com",
+            "ico": "",
+            "title": "豆瓣电影",
+            "description": "豆瓣电影提供最新的电影介绍及评论包括上映影片的影讯查询及购票服务。你可以记录想看、在看和看过的电影电视剧，顺便打分、写影评。根据你的口味，豆瓣电影会推荐好电影给你。",
+            "text": {}
+        },
+        {
             "slug": "cdrcxg",
             "ico": "",
             "title": "书本网-免费全本小说",

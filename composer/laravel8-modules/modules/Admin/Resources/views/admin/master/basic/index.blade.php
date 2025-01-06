@@ -7,7 +7,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-12">
-          <div class="card">
+          <div class="card mb-2">
             <div class="card-header">
               <h3 class="card-title">Fixed Header Table</h3>
 
@@ -29,7 +29,7 @@
               </form>
             </div>
             <!-- /.card-header -->
-            <div class="card-body table-responsive p-0" style="height: calc(100vh - 321px);">
+            <div class="card-body table-responsive p-0" style="height: calc(100vh - 275px);">
               <table class="table table-sm table-striped table-hover table-head-fixed text-nowrap">
                 <thead>
                   <tr>
@@ -49,8 +49,7 @@
                           <input class="form-check-input" type="checkbox" value="{{ $moduleTableDetail->cid }}">
                         </div>
                       </td>
-                      <td><a class=""
-                          href="contents/{{ $moduleTableDetail->cid }}">{{ $moduleTableDetail->cid }}</a></td>
+                      <td><a class="" href="contents/{{ $moduleTableDetail->cid }}">{{ $moduleTableDetail->cid }}</a></td>
                       <td>{{ $moduleTableDetail->title }}</td>
                       <td>{{ $moduleTableDetail->status }}</td>
                       <td>{{ $moduleTableDetail->created_at }}</td>

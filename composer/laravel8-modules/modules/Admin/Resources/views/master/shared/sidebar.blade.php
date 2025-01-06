@@ -71,6 +71,7 @@
             </li>
           @endif
         @endforeach
+        <li class="nav-header text-uppercase">Helpers</li>
       </ul>
     </nav>
     <!-- /.sidebar-menu -->

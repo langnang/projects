@@ -34,7 +34,7 @@ class AdminMetaController extends AdminController
             ->orderBy('order')
             ->orderByDesc('updated_at');
         \Arr::set($this->sqls, 'select_meta_list', $query->toRawSql());
-        return $this->view('data.meta-table', [
+        return $this->view('ssential.meta-table', [
             'paginator' => $query->paginate(20),
         ]);
     }
@@ -49,7 +49,7 @@ class AdminMetaController extends AdminController
         $return = [
             'meta' => new $metaModel(request()->all()),
         ];
-        return $this->view('data.meta-item', $return);
+        return $this->view('ssential.meta-item', $return);
     }
 
     /**
@@ -106,7 +106,7 @@ class AdminMetaController extends AdminController
         $return = [
             'meta' => $meta,
         ];
-        return $this->view('data.meta-item', $return);
+        return $this->view('ssential.meta-item', $return);
     }
 
     /**
@@ -236,7 +236,7 @@ class AdminMetaController extends AdminController
             ])->where('type', 'module')->where('parent', 0)->get(),
         ];
 
-        return $this->view('data.meta-list', $return);
+        return $this->view('ssential.meta-list', $return);
     }
     public function batch(Request $request)
     {
