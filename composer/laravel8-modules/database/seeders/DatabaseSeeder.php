@@ -20,24 +20,27 @@ class DatabaseSeeder extends Seeder
         ]);
 
 
-        // \App\Models\User::factory(1)->insert();
-        // \App\Models\Meta::factory(100)->create();
-        // \App\Models\Content::factory(100)->create();
-        // \App\Models\Field::factory(1000)->create();
-        // \App\Models\Comment::factory(100)->create();
-        // \App\Models\Link::factory(10)->create();
-
-        // \App\Models\link::upsert($this->getInitializaions('links'), ['slug'], ['slug', 'title', 'url', 'ico', 'description', 'keywords', 'type', 'status']);
-
-        // \App\Models\Relationship::factory(100)->create();
-
-        // $this->call("OthersTableSeeder");
 
         $this->call(array_merge([
             ModuleDatabaseSeeder::class,
         ], array_map(function ($moduleName) {
             return "\Modules\\" . $moduleName . "\Database\Seeders\\" . $moduleName . "DatabaseSeeder";
         }, array_keys(\Module::all()))));
+
+
+
+        // \App\Models\User::factory(1)->insert();
+        \App\Models\Meta::factory(100)->create();
+        \App\Models\Content::factory(100)->create();
+        // \App\Models\Field::factory(1000)->create();
+        // \App\Models\Comment::factory(100)->create();
+        // \App\Models\Link::factory(10)->create();
+
+        \App\Models\link::upsert($this->getInitializaions('links'), ['slug'], ['slug', 'title', 'url', 'ico', 'description', 'keywords', 'type', 'status']);
+
+        \App\Models\Relationship::factory(100)->create();
+
+        // $this->call("OthersTableSeeder");
 
     }
 

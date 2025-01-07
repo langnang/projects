@@ -8,6 +8,22 @@ use Illuminate\Support\Facades\View;
 
 class AdminController extends \App\Illuminate\Routing\Controller
 {
+    /**
+     * 与控制器关联的模型列表
+     * @var array
+     */
+    protected $models = [
+        'meta' => \App\Models\Meta::class,
+        'content' => \App\Models\Content::class,
+        'link' => \App\Models\Link::class,
+        'file' => \App\Models\File::class,
+        'relationship' => \App\Models\Relationship::class,
+        'field' => \App\Models\Field::class,
+        'comment' => \App\Models\Comment::class,
+        'user' => \App\Models\User::class,
+        'option' => \App\Models\Option::class,
+        'log' => \App\Models\Log::class,
+    ];
     protected $childModuleController;
     protected $adminModule;
     public function __construct($moduleName = null)
@@ -32,25 +48,26 @@ class AdminController extends \App\Illuminate\Routing\Controller
             $this->moduleAlias = $module->getAlias();
             $this->moduleConfig = config($this->moduleAlias);
         }
-
-        $this->moduleMeta = $this->moduleName ? \App\Models\Meta::where('slug', 'module:' . $this->moduleAlias)->first() : new \App\Models\Meta(['id' => 0]);
-
+        // 
+        $this->moduleMeta = \Cache::rememberForever('admin_module.meta', function () {
+            return $this->moduleName ? \App\Models\Meta::where('slug', 'module:' . $this->moduleAlias)->first() : new \App\Models\Meta(['id' => 0]);
+        });
         $this->queryModuleOption();
-        $this->childModuleController = new \App\Http\Controllers\Controller('Home');
+        // $this->childModuleController = new \App\Http\Controllers\Controller('Home');
         $this->adminModule = new \App\Http\Controllers\Controller('Admin');
     }
     protected function view($view = null, $data = [], $mergeData = [])
     {
         $return = array_merge($data, [
             'view' => $view,
-            'adminModule' => array_merge($this->adminModule->getModuleAttributes(), [
+            'adminModule' => array_merge($this->adminModule->getModuleAttributes() ?? [], [
                 'categories' => $this->getModel('meta')::with([
                     'children' => function ($query) {
                         return $query->orderBy('order');
                     }
                 ])
                     ->where('type', 'category')
-                    ->whereIn('status', \Auth::check() ? ['public', 'publish', 'protected', 'private'] : ['public', 'publish'])
+                    ->whereIn('status', ['public', 'publish', 'protected', 'private'])
                     ->where('parent', $this->adminModule->moduleMeta->id)
                     ->whereNull('deleted_at')
                     ->where('name', '!=', '')
@@ -58,7 +75,7 @@ class AdminController extends \App\Illuminate\Routing\Controller
                     ->get(),
                 'active_category' => $this->getModel('meta')::where('slug', \Str::replace('/', ':', request()->path()))->first(),
             ]),
-            'childModule' => $this->childModuleController->getModuleAttributes(),
+            // 'childModule' => $this->childModuleController->getModuleAttributes(),
         ]);
         if (empty($return['layout'])) {
             $return['layout'] = 'admin::' . $this->config('view.framework', ) . '.' . $return['view'];

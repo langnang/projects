@@ -6,6 +6,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-12">
+
           <div class="card mb-2">
             <div class="card-header d-flex align-items-center py-2">
               <h4 class="mb-0 mr-auto">Meta Table</h4>

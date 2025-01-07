@@ -8,7 +8,7 @@ class CreateCacheTable extends Migration
 {
     protected $prefix = '';
     protected $tableName = 'cache';
-    protected $status = "private";
+    protected $status = "protected";
     /**
      * Run the migrations.
      *

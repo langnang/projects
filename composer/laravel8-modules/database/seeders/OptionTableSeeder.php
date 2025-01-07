@@ -58,12 +58,12 @@ class OptionTableSeeder extends Seeder
                         'module' => ['value' => 'module', 'name' => 'Module', 'nameCn' => '模块',],
                         'tag' => ['value' => 'tag', 'name' => 'Tag', 'nameCn' => '标签',],
                         'category' => ['value' => 'category', 'name' => 'Category', 'nameCn' => '分类',],
-                        'branch' => ['value' => 'branch', 'name' => 'Branch', 'nameCn' => '分支',],
+                        // 'branch' => ['value' => 'branch', 'name' => 'Branch', 'nameCn' => '分支',],
                         'group' => ['value' => 'group', 'name' => 'Group', 'nameCn' => '分组',],
-                        'collection' => ['value' => 'collection', 'name' => 'Collection', 'nameCn' => '专辑',],
-                        'compilation' => ['value' => 'compilation', 'name' => 'Compilation', 'nameCn' => '合集',],
-                        'menu' => ['value' => 'menu', "staus" => "private", 'name' => 'Menu', 'nameCn' => '菜单',],
-                        'nav' => ['value' => 'nav', "staus" => "private", 'name' => 'Nav', 'nameCn' => '导航',],
+                        // 'collection' => ['value' => 'collection', 'name' => 'Collection', 'nameCn' => '专辑',],
+                        // 'compilation' => ['value' => 'compilation', 'name' => 'Compilation', 'nameCn' => '合集',],
+                        // 'menu' => ['value' => 'menu', "staus" => "private", 'name' => 'Menu', 'nameCn' => '菜单',],
+                        // 'nav' => ['value' => 'nav', "staus" => "private", 'name' => 'Nav', 'nameCn' => '导航',],
 
                     ])
                 ],

@@ -8,8 +8,18 @@ class Meta extends \Illuminate\Database\Eloquent\Model
 
     use \App\Traits\Model\HasFamily;
     use \App\Traits\Model\HasRelationship;
+    /**
+     * 与模型关联的数据表.
+     *
+     * @var string
+     */
     protected $table = "metas";
-
+    /**
+     * 模型的属性默认值。
+     *
+     * @var array
+     */
+    protected $attributes = [];
     // protected $primaryKey = 'mid';
 
     protected $relationshipKey = "meta_id";

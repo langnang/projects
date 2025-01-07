@@ -18,19 +18,16 @@ abstract class Controller extends \Illuminate\Routing\Controller
     protected $moduleMeta;
     protected $user;
     protected $sqls = [];
-
+    /**
+     * 与控制器关联的模型列表
+     * @var array
+     */
     protected $models = [
-        'meta' => \App\Models\Meta::class,
-        'content' => \App\Models\Content::class,
-        'link' => \App\Models\Link::class,
-        'file' => \App\Models\File::class,
-        'relationship' => \App\Models\Relationship::class,
-        'field' => \App\Models\Field::class,
-        'comment' => \App\Models\Comment::class,
-        'user' => \App\Models\User::class,
-        'option' => \App\Models\Option::class,
-        'log' => \App\Models\Log::class,
     ];
+    /**
+     * 附加的与控制器关联的模型列表
+     * @var array
+     */
     protected $mergeModels = [];
 
     public function __construct($moduleName = null)

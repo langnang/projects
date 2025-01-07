@@ -6,6 +6,32 @@ use Illuminate\Http\Request;
 
 class Controller extends \App\Illuminate\Routing\Controller
 {
+    /**
+     * 与控制器关联的模型列表
+     * @var array
+     */
+    protected $models = [
+        'meta' => \App\Models\Meta::class,
+        'content' => \App\Models\Content::class,
+        'link' => \App\Models\Link::class,
+        'file' => \App\Models\File::class,
+        'relationship' => \App\Models\Relationship::class,
+        'field' => \App\Models\Field::class,
+        'comment' => \App\Models\Comment::class,
+        'user' => \App\Models\User::class,
+        'option' => \App\Models\Option::class,
+        'log' => \App\Models\Log::class,
+    ];
+    /**
+     * Summary of view
+     * @param mixed $view
+     * @param mixed $data
+     * @param mixed $mergeData
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @return \Illuminate\Contracts\View\Factory
+     * @return \Illuminate\Contracts\View\View
+     */
     protected function view($view = null, $data = [], $mergeData = [])
     {
         // var_dump(__METHOD__);
@@ -22,6 +48,8 @@ class Controller extends \App\Illuminate\Routing\Controller
             'categories' => \Arr::get(
                 $data,
                 'categories',
+                // \Cache::remember()
+                $this->select_meta_categories()->with(['children']),
                 $this->getModel('meta')::with(['children'])
                     ->where('type', 'category')
                     ->whereIn('status', \Auth::check() ? ['public', 'publish', 'protected', 'private'] : ['public', 'publish'])
@@ -119,7 +147,6 @@ class Controller extends \App\Illuminate\Routing\Controller
 
     /**
      * Display a listing of the resource.
-     * @return Renderable
      */
     public function index()
     {
@@ -129,7 +156,63 @@ class Controller extends \App\Illuminate\Routing\Controller
     {
         return $this->view('welcome');
     }
-
+    /**
+     * Summary of getMetaModules
+     * @param \Illuminate\Http\Request $request
+     * @return void
+     */
+    protected function select_meta_modules(Request $request)
+    {
+        return $this->get('meta')::with(['children'])->where('type', 'module');
+    }
+    /**
+     * Summary of getMetaCategories
+     * @param \Illuminate\Http\Request $request
+     * @return void
+     */
+    protected function select_meta_categories(Request $request)
+    {
+        return $this->get('meta')::with(['children'])
+            ->where('parent', $this->moduleMeta->id)
+            ->where('type', 'category');
+    }
+    /**
+     * Summary of getMetaTags
+     * @param \Illuminate\Http\Request $request
+     * @return void
+     */
+    protected function select_meta_tags(Request $request)
+    {
+        $metaModuleId = $this->moduleMeta->id;
+        return $this->get('meta')::with([])
+            ->where('type', 'tag');
+    }
+    protected function select_content_posts(Request $request)
+    {
+        return $this->get('content')::with(['belongsToMeta'])
+            ->whereHas('belongsToMeta', function ($query) {
+                $query->where('meta_id', $this->moduleMeta->id);
+            })
+            ->where('type', 'post');
+    }
+    protected function select_content_templates(Request $request)
+    {
+        $metaModuleId = $this->moduleMeta->id;
+        return $this->get('content')::with(['belongsToMeta'])
+            ->whereHas('belongsToMeta', function ($query) {
+                $query->where('meta_id', $this->moduleMeta->id);
+            })
+            ->where('type', 'template');
+    }
+    protected function select_content_pages(Request $request)
+    {
+        $metaModuleId = $this->moduleMeta->id;
+        return $this->get('content')::with(['belongsToMeta'])
+            ->whereHas('belongsToMeta', function ($query) {
+                $query->where('meta_id', $this->moduleMeta->id);
+            })
+            ->where('type', 'page');
+    }
     protected function getMetasWithModule()
     {
     }
@@ -144,5 +227,15 @@ class Controller extends \App\Illuminate\Routing\Controller
         return $this->getModel('content')::with(['belongsToMeta'])->whereHas('belongsToMeta', function ($query) use ($id) {
             $query->where('meta_id', $id);
         });
+    }
+
+    protected function select_link_sites(Request $request)
+    {
+        $metaModuleId = $this->moduleMeta->id;
+        return $this->get('link')::with(['belongsToMeta'])
+            ->whereHas('belongsToMeta', function ($query) {
+                $query->where('meta_id', $this->moduleMeta->id);
+            })
+            ->where('type', 'site');
     }
 }

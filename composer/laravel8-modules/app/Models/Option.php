@@ -8,7 +8,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Option extends \Illuminate\Database\Eloquent\Model
 {
+    /**
+     * 与模型关联的数据表.
+     *
+     * @var string
+     */
     public $table = 'options';
+    /**
+     * 指明模型的 ID 不是自增。
+     *
+     * @var bool
+     */
     public $incrementing = false;
     protected $hidden = [
         'user',
@@ -24,6 +34,13 @@ class Option extends \Illuminate\Database\Eloquent\Model
         'release_at',
         'deleted_at'
     ];
+
+    /**
+     * 模型的属性默认值。
+     *
+     * @var array
+     */
+    protected $attributes = [];
 
     public function toArray()
     {

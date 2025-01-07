@@ -11,6 +11,11 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+    /**
+     * 与模型关联的数据表.
+     *
+     * @var string
+     */
     protected $table = "users";
 
     // protected $primaryKey = 'uid';
