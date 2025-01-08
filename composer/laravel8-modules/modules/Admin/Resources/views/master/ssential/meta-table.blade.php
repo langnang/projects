@@ -143,6 +143,7 @@
               </form>
               <div class="mr-auto">
                 <a type="button" class="btn btn-sm btn-primary" href="metas/create?{{ Arr::query(request()->all()) }}">新增</a>
+                <a type="button" class="btn btn-sm btn-primary" href="metas/factory?{{ Arr::query(request()->all()) }}">Factory</a>
                 <button type="button" class="btn btn-sm btn-secondary">打印</button>
                 <button type="button" class="btn btn-sm btn-secondary">下载</button>
               </div>

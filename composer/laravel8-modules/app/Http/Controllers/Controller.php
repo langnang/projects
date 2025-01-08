@@ -84,10 +84,10 @@ class Controller extends \App\Illuminate\Routing\ModuleController
             'modules' => \Arr::get(
                 $data,
                 'modules',
-                \Cache::remember($this->alias . "_module.meta_modules", 24 * 3600, function () {
+                \Cache::remember("meta_modules", 24 * 3600, function () {
                     $query = $this->select_meta_modules(request())
                         ->whereIn('status', \Auth::check() ? ['public', 'publish', 'protected', 'private'] : ['public', 'publish'])
-                        ->where('parent', $this->getAttribute('id'))
+                        ->where('parent', 0)
                         ->whereNull('deleted_at')
                         ->where('name', '!=', '')
                         ->get();
@@ -197,7 +197,12 @@ class Controller extends \App\Illuminate\Routing\ModuleController
      */
     protected function select_meta_modules(Request $request)
     {
-        return $this->getModel('meta')::with(['children', 'relationships'])->where('type', 'module');
+        return $this->getModel('meta')::with([
+            'children' => function ($query) {
+                $query->where('type', 'module');
+            },
+            'relationships'
+        ])->where('type', 'module');
     }
     /**
      * Summary of getMetaCategories

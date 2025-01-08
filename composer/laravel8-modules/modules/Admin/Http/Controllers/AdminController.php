@@ -92,10 +92,30 @@ class AdminController extends \App\Illuminate\Routing\ModuleController
                 'categories' => \Arr::get($data, 'admin.categories', $this->select_admin_meta_categories()),
                 'active_category' => \Arr::get($data, 'admin.active_category', $this->select_admin_active_category()),
             ]),
+            'modules' => \Arr::get(
+                $data,
+                'modules',
+                \Cache::remember("meta_modules", 24 * 3600, function () {
+                    $query = $this->getModel('meta')::with([
+                        'children' => function ($query) {
+                            $query->with(['children'])->where('type', 'module');
+                        },
+                        'relationships'
+                    ])->where('type', 'module')
+                        ->whereIn('status', \Auth::check() ? ['public', 'publish', 'protected', 'private'] : ['public', 'publish'])
+                        ->where('parent', 0)
+                        ->whereNull('deleted_at')
+                        ->where('name', '!=', '')
+                        ->get();
+                    $this->setAttributeSql('select_meta_modules');
+                    return $query;
+                }),
+            ),
             // 'childModule' => $this->childModuleController->getModuleAttributes(),
         ]);
-        if (empty(\Arr::get($return, 'admin.active_category')))
-            abort(404);
+        if (empty(\Arr::get($return, 'admin.active_category'))) {
+            // abort(404);
+        }
         if (empty($return['layout'])) {
             $return['layout'] = 'admin::' . $this->getConfig('view.framework', ) . '.' . $return['view'];
             // var_dump($return['layout']);

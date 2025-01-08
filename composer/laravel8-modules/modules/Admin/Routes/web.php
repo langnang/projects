@@ -32,6 +32,9 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
             Route::get('/create', 'AdminMetaController@create');
             Route::post('/create', 'AdminMetaController@store');
 
+            Route::get('/factory', 'AdminMetaController@factory');
+            Route::post('/factory', 'AdminMetaController@store');
+
             Route::get('/{id}', 'AdminMetaController@edit');
             Route::post('/{id}', 'AdminMetaController@update');
 

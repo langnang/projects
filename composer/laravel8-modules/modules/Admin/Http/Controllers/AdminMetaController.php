@@ -52,6 +52,15 @@ class AdminMetaController extends AdminController
         return $this->view('ssential.meta-item', $return);
     }
 
+    public function factory()
+    {
+        $metaModel = $this->getModel('meta');
+        $return = [
+            'meta' => \Arr::first($metaModel::factory(1)->make()),
+        ];
+        return $this->view('ssential.meta-item', $return);
+    }
+
     /**
      * Store a newly created resource in storage.
      * @param Request $request
@@ -68,7 +77,7 @@ class AdminMetaController extends AdminController
         // $meta->fill($request->all());
         $meta->save();
 
-        return redirect(str_replace('create', $meta->id, $request->path()));
+        return redirect(str_replace(['create', 'factory'], $meta->id, $request->path()));
         // return redirect(($this->moduleAlias ?? 'home') . '/update-content/' . $meta->id);
         // return $this->edit($meta->id);
 
