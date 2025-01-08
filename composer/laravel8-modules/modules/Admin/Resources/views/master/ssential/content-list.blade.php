@@ -72,7 +72,12 @@
                           <input class="form-check-input" type="checkbox" value="{{ $item['id'] }}">
                         </div>
                       </td>
-                      <td><a class="" href="contents/{{ $item['id'] }}">{{ $item['title'] }}</a></td>
+                      <td><a class="" href="contents/{{ $item['id'] }}">
+                          @if (Str::startsWith($item['type'], 'draft-'))
+                            <span class="badge badge-secondary">Draft</span>
+                          @endif
+                          {{ $item['title'] }}
+                        </a></td>
                       <td>{{ $item['children_count'] }}</td>
                       <td>{{ $item['type'] }}</td>
                       <td>{{ $item['status'] }}</td>

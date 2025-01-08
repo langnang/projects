@@ -132,7 +132,7 @@
         <li class="nav-item">
           <div class="user-panel d-flex align-items-center">
             <div class="image">
-              <img src="{{ Auth::user()->ico }}" class="img-circle elevation-2" alt="User Image">
+              <img src="{{ Auth::user()->ico }}" class="img-circle" alt="User Image">
             </div>
             <div class="info">
               <a href="#" class="d-block">{{ Auth::user()->name }}</a>

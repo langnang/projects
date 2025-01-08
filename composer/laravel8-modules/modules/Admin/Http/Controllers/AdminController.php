@@ -61,29 +61,33 @@ class AdminController extends \App\Illuminate\Routing\ModuleController
         $this->admin = new \App\Http\Controllers\Controller('Admin');
     }
 
-    protected function setModuleAttributes(string $moduleName = null)
+    /**
+     * Summary of matchView
+     * @param mixed $data
+     * @return mixed
+     */
+    protected function matchView($data)
     {
-        if (!empty($moduleName))
-            $this->moduleName = \Str::studly($moduleName);
 
-        // $this->middleware('auth');
-        if (empty($this->moduleName)) {
-            if (preg_match('/^admin\/modules\/(\w*)/i', request()->path(), $moduleMatches)) {
-                $this->moduleName = \Str::studly($moduleMatches[1]);
-            } else {
-                $this->moduleName = 'Home';
+        if (!isset($data['view']))
+            abort(403);
+
+        if (empty($data['layout'])) {
+            $data['layout'] = 'admin::' . $this->getConfig('view.framework', ) . '.' . $data['view'];
+            // var_dump($return['layout']);
+            if (!View::exists($data['layout'])) {
+                $return['layout'] = $data['view'];
             }
+            // var_dump($return['layout']);
+            $data['view'] = $this->alias . '::' . $this->getConfig('view.framework') . '.' . $data['view'];
+            // var_dump($return['view']);
         }
-        $moduleName = $this->moduleName;
-        if (in_array($moduleName, ['Home'])) {
-            $this->alias = 'home';
-            $this->moduleConfig = ['name' => "Home", 'nameCn' => "首页"];
-        } else if (!empty($moduleName)) {
-            $this->module = $module = \Module::find($moduleName);
-            $this->alias = $module->getAlias();
-            $this->moduleConfig = config($this->alias);
+        if (!View::exists($data['view'])) {
+            $data['view'] = $data['layout'];
         }
+        return $data;
     }
+
     protected function view($view = null, $data = [], $mergeData = [])
     {
         $return = array_merge($data, [
@@ -116,19 +120,8 @@ class AdminController extends \App\Illuminate\Routing\ModuleController
         if (empty(\Arr::get($return, 'admin.active_category'))) {
             // abort(404);
         }
-        if (empty($return['layout'])) {
-            $return['layout'] = 'admin::' . $this->getConfig('view.framework', ) . '.' . $return['view'];
-            // var_dump($return['layout']);
-            if (!View::exists($return['layout'])) {
-                $return['layout'] = $return['view'];
-            }
-            // var_dump($return['layout']);
-            $return['view'] = $this->alias . '::' . $this->getConfig('view.framework') . '.' . $return['view'];
-            // var_dump($return['view']);
-        }
-        if (!View::exists($return['view'])) {
-            $return['view'] = $return['layout'];
-        }
+        $return = $this->matchView($return);
+
         return parent::view($return['view'], $return, $mergeData);
     }
     /**

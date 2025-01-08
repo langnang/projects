@@ -235,7 +235,31 @@ abstract class ModuleController extends \Illuminate\Routing\Controller
     // protected function session()
     // {
     // }
+    /**
+     * Summary of matchView
+     * @param mixed $data
+     * @return mixed
+     */
+    protected function matchView($data)
+    {
+        if (!isset($data['view']))
+            abort(403);
 
+        if (empty($data['layout'])) {
+            $data['layout'] = $this->getConfig('view.framework', ) . '.' . $data['view'];
+            // var_dump($return['layout']);
+            if (!View::exists($data['layout'])) {
+                $data['layout'] = $data['view'];
+            }
+            // var_dump($data['layout']);
+            $data['view'] = $this->alias . '::' . $this->getConfig('view.framework') . '.' . $data['view'];
+            // var_dump($return['view']);
+        }
+        if (!View::exists($data['view'])) {
+            $data['view'] = $data['layout'];
+        }
+        return $data;
+    }
     /**
      * Summary of view
      * @param mixed $view
@@ -255,21 +279,7 @@ abstract class ModuleController extends \Illuminate\Routing\Controller
             'view' => $view,
         ], $data);
 
-        if (!isset($return['view']))
-            abort(403);
-        if (empty($return['layout'])) {
-            $return['layout'] = $this->getConfig('view.framework', ) . '.' . $return['view'];
-            // var_dump($return['layout']);
-            if (!View::exists($return['layout'])) {
-                $return['layout'] = $return['view'];
-            }
-            // var_dump($return['layout']);
-            $return['view'] = $this->alias . '::' . $this->getConfig('view.framework') . '.' . $return['view'];
-            // var_dump($return['view']);
-        }
-        if (!View::exists($return['view'])) {
-            $return['view'] = $return['layout'];
-        }
+        $return = $this->matchView($return);
 
         if (env('WEB_CONSOLE')) {
             echo "<script>window.\$app=" . json_encode($return, JSON_UNESCAPED_UNICODE) . ";</script>";
@@ -277,4 +287,5 @@ abstract class ModuleController extends \Illuminate\Routing\Controller
         }
         return view($return['view'], $return, $mergeData);
     }
+
 }

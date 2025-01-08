@@ -9,11 +9,14 @@
 
           <div class="card mb-2">
             <div class="card-header d-flex align-items-center py-2">
-              <h4 class="mb-0 mr-auto">Meta Table</h4>
+              <h3 class="card-title mr-auto">
+                Meta Table
+                <small class="text-muted"><em>paging meta data</em></small>
+              </h3>
 
               <form class="form-inline mb-0" name="table">
                 <input type="hidden" name="parent" value="{{ request()->input('parent', 0) }}">
-                <div class="form-group ml-1">
+                <div class="form-group ml-1 d-none">
                   <select class="form-control form-control-sm" name="module" placeholder="Module" style="width: 120px;">
                     <option value="">--Module--</option>
                     @foreach (\Module::allEnabled() as $moduleName => $moduleObject)
@@ -90,8 +93,19 @@
                           <input class="form-check-input" type="checkbox" value="{{ $item['id'] }}">
                         </div>
                       </td>
-                      <td><a class="" href="metas/{{ $item['id'] }}">{{ $item['name'] }}</a></td>
-                      <td><a class="" href="metas?parent={{ $item['id'] }}">{{ $item['children_count'] }}</a></td>
+                      <td><a class="" href="metas/{{ $item['id'] }}">
+                          @if (Str::startsWith($item['type'], 'draft-'))
+                            <span class="badge badge-secondary">Draft</span>
+                          @endif
+                          {{ $item['name'] }}
+                        </a></td>
+                      <td>
+                        @if (in_array($item['type'], ['module', 'category']))
+                          <a class="" href="metas?parent={{ $item['id'] }}">{{ $item['children_count'] }}</a>
+                        @else
+                          -
+                        @endif
+                      </td>
                       <td>{{ $item['type'] }}</td>
                       <td>{{ $item['status'] }}</td>
                       <td>{{ $item['order'] }}</td>
@@ -143,12 +157,12 @@
               </form>
               <div class="mr-auto">
                 <a type="button" class="btn btn-sm btn-primary" href="metas/create?{{ Arr::query(request()->all()) }}">新增</a>
-                <a type="button" class="btn btn-sm btn-primary" href="metas/factory?{{ Arr::query(request()->all()) }}">Factory</a>
+                <a type="button" class="btn btn-sm btn-warning" href="metas/factory?{{ Arr::query(request()->all()) }}">Factory</a>
                 <button type="button" class="btn btn-sm btn-secondary">打印</button>
                 <button type="button" class="btn btn-sm btn-secondary">下载</button>
               </div>
-              <span class="px-1"> 共 {{ $paginator->total() }} 条</span>
-              <span class="px-1"> {{ $paginator->currentPage() }}/{{ $paginator->count() }} </span>
+              <span class="mr-1"> 共 {{ $paginator->total() }} 条</span>
+              <span class="mr-1"> {{ $paginator->currentPage() }}/{{ $paginator->count() }} </span>
               {{ $paginator->onEachSide(2)->withQueryString(['slug', 'title', 'type', 'status'])->links() }}
             </div>
             <!-- /.card-footer -->

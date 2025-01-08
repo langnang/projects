@@ -48,9 +48,14 @@
       padding-left: 2rem;
     }
 
+    .card-title {
+      font-size: 1.3rem;
+    }
+
     .pagination {
       margin-bottom: 0;
     }
+
 
     .input-group-sm>.custom-file,
     .input-group-sm>.custom-file>.custom-file-input,
@@ -83,7 +88,10 @@
           <!-- Content Header (Page header) -->
           <div class="content-header px-3 d-flex align-items-center py-2">
 
-            <h1 class="m-0 mr-auto">{{ Arr::get($admin, 'active_category.name', 'Dashboard') }}</h1>
+            <h1 class="m-0 mr-auto">{{ Arr::get($admin, 'active_category.name', 'Dashboard') }}
+
+              <small class="text-muted"><em>{{ Arr::get($admin, 'active_category.description') }}</em> </small>
+            </h1>
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="#">Admin</a></li>
               @foreach (Arr::get($admin, 'categories', []) as $category)

@@ -5,11 +5,13 @@ namespace Modules\Admin\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use App\Illuminate\Routing\Controller;
+use Redirect;
 
 class AdminMetaController extends AdminController
 {
     /**
-     * Display a listing of the resource.
+     * Display a paging list of the resource.
+     * 显示资源的分页列表
      * @return Renderable
      */
     public function index(Request $request)
@@ -41,18 +43,25 @@ class AdminMetaController extends AdminController
 
     /**
      * Show the form for creating a new resource.
+     * 显示用于创建新资源的表单
+     * @param \Illuminate\Http\Request $request
      * @return Renderable
      */
-    public function create()
+    public function create(Request $request)
     {
+        var_dump($request);
         $metaModel = $this->getModel('meta');
         $return = [
             'meta' => new $metaModel(request()->all()),
         ];
         return $this->view('ssential.meta-item', $return);
     }
-
-    public function factory()
+    /**
+     * Show the form for creating a new resource that has been populated with factory
+     * 显示用于创建已用模型工厂填充的新资源的表单
+     * @return Renderable
+     */
+    public function factory(Request $request)
     {
         $metaModel = $this->getModel('meta');
         $return = [
@@ -63,8 +72,9 @@ class AdminMetaController extends AdminController
 
     /**
      * Store a newly created resource in storage.
+     * 将新创建的资源存储在存储器中。
      * @param Request $request
-     * @return Renderable
+     * @return Renderable|\Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
@@ -76,7 +86,6 @@ class AdminMetaController extends AdminController
         $meta = new $metaModel($request->all());
         // $meta->fill($request->all());
         $meta->save();
-
         return redirect(str_replace(['create', 'factory'], $meta->id, $request->path()));
         // return redirect(($this->moduleAlias ?? 'home') . '/update-content/' . $meta->id);
         // return $this->edit($meta->id);
@@ -86,12 +95,13 @@ class AdminMetaController extends AdminController
     }
     /**
      * Show the form for editing the specified resource.
+     * 显示用于编辑指定资源的表单。
      * @param int $id
      * @return Renderable
      */
     public function edit($id)
     {
-        $meta = $this->getModel('meta')::find($id);
+        $meta = $this->getModel('meta')::with(['relationships'])->find($id);
 
         if ($meta['type'] == 'module') {
             $meta['modules'] = $this->getModel('meta')::with(['children'])
@@ -120,6 +130,7 @@ class AdminMetaController extends AdminController
 
     /**
      * Update the specified resource in storage.
+     * 更新存储中的指定资源。
      * @param Request $request
      * @param int $id
      * @return Renderable
@@ -142,8 +153,9 @@ class AdminMetaController extends AdminController
 
     /**
      * Remove the specified resource from storage.
+     * 从存储中移除指定的资源。
      * @param int $id
-     * @return Renderable
+     * @return Renderable|\Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
