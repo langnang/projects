@@ -564,5 +564,130 @@
             "html": "",
             "script": ""
         }
-    ]
+    ],
+    "module:admin": {
+        "metas": [
+            {
+                "slug": "admin:ssential",
+                "ico": "fas fa-tachometer-alt",
+                "name": "Essential",
+                "type": "category",
+                "status": "public",
+                "children": [
+                    {
+                        "slug": "admin:ssential:metas",
+                        "ico": "",
+                        "name": "Metas",
+                        "type": "category",
+                        "status": "public",
+                        "children": [
+                            {
+                                "slug": "admin:ssential:metas:create",
+                                "ico": "",
+                                "name": "Metas",
+                                "type": "category",
+                                "status": "private"
+                            },
+                            {
+                                "slug": "admin:ssential:metas:{id}",
+                                "ico": "",
+                                "name": "Metas",
+                                "type": "category",
+                                "status": "private"
+                            },
+                            {
+                                "slug": "admin:ssential:metas:batch",
+                                "ico": "",
+                                "name": "Metas",
+                                "type": "category",
+                                "status": "private"
+                            },
+                            {
+                                "slug": "admin:ssential:metas:import",
+                                "ico": "",
+                                "name": "Metas",
+                                "type": "category",
+                                "status": "private"
+                            }
+                        ]
+                    },
+                    {
+                        "slug": "admin:ssential:contents",
+                        "ico": "",
+                        "name": "Contents",
+                        "type": "category",
+                        "status": "public"
+                    },
+                    {
+                        "slug": "admin:ssential:links",
+                        "ico": "",
+                        "name": "Links",
+                        "type": "category",
+                        "status": "public"
+                    },
+                    {
+                        "slug": "admin:ssential:options",
+                        "ico": "",
+                        "name": "Options",
+                        "type": "category",
+                        "status": "public"
+                    },
+                    {
+                        "slug": "admin:ssential:logs",
+                        "ico": "",
+                        "name": "Logs",
+                        "type": "category",
+                        "status": "public"
+                    }
+                ]
+            },
+            {
+                "slug": "admin:modules",
+                "ico": "fas fa-tachometer-alt",
+                "name": "Modules",
+                "type": "category",
+                "status": "public",
+                "children": []
+            },
+            {
+                "slug": "admin:laravel",
+                "ico": "fas fa-tachometer-alt",
+                "name": "Laravel",
+                "type": "category",
+                "status": "public",
+                "children": [
+                    {
+                        "slug": "admin:laravel:migrations",
+                        "ico": "",
+                        "name": "Migrations",
+                        "type": "category",
+                        "status": "public"
+                    },
+                    {
+                        "slug": "admin:laravel:seeders",
+                        "ico": "",
+                        "name": "Seeders",
+                        "type": "category",
+                        "status": "public"
+                    }
+                ]
+            },
+            {
+                "slug": "admin:personal",
+                "ico": "fas fa-tachometer-alt",
+                "name": "Personal",
+                "type": "category",
+                "status": "public",
+                "children": []
+            },
+            {
+                "slug": "admin:system",
+                "ico": "fas fa-tachometer-alt",
+                "name": "System",
+                "type": "category",
+                "status": "public",
+                "children": []
+            }
+        ]
+    }
 }

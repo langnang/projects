@@ -4,7 +4,7 @@ namespace Modules\WebNav\Http\Controllers;
 
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
-use \App\Illuminate\Routing\Controller;
+use \App\Illuminate\Routing\ModuleController;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 class WebNavController extends \App\Http\Controllers\Controller

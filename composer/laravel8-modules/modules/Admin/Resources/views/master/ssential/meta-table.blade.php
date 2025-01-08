@@ -30,7 +30,7 @@
                 <div class="form-group ml-1">
                   <select class="form-control form-control-sm" name="type" style="width: 120px;">
                     <option value="">--Type--</option>
-                    @foreach (Arr::get($options, 'meta.type') as $option)
+                    @foreach (Arr::get($module, 'options.meta.type') as $option)
                       <option value="{{ $option['value'] }}" @if (request()->input('type') == $option['value']) selected @endif>{{ $option['name'] }}</option>
                     @endforeach
                   </select>
@@ -38,7 +38,7 @@
                 <div class="form-group ml-1">
                   <select class="form-control form-control-sm" name="status" style="width: 120px;">
                     <option value="">--Status--</option>
-                    @foreach (Arr::get($options, 'meta.status') as $option)
+                    @foreach (Arr::get($module, 'options.meta.status') as $option)
                       <option value="{{ $option['value'] }}" @if (request()->input('status') == $option['value']) selected @endif>{{ $option['name'] }}</option>
                     @endforeach
                   </select>

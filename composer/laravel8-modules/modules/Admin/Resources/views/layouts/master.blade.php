@@ -27,6 +27,10 @@
   <!-- summernote -->
   <link rel="stylesheet" href="{{ asset('/modules/Admin/Public/master/plugins/summernote/summernote-bs4.min.css') }}">
   <style>
+    .main-header .nav-link {
+      height: auto;
+    }
+
     .sidebar-mini .xdebug-var-dump {
       transition: margin-left .3s ease-in-out;
       margin-left: 250px;
@@ -79,10 +83,10 @@
           <!-- Content Header (Page header) -->
           <div class="content-header px-3 d-flex align-items-center py-2">
 
-            <h1 class="m-0 mr-auto">{{ Arr::get($adminModule, 'active_category.name', 'Dashboard') }}</h1>
+            <h1 class="m-0 mr-auto">{{ Arr::get($admin, 'active_category.name', 'Dashboard') }}</h1>
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="#">Admin</a></li>
-              @foreach (Arr::get($adminModule, 'categories', []) as $category)
+              @foreach (Arr::get($admin, 'categories', []) as $category)
                 @if (Str::startsWith(request()->path(), Str::replace(':', '/', $category['slug'])))
                   <li class="breadcrumb-item"><a href="{{ url(Str::replace(':', '/', $category['slug'])) }}">{{ $category['name'] }}</a></li>
                 @endif

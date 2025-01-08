@@ -57,7 +57,7 @@
                             <span class="input-group-text">Type</span>
                           </div>
                           <select class="form-control" name='list[{{ $index }}][type]'>
-                            @foreach (Arr::get($options, 'meta.type', []) as $option)
+                            @foreach (Arr::get($module, 'options.meta.type', []) as $option)
                               <option value="{{ $option['value'] }}" @if ($option['value'] == $item['type']) selected @endif>{{ $option['name'] }}</option>
                             @endforeach
                           </select>
@@ -71,7 +71,7 @@
                             <span class="input-group-text">Status</span>
                           </div>
                           <select class="form-control" name='list[{{ $index }}][status]'>
-                            @foreach (Arr::get($options, 'meta.status', []) as $option)
+                            @foreach (Arr::get($module, 'options.meta.status', []) as $option)
                               <option value="{{ $option['value'] }}" @if ($option['value'] == $item['type']) selected @endif>{{ $option['name'] }}</option>
                             @endforeach
                           </select>

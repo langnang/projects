@@ -6,7 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 
-class AdminController extends \App\Illuminate\Routing\Controller
+class AdminController extends \App\Illuminate\Routing\ModuleController
 {
     /**
      * 与控制器关联的模型列表
@@ -24,9 +24,44 @@ class AdminController extends \App\Illuminate\Routing\Controller
         'option' => \App\Models\Option::class,
         'log' => \App\Models\Log::class,
     ];
+    protected function setName($value = null, $pattern = null)
+    {
+        if (!empty($value))
+            $this->name = \Str::studly($value);
+
+        if (empty($pattern))
+            $pattern = '/^Modules\\\\(\w*)\\\\Http/i';
+
+        // $this->middleware('auth');
+        if (empty($this->name)) {
+            if (preg_match('/^admin\/modules\/(\w*)/i', request()->path(), $matches)) {
+                $this->name = $matches[1];
+            } else {
+                $this->name = 'Home';
+            }
+        }
+        $this->setAttribute('name', $this->name);
+        $this->alias = \Str::lower($this->name);
+        $this->setAttribute('alias', $this->alias);
+    }
+
     protected $childModuleController;
-    protected $adminModule;
+    /**
+     * Module:Admin 对应的控制器
+     * @var 
+     */
+    protected $admin;
     public function __construct($moduleName = null)
+    {
+        $this->setName($moduleName, );
+        $this->setModule($moduleName);
+        $this->initAttributes();
+        // 
+        // $this->childModuleController = new \App\Http\Controllers\Controller('Home');
+        $this->admin = new \App\Http\Controllers\Controller('Admin');
+    }
+
+    protected function setModuleAttributes(string $moduleName = null)
     {
         if (!empty($moduleName))
             $this->moduleName = \Str::studly($moduleName);
@@ -41,50 +76,34 @@ class AdminController extends \App\Illuminate\Routing\Controller
         }
         $moduleName = $this->moduleName;
         if (in_array($moduleName, ['Home'])) {
-            $this->moduleAlias = 'home';
+            $this->alias = 'home';
             $this->moduleConfig = ['name' => "Home", 'nameCn' => "首页"];
         } else if (!empty($moduleName)) {
             $this->module = $module = \Module::find($moduleName);
-            $this->moduleAlias = $module->getAlias();
-            $this->moduleConfig = config($this->moduleAlias);
+            $this->alias = $module->getAlias();
+            $this->moduleConfig = config($this->alias);
         }
-        // 
-        $this->moduleMeta = \Cache::rememberForever('admin_module.meta', function () {
-            return $this->moduleName ? \App\Models\Meta::where('slug', 'module:' . $this->moduleAlias)->first() : new \App\Models\Meta(['id' => 0]);
-        });
-        $this->queryModuleOption();
-        // $this->childModuleController = new \App\Http\Controllers\Controller('Home');
-        $this->adminModule = new \App\Http\Controllers\Controller('Admin');
     }
     protected function view($view = null, $data = [], $mergeData = [])
     {
         $return = array_merge($data, [
             'view' => $view,
-            'adminModule' => array_merge($this->adminModule->getModuleAttributes() ?? [], [
-                'categories' => $this->getModel('meta')::with([
-                    'children' => function ($query) {
-                        return $query->orderBy('order');
-                    }
-                ])
-                    ->where('type', 'category')
-                    ->whereIn('status', ['public', 'publish', 'protected', 'private'])
-                    ->where('parent', $this->adminModule->moduleMeta->id)
-                    ->whereNull('deleted_at')
-                    ->where('name', '!=', '')
-                    ->orderBy('order')
-                    ->get(),
-                'active_category' => $this->getModel('meta')::where('slug', \Str::replace('/', ':', request()->path()))->first(),
+            'admin' => array_merge($this->admin->getAttribute() ?? [], [
+                'categories' => \Arr::get($data, 'admin.categories', $this->select_admin_meta_categories()),
+                'active_category' => \Arr::get($data, 'admin.active_category', $this->select_admin_active_category()),
             ]),
             // 'childModule' => $this->childModuleController->getModuleAttributes(),
         ]);
+        if (empty(\Arr::get($return, 'admin.active_category')))
+            abort(404);
         if (empty($return['layout'])) {
-            $return['layout'] = 'admin::' . $this->config('view.framework', ) . '.' . $return['view'];
+            $return['layout'] = 'admin::' . $this->getConfig('view.framework', ) . '.' . $return['view'];
             // var_dump($return['layout']);
             if (!View::exists($return['layout'])) {
                 $return['layout'] = $return['view'];
             }
             // var_dump($return['layout']);
-            $return['view'] = $this->moduleAlias . '::' . $this->config('view.framework') . '.' . $return['view'];
+            $return['view'] = $this->alias . '::' . $this->getConfig('view.framework') . '.' . $return['view'];
             // var_dump($return['view']);
         }
         if (!View::exists($return['view'])) {
@@ -100,16 +119,36 @@ class AdminController extends \App\Illuminate\Routing\Controller
     {
         return $this->view('index');
     }
-
-    protected function getMetasWithModule()
+    /**
+     * 查询 Meta 表中 Module:Admin 下 type=category 的树形数据
+     * @return mixed
+     */
+    protected function select_admin_meta_categories()
     {
+        return \Cache::rememberForever('admin_module.meta_categories', function () {
+            return $this->getModel('meta')::with([
+                'children' => function ($query) {
+                    return $query->orderBy('order');
+                }
+            ])
+                ->where('type', 'category')
+                ->whereIn('status', ['public', 'publish',])
+                ->where('parent', $this->admin->getAttribute('id'))
+                ->whereNull('deleted_at')
+                ->where('name', '!=', '')
+                ->orderBy('order')
+                ->get();
+        });
     }
-    protected function getContentsWithModule()
+    /**
+     * 根据当前路径 slug 查询对应 Meta 表中数据
+     * @return mixed
+     */
+    protected function select_admin_active_category()
     {
+        return $this->getModel('meta')::with(['parent'])
+            ->where('slug', \Str::replace('/', ':', request()->path()))
+            ->first();
     }
-    protected function getLinksWithModule()
-    {
-    }
-
 }
 

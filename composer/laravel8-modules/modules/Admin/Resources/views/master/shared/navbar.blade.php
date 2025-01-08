@@ -11,7 +11,7 @@
       </ul>
 
       <!-- Right navbar links -->
-      <ul class="navbar-nav ml-auto">
+      <ul class="navbar-nav align-items-center ml-auto">
         <!-- Navbar Search -->
         <li class="nav-item">
           <a class="nav-link" data-widget="navbar-search" href="#" role="button">
@@ -128,6 +128,16 @@
           <a class="nav-link" data-widget="control-sidebar" data-controlsidebar-slide="true" href="#" role="button">
             <i class="fas fa-th-large"></i>
           </a>
+        </li>
+        <li class="nav-item">
+          <div class="user-panel d-flex align-items-center">
+            <div class="image">
+              <img src="{{ Auth::user()->ico }}" class="img-circle elevation-2" alt="User Image">
+            </div>
+            <div class="info">
+              <a href="#" class="d-block">{{ Auth::user()->name }}</a>
+            </div>
+          </div>
         </li>
       </ul>
     </nav>

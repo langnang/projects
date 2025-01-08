@@ -13,7 +13,7 @@
       <ul class="navbar-nav mr-auto">
         @isset($module)
           <li class="nav-item active">
-            <a class="nav-link" href="{{ env('APP_URL') }}{{ $module['alias'] }}">{{ $module['name'] }}{{ $module['nameCn'] ? '（' . $module['nameCn'] . '）' : null }}
+            <a class="nav-link" href="{{ env('APP_URL') }}{{ $module['alias'] }}">{{ $module['name'] }}
               <span class="sr-only">(current)</span></a>
           </li>
         @endisset

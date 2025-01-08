@@ -6,7 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use App\Illuminate\Routing\Controller;
 
-class IssueController extends \App\Illuminate\Routing\Controller
+class IssueController extends \App\Illuminate\Routing\ModuleController
 {
     /**
      * Display a listing of the resource.

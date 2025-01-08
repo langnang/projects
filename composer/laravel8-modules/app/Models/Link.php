@@ -34,10 +34,11 @@ class Link extends \Illuminate\Database\Eloquent\Model
         'parent',
         'count',
         'order',
-        'created_at',
-        'updated_at',
-        'release_at',
-        'deleted_at',
     ];
 
+
+    public function belongsToMeta()
+    {
+        return $this->belongsToMany(\App\Models\Meta::class, \App\Models\Relationship::class, 'link_id', 'meta_id');
+    }
 }

@@ -68,7 +68,7 @@
                       </div>
                       <select class="form-control" name='type'>
                         <option value="">--Type--</option>
-                        @foreach (Arr::get($options, 'meta.type', []) as $option)
+                        @foreach (Arr::get($module, 'options.meta.type', []) as $option)
                           <option value="{{ $option['value'] }}" @if ($option['value'] == old('type', $meta['type'])) selected @endif>{{ $option['name'] }}</option>
                         @endforeach
                       </select>
@@ -81,7 +81,7 @@
                       </div>
                       <select class="form-control" name='status'>
                         <option value="">--Status--</option>
-                        @foreach (Arr::get($options, 'meta.status', []) as $option)
+                        @foreach (Arr::get($module, 'options.meta.status', []) as $option)
                           <option value="{{ $option['value'] }}" @if ($option['value'] == old('status', $meta['status'])) selected @endif>{{ $option['name'] }}</option>
                         @endforeach
                       </select>

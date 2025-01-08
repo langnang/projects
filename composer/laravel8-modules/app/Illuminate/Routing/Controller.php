@@ -16,6 +16,7 @@ abstract class Controller extends \Illuminate\Routing\Controller
     protected $moduleConfig;
     protected $moduleOption;
     protected $moduleMeta;
+    protected $moduleAttributes;
     protected $user;
     protected $sqls = [];
     /**
@@ -32,30 +33,10 @@ abstract class Controller extends \Illuminate\Routing\Controller
 
     public function __construct($moduleName = null)
     {
-        if (!empty($moduleName))
-            $this->moduleName = \Str::studly($moduleName);
 
-        // $this->middleware('auth');
-        if (empty($this->moduleName)) {
-            if (preg_match('/^Modules\\\\(\w*)\\\\Http/i', static::class, $moduleMatches)) {
-                $this->moduleName = $moduleMatches[1];
-            } else {
-                $this->moduleName = 'Home';
-            }
-        }
-        $moduleName = $this->moduleName;
-        if (in_array($moduleName, ['Home'])) {
-            $this->moduleAlias = 'home';
-            $this->moduleConfig = ['name' => "Home", 'nameCn' => "首页"];
-        } else if (!empty($moduleName)) {
-            $this->module = $module = \Module::find($moduleName);
-            $this->moduleAlias = $module->getAlias();
-            $this->moduleConfig = config($this->moduleAlias);
-        }
-
-        $this->moduleMeta = $this->moduleName ? \App\Models\Meta::where('slug', 'module:' . $this->moduleAlias)->first() : new \App\Models\Meta(['id' => 0]);
-
-        $this->queryModuleOption();
+        $this->setModuleAttributes($moduleName);
+        $this->setModuleMeta();
+        $this->setModuleOption();
 
         // var_dump($this->moduleOption);
         // $this->moduleOption = \App\Models\Option::find();
@@ -81,20 +62,44 @@ abstract class Controller extends \Illuminate\Routing\Controller
      * Summary of queryModuleOption
      * @return void
      */
-    protected function queryModuleOption()
+    protected function setModuleOption(array $values = null)
     {
-        $builder = \App\Models\Option::where('name', 'like', 'global.%');
-        foreach ($this->models ?? [] as $tableKey => $tableModel) {
-            $builder = $builder->orWhere('name', 'like', $tableKey . '.%');
-        }
-        if ($this->moduleName)
-            $builder = $builder->orWhere('name', 'like', $this->moduleAlias . '.%');
-        \Arr::set($this->sqls, 'select_option_list', $builder->toRawSql());
-        $options = $builder->get()->toArray();
+        if (empty($values))
+            $values = \Cache::rememberForever($this->moduleAlias . '_module.options', function () {
+                // \DB::enableQueryLog();
+                $builder = \App\Models\Option::where('name', 'like', 'global.%');
+                foreach ($this->models ?? [] as $tableKey => $tableModel) {
+                    $builder = $builder->orWhere('name', 'like', $tableKey . '.%');
+                }
+                if ($this->moduleName)
+                    $builder = $builder->orWhere('name', 'like', $this->moduleAlias . '.%');
+                \Arr::set($this->sqls, 'select_option_list', $builder->toRawSql());
+                return $builder->get()->toArray();
+            });
+
         // var_dump($options);
-        foreach ($options as $option) {
-            \Arr::set($this->moduleOption, $option['name'], $option['value'], );
+        foreach ($values as $value) {
+            \Arr::set($this->moduleOption, $value['name'], $value['value'], );
         }
+    }
+    /**
+     * Summary of setModuleMeta
+     * @param \App\Models\Meta|null $value
+     * @return void
+     */
+    protected function setModuleMeta(\App\Models\Meta $value = null)
+    {
+        if ($value)
+            $this->moduleMeta = $value;
+
+        $this->moduleMeta = \Cache::rememberForever($this->moduleAlias . '_module.meta', function () {
+            return $this->moduleName ? \App\Models\Meta::where('slug', 'module:' . $this->moduleAlias)->first() : new \App\Models\Meta([
+                'id' => 0,
+                'name' => 'Module:' . $this->moduleName,
+                'slug' => 'module:' . $this->moduleAlias,
+                'type' => 'module',
+            ]);
+        });
     }
     /**
      * Summary of option
@@ -225,6 +230,29 @@ abstract class Controller extends \Illuminate\Routing\Controller
         );
         // dump($return);
         return response()->json($return, 200, []);
+    }
+    protected function setModuleAttributes(string $moduleName = null)
+    {
+        if (!empty($moduleName))
+            $this->moduleName = \Str::studly($moduleName);
+
+        // $this->middleware('auth');
+        if (empty($this->moduleName)) {
+            if (preg_match('/^Modules\\\\(\w*)\\\\Http/i', static::class, $moduleMatches)) {
+                $this->moduleName = $moduleMatches[1];
+            } else {
+                $this->moduleName = 'Home';
+            }
+        }
+        $moduleName = $this->moduleName;
+        if (in_array($moduleName, ['Home'])) {
+            $this->moduleAlias = 'home';
+            $this->moduleConfig = ['name' => "Home", 'nameCn' => "首页"];
+        } else if (!empty($moduleName)) {
+            $this->module = $module = \Module::find($moduleName);
+            $this->moduleAlias = $module->getAlias();
+            $this->moduleConfig = config($this->moduleAlias);
+        }
     }
     protected function getModuleAttributes()
     {
@@ -403,7 +431,12 @@ abstract class Controller extends \Illuminate\Routing\Controller
 
         return $models[$key];
     }
-
+    /**
+     * Summary of setSqls
+     * @param mixed $key
+     * @param mixed $values
+     * @return void
+     */
     protected function setSqls($key, $values = null)
     {
         if (empty($values)) {
@@ -418,6 +451,8 @@ abstract class Controller extends \Illuminate\Routing\Controller
             }
         }
         \Arr::set($this->sqls, $key, $values);
+        \Cache::put($this->moduleAlias . '_module.sqls.' . $key, $values);
+        \DB::flushQueryLog();
     }
 
     protected function upsertModelData(\Illuminate\Http\Request $request, ...$values)

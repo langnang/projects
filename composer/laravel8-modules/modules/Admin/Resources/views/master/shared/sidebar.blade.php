@@ -2,10 +2,10 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <!-- Brand Logo -->
-  <a href="{{ env('APP_URL') . $adminModule['alias'] }}" class="brand-link text-center">
-    @empty($adminModule['logo'])
+  <a href="{{ env('APP_URL') . $admin['alias'] }}" class="brand-link text-center">
+    @empty(Arr::get($admin, 'config.logo'))
     @else
-      <img src="{{ $adminModule['logo'] }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <img src="{{ Arr::get($admin, 'config.logo') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
     @endempty
     <span class="brand-text font-weight-light">{{ env('APP_NAME') }}</span>
   </a>
@@ -37,7 +37,7 @@
     <!-- Sidebar Menu -->
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-        @foreach (Arr::get($adminModule, 'categories', []) as $category)
+        @foreach (Arr::get($admin, 'categories', []) as $category)
           @if (sizeof($category['children']) > 0)
             <li class="nav-item @if (Str::startsWith(request()->path(), Str::replace(':', '/', $category['slug']))) menu-is-opening menu-open @endif">
               <a href="{{ url(Str::replace(':', '/', $category['slug'])) }}" class="nav-link @if (Str::startsWith(request()->path(), Str::replace(':', '/', $category['slug']))) active @endif">

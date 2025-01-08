@@ -27,13 +27,13 @@ class AdminMetaController extends AdminController
             $query = $query->where('name', 'like', "%$input%");
         });
         $query = $query
-            ->whereIn('type', $request->filled('type') ? [$request->input('type')] : array_keys(\Arr::get($this->moduleOption, 'meta.type')))
-            ->whereIn('status', $request->filled('status') ? [$request->input('status')] : array_keys(\Arr::get($this->moduleOption, 'meta.status')))
+            ->whereIn('type', $request->filled('type') ? [$request->input('type')] : array_keys($this->getOption('meta.type', [])))
+            ->whereIn('status', $request->filled('status') ? [$request->input('status')] : array_keys($this->getOption('meta.status', [])))
             ->where('parent', $request->input('parent', 0))
             ->whereNull('deleted_at')
             ->orderBy('order')
             ->orderByDesc('updated_at');
-        \Arr::set($this->sqls, 'select_meta_list', $query->toRawSql());
+        $this->setAttributeSql('select_meta_list', $query->toRawSql());
         return $this->view('ssential.meta-table', [
             'paginator' => $query->paginate(20),
         ]);

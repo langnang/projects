@@ -22,11 +22,15 @@ class CreateCacheTable extends Migration
             $table->string('key')->primary();
             $table->mediumText('value');
             $table->integer('expiration');
+
+            $table->timestamps();
         });
         Schema::create($tableName . '_locks', function (Blueprint $table) {
             $table->string('key')->primary();
             $table->string('owner');
             $table->integer('expiration');
+
+            $table->timestamps();
         });
 
     }

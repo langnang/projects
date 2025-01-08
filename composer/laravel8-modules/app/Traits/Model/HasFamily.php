@@ -11,18 +11,20 @@ namespace App\Traits\Model;
  */
 trait HasFamily
 {
-    protected $prevKey;
-    protected $nextKey;
+    protected $prevKey = 'next';
+    protected $nextKey = 'prev';
 
     protected $parentKey = 'parent';
 
     // 弟类
     public function next()
     {
+        return $this->hasOne(static::class, $this->primaryKey, $this->nextKey)->with('next');
     }
     // 兄类
     public function prev()
     {
+        return $this->hasOne(static::class, $this->primaryKey, $this->prevKey)->with('prev');
     }
     // 同级类
     public function sibling()
@@ -33,16 +35,9 @@ trait HasFamily
      */
     public function parent()
     {
-        return $this->hasOne(static::class, $this->primaryKey, $this->parentKey, );
+        return $this->hasOne(static::class, $this->primaryKey, $this->parentKey)->with('parent');
     }
 
-    public function parent_exists()
-    {
-    }
-    public function parents()
-    {
-        return $this->hasOne(static::class, $this->primaryKey, $this->parentKey, )->with('parent');
-    }
     public function root()
     {
         return $this->hasOne(static::class, $this->primaryKey, $this->parentKey, )->with('root');
@@ -78,10 +73,5 @@ trait HasFamily
     public function children()
     {
         return $this->hasMany(static::class, $this->parentKey, $this->primaryKey)->with('children');
-    }
-
-    public function count_children()
-    {
-        return $this->hasMany(static::class, $this->parentKey, $this->primaryKey)->count();
     }
 }

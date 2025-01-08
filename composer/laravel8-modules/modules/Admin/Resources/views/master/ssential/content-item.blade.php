@@ -70,7 +70,7 @@
                       <span class="input-group-text">Type</span>
                     </div>
                     <select class="form-control" name='type'>
-                      @foreach (Arr::get($options, 'content.type', []) as $option)
+                      @foreach (Arr::get($module, 'options.content.type', []) as $option)
                         <option value="{{ $option['value'] }}" @if ($option['value'] == old('type', $content['type'])) selected @endif>{{ $option['name'] }}</option>
                       @endforeach
                     </select>
@@ -82,7 +82,7 @@
                       <span class="input-group-text">Status</span>
                     </div>
                     <select class="form-control" name='status'>
-                      @foreach (Arr::get($options, 'content.status', []) as $option)
+                      @foreach (Arr::get($module, 'options.content.status', []) as $option)
                         <option value="{{ $option['value'] }}" @if ($option['value'] == old('status', $content['status'])) selected @endif>{{ $option['name'] }}</option>
                       @endforeach
                     </select>
