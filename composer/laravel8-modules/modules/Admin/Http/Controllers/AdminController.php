@@ -155,7 +155,7 @@ class AdminController extends \App\Illuminate\Routing\ModuleController
      */
     protected function select_admin_meta_categories()
     {
-        return \Cache::rememberForever('admin_module.meta_categories', function () {
+        return \Cache::remember('admin_module.meta_categories', 24 * 3600, function () {
             return $this->getModel('meta')::with([
                 'children' => function ($query) {
                     return $query->orderBy('order');
