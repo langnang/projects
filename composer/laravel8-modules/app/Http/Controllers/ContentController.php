@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Contracts\Support\Renderable;
 
 class ContentController extends Controller
 {
     /**
      * Show the specified resource.
      * @param int $id
-     * @return Renderable
+     * @return \Illuminate\Contracts\Support\Renderable
      */
     public function show($id)
     {

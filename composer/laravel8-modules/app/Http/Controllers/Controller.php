@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Contracts\Support\Renderable;
 
 class Controller extends \App\Illuminate\Routing\ModuleController
 {
@@ -46,114 +47,41 @@ class Controller extends \App\Illuminate\Routing\ModuleController
         // var_dump($links->toArray());
         $return = array_merge($data, [
             // metas[type=category]
-            'categories' => \Arr::get(
-                $data,
-                'categories',
-                \Cache::remember($this->alias . "_module.meta_categories", 24 * 3600, function () {
-
-                    $query = $this->select_meta_categories(request())
-                        ->with(['children'])
-                        ->where('type', 'category')
-                        ->whereIn('status', \Auth::check() ? ['public', 'publish', 'protected', 'private'] : ['public', 'publish'])
-                        ->where('parent', $this->getAttribute('id'))
-                        ->whereNull('deleted_at')
-                        ->where('name', '!=', '')
-                        ->get();
-                    $this->setAttributeSql('select_meta_categories');
-                    return $query;
-                }),
-                // \Cache::remember()
-
-            ),
+            'categories' => \Arr::get($data, 'categories', $this->select_meta_categories(request()), ),
             // metas[type=tag]
-            'tags' => \Arr::get(
-                $data,
-                'tags',
-                \Cache::remember($this->alias . "_module.meta_tags", 24 * 3600, function () {
-                    $query = $this->select_meta_tags(request())
-                        ->whereIn('status', \Auth::check() ? ['public', 'publish', 'protected', 'private'] : ['public', 'publish'])
-                        ->where('parent', $this->getAttribute('id'))
-                        ->whereNull('deleted_at')
-                        ->where('name', '!=', '')
-                        ->get();
-                    $this->setAttributeSql('select_meta_tags');
-                    return $query;
-                }),
-            ),
+            'tags' => \Arr::get($data, 'tags', $this->select_meta_tags(request()), ),
             // metas[type=module]
-            'modules' => \Arr::get(
-                $data,
-                'modules',
-                \Cache::remember("meta_modules", 24 * 3600, function () {
-                    $query = $this->select_meta_modules(request())
-                        ->whereIn('status', \Auth::check() ? ['public', 'publish', 'protected', 'private'] : ['public', 'publish'])
-                        ->where('parent', 0)
-                        ->whereNull('deleted_at')
-                        ->where('name', '!=', '')
-                        ->get();
-                    $this->setAttributeSql('select_meta_modules');
-                    return $query;
-                }),
-            ),
+            'modules' => \Arr::get($data, 'modules', $this->select_meta_modules(request()), ),
+
             // contents[type=post]
+            'posts' => \Arr::get($data, 'posts', ),
             // contents[type=template]
+            'templates' => \Arr::get($data, 'templates', $this->select_content_templates(request()), ),
             // contents[type=page]
-            'contents' => \Arr::get(
-                $data,
-                'contents',
-            ),
-            // contents[type=post]
+            'pages' => \Arr::get($data, 'pages', $this->select_content_pages(request()), ),
 
             // links[type=site]
             // 根据模块对应的 MetaID 
-            'links' => \Arr::get(
-                $data,
-                'links',
-                \Cache::remember($this->alias . "_module.link_sites", 24 * 3600, function () {
-                    $query = $this->select_link_sites(request())
-                        ->whereIn('type', ['site'])
-                        ->whereIn('status', \Auth::check() ? ['public', 'publish', 'protected', 'private'] : ['public', 'publish'])
-                        ->whereNull('deleted_at')
-                        ->where('title', '!=', '')
-                        ->orderByDesc('updated_at')
-                        ->limit(20)
-                        ->get();
-                    $this->setAttributeSql('select_link_sites');
-                    return $query;
-                }),
-            ),
+            'links' => \Arr::get($data, 'links', $this->select_link_sites(request()), ),
 
-
-            'latest_contents' => \Arr::get(
-                $data,
-                'latest_contents',
-                \Cache::remember($this->alias . "_module.content_latest_posts", 24 * 3600, function () {
-                    $query = $this->select_content_posts(request())
-                        ->whereIn('status', \Auth::check() ? ['public', 'publish', 'protected', 'private'] : ['public', 'publish'])
-                        ->whereNull('deleted_at')
-                        ->orderByDesc('updated_at')
-                        ->limit(10)
-                        ->get();
-                    $this->setAttributeSql('select_content_latest_posts');
-                    return $query;
-                }),
-            ),
+            'latest_contents' => \Arr::get($data, 'latest_contents', $this->select_content_latest_posts(request()), ),
             'latest_comments' => \Arr::get(
                 $data,
                 'latest_comments',
-                \Cache::remember($this->alias . "_module.comment_latest", 24 * 3600, function () {
-                    $query = $this->getModel('comment')::orderByDesc('updated_at')
-                        ->whereNull('deleted_at')
-                        ->limit(10)
-                        ->get();
-                    $this->setAttributeSql('select_comment_latest');
-                    return $query;
-                }),
+                []
+                // \Cache::remember($this->alias . "_module.comment_latest", 3600, function () {
+                //     $query = $this->getModel('comment')::orderByDesc('updated_at')
+                //         ->whereNull('deleted_at')
+                //         ->limit(10)
+                //         ->get();
+                //     $this->setAttributeSql('select_comment_latest');
+                //     return $query;
+                // }),
             ),
         ]);
 
 
-        if (empty($return['contents'])) {
+        if (empty($return['posts'])) {
             $query = $this->getModel('content')::with(['belongsToMeta', 'user'])->whereHas('belongsToMeta', function ($query) {
                 $query->where('meta_id', $this->getAttribute('id'));
             });
@@ -165,7 +93,7 @@ class Controller extends \App\Illuminate\Routing\ModuleController
             $query = $query->whereNull('deleted_at');
             $query = $query->orderByDesc('updated_at');
             $query = $query->paginate();
-            $return['contents'] = $query;
+            $return['posts'] = $query;
             unset($query);
         }
 
@@ -197,12 +125,22 @@ class Controller extends \App\Illuminate\Routing\ModuleController
      */
     protected function select_meta_modules(Request $request)
     {
-        return $this->getModel('meta')::with([
-            'children' => function ($query) {
-                $query->where('type', 'module');
-            },
-            'relationships'
-        ])->where('type', 'module');
+
+        return \Cache::remember("meta_modules", 3600, function () {
+            $query = $this->getModel('meta')::with([
+                'children' => function ($query) {
+                    $query->where('type', 'module');
+                },
+                'relationships'
+            ])->where('type', 'module')
+                ->whereIn('status', \Auth::check() ? ['public', 'publish', 'protected', 'private'] : ['public', 'publish'])
+                ->where('parent', 0)
+                ->whereNull('deleted_at')
+                ->where('name', '!=', '')
+                ->get();
+            $this->setAttributeSql('select_meta_modules');
+            return $query;
+        });
     }
     /**
      * Summary of getMetaCategories
@@ -211,9 +149,17 @@ class Controller extends \App\Illuminate\Routing\ModuleController
      */
     protected function select_meta_categories(Request $request)
     {
-        return $this->getModel('meta')::with(['children', 'relationships'])
-            ->where('parent', $this->getAttribute('id'))
-            ->where('type', 'category');
+        return \Cache::remember($this->alias . "_module.meta_categories", 3600, function () {
+            $query = $this->getModel('meta')::with(['children'])
+                ->where('parent', $this->getAttribute('id'))
+                ->where('type', 'category')
+                ->whereIn('status', \Auth::check() ? ['public', 'publish', 'protected', 'private'] : ['public', 'publish'])
+                ->whereNull('deleted_at')
+                ->where('name', '!=', '')
+                ->get();
+            $this->setAttributeSql('select_meta_categories');
+            return $query;
+        });
     }
     /**
      * Summary of getMetaTags
@@ -222,35 +168,69 @@ class Controller extends \App\Illuminate\Routing\ModuleController
      */
     protected function select_meta_tags(Request $request)
     {
-        $metaModuleId = $this->getAttribute('id');
-        return $this->getModel('meta')::with([])
-            ->where('type', 'tag');
+        return \Cache::remember($this->alias . "_module.meta_tags", 3600, function () {
+            $query = $this->getModel('meta')::with([])
+                ->where('type', 'tag')
+                ->whereIn('status', \Auth::check() ? ['public', 'publish', 'protected', 'private'] : ['public', 'publish'])
+                ->where('parent', $this->getAttribute('id'))
+                ->whereNull('deleted_at')
+                ->where('name', '!=', '')
+                ->get();
+            $this->setAttributeSql('select_meta_tags');
+            return $query;
+        });
     }
-    protected function select_content_posts(Request $request)
+    protected function select_content_latest_posts(Request $request)
     {
-        return $this->getModel('content')::with(['belongsToMeta', 'relationships'])
-            ->whereHas('belongsToMeta', function ($query) {
-                $query->where('meta_id', $this->getAttribute('id'));
-            })
-            ->where('type', 'post');
+        return \Cache::remember($this->alias . "_module.content_latest_posts", 3600, function () {
+            $query = $this->getModel('content')::with(['belongsToMeta', 'relationships'])
+                ->whereHas('belongsToMeta', function ($query) {
+                    $query->where('meta_id', $this->getAttribute('id'));
+                })
+                ->where('type', 'post')
+                ->whereIn('status', \Auth::check() ? ['public', 'publish', 'protected', 'private'] : ['public', 'publish'])
+                ->whereNull('deleted_at')
+                ->orderByDesc('updated_at')
+                ->limit(10)
+                ->get();
+            $this->setAttributeSql('select_content_latest_posts');
+            return $query;
+        });
     }
     protected function select_content_templates(Request $request)
     {
         $metaModuleId = $this->getAttribute('id');
-        return $this->getModel('content')::with(['belongsToMeta', 'relationships'])
-            ->whereHas('belongsToMeta', function ($query) {
-                $query->where('meta_id', $this->getAttribute('id'));
-            })
-            ->where('type', 'template');
+        return \Cache::remember($this->alias . "_module.content_templates", 3600, function () {
+            $query = $this->getModel('content')::with(['belongsToMeta', 'relationships'])
+                ->whereHas('belongsToMeta', function ($query) {
+                    $query->where('meta_id', $this->getAttribute('id'));
+                })
+                ->where('type', 'template')
+                ->whereIn('status', \Auth::check() ? ['public', 'publish', 'protected', 'private'] : ['public', 'publish'])
+                ->whereNull('deleted_at')
+                ->orderByDesc('updated_at')
+                ->limit(10)
+                ->get();
+            $this->setAttributeSql('select_content_latest_posts');
+            return $query;
+        });
     }
     protected function select_content_pages(Request $request)
     {
-        $metaModuleId = $this->getAttribute('id');
-        return $this->getModel('content')::with(['belongsToMeta', 'relationships'])
-            ->whereHas('belongsToMeta', function ($query) {
-                $query->where('meta_id', $this->getAttribute('id'));
-            })
-            ->where('type', 'page');
+        return \Cache::remember($this->alias . "_module.content_pages", 3600, function () {
+            $query = $this->getModel('content')::with(['belongsToMeta', 'relationships'])
+                ->whereHas('belongsToMeta', function ($query) {
+                    $query->where('meta_id', $this->getAttribute('id'));
+                })
+                ->where('type', 'page')
+                ->whereIn('status', \Auth::check() ? ['public', 'publish', 'protected', 'private'] : ['public', 'publish'])
+                ->whereNull('deleted_at')
+                ->orderByDesc('updated_at')
+                ->limit(10)
+                ->get();
+            $this->setAttributeSql('select_content_latest_posts');
+            return $query;
+        });
     }
 
     /**
@@ -260,11 +240,21 @@ class Controller extends \App\Illuminate\Routing\ModuleController
      */
     protected function select_link_sites(Request $request)
     {
-        $metaModuleId = $this->getAttribute('id');
-        return $this->getModel('link')::with(['belongsToMeta', 'relationships'])
-            ->whereHas('belongsToMeta', function ($query) {
-                $query->where('meta_id', $this->getAttribute('id'));
-            })
-            ->where('type', 'site');
+        return \Cache::remember($this->alias . "_module.link_sites", 3600, function () {
+            $query = $this->getModel('link')::with(['belongsToMeta', 'relationships'])
+                ->whereHas('belongsToMeta', function ($query) {
+                    $query->where('meta_id', $this->getAttribute('id'));
+                })
+                ->where('type', 'site')
+                ->whereIn('type', ['site'])
+                ->whereIn('status', \Auth::check() ? ['public', 'publish', 'protected', 'private'] : ['public', 'publish'])
+                ->whereNull('deleted_at')
+                ->where('title', '!=', '')
+                ->orderByDesc('updated_at')
+                ->limit(20)
+                ->get();
+            $this->setAttributeSql('select_link_sites');
+            return $query;
+        });
     }
 }
