@@ -110,6 +110,8 @@ class AdminMetaController extends AdminController
         // }
         // 
         $meta->save();
+        // TODO 清除缓存
+        // DB::table('')
         // 重定向至编辑页面
         return redirect(str_replace(['create', 'factory'], $meta->id, $request->path()));
         // return redirect(($this->moduleAlias ?? 'home') . '/update-content/' . $meta->id);

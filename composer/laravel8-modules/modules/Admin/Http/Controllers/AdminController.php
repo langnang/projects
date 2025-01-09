@@ -155,20 +155,20 @@ class AdminController extends \App\Illuminate\Routing\ModuleController
      */
     protected function select_admin_meta_categories()
     {
-        return \Cache::remember('admin_module.meta_categories', 24 * 3600, function () {
-            return $this->getModel('meta')::with([
-                'children' => function ($query) {
-                    return $query->orderBy('order');
-                }
-            ])
-                ->where('type', 'category')
-                ->whereIn('status', ['public', 'publish',])
-                ->where('parent', $this->admin->getAttribute('id'))
-                ->whereNull('deleted_at')
-                ->where('name', '!=', '')
-                ->orderBy('order')
-                ->get();
-        });
+        // return \Cache::remember('admin_module.meta_categories', 24 * 3600, function () {
+        return $this->getModel('meta')::with([
+            'children' => function ($query) {
+                return $query->orderBy('order');
+            }
+        ])
+            ->where('type', 'category')
+            ->whereIn('status', ['public', 'publish',])
+            ->where('parent', $this->admin->getAttribute('id'))
+            ->whereNull('deleted_at')
+            ->where('name', '!=', '')
+            ->orderBy('order')
+            ->get();
+        // });
     }
     /**
      * 根据当前路径 slug 查询对应 Meta 表中数据
