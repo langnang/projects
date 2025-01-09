@@ -104,10 +104,10 @@ class AdminMetaController extends AdminController
 
         $meta = new $model($request->all());
         // $meta->fill($request->all());
-        $parent = $model::find($meta->parent);
-        if ($parent) {
+        // $parent = $model::find($meta->parent);
+        // if ($parent) {
 
-        }
+        // }
         // 
         $meta->save();
         // 重定向至编辑页面
@@ -125,39 +125,31 @@ class AdminMetaController extends AdminController
      * @done 根据 ID 查询对应资源
      * @return Renderable
      */
-    public function edit($ids)
+    public function edit($id)
     {
-        $ids = explode(',', $ids);
-        $list = $this->getModel('meta')::with(['relationships'])->whereIn('id', $ids)->get();
-        foreach ($list as $item) {
-            if ($item['type'] == 'module') {
-                $item['modules'] = $this->getModel('meta')::with(['children'])
-                    ->where('type', 'module')
-                    ->where('parent', $item->id)
-                    ->get();
-                $item['branches'] = $this->getModel('meta')::with([])
-                    ->where('type', 'branch')
-                    ->where('parent', $item->id)
-                    ->get();
-                $item['categories'] = $this->getModel('meta')::with(['children'])
-                    ->where('type', 'category')
-                    ->where('parent', $item->id)
-                    ->get();
-                $item['tags'] = $this->getModel('meta')::with([])
-                    ->where('type', 'tag')
-                    ->where('parent', $item->id)
-                    ->get();
-            }
+        $item = $this->getModel('meta')::with(['relationships'])->find($id);
+        if ($item['type'] == 'module') {
+            $item['modules'] = $this->getModel('meta')::with(['children'])
+                ->where('type', 'module')
+                ->where('parent', $item->id)
+                ->get();
+            $item['branches'] = $this->getModel('meta')::with([])
+                ->where('type', 'branch')
+                ->where('parent', $item->id)
+                ->get();
+            $item['categories'] = $this->getModel('meta')::with(['children'])
+                ->where('type', 'category')
+                ->where('parent', $item->id)
+                ->get();
+            $item['tags'] = $this->getModel('meta')::with([])
+                ->where('type', 'tag')
+                ->where('parent', $item->id)
+                ->get();
         }
 
-        if (sizeof($list) == 1) {
-            $item = \Arr::first($list);
-            $list = null;
-        }
 
         $return = [
             'item' => $item,
-            'list' => $list,
         ];
         return $this->view('ssential.meta-form', $return);
     }
