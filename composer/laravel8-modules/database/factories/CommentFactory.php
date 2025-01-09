@@ -21,7 +21,7 @@ class CommentFactory extends Factory
 
             "text" => $this->faker->text(),
 
-            "user" => \App\Models\User::inRandomOrder()->first('id'),
+            "user_id" => \App\Models\User::inRandomOrder()->first('id'),
 
             "parent" => $this->model::inRandomOrder()->first('id'),
 

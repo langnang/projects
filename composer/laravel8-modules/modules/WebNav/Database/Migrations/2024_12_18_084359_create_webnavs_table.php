@@ -42,7 +42,7 @@ class CreateWebnavsTable extends Migration
             $table->integer('order')->default(0)->nullable()->comment('权重');
             $table->integer('parent')->default(0)->nullable()->comment('父本');
 
-            $table->integer("user")->default(0)->comment("用户编号");
+            $table->integer("user_id")->default(0)->comment("用户编号");
             // $table->json("modules")->nullable()->comment("关联模块");
             $table->timestamps();
             $table->timestamp('release_at')->nullable()->comment('发布时间');

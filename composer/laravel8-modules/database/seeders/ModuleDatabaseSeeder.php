@@ -13,7 +13,7 @@ class ModuleDatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $globalMetaStatusOption = unserialize(\App\Models\Option::where('name', 'global.status')->where('user', 0)->first('value')->value);
+        $globalMetaStatusOption = unserialize(\App\Models\Option::where('name', 'global.status')->where('user_id', 0)->first('value')->value);
         // var_dump($globalMetaStatusOption);
         //
         \App\Models\Meta::upsert(

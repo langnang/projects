@@ -38,6 +38,8 @@ class LinkFactory extends Factory
             "order" => $this->faker->randomNumber(),
             "parent" => $this->model::inRandomOrder()->first('id'),
 
+            "user_id" => \App\Models\User::inRandomOrder()->first('id') ?? 0,
+
             // "created_at" => $this->faker->date() . ' ' . $this->faker->time(),
             // "updated_at" => $this->faker->date() . ' ' . $this->faker->time(),
             // "release_at" => $this->faker->date() . ' ' . $this->faker->time(),

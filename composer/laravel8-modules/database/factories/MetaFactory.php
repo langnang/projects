@@ -36,7 +36,7 @@ class MetaFactory extends Factory
             "order" => $this->faker->randomNumber(),
             "parent" => $this->faker->randomElement([0, $this->model::inRandomOrder()->first('id')]),
 
-            "user" => \App\Models\User::inRandomOrder()->first('id'),
+            "user_id" => \App\Models\User::inRandomOrder()->first('id'),
 
             // "created_at" => $this->faker->date() . ' ' . $this->faker->time(),
             // "updated_at" => $this->faker->date() . ' ' . $this->faker->time(),

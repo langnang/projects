@@ -17,7 +17,7 @@ class WebNavDatabaseSeeder extends Seeder
         Model::unguard();
 
         // $this->call("OthersTableSeeder");
-        $parent = \App\Models\Meta::where('slug', 'module:webnav')->where('user', 0)->first()->id;
+        $parent = \App\Models\Meta::where('slug', 'module:webnav')->where('user_id', 0)->first()->id;
         foreach (\App\Models\Meta::factory(30)->make() as $meta) {
             $meta->parent = $parent;
             $meta->save();

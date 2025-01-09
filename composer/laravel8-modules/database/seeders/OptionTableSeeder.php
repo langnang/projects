@@ -20,7 +20,7 @@ class OptionTableSeeder extends Seeder
                 [
                     'name' => 'global.type',
                     'type' => 'object',
-                    'user' => 0,
+                    'user_id' => 0,
                     'value' => serialize([
                         'module' => ['value' => 'module', 'name' => 'Module', 'nameCn' => '模块',],
                         'tag' => ['value' => 'tag', 'name' => 'Tag', 'nameCn' => '标签',],
@@ -41,7 +41,7 @@ class OptionTableSeeder extends Seeder
                 [
                     'name' => 'global.status',
                     'type' => 'object',
-                    'user' => 0,
+                    'user_id' => 0,
                     'value' => serialize([
                         'public' => ['value' => 'public', 'name' => 'Public', 'nameCn' => '公开',],
                         'publish' => ['value' => 'publish', 'name' => 'Publish', 'nameCn' => '发行',],
@@ -53,7 +53,7 @@ class OptionTableSeeder extends Seeder
                 [
                     'name' => 'meta.type',
                     'type' => 'object',
-                    'user' => 0,
+                    'user_id' => 0,
                     'value' => serialize([
                         'module' => ['value' => 'module', 'name' => 'Module', 'nameCn' => '模块',],
                         'tag' => ['value' => 'tag', 'name' => 'Tag', 'nameCn' => '标签',],
@@ -70,7 +70,7 @@ class OptionTableSeeder extends Seeder
                 [
                     'name' => 'meta.status',
                     'type' => 'object',
-                    'user' => 0,
+                    'user_id' => 0,
                     'value' => serialize([
                         'public' => ['value' => 'public', 'name' => 'Public', 'nameCn' => '公开',],
                         'publish' => ['value' => 'publish', 'name' => 'Publish', 'nameCn' => '发行',],
@@ -81,13 +81,13 @@ class OptionTableSeeder extends Seeder
                 [
                     'name' => 'meta.model',
                     'type' => 'text',
-                    'user' => 0,
+                    'user_id' => 0,
                     'value' => \App\Models\Meta::class
                 ],
                 [
                     'name' => 'meta.create-item.validate',
                     'type' => 'object',
-                    'user' => 0,
+                    'user_id' => 0,
                     'value' => serialize([
                         'name' => 'required|string',
                         'type' => 'required|string',
@@ -98,7 +98,7 @@ class OptionTableSeeder extends Seeder
                 [
                     'name' => 'content.type',
                     'type' => 'object',
-                    'user' => 0,
+                    'user_id' => 0,
                     'value' => serialize([
                         'template' => ['value' => 'template', 'name' => 'Template', 'nameCn' => '模板',],
                         'draft-template' => ['value' => 'template-draft', 'auth' => true, 'name' => 'Template(Draft)', 'nameCn' => '模板（草稿）',],
@@ -111,7 +111,7 @@ class OptionTableSeeder extends Seeder
                 [
                     'name' => 'content.status',
                     'type' => 'object',
-                    'user' => 0,
+                    'user_id' => 0,
                     'value' => serialize([
                         'public' => ['value' => 'public', 'name' => 'Public', 'nameCn' => '公开',],
                         'publish' => ['value' => 'publish', 'name' => 'Publish', 'nameCn' => '发行',],
@@ -122,14 +122,14 @@ class OptionTableSeeder extends Seeder
                 [
                     'name' => 'content.model',
                     'type' => 'text',
-                    'user' => 0,
+                    'user_id' => 0,
                     'value' => \App\Models\Content::class
                 ],
                 // Link
                 [
                     'name' => 'link.type',
                     'type' => 'object',
-                    'user' => 0,
+                    'user_id' => 0,
                     'value' => serialize([
                         'site' => ['value' => 'site', 'name' => 'Site', 'nameCn' => '站点',],
                         'draft-site' => ['value' => 'site-draft', 'auth' => true, 'name' => 'Site(Draft)', 'nameCn' => '站点（草稿）',],
@@ -138,7 +138,7 @@ class OptionTableSeeder extends Seeder
                 [
                     'name' => 'link.status',
                     'type' => 'object',
-                    'user' => 0,
+                    'user_id' => 0,
                     'value' => serialize([
                         'public' => ['value' => 'public', 'name' => 'Public', 'nameCn' => '公开',],
                         'publish' => ['value' => 'publish', 'name' => 'Publish', 'nameCn' => '发行',],
@@ -149,13 +149,13 @@ class OptionTableSeeder extends Seeder
                 [
                     'name' => 'link.model',
                     'type' => 'text',
-                    'user' => 0,
+                    'user_id' => 0,
                     'value' => \App\Models\Link::class
                 ],
                 [
                     'name' => 'field.type',
                     'type' => 'object',
-                    'user' => 0,
+                    'user_id' => 0,
                     'value' => serialize([
                         'text' => ['value' => 'text', 'name' => 'text', 'nameCn' => '文本',],
                         'object' => ['value' => 'object', 'name' => 'object', 'nameCn' => '对象',],
@@ -164,21 +164,21 @@ class OptionTableSeeder extends Seeder
                 [
                     'name' => 'user.role',
                     'type' => 'object',
-                    'user' => 0,
+                    'user_id' => 0,
                     'value' => serialize([
                         'admin' => ['value' => 'text', 'name' => 'text', 'nameCn' => '文本',],
-                        'user' => ['value' => 'text', 'name' => 'text', 'nameCn' => '文本',],
+                        'user_id' => ['value' => 'text', 'name' => 'text', 'nameCn' => '文本',],
                         'guest' => ['value' => 'text', 'name' => 'text', 'nameCn' => '文本',],
                     ])
                 ],
                 [
                     'name' => 'user.permission',
                     'type' => 'object',
-                    'user' => 0,
+                    'user_id' => 0,
                     'value' => serialize([])
                 ],
             ],
-            ['name', 'user'],
+            ['name', 'user_id'],
             ['value']
         );
     }
