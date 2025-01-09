@@ -80,11 +80,19 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
             $moduleAdminController = class_exists($moduleAdminController) ? $moduleAdminController : "\Modules\Admin\Http\Controllers\AdminContentController";
             Route::prefix($moduleObject->getAlias())->group(function () use ($moduleAdminController) {
                 Route::get('/', [$moduleAdminController, 'index']);
+
                 Route::get('/create', [$moduleAdminController, 'create']);
                 Route::post('/create', [$moduleAdminController, 'store']);
+
+                Route::get('/factory', [$moduleAdminController, 'factory']);
+                Route::post('/factory', [$moduleAdminController, 'store']);
+
                 Route::get('/{id}', [$moduleAdminController, 'edit']);
                 Route::post('/{id}', [$moduleAdminController, 'update']);
+
                 Route::post('/delete/{id}', [$moduleAdminController, 'destroy']);
+
+                Route::get('/list', [$moduleAdminController, 'list']);
             });
         }
     });

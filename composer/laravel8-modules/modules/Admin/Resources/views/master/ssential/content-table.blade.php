@@ -81,14 +81,14 @@
                           <input class="form-check-input" type="checkbox" value="{{ $item['id'] }}">
                         </div>
                       </td>
-                      <td><a class="" href="contents/{{ $item['id'] }}">
+                      <td><a class="" href="{{ $module['alias'] == 'home' ? 'contents' : $module['alias'] }}/{{ $item['id'] }}">
                           @if (Str::startsWith($item['type'], 'draft-'))
                             <span class="badge badge-secondary">Draft</span>
                           @endif
                           {{ $item['title'] }}
                         </a></td>
                       <td>
-                        <a class="" href="contents?parent={{ $item['id'] }}">{{ $item['children_count'] }}</a>
+                        <a class="" href="{{ $module['alias'] == 'home' ? 'contents' : $module['alias'] }}?parent={{ $item['id'] }}">{{ $item['children_count'] }}</a>
                       </td>
                       <td>{{ $item['type'] }}</td>
                       <td>{{ $item['status'] }}</td>
@@ -125,8 +125,8 @@
               </div>
               <div class="mr-auto">
                 <div class="mr-auto">
-                  <a type="button" class="btn btn-sm btn-primary" href="contents/create?{{ Arr::query(request()->all()) }}">新增</a>
-                  <a type="button" class="btn btn-sm btn-warning" href="contents/factory?{{ Arr::query(request()->all()) }}">Factory</a>
+                  <a type="button" class="btn btn-sm btn-primary" href="{{ $module['alias'] == 'home' ? 'contents' : $module['alias'] }}/create?{{ Arr::query(request()->all()) }}">新增</a>
+                  <a type="button" class="btn btn-sm btn-warning" href="{{ $module['alias'] == 'home' ? 'contents' : $module['alias'] }}/factory?{{ Arr::query(request()->all()) }}">Factory</a>
                   <button type="button" class="btn btn-sm btn-secondary">打印</button>
                   <button type="button" class="btn btn-sm btn-secondary">下载</button>
                 </div>

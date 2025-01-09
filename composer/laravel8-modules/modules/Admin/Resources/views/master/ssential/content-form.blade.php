@@ -35,11 +35,11 @@
 
 @push('scripts')
   <script>
-    $(document).Toasts('create', {
-      title: 'Toast Title',
-      autohide: true,
-      delay: 750,
-      body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
-    })
+    // $(document).Toasts('create', {
+    //   title: 'Toast Title',
+    //   autohide: true,
+    //   delay: 750,
+    //   body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+    // })
   </script>
 @endpush
