@@ -5,10 +5,10 @@
       <div class="col-12">
 
       </div>
-      <div class="col-12">
+      <div class="col-8">
         <div class="card card-outline card-primary">
           <div class="card-header py-2">
-            <h3 class="card-title">Content</h3>
+            <h3 class="card-title">Content Row</h3>
           </div>
           <div class="card-body pb-0">
             <div class="form-row">
@@ -38,9 +38,11 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text">Module</span>
                   </div>
-                  <select class="form-control" name='module'>
+                  <select class="form-control" name='module' disabled>
+                    <option value="">--Module--</option>
+                    <option value="home" @if ($module['alias'] == 'home') selected @endif>Home</option>
                     @foreach (Module::all() ?? [] as $moduleName => $moduleObject)
-                      <option value="{{ $moduleObject->getAlias() }}" @if ($moduleObject->getAlias() == old('module', $item['module'])) selected @endif>{{ $moduleName }}</option>
+                      <option value="{{ $moduleObject->getAlias() }}" @if ($moduleObject->getAlias() == old('module', $module['alias'])) selected @endif>{{ $moduleName }}</option>
                     @endforeach
                   </select>
                 </div>
@@ -86,11 +88,11 @@
                 </div>
               </div>
               <div class="form-group col-12 d-none">
+                <textarea id="" name="text" class="form-control form-control-sm" rows="3">{!! $item['text'] ?? '' !!}</textarea>
+              </div>
+              <div class="form-group col-12 ">
                 <div class="input-group input-group-sm">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">Text</span>
-                  </div>
-                  <textarea name="text" id="" class="form-control" rows="2">{{ $item['text'] ?? '' }}</textarea>
+                  <textarea name="text" id="codeMirror" class="form-control" rows="2" style="font-size: 1rem;">{{ $item['text'] ?? '' }}</textarea>
                 </div>
               </div>
             </div>
@@ -98,130 +100,13 @@
           <div class="card-footer py-2">
             <div class="row">
               <div class="col mr-auto">
-                <button type="button" class="btn btn-sm btn-primary" onclick="$('[name=text]').text($('#summernote').summernote('code').trim());$('form[name=content]').submit()">Submit</button>
-                <button type="button" class="btn btn-sm btn-warning">Release</button>
+                <button type="button" data-role="submit" class="btn btn-sm btn-primary">Submit</button>
+                <button type="button" data-role="release" class="btn btn-sm btn-warning">Release</button>
               </div>
               <div class="col col-auto">
-                <button type="button" class="btn btn-sm btn-secondary">Draft</button>
-                <button type="button" class="btn btn-sm btn-danger">Faker</button>
+                <button type="button" data-role="draft" class="btn btn-sm btn-secondary">Draft</button>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-8">
-        <div class="card card-outline card-primary">
-          <div class="card-header py-2 d-flex align-items-center">
-            <h3 class="card-title mr-auto"> Text </h3>
-            <a target="_blank" href="https://github.com/summernote/summernote/">SummerNote</a>
-          </div>
-          <div class="card-body p-1">
-            <div class="form-group mb-0">
-              <div id="summernote" style="height: 10rem;"> {!! old('text', $item['text']) !!} </div>
-            </div>
-          </div>
-          <div class="card-footer">
-            <div class="row">
-              <div class="col mr-auto">
-                <button type="button" class="btn btn-sm btn-primary" onclick="$('[name=text]').text($('#summernote').summernote('code').trim());$('form[name=content]').submit()">Submit</button>
-                <button type="button" class="btn btn-sm btn-warning">Release</button>
-              </div>
-              <div class="col col-auto">
-                <button type="button" class="btn btn-sm btn-secondary">Draft</button>
-                <button type="button" class="btn btn-sm btn-danger">Faker</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="card card-outline card-primary d-none">
-          <div class="card-header">
-            <h3 class="card-title"> Text </h3>
-          </div>
-          <div class="card-body p-1">
-            <div class="form-group mb-0">
-              <textarea id="codeMirror" class="form-control form-control-sm" rows="3">{!! $item['text'] ?? '' !!}</textarea>
-
-            </div>
-          </div>
-          <div class="card-footer">
-            <div class="row">
-              <div class="col mr-auto">
-                <button type="button" class="btn btn-sm btn-primary" onclick="console.log($('#summernote').summernote('code'))">Submit</button>
-                <button type="button" class="btn btn-sm btn-warning">Release</button>
-              </div>
-              <div class="col col-auto">
-                <button type="button" class="btn btn-sm btn-secondary">Draft</button>
-                <button type="button" class="btn btn-sm btn-danger">Faker</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-header">
-            <div class="row">
-              <div class="col">
-                <h3 class="card-title">Fields</h3>
-              </div>
-              <div class="col-auto ml-auto">
-                <button class="btn btn-primary" type="button" name="insert-field">
-                  <i class="bi bi-patch-plus-fill"></i>
-                </button>
-              </div>
-            </div>
-
-          </div>
-          <!-- /.card-header -->
-          <!-- form start -->
-          <div class="card-body">
-            @foreach ($item['fields'] ?? [] as $field)
-              <div class="form-row">
-                <div class="col">
-                  <div class="row">
-                    <input type="hidden" name="fields[{{ $loop->index }}][action]" value="update">
-                    <div class="form-group form-group-sm col-md-3">
-                      <input type="text" class="form-control form-control-sm" name="fields[{{ $loop->index }}][name]" placeholder="Name" value="{{ $field['name'] }}" readonly>
-                    </div>
-                    <div class="form-group form-group-sm col-md-2">
-                      <select class="form-control form-control-sm" name="fields[{{ $loop->index }}][type]" placeholder="Type" readonly>
-                        <option value="str" @if ($field['type'] == 'str') selected @endif>str</option>
-                        <option value="int" @if ($field['type'] == 'int') selected @endif>int</option>
-                        <option value="float" @if ($field['type'] == 'float') selected @endif>float</option>
-                        <option value="text" @if ($field['type'] == 'text') selected @endif>text</option>
-                        <option value="object" @if ($field['type'] == 'object') selected @endif>object</option>
-                      </select>
-                    </div>
-                    <div class="form-group form-group-sm col-md-7">
-                      @switch($field['type'])
-                        @case('text')
-                        @case('object')
-                          <textarea class="form-control form-control-sm" name="fields[{{ $loop->index }}][value]" placeholder="Value" readonly rows="1">{{ $field[$field['type']] ?? '' }}</textarea>
-                        @break
-
-                        @default
-                          <input type="text" class="form-control form-control-sm" name="fields[{{ $loop->index }}][value]" placeholder="Value" value="{{ $field[$field['type']] ?? '' }}" readonly>
-                        @break
-                      @endswitch
-                    </div>
-                  </div>
-                </div>
-                <div class="col-auto ml-auto">
-                  <div class="btn-group form-control-sm p-0" role="group" aria-label="Basic example">
-                    <button class="btn btn-primary" type="button" name="update-field" data-toggle="modal" data-target="#exampleModal">
-                      <i class="bi bi-pencil-fill"></i>
-                    </button>
-                    <button class="btn btn-danger" type="button" name="delete-field">
-                      <i class="bi bi-patch-minus-fill"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            @endforeach
-          </div>
-
-          <!-- /.card-body -->
-
-          <div class="card-footer">
-            <button type="submit" class="btn btn-sm btn-primary">Submit</button>
           </div>
         </div>
       </div>
@@ -324,6 +209,11 @@
 </section>
 
 @push('scripts')
+  <script src="{{ asset('/modules/Admin/Public/master/plugins/codemirror/codemirror.js') }}"></script>
+  <script src="{{ asset('/modules/Admin/Public/master/plugins/codemirror/mode/css/css.js') }}"></script>
+  <script src="{{ asset('/modules/Admin/Public/master/plugins/codemirror/mode/xml/xml.js') }}"></script>
+  <script src="{{ asset('/modules/Admin/Public/master/plugins/codemirror/mode/htmlmixed/htmlmixed.js') }}"></script>
+  <script src="{{ asset('/modules/Admin/Public/master/plugins/codemirror/mode/markdown/markdown.js') }}"></script>
   {{-- <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script> --}}
   {{-- <script src="https://cdn.jsdelivr.net/npm/ckeditor5@41.4.2/dist/browser/index.umd.min.js"></script> --}}
   {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ckeditor5@41.4.2/dist/browser/index.min.css"> --}}
@@ -365,11 +255,31 @@
       $('#summernote').summernote()
 
       // CodeMirror
-      CodeMirror.fromTextArea(document.getElementById("codeMirror"), {
+      const editor = CodeMirror.fromTextArea(document.getElementById("codeMirror"), {
         mode: "markdown",
-        theme: "monokai"
+        lineNumbers: true, // 显示行数
+        indentUnit: 4, // 缩进单位为4
+        styleActiveLine: true, // 当前行背景高亮
+        matchBrackets: true, // 括号匹配
+        lineWrapping: true, // 自动换行
+        theme: 'monokai', // 使用monokai模板
+      });
+
+      $(document).on('click', '[data-role="submit"]', function($e) {
+        console.log($e);
+        $('[name="text"]').val(editor.getValue());
+        console.log($('[name="text"]').val());
+        $('form[name=content]').submit();
+      });
+      $(document).on('click', '[data-role="release"]', function($e) {
+        console.log($e);
+      });
+      $(document).on('click', '[data-role="draft"]', function($e) {
+        console.log($e);
       });
     })
+
+
 
     // $(document).ready(() => {
     //   ckeditor5.ClassicEditor

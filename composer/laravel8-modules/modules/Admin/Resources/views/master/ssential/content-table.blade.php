@@ -22,6 +22,10 @@
                 <div class="form-group mr-1">
                   <select class="form-control form-control-sm" name="meta" placeholder="--Meta--" style="width: 120px;">
                     <option value="">--Meta--</option>
+                    <optgroup label="Category">
+                    </optgroup>
+                    <optgroup label="Tag">
+                    </optgroup>
                   </select>
                 </div>
                 <div class="form-group mr-1">

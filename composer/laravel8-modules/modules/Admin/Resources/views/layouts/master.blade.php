@@ -154,9 +154,9 @@
     <!-- AdminLTE App -->
     <script src="{{ asset('/modules/Admin/Public/master/js/adminlte.js') }}"></script>
     <!-- AdminLTE for demo purposes -->
-    <script src="{{ asset('/modules/Admin/Public/master/js/demo.js') }}"></script>
+    {{-- <script src="{{ asset('/modules/Admin/Public/master/js/demo.js') }}"></script> --}}
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <script src="{{ asset('/modules/Admin/Public/master/js/pages/dashboard.js') }}"></script>
+    {{-- <script src="{{ asset('/modules/Admin/Public/master/js/pages/dashboard.js') }}"></script> --}}
 
     @stack('scripts')
   </body>
