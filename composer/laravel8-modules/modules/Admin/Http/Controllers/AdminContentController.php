@@ -15,21 +15,6 @@ class AdminContentController extends AdminController
     public function index(Request $request)
     {
 
-        // var_dump($this->getModel('content')::belongsToMany(\App\Models\Meta::class, 'relationships', 'content_id', 'meta_id'));
-
-        // $query = $this->getModel('content')::with([
-        //     'relationships',
-        //     'belongsToMeta' => function ($query) {
-        //         $query->wherePivot('meta_id', $this->moduleMeta->id);
-        //     }
-        // ])->withCount('children')
-        //     ->where('slug', 'like', '%' . $request->input('slug') . '%')
-        //     ->where('title', 'like', '%' . $request->input('title') . '%')
-        //     ->whereIn('type', $request->filled('type') ? [$request->input('type')] : array_keys($this->getOption('content.type')))
-        //     ->whereIn('status', $request->filled('status') ? [$request->input('status')] : array_keys($this->getOption('content.status')))
-        //     ->where('parent', $request->input('parent', 0))
-        //     ->whereNull('deleted_at')
-        //     ->orderByDesc('updated_at');
         \DB::enableQueryLog();
         \DB::flushQueryLog();
         $paginator = $this->getModel('content')::with([
@@ -49,7 +34,7 @@ class AdminContentController extends AdminController
 
         $this->setAttributeSql('select_content_list', \DB::getQueryLog());
         \DB::disableQueryLog();
-        return $this->view('ssential.content-list', [
+        return $this->view('ssential.content-table', [
             'paginator' => $paginator,
         ]);
     }
@@ -60,42 +45,70 @@ class AdminContentController extends AdminController
      */
     public function create()
     {
-        $contentModel = $this->getModel('content');
+        $model = $this->getModel('content');
         $return = [
-            'content' => new $contentModel(request()->all())
+            'item' => new $model(request()->all())
         ];
-        return $this->view('ssential.content-item', $return);
+        return $this->view('ssential.content-form', $return);
     }
-
+    /**
+     * Show the form for creating a new resource that has been populated with factory
+     * 显示用于创建已用模型工厂填充的新资源的表单
+     * @param \Illuminate\Http\Request $request
+     * @done 使用模型工厂创建新资源
+     * @done 根据请求中数据替换新资源中对应数据
+     * @return Renderable
+     */
+    public function factory(Request $request)
+    {
+        $num = $request->input('num', 1);
+        $model = $this->getModel('content');
+        // 2025-01-09 14:14:50 使用模型工厂创建新资源
+        $return = [
+            'item' => \Arr::first($model::factory(1)->make()),
+        ];
+        // 2025-01-09 14:14:41 重置或替换为 Request 中数据
+        $return['item']['parent'] = $request->input('parent', 0);
+        $return['item']['count'] = $request->input('count', 0);
+        $return['item']['order'] = $request->input('order', 0);
+        $return['item']['template'] = $request->input('template', 0);
+        return $this->view('ssential.content-form', $return);
+    }
     /**
      * Store a newly created resource in storage.
+     * 将新创建的资源存储在存储器中。
      * @param Request $request
-     * @return Renderable
+     * @return Renderable|\Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-        $this->validateContent($request);
-        //
+        // 2025-01-09 14:10:15 验证表单
+        $this->validate_item($request);
+        // 2025-01-09 14:10:24 绑定用户
         $request->merge(['user' => \Auth::id()]);
-        $contentModel = $this->getModel('content');
+        $model = $this->getModel('content');
 
-        $content = new $contentModel;
+        $content = new $model;
         $content->fill($request->all());
         $content->save();
         if (empty($content->slug)) {
+            // 2025-01-09 14:11:33 若标识为空，则默认为 ID
             $content->slug = $content->id;
             $content->save();
         }
+        // 2025-01-09 14:10:41 清除原有关联
+        // TODO 清除当前模块下的对应关联(category,tag)
         $this->getModel('relationship')::where("content_id", $content->id)->delete();
+        // 2025-01-09 14:10:41 增加指定关联
         $this->getModel('relationship')::insert([
-            "meta_id" => $this->moduleMeta->id,
+            "meta_id" => $this->getAttribute('id'),
             "content_id" => $content->id,
         ]);
         // var_dump($content['slug']);
         // return $this->edit($content->id);
         // return $this->edit($content->id);
-
-        return redirect(str_replace('create', $content->id, $request->path()));
+        // 2025-01-09 14:10:30 重定向
+        return redirect(str_replace(['create', 'factory'], $content->id, $request->path()));
     }
 
     /**
@@ -106,14 +119,14 @@ class AdminContentController extends AdminController
     public function edit($id)
     {
         $return = [
-            'content' => $this->getModel('content')::with(['fields', 'relationships'])->find($id),
+            'item' => $this->getModel('content')::with(['fields', 'relationships'])->find($id),
             // 'contents' => $this->getModel('content')::with(['children'])
             //     ->whereIn('type', ['template',])
             //     ->whereKeyNot($id)
             //     ->whereNull('deleted_at')
             //     ->get()
         ];
-        return $this->view('ssential.content-item', $return);
+        return $this->view('ssential.content-form', $return);
     }
 
     /**
@@ -125,7 +138,7 @@ class AdminContentController extends AdminController
     public function update(Request $request, $id)
     {
         //
-        $this->validateContent($request);
+        $this->validate_item($request);
         $request->merge(['user' => \Auth::id()]);
         $content = $this->getModel('content')::find($id);
         $content->fill($request->all());
@@ -136,7 +149,7 @@ class AdminContentController extends AdminController
 
         $this->getModel('relationship')::where("content_id", $content->id)->delete();
         $this->getModel('relationship')::insert([
-            "meta_id" => $this->moduleMeta->id,
+            "meta_id" => $this->getAttribute('id'),
             "content_id" => $content->id,
         ]);
 
@@ -146,7 +159,7 @@ class AdminContentController extends AdminController
     /**
      * Remove the specified resource from storage.
      * @param int $id
-     * @return Renderable
+     * @return Renderable|\Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
@@ -164,7 +177,7 @@ class AdminContentController extends AdminController
 
     }
 
-    protected function validateContent(Request $request)
+    protected function validate_item(Request $request)
     {
         $request->validate([
             'title' => 'required|string',

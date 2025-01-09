@@ -11,7 +11,7 @@
               <h3 class="card-title mr-auto">Content List</h3>
               <form class="form-inline card-tools float-right mb-0">
                 <div class="form-group mr-1">
-                  <select class="form-control form-control-sm" name="module" placeholder="Module" disabled>
+                  <select class="form-control form-control-sm" name="module" placeholder="--Module--" style="width: 120px;" disabled>
                     <option value="">--Module--</option>
                     <option value="home" @if ($module['alias'] == 'home') selected @endif>Home</option>
                     @foreach (Module::allEnabled() as $moduleName => $moduleObject)
@@ -20,13 +20,18 @@
                   </select>
                 </div>
                 <div class="form-group mr-1">
-                  <input type="text" name="slug" class="form-control form-control-sm" placeholder="--Slug--" value="{{ request()->input('slug') }}">
+                  <select class="form-control form-control-sm" name="meta" placeholder="--Meta--" style="width: 120px;">
+                    <option value="">--Meta--</option>
+                  </select>
                 </div>
                 <div class="form-group mr-1">
-                  <input type="text" name="title" class="form-control form-control-sm" placeholder="--Title--" value="{{ request()->input('title') }}">
+                  <input type="text" name="slug" class="form-control form-control-sm" placeholder="--Slug--" value="{{ request()->input('slug') }}" style="width: 120px;">
                 </div>
                 <div class="form-group mr-1">
-                  <select class="form-control form-control-sm" name="type">
+                  <input type="text" name="title" class="form-control form-control-sm" placeholder="--Title--" value="{{ request()->input('title') }}" style="width: 120px;">
+                </div>
+                <div class="form-group mr-1">
+                  <select class="form-control form-control-sm" name="type" style="width: 120px;">
                     <option value="">--Type--</option>
                     <option value="post" @if (request()->input('type') == 'post') selected @endif>post</option>
                     <option value="page" @if (request()->input('type') == 'page') selected @endif>page</option>
@@ -38,7 +43,7 @@
                   </select>
                 </div>
                 <div class="form-group mr-1">
-                  <select class="form-control form-control-sm" name="status">
+                  <select class="form-control form-control-sm" name="status" style="width: 120px;">
                     <option value="">--Status--</option>
                     <option value="publish" @if (request()->input('status') == 'publish') selected @endif>publish</option>
                     <option value="private" @if (request()->input('status') == 'private') selected @endif>private</option>
@@ -78,7 +83,9 @@
                           @endif
                           {{ $item['title'] }}
                         </a></td>
-                      <td>{{ $item['children_count'] }}</td>
+                      <td>
+                        <a class="" href="contents?parent={{ $item['id'] }}">{{ $item['children_count'] }}</a>
+                      </td>
                       <td>{{ $item['type'] }}</td>
                       <td>{{ $item['status'] }}</td>
                       <td>{{ $item['created_at'] }}</td>
@@ -113,12 +120,12 @@
                 </select>
               </div>
               <div class="mr-auto">
-                <a type="button" class="btn btn-sm btn-primary" href="contents/create">新增</a>
-                <button type="button" class="btn btn-sm btn-warning">修改</button>
-                <button type="button" class="btn btn-sm btn-danger">删除</button>
-                <button type="button" class="btn btn-sm btn-secondary">打印</button>
-                <button type="button" class="btn btn-sm btn-secondary">上传</button>
-                <button type="button" class="btn btn-sm btn-secondary">下载</button>
+                <div class="mr-auto">
+                  <a type="button" class="btn btn-sm btn-primary" href="contents/create?{{ Arr::query(request()->all()) }}">新增</a>
+                  <a type="button" class="btn btn-sm btn-warning" href="contents/factory?{{ Arr::query(request()->all()) }}">Factory</a>
+                  <button type="button" class="btn btn-sm btn-secondary">打印</button>
+                  <button type="button" class="btn btn-sm btn-secondary">下载</button>
+                </div>
               </div>
               <span class="px-1"> 共 {{ $paginator->total() }} 条</span>
               <span class="px-1"> {{ $paginator->currentPage() }}/{{ $paginator->count() }} </span>

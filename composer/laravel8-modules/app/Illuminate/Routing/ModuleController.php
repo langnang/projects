@@ -6,7 +6,32 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Module;
-
+/**
+ * Universal module controller
+ * 通用模块控制器
+ * @var string $name
+ * @var string $alias
+ * @var mixed $module
+ * @var array $attributes
+ * @var \Illuminate\Database\Eloquent\Model $user
+ * @var array $models
+ * @var array $mergeModels
+ * 
+ * @method protected setName()
+ * @method protected setModule()
+ * @method protected initAttributes()
+ * @method protected setAttribute()
+ * @method protected setAttributeMeta()
+ * @method protected setAttributeConfig()
+ * @method protected setAttributeOptions()
+ * @method protected setAttributeSql()
+ * @method protected getAttribute()
+ * @method protected getConfig()
+ * @method protected getOption()
+ * @method protected getModel()
+ * @method protected matchView()
+ * @method protected view()
+ */
 abstract class ModuleController extends \Illuminate\Routing\Controller
 {
     /**

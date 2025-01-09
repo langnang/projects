@@ -6,6 +6,23 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 
+/**
+ * Universal management controller
+ * 通用管理控制器
+ * @method mixed index(\Illuminate\Http\Request $request)
+ * @method mixed create()
+ * @method mixed factory()
+ * @method mixed store()
+ * @method mixed edit()
+ * @method mixed update()
+ * @method mixed destory()
+ * @method mixed import()
+ * @method mixed export()
+ * @method mixed list()
+ * @method mixed move()
+ * @method mixed copy()
+ * @method mixed validate()
+ */
 class AdminController extends \App\Illuminate\Routing\ModuleController
 {
     /**

@@ -120,7 +120,7 @@
             </div>
             <!-- /.card-body -->
             <div class="card-footer py-2 clearfix d-flex align-items-center">
-              <form class="form-inline mb-0 mr-1" action="metas/batch" method="get" name="batch-operation">
+              <form class="form-inline mb-0 mr-1" action="metas/list" method="get" name="batch-operation">
                 <input type="hidden" name="ids" value="">
                 <div class="form-check form-check-inline">
                   <input class="form-check-input checkbox-toggle mr-0" type="checkbox">
@@ -234,6 +234,10 @@
   <script>
     $(function() {
       bsCustomFileInput.init();
+      $(document).Toasts('create', {
+        title: 'Toast Title',
+        body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+      })
     })
   </script>
 @endpush

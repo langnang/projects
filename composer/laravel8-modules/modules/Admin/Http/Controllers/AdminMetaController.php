@@ -5,6 +5,7 @@ namespace Modules\Admin\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use App\Illuminate\Routing\Controller;
+use Illuminate\Support\Collection;
 use Redirect;
 
 class AdminMetaController extends AdminController
@@ -12,13 +13,17 @@ class AdminMetaController extends AdminController
     /**
      * Display a paging list of the resource.
      * 显示资源的分页列表
+     * @param \Illuminate\Http\Request $request
+     * @done 统计子类数量
+     * @done 若存在 slug ，就模糊查询
+     * @done 若存在 name ，就模糊查询
      * @return Renderable
      */
     public function index(Request $request)
     {
 
-        if ($request->method() == 'POST')
-            $this->import($request->merge(['meta_id' => $request->input('parent', 0)]));
+        // if ($request->method() == 'POST')
+        // $this->import($request->merge(['meta_id' => $request->input('parent', 0)]));
 
         $query = $this->getModel('meta')::withCount('children');
 
@@ -45,47 +50,67 @@ class AdminMetaController extends AdminController
      * Show the form for creating a new resource.
      * 显示用于创建新资源的表单
      * @param \Illuminate\Http\Request $request
+     * @done 根据请求中数据创建新资源
      * @return Renderable
      */
-    public function create(Request $request)
+    public function create()
     {
-        var_dump($request);
-        $metaModel = $this->getModel('meta');
+        $model = $this->getModel('meta');
         $return = [
-            'meta' => new $metaModel(request()->all()),
+            'meta' => new $model(request()->all()),
         ];
-        return $this->view('ssential.meta-item', $return);
+        return $this->view('ssential.meta-form', $return);
     }
     /**
      * Show the form for creating a new resource that has been populated with factory
      * 显示用于创建已用模型工厂填充的新资源的表单
+     * @param \Illuminate\Http\Request $request
+     * @done 使用模型工厂创建新资源
+     * @done 根据请求中数据替换新资源中对应数据
      * @return Renderable
      */
     public function factory(Request $request)
     {
-        $metaModel = $this->getModel('meta');
+        $num = $request->input('num', 1);
+        $model = $this->getModel('meta');
+        // 2025-01-09 14:15:42 使用模型工厂创建新资源
         $return = [
-            'meta' => \Arr::first($metaModel::factory(1)->make()),
+            'item' => \Arr::first($model::factory(1)->make()),
         ];
-        return $this->view('ssential.meta-item', $return);
+        // 2025-01-09 14:15:31 重置或替换为 Request 中数据
+        $return['item']['parent'] = $request->input('parent', 0);
+        $return['item']['count'] = $request->input('count', 0);
+        $return['item']['order'] = $request->input('order', 0);
+        return $this->view('ssential.meta-form', $return);
     }
 
     /**
      * Store a newly created resource in storage.
      * 将新创建的资源存储在存储器中。
      * @param Request $request
+     * @done 2025-01-09 10:10:17 验证表单
+     * @done 2025-01-09 10:10:17 绑定用户
+     * @done 2025-01-09 10:10:17 重定向
      * @return Renderable|\Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-        $this->validateMeta($request);
-        //
+        // 验证表单
+        $this->validata_item($request);
+        // 绑定用户
         $request->merge(['user' => \Auth::id()]);
-        $metaModel = $this->getModel('meta');
 
-        $meta = new $metaModel($request->all());
+        $model = $this->getModel('meta');
+
+        $meta = new $model($request->all());
         // $meta->fill($request->all());
+        $parent = $model::find($meta->parent);
+        if ($parent) {
+
+        }
+        // 
         $meta->save();
+        // 重定向至编辑页面
         return redirect(str_replace(['create', 'factory'], $meta->id, $request->path()));
         // return redirect(($this->moduleAlias ?? 'home') . '/update-content/' . $meta->id);
         // return $this->edit($meta->id);
@@ -96,36 +121,45 @@ class AdminMetaController extends AdminController
     /**
      * Show the form for editing the specified resource.
      * 显示用于编辑指定资源的表单。
-     * @param int $id
+     * @param int|string $ids
+     * @done 根据 ID 查询对应资源
      * @return Renderable
      */
-    public function edit($id)
+    public function edit($ids)
     {
-        $meta = $this->getModel('meta')::with(['relationships'])->find($id);
+        $ids = explode(',', $ids);
+        $list = $this->getModel('meta')::with(['relationships'])->whereIn('id', $ids)->get();
+        foreach ($list as $item) {
+            if ($item['type'] == 'module') {
+                $item['modules'] = $this->getModel('meta')::with(['children'])
+                    ->where('type', 'module')
+                    ->where('parent', $item->id)
+                    ->get();
+                $item['branches'] = $this->getModel('meta')::with([])
+                    ->where('type', 'branch')
+                    ->where('parent', $item->id)
+                    ->get();
+                $item['categories'] = $this->getModel('meta')::with(['children'])
+                    ->where('type', 'category')
+                    ->where('parent', $item->id)
+                    ->get();
+                $item['tags'] = $this->getModel('meta')::with([])
+                    ->where('type', 'tag')
+                    ->where('parent', $item->id)
+                    ->get();
+            }
+        }
 
-        if ($meta['type'] == 'module') {
-            $meta['modules'] = $this->getModel('meta')::with(['children'])
-                ->where('type', 'module')
-                ->where('parent', $meta->id)
-                ->get();
-            $meta['branches'] = $this->getModel('meta')::with([])
-                ->where('type', 'branch')
-                ->where('parent', $meta->id)
-                ->get();
-            $meta['categories'] = $this->getModel('meta')::with(['children'])
-                ->where('type', 'category')
-                ->where('parent', $meta->id)
-                ->get();
-            $meta['tags'] = $this->getModel('meta')::with([])
-                ->where('type', 'tag')
-                ->where('parent', $meta->id)
-                ->get();
+        if (sizeof($list) == 1) {
+            $item = \Arr::first($list);
+            $list = null;
         }
 
         $return = [
-            'meta' => $meta,
+            'item' => $item,
+            'list' => $list,
         ];
-        return $this->view('ssential.meta-item', $return);
+        return $this->view('ssential.meta-form', $return);
     }
 
     /**
@@ -133,14 +167,15 @@ class AdminMetaController extends AdminController
      * 更新存储中的指定资源。
      * @param Request $request
      * @param int $id
+     * @done 根据 ID 查询对应资源
      * @return Renderable
      */
     public function update(Request $request, $id)
     {
-        //
-        $this->validateMeta($request);
+        // 验证表单
+        $this->validata_item($request);
 
-        // 
+        // 绑定用户
         $request->merge(['user' => \Auth::id()]);
         // 
         $meta = $this->getModel('meta')::find($id);
@@ -155,6 +190,7 @@ class AdminMetaController extends AdminController
      * Remove the specified resource from storage.
      * 从存储中移除指定的资源。
      * @param int $id
+     * @done 根据 ID 查询对应资源
      * @return Renderable|\Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
@@ -257,7 +293,10 @@ class AdminMetaController extends AdminController
             ])->where('type', 'module')->where('parent', 0)->get(),
         ];
 
-        return $this->view('ssential.meta-list', $return);
+        return $this->view('ssential.meta-form', $return);
+    }
+    public function export(Request $request)
+    {
     }
     public function batch(Request $request)
     {
@@ -306,13 +345,31 @@ class AdminMetaController extends AdminController
         // return $this->index($request);
     }
 
-
-    protected function validateMeta(Request $request)
+    public function move(Request $request)
+    {
+    }
+    public function copy(Request $request)
+    {
+    }
+    /**
+     * 验证表单请求
+     * @param \Illuminate\Http\Request $request
+     * @return void
+     */
+    protected function validata_item(Request $request)
     {
         $request->validate([
             'name' => 'required|string',
             'type' => 'required|string',
             'status' => 'required|string',
+        ]);
+    }
+
+    protected function validate_list(Request $request)
+    {
+        $request->validate([
+            'ids' => 'required|string',
+            'operation' => 'required|string',
         ]);
     }
 }

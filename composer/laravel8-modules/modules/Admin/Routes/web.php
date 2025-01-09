@@ -42,17 +42,24 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
 
             Route::post('/import/{id}', 'AdminMetaController@import');
 
-            Route::get('/batch', 'AdminMetaController@list');
-
-            Route::post('/batch', 'AdminMetaController@batch');
+            Route::get('/list', 'AdminMetaController@list');
         });
         Route::prefix('contents')->group(function () {
             Route::get('/', 'AdminContentController@index');
             Route::get('/create', 'AdminContentController@create');
             Route::post('/create', 'AdminContentController@store');
+
+            Route::get('/factory', 'AdminContentController@factory');
+            Route::post('/factory', 'AdminContentController@store');
+
             Route::get('/{id}', 'AdminContentController@edit');
             Route::post('/{id}', 'AdminContentController@update');
+
+
             Route::post('/delete/{id}', 'AdminContentController@destroy');
+
+            Route::get('/list', 'AdminContentController@list');
+
         });
 
         Route::prefix('links')->group(function () {

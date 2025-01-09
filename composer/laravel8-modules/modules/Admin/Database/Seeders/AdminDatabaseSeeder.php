@@ -45,11 +45,12 @@ class AdminDatabaseSeeder extends Seeder
         );
 
         foreach (\Module::allEnabled() as $moduleName => $moduleObject) {
-            \App\Models\Meta::upsert(
-                ['slug' => 'admin:modules:' . $moduleObject->getAlias(), 'ico' => '', 'name' => $moduleName, 'type' => 'category', 'status' => config($moduleObject->getAlias() . '.status', 'public'), 'parent' => \App\Models\Meta::where('slug', 'admin:modules')->first()->id],
-                ['slug'],
-                ['slug', 'ico', 'name', 'type', 'status', 'parent']
-            );
+            if (!in_array($moduleName, ['Admin']))
+                \App\Models\Meta::upsert(
+                    ['slug' => 'admin:modules:' . $moduleObject->getAlias(), 'ico' => '', 'name' => $moduleName, 'type' => 'category', 'status' => config($moduleObject->getAlias() . '.status', 'public'), 'parent' => \App\Models\Meta::where('slug', 'admin:modules')->first()->id],
+                    ['slug'],
+                    ['slug', 'ico', 'name', 'type', 'status', 'parent']
+                );
             // $moduleMeta = \App\Models\Meta::where('slug', 'module:' . $module->getAlias())->where('user', 0)->first();
             // foreach ($globalMetaStatusOption as $globalStatus) {
             //     $status = $globalStatus['value'];
