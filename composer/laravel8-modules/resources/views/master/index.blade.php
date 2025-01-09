@@ -37,7 +37,7 @@
               </div>
               <div class="card-footer py-2 small d-flex align-items-center">
                 <span class="px-2">{{ $post->updated_at }}</span>
-                <span class="px-2 mr-auto">{{ $post->user }}</span>
+                <span class="px-2 mr-auto">{{ Arr::get($post, 'user.name', $post['user_id']) }}</span>
                 @if (Auth::check())
                   {{-- <button type="button" class="btn btn-sm mx-1 btn-primary">Primary</button>
                 <button type="button" class="btn btn-sm mx-1 btn-secondary">Secondary</button>
