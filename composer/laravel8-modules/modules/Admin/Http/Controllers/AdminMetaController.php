@@ -57,7 +57,7 @@ class AdminMetaController extends AdminController
     {
         $model = $this->getModel('meta');
         $return = [
-            'meta' => new $model(request()->all()),
+            'item' => new $model(request()->all()),
         ];
         return $this->view('ssential.meta-form', $return);
     }

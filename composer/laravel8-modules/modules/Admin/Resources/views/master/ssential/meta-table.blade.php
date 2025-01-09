@@ -234,10 +234,10 @@
   <script>
     $(function() {
       bsCustomFileInput.init();
-      $(document).Toasts('create', {
-        title: 'Toast Title',
-        body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
-      })
+      //   $(document).Toasts('create', {
+      //     title: 'Toast Title',
+      //     body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+      //   })
     })
   </script>
 @endpush
