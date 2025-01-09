@@ -85,7 +85,7 @@ class AdminContentController extends AdminController
         // 2025-01-09 14:10:15 验证表单
         $this->validate_item($request);
         // 2025-01-09 14:10:24 绑定用户
-        $request->merge(['user' => \Auth::id()]);
+        $request->merge(['user_id' => \Auth::id()]);
         $model = $this->getModel('content');
 
         $content = new $model;
@@ -139,7 +139,7 @@ class AdminContentController extends AdminController
     {
         //
         $this->validate_item($request);
-        $request->merge(['user' => \Auth::id()]);
+        $request->merge(['user_id' => \Auth::id()]);
         $content = $this->getModel('content')::find($id);
         $content->fill($request->all());
         if (empty($content->slug)) {

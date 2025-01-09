@@ -36,7 +36,7 @@ class CreateLinksTable extends Migration
             $table->integer('order')->nullable()->default(0)->comment('权重');
             $table->integer('parent')->nullable()->default(0)->comment('父本');
 
-            $table->integer("user")->default(0)->comment("用户编号");
+            $table->integer("user_id")->default(0)->comment("用户编号");
 
             $table->timestamps();
             $table->timestamp('release_at')->nullable()->comment('发布时间');

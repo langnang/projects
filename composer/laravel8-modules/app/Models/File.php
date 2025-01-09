@@ -26,7 +26,7 @@ class File extends \Illuminate\Database\Eloquent\Model
         'path',
         'type',
         'status',
-        'user',
+        'user_id',
         'template',
         'views',
         'parent',

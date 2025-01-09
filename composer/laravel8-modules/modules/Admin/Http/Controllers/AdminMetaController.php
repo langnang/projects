@@ -98,7 +98,7 @@ class AdminMetaController extends AdminController
         // 验证表单
         $this->validata_item($request);
         // 绑定用户
-        $request->merge(['user' => \Auth::id()]);
+        $request->merge(['user_id' => \Auth::id()]);
 
         $model = $this->getModel('meta');
 
@@ -108,10 +108,12 @@ class AdminMetaController extends AdminController
         // if ($parent) {
 
         // }
-        // 
+        // 保存资源
         $meta->save();
-        // TODO 清除缓存
-        // DB::table('')
+        // 清除缓存
+        if (in_array($meta->type, ['module'])) {
+            \Cache::forget("meta_modules");
+        }
         // 重定向至编辑页面
         return redirect(str_replace(['create', 'factory'], $meta->id, $request->path()));
         // return redirect(($this->moduleAlias ?? 'home') . '/update-content/' . $meta->id);
@@ -170,13 +172,17 @@ class AdminMetaController extends AdminController
         $this->validata_item($request);
 
         // 绑定用户
-        $request->merge(['user' => \Auth::id()]);
+        $request->merge(['user_id' => \Auth::id()]);
         // 
         $meta = $this->getModel('meta')::find($id);
         // 
         $meta->fill($request->all());
+        // 保存资源
         $meta->save();
-
+        // 清除缓存
+        if (in_array($meta->type, ['module'])) {
+            \Cache::forget("meta_modules");
+        }
         return $this->edit($meta->id);
     }
 
@@ -238,7 +244,7 @@ class AdminMetaController extends AdminController
                 'name' => $request->file->getClientOriginalName(),
                 'extension' => $request->file->getClientOriginalExtension(),
                 'type' => $request->file->getClientMimeType(),
-                'user' => \Auth::id(),
+                'user_id' => \Auth::id(),
             ]);
             $file->save();
 

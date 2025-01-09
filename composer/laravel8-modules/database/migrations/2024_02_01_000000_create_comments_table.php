@@ -27,7 +27,7 @@ class CreateCommentsTable extends Migration
 
             $table->text("text")->nullable()->comment("内容");
 
-            $table->integer("user")->default(0)->comment("用户编号");
+            $table->integer("user_id")->default(0)->comment("用户编号");
 
             $table->integer('parent')->default(0)->nullable()->comment('父本');
 

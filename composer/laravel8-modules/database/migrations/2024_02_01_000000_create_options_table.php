@@ -26,13 +26,13 @@ class CreateOptionsTable extends Migration
             $table->string('type')->default('text')->nullable();
             $table->longText('value')->nullable();
 
-            $table->integer('user')->default(0);
+            $table->integer('user_id')->default(0);
 
             $table->timestamps();
             // $table->timestamp('release_at')->nullable()->comment('发布时间');
             // $table->timestamp('deleted_at')->nullable()->comment('删除时间');
 
-            $table->unique(['name', 'user']);
+            $table->unique(['name', 'user_id']);
         });
     }
 

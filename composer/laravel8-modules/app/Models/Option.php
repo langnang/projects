@@ -21,12 +21,12 @@ class Option extends \Illuminate\Database\Eloquent\Model
      */
     public $incrementing = false;
     protected $hidden = [
-        'user',
+        'user_id',
         'id',
     ];
     protected $fillable = [
         'name',
-        'user',
+        'user_id',
         'type',
         'value',
         'created_at',

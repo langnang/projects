@@ -34,7 +34,7 @@ class Content extends \Illuminate\Database\Eloquent\Model
         'text',
         'type',
         'status',
-        'user',
+        'user_id',
         'template',
         'views',
         'parent',

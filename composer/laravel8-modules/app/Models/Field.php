@@ -20,7 +20,7 @@ class Field extends \Illuminate\Database\Eloquent\Model
     // protected $primaryKey = 'id';
 
     protected $fillable = [
-        "cid",
+        "id",
         "name",
         "type",
         "float_value",
